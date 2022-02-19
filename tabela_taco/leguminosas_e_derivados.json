@@ -1,0 +1,274 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Amendoim, grão, cru",
+            "unidade": "gramas",
+            "cal": "5.440526558",
+            "protein": "0.271908002",
+            "fats": "0.4385",
+            "carb": "0.122775333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Amendoim, torrado, salgado",
+            "unidade": "gramas",
+            "cal": "6.057810929",
+            "protein": "0.224751802",
+            "fats": "0.539633333",
+            "carb": "0.109391532",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ervilha, em vagem",
+            "unidade": "gramas",
+            "cal": "0.88093582",
+            "protein": "0.074520833",
+            "fats": "0.00471",
+            "carb": "0.045065833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ervilha, enlatada, drenada",
+            "unidade": "gramas",
+            "cal": "0.738447043",
+            "protein": "0.045978261",
+            "fats": "0.0038",
+            "carb": "0.083621739",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, carioca, cozido",
+            "unidade": "gramas",
+            "cal": "0.764240857",
+            "protein": "0.04775",
+            "fats": "0.005423333",
+            "carb": "0.050807",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, carioca, cru",
+            "unidade": "gramas",
+            "cal": "3.290267362",
+            "protein": "0.199818841",
+            "fats": "0.012566667",
+            "carb": "0.428014493",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, fradinho, cozido",
+            "unidade": "gramas",
+            "cal": "0.780088967",
+            "protein": "0.0509375",
+            "fats": "0.00644",
+            "carb": "0.060275833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, fradinho, cru",
+            "unidade": "gramas",
+            "cal": "3.391647667",
+            "protein": "0.202083333",
+            "fats": "0.02365",
+            "carb": "0.376466667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, jalo, cozido",
+            "unidade": "gramas",
+            "cal": "0.9273992",
+            "protein": "0.0614375",
+            "fats": "0.00512",
+            "carb": "0.0262925",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, jalo, cru",
+            "unidade": "gramas",
+            "cal": "3.279052667",
+            "protein": "0.201041667",
+            "fats": "0.009466667",
+            "carb": "0.311591667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, preto, cozido",
+            "unidade": "gramas",
+            "cal": "0.770272667",
+            "protein": "0.044791667",
+            "fats": "0.005356667",
+            "carb": "0.056028333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, preto, cru",
+            "unidade": "gramas",
+            "cal": "3.235657116",
+            "protein": "0.213442029",
+            "fats": "0.0124",
+            "carb": "0.369191304",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, rajado, cozido",
+            "unidade": "gramas",
+            "cal": "0.847018527",
+            "protein": "0.055375",
+            "fats": "0.004",
+            "carb": "0.059495",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, rajado, cru",
+            "unidade": "gramas",
+            "cal": "3.258444112",
+            "protein": "0.172708333",
+            "fats": "0.0117",
+            "carb": "0.389225",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, rosinha, cozido",
+            "unidade": "gramas",
+            "cal": "0.678662288",
+            "protein": "0.045395833",
+            "fats": "0.004773333",
+            "carb": "0.0706275",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, rosinha, cru",
+            "unidade": "gramas",
+            "cal": "3.369619111",
+            "protein": "0.209166667",
+            "fats": "0.0133",
+            "carb": "0.415966667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, roxo, cozido",
+            "unidade": "gramas",
+            "cal": "0.768933823",
+            "protein": "0.057208333",
+            "fats": "0.005383333",
+            "carb": "0.013938333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, roxo, cru",
+            "unidade": "gramas",
+            "cal": "3.314149775",
+            "protein": "0.221666667",
+            "fats": "0.012366667",
+            "carb": "0.261433333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Grão-de-bico, cru",
+            "unidade": "gramas",
+            "cal": "3.547028766",
+            "protein": "0.212291667",
+            "fats": "0.0543",
+            "carb": "0.455275",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Guandu, cru",
+            "unidade": "gramas",
+            "cal": "3.441336513",
+            "protein": "0.189645833",
+            "fats": "0.02132",
+            "carb": "0.4268675",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lentilha, cozida",
+            "unidade": "gramas",
+            "cal": "0.926387663",
+            "protein": "0.063104167",
+            "fats": "0.005246667",
+            "carb": "0.084399167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lentilha, crua",
+            "unidade": "gramas",
+            "cal": "3.391412402",
+            "protein": "0.231521739",
+            "fats": "0.0077",
+            "carb": "0.450678261",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Paçoca, amendoim",
+            "unidade": "gramas",
+            "cal": "4.869270865",
+            "protein": "0.159958333",
+            "fats": "0.260753333",
+            "carb": "0.450571667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pé-de-moleque, amendoim",
+            "unidade": "gramas",
+            "cal": "5.031903658",
+            "protein": "0.131622401",
+            "fats": "0.280483333",
+            "carb": "0.513370932",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Soja, farinha",
+            "unidade": "gramas",
+            "cal": "4.039558458",
+            "protein": "0.360301002",
+            "fats": "0.146333333",
+            "carb": "0.182598998",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Soja, extrato solúvel, natural, fluido",
+            "unidade": "gramas",
+            "cal": "0.391048553",
+            "protein": "0.0238107",
+            "fats": "0.01606",
+            "carb": "0.0390893",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Soja, extrato solúvel, pó",
+            "unidade": "gramas",
+            "cal": "4.588957294",
+            "protein": "0.356875002",
+            "fats": "0.26181",
+            "carb": "0.211698333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Soja, queijo (tofu)",
+            "unidade": "gramas",
+            "cal": "0.644850941",
+            "protein": "0.065531767",
+            "fats": "0.039533333",
+            "carb": "0.013741567",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tremoço, cru",
+            "unidade": "gramas",
+            "cal": "3.81278174",
+            "protein": "0.33575",
+            "fats": "0.10342",
+            "carb": "0.114793333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tremoço, em conserva",
+            "unidade": "gramas",
+            "cal": "1.206425853",
+            "protein": "0.111083333",
+            "fats": "0.03784",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

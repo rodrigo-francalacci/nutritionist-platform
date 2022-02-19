@@ -1,0 +1,454 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Abadejo, filé, congelado, assado",
+            "unidade": "gramas",
+            "cal": "1.116155035",
+            "protein": "0.23525",
+            "fats": "0.012376667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abadejo, filé, congelado,cozido",
+            "unidade": "gramas",
+            "cal": "0.911035484",
+            "protein": "0.193458333",
+            "fats": "0.00942",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abadejo, filé, congelado, cru",
+            "unidade": "gramas",
+            "cal": "0.591130332",
+            "protein": "0.130833333",
+            "fats": "0.0036",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abadejo, filé, congelado, grelhado",
+            "unidade": "gramas",
+            "cal": "1.296435259",
+            "protein": "0.276104167",
+            "fats": "0.013023333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Atum, conserva em óleo",
+            "unidade": "gramas",
+            "cal": "1.659105606",
+            "protein": "0.261875",
+            "fats": "0.059966667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Atum, fresco, cru",
+            "unidade": "gramas",
+            "cal": "1.17501",
+            "protein": "0.2568",
+            "fats": "0.0087",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bacalhau, salgado, cru",
+            "unidade": "gramas",
+            "cal": "1.358929667",
+            "protein": "0.290366667",
+            "fats": "0.0132",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bacalhau, salgado, refogado",
+            "unidade": "gramas",
+            "cal": "1.396607011",
+            "protein": "0.239791667",
+            "fats": "0.036066667",
+            "carb": "0.012241667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cação, posta, com farinha de trigo, frita",
+            "unidade": "gramas",
+            "cal": "2.083327437",
+            "protein": "0.249520833",
+            "fats": "0.099543333",
+            "carb": "0.025639167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cação, posta, cozida",
+            "unidade": "gramas",
+            "cal": "1.160144807",
+            "protein": "0.255895833",
+            "fats": "0.00748",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cação, posta, crua",
+            "unidade": "gramas",
+            "cal": "0.83333025",
+            "protein": "0.178541667",
+            "fats": "0.007866667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Camarão, Rio Grande, grande, cozido",
+            "unidade": "gramas",
+            "cal": "0.900136801",
+            "protein": "0.189666667",
+            "fats": "0.010006667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Camarão, Rio Grande, grande, cru",
+            "unidade": "gramas",
+            "cal": "0.471834367",
+            "protein": "0.099916667",
+            "fats": "0.00501",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Camarão, Sete Barbas, sem cabeça, com casca, frito",
+            "unidade": "gramas",
+            "cal": "2.312461539",
+            "protein": "0.183875",
+            "fats": "0.156203333",
+            "carb": "0.028798333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Caranguejo, cozido",
+            "unidade": "gramas",
+            "cal": "0.827215015",
+            "protein": "0.184791667",
+            "fats": "0.00423",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corimba, cru",
+            "unidade": "gramas",
+            "cal": "1.281554",
+            "protein": "0.173666667",
+            "fats": "0.059866667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corimbatá, assado",
+            "unidade": "gramas",
+            "cal": "2.614524394",
+            "protein": "0.198979167",
+            "fats": "0.195663333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corimbatá, cozido",
+            "unidade": "gramas",
+            "cal": "2.386961049",
+            "protein": "0.2013125",
+            "fats": "0.16933",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corvina de água doce, crua",
+            "unidade": "gramas",
+            "cal": "1.010090333",
+            "protein": "0.189166667",
+            "fats": "0.022433333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corvina do mar, crua",
+            "unidade": "gramas",
+            "cal": "0.94",
+            "protein": "0.1857",
+            "fats": "0.015833333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corvina grande, assada",
+            "unidade": "gramas",
+            "cal": "1.465281411",
+            "protein": "0.267666667",
+            "fats": "0.035736667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Corvina grande, cozida",
+            "unidade": "gramas",
+            "cal": "1.000781246",
+            "protein": "0.234375",
+            "fats": "0.025626667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Dourada de água doce, fresca",
+            "unidade": "gramas",
+            "cal": "1.312083147",
+            "protein": "0.188104167",
+            "fats": "0.056416667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lambari, congelado, cru",
+            "unidade": "gramas",
+            "cal": "1.30840311",
+            "protein": "0.168125",
+            "fats": "0.065466667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lambari, congelado, frito",
+            "unidade": "gramas",
+            "cal": "3.268683999",
+            "protein": "0.28425",
+            "fats": "0.22782",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lambari, fresco, cru",
+            "unidade": "gramas",
+            "cal": "1.515983465",
+            "protein": "0.156520833",
+            "fats": "0.093973333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Manjuba, com farinha de trigo, frita",
+            "unidade": "gramas",
+            "cal": "3.435504587",
+            "protein": "0.2345",
+            "fats": "0.22593",
+            "carb": "0.09877",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Manjuba, frita",
+            "unidade": "gramas",
+            "cal": "3.493252315",
+            "protein": "0.301395833",
+            "fats": "0.2446",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Merluza, filé, assado",
+            "unidade": "gramas",
+            "cal": "1.219102183",
+            "protein": "0.266041667",
+            "fats": "0.009213333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Merluza, filé, cru",
+            "unidade": "gramas",
+            "cal": "0.891308667",
+            "protein": "0.166066667",
+            "fats": "0.0202",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Merluza, filé, frito",
+            "unidade": "gramas",
+            "cal": "1.916274784",
+            "protein": "0.269291667",
+            "fats": "0.084966667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescada, branca, crua",
+            "unidade": "gramas",
+            "cal": "1.108763",
+            "protein": "0.162633333",
+            "fats": "0.045933333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescada, branca, frita",
+            "unidade": "gramas",
+            "cal": "2.230397324",
+            "protein": "0.2735625",
+            "fats": "0.11777",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescada, filé, com farinha de trigo, frito",
+            "unidade": "gramas",
+            "cal": "2.834252144",
+            "protein": "0.214354167",
+            "fats": "0.19115",
+            "carb": "0.0503325",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescada, filé, cru",
+            "unidade": "gramas",
+            "cal": "1.072055667",
+            "protein": "0.1665",
+            "fats": "0.040033333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescada, filé, frito",
+            "unidade": "gramas",
+            "cal": "1.54270025",
+            "protein": "0.285875",
+            "fats": "0.0357",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescada, filé, molho escabeche",
+            "unidade": "gramas",
+            "cal": "1.419583229",
+            "protein": "0.1175",
+            "fats": "0.08024",
+            "carb": "0.042353333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pescadinha, crua",
+            "unidade": "gramas",
+            "cal": "0.764089083",
+            "protein": "0.154791667",
+            "fats": "0.011433333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pintado, assado",
+            "unidade": "gramas",
+            "cal": "1.915591411",
+            "protein": "0.3645",
+            "fats": "0.03982",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pintado, cru",
+            "unidade": "gramas",
+            "cal": "0.910832333",
+            "protein": "0.185566667",
+            "fats": "0.013133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pintado, grelhado",
+            "unidade": "gramas",
+            "cal": "1.521900883",
+            "protein": "0.307958333",
+            "fats": "0.02294",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porquinho, cru",
+            "unidade": "gramas",
+            "cal": "0.930245667",
+            "protein": "0.2049",
+            "fats": "0.006133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Salmão, filé, com pele, fresco,  grelhado",
+            "unidade": "gramas",
+            "cal": "2.287317751",
+            "protein": "0.2391875",
+            "fats": "0.140353333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Salmão, sem pele, fresco, cru",
+            "unidade": "gramas",
+            "cal": "1.697815799",
+            "protein": "0.192520833",
+            "fats": "0.09709",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Salmão, sem pele, fresco, grelhado",
+            "unidade": "gramas",
+            "cal": "2.427065695",
+            "protein": "0.261416667",
+            "fats": "0.145323333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Sardinha, assada",
+            "unidade": "gramas",
+            "cal": "1.643507883",
+            "protein": "0.321791667",
+            "fats": "0.029873333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Sardinha, conserva em óleo",
+            "unidade": "gramas",
+            "cal": "2.849810049",
+            "protein": "0.159395833",
+            "fats": "0.240486667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Sardinha, frita",
+            "unidade": "gramas",
+            "cal": "2.570407",
+            "protein": "0.333833333",
+            "fats": "0.126933333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Sardinha, inteira, crua",
+            "unidade": "gramas",
+            "cal": "1.139003667",
+            "protein": "0.210766667",
+            "fats": "0.0265",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tucunaré, filé, congelado, cru",
+            "unidade": "gramas",
+            "cal": "0.876864835",
+            "protein": "0.179583333",
+            "fats": "0.0122",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

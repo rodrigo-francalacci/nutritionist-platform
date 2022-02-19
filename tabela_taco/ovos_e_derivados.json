@@ -1,0 +1,67 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Omelete, de queijo",
+            "unidade": "gramas",
+            "cal": "2.680067722",
+            "protein": "0.155708333",
+            "fats": "0.220076667",
+            "carb": "0.004371667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ovo, de codorna, inteiro, cru",
+            "unidade": "gramas",
+            "cal": "1.768939",
+            "protein": "0.136875",
+            "fats": "0.1268",
+            "carb": "0.007725",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ovo, de galinha, clara, cozida/10minutos",
+            "unidade": "gramas",
+            "cal": "0.594356967",
+            "protein": "0.134479167",
+            "fats": "0.00089",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ovo, de galinha, gema, cozida/10minutos",
+            "unidade": "gramas",
+            "cal": "3.5267334",
+            "protein": "0.159",
+            "fats": "0.30777",
+            "carb": "0.0156",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ovo, de galinha, inteiro, cozido/10minutos",
+            "unidade": "gramas",
+            "cal": "1.4570017",
+            "protein": "0.1329375",
+            "fats": "0.094763333",
+            "carb": "0.006149167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ovo, de galinha, inteiro, cru",
+            "unidade": "gramas",
+            "cal": "1.431117333",
+            "protein": "0.1303",
+            "fats": "0.089",
+            "carb": "0.016366667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Ovo, de galinha, inteiro, frito",
+            "unidade": "gramas",
+            "cal": "2.40187224",
+            "protein": "0.156166667",
+            "fats": "0.185926667",
+            "carb": "0.011936667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

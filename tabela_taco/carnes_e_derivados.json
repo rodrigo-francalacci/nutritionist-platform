@@ -1,0 +1,1111 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Apresuntado",
+            "unidade": "gramas",
+            "cal": "1.288572558",
+            "protein": "0.1345",
+            "fats": "0.066906667",
+            "carb": "0.02862",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Caldo de carne, tablete",
+            "unidade": "gramas",
+            "cal": "2.406233333",
+            "protein": "0.0782",
+            "fats": "0.1657",
+            "carb": "0.144766667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Caldo de galinha, tablete",
+            "unidade": "gramas",
+            "cal": "2.514456667",
+            "protein": "0.062791667",
+            "fats": "0.204163333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, acém, moído, cozido",
+            "unidade": "gramas",
+            "cal": "2.124204",
+            "protein": "0.266866667",
+            "fats": "0.109166667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, acém, moído, cru",
+            "unidade": "gramas",
+            "cal": "1.365623333",
+            "protein": "0.1942",
+            "fats": "0.059466667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, acém, sem gordura, cozido",
+            "unidade": "gramas",
+            "cal": "2.146105667",
+            "protein": "0.2727",
+            "fats": "0.108833333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, acém, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.440294333",
+            "protein": "0.208166667",
+            "fats": "0.061133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, almôndegas, cruas",
+            "unidade": "gramas",
+            "cal": "1.892566667",
+            "protein": "0.123125",
+            "fats": "0.112033333",
+            "carb": "0.097941667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, almôndegas, fritas",
+            "unidade": "gramas",
+            "cal": "2.71813",
+            "protein": "0.1815625",
+            "fats": "0.157823333",
+            "carb": "0.1428675",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, bucho, cozido",
+            "unidade": "gramas",
+            "cal": "1.330228667",
+            "protein": "0.2164",
+            "fats": "0.045033333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, bucho, cru",
+            "unidade": "gramas",
+            "cal": "1.373031667",
+            "protein": "0.2053",
+            "fats": "0.055033333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, capa de contra-filé, com gordura, crua",
+            "unidade": "gramas",
+            "cal": "2.169089667",
+            "protein": "0.191966667",
+            "fats": "0.1496",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, capa de contra-filé, com gordura, grelhada",
+            "unidade": "gramas",
+            "cal": "3.117026667",
+            "protein": "0.306866667",
+            "fats": "0.2003",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, capa de contra-filé, sem gordura, crua",
+            "unidade": "gramas",
+            "cal": "1.310624667",
+            "protein": "0.2154",
+            "fats": "0.043333333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, capa de contra-filé, sem gordura, grelhada",
+            "unidade": "gramas",
+            "cal": "2.394436333",
+            "protein": "0.350633333",
+            "fats": "0.0995",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, charque, cozido",
+            "unidade": "gramas",
+            "cal": "2.627801423",
+            "protein": "0.363645833",
+            "fats": "0.119183333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, charque, cru",
+            "unidade": "gramas",
+            "cal": "2.488610181",
+            "protein": "0.227145833",
+            "fats": "0.16837",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé, à milanesa",
+            "unidade": "gramas",
+            "cal": "3.515926592",
+            "protein": "0.206125",
+            "fats": "0.23998",
+            "carb": "0.118045",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé de costela, cru",
+            "unidade": "gramas",
+            "cal": "2.024374",
+            "protein": "0.198",
+            "fats": "0.1307",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé de costela, grelhado",
+            "unidade": "gramas",
+            "cal": "2.749142667",
+            "protein": "0.2988",
+            "fats": "0.163333333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé, com gordura, cru",
+            "unidade": "gramas",
+            "cal": "2.058567",
+            "protein": "0.2115",
+            "fats": "0.1281",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé, com gordura, grelhado",
+            "unidade": "gramas",
+            "cal": "2.780535667",
+            "protein": "0.323966667",
+            "fats": "0.1549",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.566158333",
+            "protein": "0.239966667",
+            "fats": "0.060033333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, contra-filé, sem gordura, grelhado",
+            "unidade": "gramas",
+            "cal": "1.936915667",
+            "protein": "0.358833333",
+            "fats": "0.044866667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, costela, assada",
+            "unidade": "gramas",
+            "cal": "3.730388667",
+            "protein": "0.288066667",
+            "fats": "0.2772",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, costela, crua",
+            "unidade": "gramas",
+            "cal": "3.577224667",
+            "protein": "0.167066667",
+            "fats": "0.3175",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, coxão duro, sem gordura, cozido",
+            "unidade": "gramas",
+            "cal": "2.166160667",
+            "protein": "0.3188",
+            "fats": "0.089233333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, coxão duro, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.479663333",
+            "protein": "0.215133333",
+            "fats": "0.0622",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, coxão mole, sem gordura, cozido",
+            "unidade": "gramas",
+            "cal": "2.186751",
+            "protein": "0.323833333",
+            "fats": "0.089133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, coxão mole, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.690659667",
+            "protein": "0.2123",
+            "fats": "0.086933333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, cupim, assado",
+            "unidade": "gramas",
+            "cal": "3.301002908",
+            "protein": "0.2863125",
+            "fats": "0.230426667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, cupim, cru",
+            "unidade": "gramas",
+            "cal": "2.213975",
+            "protein": "0.195366667",
+            "fats": "0.152966667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, fígado, cru",
+            "unidade": "gramas",
+            "cal": "1.410458667",
+            "protein": "0.207133333",
+            "fats": "0.053566667",
+            "carb": "0.011066667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, fígado, grelhado",
+            "unidade": "gramas",
+            "cal": "2.250264",
+            "protein": "0.2986",
+            "fats": "0.0901",
+            "carb": "0.042",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, filé mingnon, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.428642667",
+            "protein": "0.216",
+            "fats": "0.056133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, filé mingnon, sem gordura, grelhado",
+            "unidade": "gramas",
+            "cal": "2.197026",
+            "protein": "0.328",
+            "fats": "0.0883",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, flanco, sem gordura, cozido",
+            "unidade": "gramas",
+            "cal": "1.955753667",
+            "protein": "0.293766667",
+            "fats": "0.0777",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, flanco, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.414601",
+            "protein": "0.199966667",
+            "fats": "0.062166667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, fraldinha, com gordura, cozida",
+            "unidade": "gramas",
+            "cal": "3.384457333",
+            "protein": "0.2424",
+            "fats": "0.260466667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, fraldinha, com gordura, crua",
+            "unidade": "gramas",
+            "cal": "2.207237667",
+            "protein": "0.175833333",
+            "fats": "0.161466667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, lagarto, cozido",
+            "unidade": "gramas",
+            "cal": "2.224685667",
+            "protein": "0.328633333",
+            "fats": "0.091066667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, lagarto, cru",
+            "unidade": "gramas",
+            "cal": "1.348645667",
+            "protein": "0.205433333",
+            "fats": "0.052266667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, língua, cozida",
+            "unidade": "gramas",
+            "cal": "3.149016",
+            "protein": "0.213666667",
+            "fats": "0.247966667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, língua, crua",
+            "unidade": "gramas",
+            "cal": "2.152497667",
+            "protein": "0.1709",
+            "fats": "0.157733333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, maminha, crua",
+            "unidade": "gramas",
+            "cal": "1.527658667",
+            "protein": "0.209333333",
+            "fats": "0.070266667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, maminha, grelhada",
+            "unidade": "gramas",
+            "cal": "1.530896758",
+            "protein": "0.307354167",
+            "fats": "0.024223333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, miolo de alcatra, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.628712333",
+            "protein": "0.2161",
+            "fats": "0.078266667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, miolo de alcatra, sem gordura, grelhado",
+            "unidade": "gramas",
+            "cal": "2.413639667",
+            "protein": "0.3193",
+            "fats": "0.116433333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, músculo, sem gordura, cozido",
+            "unidade": "gramas",
+            "cal": "1.938003333",
+            "protein": "0.312333333",
+            "fats": "0.067",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, músculo, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.41581",
+            "protein": "0.2156",
+            "fats": "0.0549",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, paleta, com gordura, crua",
+            "unidade": "gramas",
+            "cal": "1.587099",
+            "protein": "0.2141",
+            "fats": "0.0746",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, paleta, sem gordura, cozida",
+            "unidade": "gramas",
+            "cal": "1.936524",
+            "protein": "0.2972",
+            "fats": "0.074",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, paleta, sem gordura, crua",
+            "unidade": "gramas",
+            "cal": "1.409415",
+            "protein": "0.2103",
+            "fats": "0.0567",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, patinho, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "1.334689",
+            "protein": "0.217233333",
+            "fats": "0.045133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, patinho, sem gordura, grelhado",
+            "unidade": "gramas",
+            "cal": "2.192592667",
+            "protein": "0.359",
+            "fats": "0.073133333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, peito, sem gordura, cozido",
+            "unidade": "gramas",
+            "cal": "3.384731333",
+            "protein": "0.222466667",
+            "fats": "0.269933333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, peito, sem gordura, cru",
+            "unidade": "gramas",
+            "cal": "2.592756333",
+            "protein": "0.175566667",
+            "fats": "0.204333333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, picanha, com gordura, crua",
+            "unidade": "gramas",
+            "cal": "2.128794333",
+            "protein": "0.188233333",
+            "fats": "0.1469",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, picanha, com gordura, grelhada",
+            "unidade": "gramas",
+            "cal": "2.887670917",
+            "protein": "0.264208333",
+            "fats": "0.195066667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, picanha, sem gordura, crua",
+            "unidade": "gramas",
+            "cal": "1.335223667",
+            "protein": "0.2125",
+            "fats": "0.047433333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, picanha, sem gordura, grelhada",
+            "unidade": "gramas",
+            "cal": "2.384681333",
+            "protein": "0.319066667",
+            "fats": "0.113333333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, seca, cozida",
+            "unidade": "gramas",
+            "cal": "3.127990337",
+            "protein": "0.2693125",
+            "fats": "0.219293333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Carne, bovina, seca, crua",
+            "unidade": "gramas",
+            "cal": "3.127484279",
+            "protein": "0.196583333",
+            "fats": "0.253666667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Coxinha de frango, frita",
+            "unidade": "gramas",
+            "cal": "2.83048",
+            "protein": "0.096104167",
+            "fats": "0.11836",
+            "carb": "0.2955025",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Croquete, de carne, cru",
+            "unidade": "gramas",
+            "cal": "2.457719253",
+            "protein": "0.1204375",
+            "fats": "0.15561",
+            "carb": "0.139495833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Croquete, de carne, frito",
+            "unidade": "gramas",
+            "cal": "3.467420146",
+            "protein": "0.168625",
+            "fats": "0.226733333",
+            "carb": "0.181461667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Empada de frango, pré-cozida, assada",
+            "unidade": "gramas",
+            "cal": "3.581916667",
+            "protein": "0.0694375",
+            "fats": "0.15605",
+            "carb": "0.453285833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Empada, de frango, pré-cozida",
+            "unidade": "gramas",
+            "cal": "3.774796667",
+            "protein": "0.0734375",
+            "fats": "0.228876667",
+            "carb": "0.333085833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, asa, com pele, crua",
+            "unidade": "gramas",
+            "cal": "2.131883333",
+            "protein": "0.181",
+            "fats": "0.150666667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, caipira, inteiro, com pele, cozido",
+            "unidade": "gramas",
+            "cal": "2.428893267",
+            "protein": "0.238833333",
+            "fats": "0.156156667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, caipira, inteiro, sem pele, cozido",
+            "unidade": "gramas",
+            "cal": "1.957602967",
+            "protein": "0.29575",
+            "fats": "0.077023333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, coração, cru",
+            "unidade": "gramas",
+            "cal": "2.215028333",
+            "protein": "0.125833333",
+            "fats": "0.186",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, coração, grelhado",
+            "unidade": "gramas",
+            "cal": "2.072736433",
+            "protein": "0.224395833",
+            "fats": "0.12096",
+            "carb": "0.006074167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, coxa, com pele, assada",
+            "unidade": "gramas",
+            "cal": "2.151186475",
+            "protein": "0.284916667",
+            "fats": "0.103613333",
+            "carb": "0.000583333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, coxa, com pele, crua",
+            "unidade": "gramas",
+            "cal": "1.614747333",
+            "protein": "0.170933333",
+            "fats": "0.0981",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, coxa, sem pele, cozida",
+            "unidade": "gramas",
+            "cal": "1.674280322",
+            "protein": "0.268583333",
+            "fats": "0.058473333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, coxa, sem pele, crua",
+            "unidade": "gramas",
+            "cal": "1.199474667",
+            "protein": "0.178133333",
+            "fats": "0.048566667",
+            "carb": "0.0002",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, fígado, cru",
+            "unidade": "gramas",
+            "cal": "1.064845667",
+            "protein": "0.175866667",
+            "fats": "0.0349",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, filé, à milanesa",
+            "unidade": "gramas",
+            "cal": "2.2087278",
+            "protein": "0.284604167",
+            "fats": "0.077906667",
+            "carb": "0.063825833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, inteiro, com pele, cru",
+            "unidade": "gramas",
+            "cal": "2.263191667",
+            "protein": "0.164433333",
+            "fats": "0.173066667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, inteiro, sem pele, assado",
+            "unidade": "gramas",
+            "cal": "1.873377967",
+            "protein": "0.28025",
+            "fats": "0.075023333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, inteiro, sem pele, cozido",
+            "unidade": "gramas",
+            "cal": "1.703899758",
+            "protein": "0.249854167",
+            "fats": "0.070623333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, inteiro, sem pele, cru",
+            "unidade": "gramas",
+            "cal": "1.290964",
+            "protein": "0.205866667",
+            "fats": "0.045666667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, peito, com pele, assado",
+            "unidade": "gramas",
+            "cal": "2.116831495",
+            "protein": "0.334166667",
+            "fats": "0.07649",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, peito, com pele, cru",
+            "unidade": "gramas",
+            "cal": "1.494652667",
+            "protein": "0.2078",
+            "fats": "0.067333333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, peito, sem pele, cozido",
+            "unidade": "gramas",
+            "cal": "1.628747633",
+            "protein": "0.3146875",
+            "fats": "0.0316",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, peito, sem pele, cru",
+            "unidade": "gramas",
+            "cal": "1.191592667",
+            "protein": "0.215266667",
+            "fats": "0.0302",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, peito, sem pele, grelhado",
+            "unidade": "gramas",
+            "cal": "1.591850072",
+            "protein": "0.320333333",
+            "fats": "0.024836667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, sobrecoxa, com pele, assada",
+            "unidade": "gramas",
+            "cal": "2.596047692",
+            "protein": "0.287020833",
+            "fats": "0.151936667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, sobrecoxa, com pele, crua",
+            "unidade": "gramas",
+            "cal": "2.545322",
+            "protein": "0.1546",
+            "fats": "0.209",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, sobrecoxa, sem pele, assada",
+            "unidade": "gramas",
+            "cal": "2.328833967",
+            "protein": "0.29175",
+            "fats": "0.120073333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Frango, sobrecoxa, sem pele, crua",
+            "unidade": "gramas",
+            "cal": "1.617963",
+            "protein": "0.1757",
+            "fats": "0.0962",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Hambúrguer, bovino, cru",
+            "unidade": "gramas",
+            "cal": "2.14836",
+            "protein": "0.1315625",
+            "fats": "0.161773333",
+            "carb": "0.0415375",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Hambúrguer, bovino, frito",
+            "unidade": "gramas",
+            "cal": "2.58283",
+            "protein": "0.199729167",
+            "fats": "0.170123333",
+            "carb": "0.063200833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Hambúrguer, bovino, grelhado",
+            "unidade": "gramas",
+            "cal": "2.098316667",
+            "protein": "0.1315625",
+            "fats": "0.124303333",
+            "carb": "0.113334167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lingüiça, frango, crua",
+            "unidade": "gramas",
+            "cal": "2.181088142",
+            "protein": "0.142395833",
+            "fats": "0.174396667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lingüiça, frango, frita",
+            "unidade": "gramas",
+            "cal": "2.454610067",
+            "protein": "0.183166667",
+            "fats": "0.18542",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lingüiça, frango, grelhada",
+            "unidade": "gramas",
+            "cal": "2.436585675",
+            "protein": "0.181895833",
+            "fats": "0.184023333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lingüiça, porco, crua",
+            "unidade": "gramas",
+            "cal": "2.272034508",
+            "protein": "0.160645833",
+            "fats": "0.17584",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lingüiça, porco, frita",
+            "unidade": "gramas",
+            "cal": "2.795435892",
+            "protein": "0.204520833",
+            "fats": "0.213096667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lingüiça, porco, grelhada",
+            "unidade": "gramas",
+            "cal": "2.964896092",
+            "protein": "0.2316875",
+            "fats": "0.219023333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mortadela",
+            "unidade": "gramas",
+            "cal": "2.68819989",
+            "protein": "0.119520833",
+            "fats": "0.216493333",
+            "carb": "0.058159167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Peru, congelado, assado",
+            "unidade": "gramas",
+            "cal": "1.630713979",
+            "protein": "0.262020833",
+            "fats": "0.05675",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Peru, congelado, cru",
+            "unidade": "gramas",
+            "cal": "0.937224338",
+            "protein": "0.180833333",
+            "fats": "0.0183",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, bisteca, crua",
+            "unidade": "gramas",
+            "cal": "1.641153366",
+            "protein": "0.215",
+            "fats": "0.080166667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, bisteca, frita",
+            "unidade": "gramas",
+            "cal": "3.111690453",
+            "protein": "0.337479167",
+            "fats": "0.185216667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, bisteca, grelhada",
+            "unidade": "gramas",
+            "cal": "2.800840349",
+            "protein": "0.288895833",
+            "fats": "0.173753333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, costela, assada",
+            "unidade": "gramas",
+            "cal": "4.021684475",
+            "protein": "0.302229167",
+            "fats": "0.30279",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, costela, crua",
+            "unidade": "gramas",
+            "cal": "2.556063421",
+            "protein": "0.18",
+            "fats": "0.198166667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, lombo, assado",
+            "unidade": "gramas",
+            "cal": "2.102346656",
+            "protein": "0.35725",
+            "fats": "0.063956667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, lombo, cru",
+            "unidade": "gramas",
+            "cal": "1.756251953",
+            "protein": "0.226041667",
+            "fats": "0.0877",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, orelha, salgada, crua",
+            "unidade": "gramas",
+            "cal": "2.584917583",
+            "protein": "0.185208333",
+            "fats": "0.1989",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, pernil, assado",
+            "unidade": "gramas",
+            "cal": "2.622596067",
+            "protein": "0.321333333",
+            "fats": "0.138636667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, pernil, cru",
+            "unidade": "gramas",
+            "cal": "1.8605575",
+            "protein": "0.20125",
+            "fats": "0.111",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Porco, rabo, salgado, cru",
+            "unidade": "gramas",
+            "cal": "3.774152575",
+            "protein": "0.1558125",
+            "fats": "0.34466",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Presunto, com capa de gordura",
+            "unidade": "gramas",
+            "cal": "1.278492127",
+            "protein": "0.143708333",
+            "fats": "0.067713333",
+            "carb": "0.013975",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Presunto, sem capa de gordura",
+            "unidade": "gramas",
+            "cal": "0.937432807",
+            "protein": "0.142916667",
+            "fats": "0.027066667",
+            "carb": "0.021456667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Quibe, assado",
+            "unidade": "gramas",
+            "cal": "1.362288761",
+            "protein": "0.1459375",
+            "fats": "0.026763333",
+            "carb": "0.109645833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Quibe, cru",
+            "unidade": "gramas",
+            "cal": "1.094906693",
+            "protein": "0.123541667",
+            "fats": "0.016676667",
+            "carb": "0.091275",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Quibe, frito",
+            "unidade": "gramas",
+            "cal": "2.538313089",
+            "protein": "0.148895833",
+            "fats": "0.15799",
+            "carb": "0.123374167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Salame",
+            "unidade": "gramas",
+            "cal": "3.978425065",
+            "protein": "0.258104167",
+            "fats": "0.306413333",
+            "carb": "0.0290625",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Toucinho, cru",
+            "unidade": "gramas",
+            "cal": "5.92531175",
+            "protein": "0.114791667",
+            "fats": "0.602566667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Toucinho, frito",
+            "unidade": "gramas",
+            "cal": "6.965640067",
+            "protein": "0.272833333",
+            "fats": "0.643086667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

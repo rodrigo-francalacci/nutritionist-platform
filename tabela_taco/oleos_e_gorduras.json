@@ -1,0 +1,130 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Azeite, de dendê",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Azeite, de oliva, extra virgem",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Manteiga, com sal",
+            "unidade": "gramas",
+            "cal": "7.259689268",
+            "protein": "0.004147",
+            "fats": "0.82361",
+            "carb": "0.000633",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Manteiga, sem sal",
+            "unidade": "gramas",
+            "cal": "7.575404607",
+            "protein": "0.0039556",
+            "fats": "0.860393333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Margarina, com óleo hidrogenado, com sal (65% de lipídeos)",
+            "unidade": "gramas",
+            "cal": "5.96119517",
+            "protein": "0",
+            "fats": "0.674343333",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Margarina, com óleo hidrogenado, sem sal (80% de lipídeos)",
+            "unidade": "gramas",
+            "cal": "7.225256258",
+            "protein": "0",
+            "fats": "0.817336667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Margarina, com óleo interesterificado, com sal (65%de lipídeos)",
+            "unidade": "gramas",
+            "cal": "5.944516933",
+            "protein": "0",
+            "fats": "0.672456667",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Margarina, com óleo interesterificado, sem sal (65% de lipídeos)",
+            "unidade": "gramas",
+            "cal": "5.931374902",
+            "protein": "0",
+            "fats": "0.67097",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Óleo, de babaçu",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Óleo, de canola",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Óleo, de girassol",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Óleo, de milho",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Óleo, de pequi",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Óleo, de soja",
+            "unidade": "gramas",
+            "cal": "8.84",
+            "protein": "0",
+            "fats": "1",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

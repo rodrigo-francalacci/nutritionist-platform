@@ -1,0 +1,895 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Abóbora, cabotian, cozida",
+            "unidade": "gramas",
+            "cal": "0.480437425",
+            "protein": "0.0144375",
+            "fats": "0.007293333",
+            "carb": "0.0829825",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abóbora, cabotian, crua",
+            "unidade": "gramas",
+            "cal": "0.385992942",
+            "protein": "0.017463768",
+            "fats": "0.005366667",
+            "carb": "0.061936232",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abóbora, menina brasileira, crua",
+            "unidade": "gramas",
+            "cal": "0.136056739",
+            "protein": "0.006086957",
+            "fats": "0",
+            "carb": "0.021313043",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abóbora, moranga, crua",
+            "unidade": "gramas",
+            "cal": "0.123644362",
+            "protein": "0.009601449",
+            "fats": "0.0006",
+            "carb": "0.009631884",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abóbora, moranga, refogada",
+            "unidade": "gramas",
+            "cal": "0.29003822",
+            "protein": "0.0039375",
+            "fats": "0.00799",
+            "carb": "0.0443525",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abóbora, pescoço, crua",
+            "unidade": "gramas",
+            "cal": "0.244662679",
+            "protein": "0.006708333",
+            "fats": "0.00116",
+            "carb": "0.038225",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abobrinha, italiana, cozida",
+            "unidade": "gramas",
+            "cal": "0.1503852",
+            "protein": "0.01125",
+            "fats": "0.00199",
+            "carb": "0.01389",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abobrinha, italiana, crua",
+            "unidade": "gramas",
+            "cal": "0.192791261",
+            "protein": "0.011413043",
+            "fats": "0.0014",
+            "carb": "0.029386957",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abobrinha, italiana, refogada",
+            "unidade": "gramas",
+            "cal": "0.244296022",
+            "protein": "0.0106875",
+            "fats": "0.008213333",
+            "carb": "0.028069167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Abobrinha, paulista, crua",
+            "unidade": "gramas",
+            "cal": "0.308107022",
+            "protein": "0.006395833",
+            "fats": "0.00139",
+            "carb": "0.0526242",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Acelga, crua",
+            "unidade": "gramas",
+            "cal": "0.209423425",
+            "protein": "0.0144375",
+            "fats": "0.00106",
+            "carb": "0.035089167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Agrião, cru",
+            "unidade": "gramas",
+            "cal": "0.165788014",
+            "protein": "0.026884058",
+            "fats": "0.002366667",
+            "carb": "0.001149275",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Aipo, cru",
+            "unidade": "gramas",
+            "cal": "0.190914566",
+            "protein": "0.007583333",
+            "fats": "0.00069",
+            "carb": "0.033153333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alface, americana, crua",
+            "unidade": "gramas",
+            "cal": "0.087949032",
+            "protein": "0.006083333",
+            "fats": "0.00129",
+            "carb": "0.007236667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alface, crespa, crua",
+            "unidade": "gramas",
+            "cal": "0.106808565",
+            "protein": "0.013478261",
+            "fats": "0.0016",
+            "carb": "-0.001311594",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alface, lisa, crua",
+            "unidade": "gramas",
+            "cal": "0.138209014",
+            "protein": "0.016884058",
+            "fats": "0.001233333",
+            "carb": "0.000982609",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alface, roxa, crua",
+            "unidade": "gramas",
+            "cal": "0.127169974",
+            "protein": "0.0090625",
+            "fats": "0.001916667",
+            "carb": "0.004800833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alfavaca, crua",
+            "unidade": "gramas",
+            "cal": "0.291836131",
+            "protein": "0.026583333",
+            "fats": "0.004763333",
+            "carb": "0.011006667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alho, cru",
+            "unidade": "gramas",
+            "cal": "1.131298783",
+            "protein": "0.070108696",
+            "fats": "0.0022",
+            "carb": "0.195824638",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Alho-poró, cru",
+            "unidade": "gramas",
+            "cal": "0.315079194",
+            "protein": "0.014125",
+            "fats": "0.001396667",
+            "carb": "0.043715",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Almeirão, cru",
+            "unidade": "gramas",
+            "cal": "0.18034429",
+            "protein": "0.017681159",
+            "fats": "0.002166667",
+            "carb": "0.007485507",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Almeirão, refogado",
+            "unidade": "gramas",
+            "cal": "0.650819108",
+            "protein": "0.017041667",
+            "fats": "0.04847",
+            "carb": "0.022738333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, baroa, cozida",
+            "unidade": "gramas",
+            "cal": "0.801197625",
+            "protein": "0.008520833",
+            "fats": "0.001663333",
+            "carb": "0.171895833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, baroa, crua",
+            "unidade": "gramas",
+            "cal": "1.009849232",
+            "protein": "0.010471014",
+            "fats": "0.0017",
+            "carb": "0.219195652",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, doce, cozida",
+            "unidade": "gramas",
+            "cal": "0.767596105",
+            "protein": "0.006416667",
+            "fats": "0.000876667",
+            "carb": "0.162103333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, doce, crua",
+            "unidade": "gramas",
+            "cal": "1.182413754",
+            "protein": "0.012572464",
+            "fats": "0.001333333",
+            "carb": "0.256227536",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, frita, tipo chips, industrializada",
+            "unidade": "gramas",
+            "cal": "5.427346734",
+            "protein": "0.055833333",
+            "fats": "0.36615",
+            "carb": "0.487666667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, inglesa, cozida",
+            "unidade": "gramas",
+            "cal": "0.515884766",
+            "protein": "0.011645833",
+            "fats": "0",
+            "carb": "0.106004167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, inglesa, crua",
+            "unidade": "gramas",
+            "cal": "0.643702261",
+            "protein": "0.017717391",
+            "fats": "0",
+            "carb": "0.135249275",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, inglesa, frita",
+            "unidade": "gramas",
+            "cal": "2.671574225",
+            "protein": "0.049666667",
+            "fats": "0.131086667",
+            "carb": "0.27581",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Batata, inglesa, sauté",
+            "unidade": "gramas",
+            "cal": "0.678879362",
+            "protein": "0.012916667",
+            "fats": "0.008963333",
+            "carb": "0.12716",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Berinjela, cozida",
+            "unidade": "gramas",
+            "cal": "0.188452856",
+            "protein": "0.006770833",
+            "fats": "0.001483333",
+            "carb": "0.019439167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Berinjela, crua",
+            "unidade": "gramas",
+            "cal": "0.196277536",
+            "protein": "0.012210145",
+            "fats": "0.001",
+            "carb": "0.015556522",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Beterraba, cozida",
+            "unidade": "gramas",
+            "cal": "0.321543243",
+            "protein": "0.0129375",
+            "fats": "0.000926667",
+            "carb": "0.0535625",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Beterraba, crua",
+            "unidade": "gramas",
+            "cal": "0.488285087",
+            "protein": "0.019456522",
+            "fats": "0.0009",
+            "carb": "0.077376812",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, polvilho doce",
+            "unidade": "gramas",
+            "cal": "4.37549",
+            "protein": "0.012916667",
+            "fats": "0.12249",
+            "carb": "0.793763333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Brócolis, cozido",
+            "unidade": "gramas",
+            "cal": "0.246361631",
+            "protein": "0.021333333",
+            "fats": "0.00459",
+            "carb": "0.0095",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Brócolis, cru",
+            "unidade": "gramas",
+            "cal": "0.254951319",
+            "protein": "0.036449275",
+            "fats": "0.002666667",
+            "carb": "0.011450725",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cará, cozido",
+            "unidade": "gramas",
+            "cal": "0.775849133",
+            "protein": "0.015291667",
+            "fats": "0.001123333",
+            "carb": "0.162178333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cará, cru",
+            "unidade": "gramas",
+            "cal": "0.956331348",
+            "protein": "0.022826087",
+            "fats": "0.001366667",
+            "carb": "0.156807246",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Caruru, cru",
+            "unidade": "gramas",
+            "cal": "0.340316297",
+            "protein": "0.032",
+            "fats": "0.00585",
+            "carb": "0.01505",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Catalonha, crua",
+            "unidade": "gramas",
+            "cal": "0.238884123",
+            "protein": "0.0186875",
+            "fats": "0.002823333",
+            "carb": "0.027039167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Catalonha, refogada",
+            "unidade": "gramas",
+            "cal": "0.634492691",
+            "protein": "0.0195",
+            "fats": "0.048056667",
+            "carb": "0.011593333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cebola, crua",
+            "unidade": "gramas",
+            "cal": "0.394200464",
+            "protein": "0.017101449",
+            "fats": "0.0008",
+            "carb": "0.066665217",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cebolinha, crua",
+            "unidade": "gramas",
+            "cal": "0.195158855",
+            "protein": "0.01865942",
+            "fats": "0.0035",
+            "carb": "-0.001792754",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cenoura, cozida",
+            "unidade": "gramas",
+            "cal": "0.298617777",
+            "protein": "0.008479167",
+            "fats": "0.002183333",
+            "carb": "0.0405775",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cenoura, crua",
+            "unidade": "gramas",
+            "cal": "0.341353884",
+            "protein": "0.013224638",
+            "fats": "0.001733333",
+            "carb": "0.044766667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chicória, crua",
+            "unidade": "gramas",
+            "cal": "0.138371203",
+            "protein": "0.011376812",
+            "fats": "0.001433333",
+            "carb": "0.006533333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chuchu, cozido",
+            "unidade": "gramas",
+            "cal": "0.185397905",
+            "protein": "0.004145833",
+            "fats": "0",
+            "carb": "0.0375375",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chuchu, cru",
+            "unidade": "gramas",
+            "cal": "0.169789188",
+            "protein": "0.006992754",
+            "fats": "0.0006",
+            "carb": "0.028573913",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Coentro, folhas desidratadas",
+            "unidade": "gramas",
+            "cal": "3.090707468",
+            "protein": "0.20875",
+            "fats": "0.103866667",
+            "carb": "0.10665",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Couve, manteiga, crua",
+            "unidade": "gramas",
+            "cal": "0.270566971",
+            "protein": "0.028731884",
+            "fats": "0.005466667",
+            "carb": "0.012134783",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Couve, manteiga, refogada ",
+            "unidade": "gramas",
+            "cal": "0.903448154",
+            "protein": "0.016666667",
+            "fats": "0.06594",
+            "carb": "0.029713333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Couve-flor, crua",
+            "unidade": "gramas",
+            "cal": "0.225633493",
+            "protein": "0.019057971",
+            "fats": "0.002133333",
+            "carb": "0.021675362",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Couve-flor, cozida",
+            "unidade": "gramas",
+            "cal": "0.191141406",
+            "protein": "0.012395833",
+            "fats": "0.002693333",
+            "carb": "0.017450833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Espinafre, Nova Zelândia, cru",
+            "unidade": "gramas",
+            "cal": "0.160956942",
+            "protein": "0.019963768",
+            "fats": "0.002433333",
+            "carb": "0.004736232",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Espinafre, Nova Zelândia, refogado",
+            "unidade": "gramas",
+            "cal": "0.672536518",
+            "protein": "0.0271875",
+            "fats": "0.054346667",
+            "carb": "0.0172025",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de mandioca, crua",
+            "unidade": "gramas",
+            "cal": "3.608696986",
+            "protein": "0.015543478",
+            "fats": "0.002766667",
+            "carb": "0.815089855",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de mandioca, torrada",
+            "unidade": "gramas",
+            "cal": "3.65268975",
+            "protein": "0.012291667",
+            "fats": "0.002866667",
+            "carb": "0.826541667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de puba",
+            "unidade": "gramas",
+            "cal": "3.601797749",
+            "protein": "0.016166667",
+            "fats": "0.00469",
+            "carb": "0.830453333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Fécula, de mandioca",
+            "unidade": "gramas",
+            "cal": "3.308505583",
+            "protein": "0.005208333",
+            "fats": "0.002833333",
+            "carb": "0.805025",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Feijão, broto, cru",
+            "unidade": "gramas",
+            "cal": "0.387232364",
+            "protein": "0.041666667",
+            "fats": "0.001026667",
+            "carb": "0.057923333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Inhame, cru",
+            "unidade": "gramas",
+            "cal": "0.966998319",
+            "protein": "0.020507246",
+            "fats": "0.002133333",
+            "carb": "0.215792754",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Jiló, cru",
+            "unidade": "gramas",
+            "cal": "0.273651435",
+            "protein": "0.014021739",
+            "fats": "0.0022",
+            "carb": "0.013644928",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Jurubeba, crua",
+            "unidade": "gramas",
+            "cal": "1.25811635",
+            "protein": "0.044125",
+            "fats": "0.039096667",
+            "carb": "-0.008621667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mandioca, cozida",
+            "unidade": "gramas",
+            "cal": "1.2535825",
+            "protein": "0.00575",
+            "fats": "0.002983333",
+            "carb": "0.285333333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mandioca, crua",
+            "unidade": "gramas",
+            "cal": "1.514169565",
+            "protein": "0.011304348",
+            "fats": "0.003",
+            "carb": "0.342928986",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mandioca, farofa, temperada",
+            "unidade": "gramas",
+            "cal": "4.056939417",
+            "protein": "0.020625",
+            "fats": "0.0912",
+            "carb": "0.724875",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mandioca, frita",
+            "unidade": "gramas",
+            "cal": "3.000552434",
+            "protein": "0.0138125",
+            "fats": "0.11195",
+            "carb": "0.483814167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Manjericão, cru",
+            "unidade": "gramas",
+            "cal": "0.211476768",
+            "protein": "0.019855072",
+            "fats": "0.003933333",
+            "carb": "0.003378261",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Maxixe, cru",
+            "unidade": "gramas",
+            "cal": "0.137472361",
+            "protein": "0.013913043",
+            "fats": "0.00073",
+            "carb": "0.005356957",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mostarda, folha, crua",
+            "unidade": "gramas",
+            "cal": "0.181073891",
+            "protein": "0.021104167",
+            "fats": "0.001676667",
+            "carb": "0.013455833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Nhoque, batata, cozido",
+            "unidade": "gramas",
+            "cal": "1.80775274",
+            "protein": "0.058583333",
+            "fats": "0.019433333",
+            "carb": "0.35",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Nabo, cru",
+            "unidade": "gramas",
+            "cal": "0.181866246",
+            "protein": "0.012028986",
+            "fats": "0.000533333",
+            "carb": "0.015037681",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Palmito, juçara, em conserva",
+            "unidade": "gramas",
+            "cal": "0.231997164",
+            "protein": "0.017916667",
+            "fats": "0.004033333",
+            "carb": "0.011783333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Palmito, pupunha, em conserva",
+            "unidade": "gramas",
+            "cal": "0.294319633",
+            "protein": "0.024583333",
+            "fats": "0.0045",
+            "carb": "0.02959",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, de queijo, assado",
+            "unidade": "gramas",
+            "cal": "3.630779133",
+            "protein": "0.051208333",
+            "fats": "0.245673333",
+            "carb": "0.336831667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, de queijo, cru",
+            "unidade": "gramas",
+            "cal": "2.94538",
+            "protein": "0.03648",
+            "fats": "0.139886667",
+            "carb": "0.375356667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pepino, cru",
+            "unidade": "gramas",
+            "cal": "0.095336913",
+            "protein": "0.008695652",
+            "fats": "0",
+            "carb": "0.009171014",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pimentão, amarelo, cru",
+            "unidade": "gramas",
+            "cal": "0.279274594",
+            "protein": "0.012246377",
+            "fats": "0.004366667",
+            "carb": "0.04042029",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pimentão, verde, cru",
+            "unidade": "gramas",
+            "cal": "0.212858812",
+            "protein": "0.010507246",
+            "fats": "0.0015",
+            "carb": "0.023292754",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pimentão, vermelho, cru",
+            "unidade": "gramas",
+            "cal": "0.232813638",
+            "protein": "0.010398551",
+            "fats": "0.001466667",
+            "carb": "0.038734783",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Polvilho, doce",
+            "unidade": "gramas",
+            "cal": "3.512267333",
+            "protein": "0.0043",
+            "fats": "0",
+            "carb": "0.865366667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Quiabo, cru",
+            "unidade": "gramas",
+            "cal": "0.299392622",
+            "protein": "0.0191875",
+            "fats": "0.00299",
+            "carb": "0.018205833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Rabanete, cru",
+            "unidade": "gramas",
+            "cal": "0.137381261",
+            "protein": "0.013913043",
+            "fats": "0.000733333",
+            "carb": "0.00532029",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Repolho, branco, cru",
+            "unidade": "gramas",
+            "cal": "0.171188029",
+            "protein": "0.008768116",
+            "fats": "0.001433333",
+            "carb": "0.019698551",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Repolho, roxo, cru",
+            "unidade": "gramas",
+            "cal": "0.30907503",
+            "protein": "0.019083333",
+            "fats": "0.000636667",
+            "carb": "0.052306667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Repolho, roxo, refogado",
+            "unidade": "gramas",
+            "cal": "0.417735253",
+            "protein": "0.018020833",
+            "fats": "0.012403333",
+            "carb": "0.058115833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Rúcula, crua",
+            "unidade": "gramas",
+            "cal": "0.131332566",
+            "protein": "0.017666667",
+            "fats": "0.001073333",
+            "carb": "0.004796667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Salsa, crua",
+            "unidade": "gramas",
+            "cal": "0.334241116",
+            "protein": "0.032572464",
+            "fats": "0.0061",
+            "carb": "0.03856087",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Seleta de legumes, enlatada",
+            "unidade": "gramas",
+            "cal": "0.565337725",
+            "protein": "0.034202899",
+            "fats": "0.003533333",
+            "carb": "0.095797101",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Serralha, crua",
+            "unidade": "gramas",
+            "cal": "0.303979342",
+            "protein": "0.026729167",
+            "fats": "0.007426667",
+            "carb": "0.0142825",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Taioba, crua",
+            "unidade": "gramas",
+            "cal": "0.342089183",
+            "protein": "0.028958333",
+            "fats": "0.009266667",
+            "carb": "0.009768333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tomate, com semente, cru",
+            "unidade": "gramas",
+            "cal": "0.153351565",
+            "protein": "0.010978261",
+            "fats": "0.001733333",
+            "carb": "0.019655072",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tomate, extrato",
+            "unidade": "gramas",
+            "cal": "0.609334337",
+            "protein": "0.024347826",
+            "fats": "0.0019",
+            "carb": "0.121552874",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tomate, molho industrializado",
+            "unidade": "gramas",
+            "cal": "0.384465495",
+            "protein": "0.01375",
+            "fats": "0.009033333",
+            "carb": "0.04595",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tomate, purê",
+            "unidade": "gramas",
+            "cal": "0.279368797",
+            "protein": "0.013623188",
+            "fats": "0",
+            "carb": "0.058676812",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Tomate, salada",
+            "unidade": "gramas",
+            "cal": "0.205469092",
+            "protein": "0.008104167",
+            "fats": "0",
+            "carb": "0.028495833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Vagem, crua",
+            "unidade": "gramas",
+            "cal": "0.24898358",
+            "protein": "0.017862319",
+            "fats": "0.001733333",
+            "carb": "0.029637681",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

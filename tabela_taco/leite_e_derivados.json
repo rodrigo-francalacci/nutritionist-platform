@@ -1,0 +1,220 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Bebida láctea, pêssego",
+            "unidade": "gramas",
+            "cal": "0.551648333",
+            "protein": "0.021333333",
+            "fats": "0.019066667",
+            "carb": "0.072766667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Creme de Leite",
+            "unidade": "gramas",
+            "cal": "2.214835413",
+            "protein": "0.015078067",
+            "fats": "0.224793333",
+            "carb": "0.045095266",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Iogurte, natural",
+            "unidade": "gramas",
+            "cal": "0.514895333",
+            "protein": "0.040633333",
+            "fats": "0.0304",
+            "carb": "0.019166667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Iogurte, natural, desnatado",
+            "unidade": "gramas",
+            "cal": "0.414927113",
+            "protein": "0.038343801",
+            "fats": "0.003156667",
+            "carb": "0.057739533",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Iogurte, sabor abacaxi",
+            "unidade": "gramas",
+            "cal": "0.414927113",
+            "protein": "0.038343801",
+            "fats": "0.003156667",
+            "carb": "0.057739533",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Iogurte, sabor morango",
+            "unidade": "gramas",
+            "cal": "0.695656",
+            "protein": "0.0271",
+            "fats": "0.0233",
+            "carb": "0.094766667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Iogurte, sabor pêssego",
+            "unidade": "gramas",
+            "cal": "0.678494",
+            "protein": "0.0253",
+            "fats": "0.023366667",
+            "carb": "0.087166667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, condensado",
+            "unidade": "gramas",
+            "cal": "3.125726",
+            "protein": "0.0767",
+            "fats": "0.0674",
+            "carb": "0.569966667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de cabra",
+            "unidade": "gramas",
+            "cal": "0.664157419",
+            "protein": "0.030709067",
+            "fats": "0.037543333",
+            "carb": "0.052460933",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de vaca, achocolatado",
+            "unidade": "gramas",
+            "cal": "0.828209963",
+            "protein": "0.0209902",
+            "fats": "0.02169",
+            "carb": "0.135126467",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de vaca, desnatado, pó",
+            "unidade": "gramas",
+            "cal": "3.61608",
+            "protein": "0.3469",
+            "fats": "0.009333333",
+            "carb": "0.530433333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de vaca, desnatado, UHT",
+            "unidade": "gramas",
+            "cal": "3.61608",
+            "protein": "0.3469",
+            "fats": "0.009333333",
+            "carb": "0.530433333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de vaca, integral",
+            "unidade": "gramas",
+            "cal": "3.61608",
+            "protein": "0.3469",
+            "fats": "0.009333333",
+            "carb": "0.530433333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de vaca, integral, pó",
+            "unidade": "gramas",
+            "cal": "4.966503",
+            "protein": "0.2542",
+            "fats": "0.269033333",
+            "carb": "0.3918",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, fermentado",
+            "unidade": "gramas",
+            "cal": "0.69621474",
+            "protein": "0.0189486",
+            "fats": "0.00099",
+            "carb": "0.156744733",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, minas, frescal",
+            "unidade": "gramas",
+            "cal": "2.64273128",
+            "protein": "0.1741102",
+            "fats": "0.201806667",
+            "carb": "0.032403133",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, minas, meia cura",
+            "unidade": "gramas",
+            "cal": "3.207218177",
+            "protein": "0.212113737",
+            "fats": "0.2461",
+            "carb": "0.035729596",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, mozarela",
+            "unidade": "gramas",
+            "cal": "3.298707184",
+            "protein": "0.226490004",
+            "fats": "0.25183",
+            "carb": "0.030493329",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, parmesão",
+            "unidade": "gramas",
+            "cal": "4.529637553",
+            "protein": "0.355536133",
+            "fats": "0.335293333",
+            "carb": "0.0166072",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, pasteurizado",
+            "unidade": "gramas",
+            "cal": "3.030798033",
+            "protein": "0.093573333",
+            "fats": "0.274353333",
+            "carb": "0.056763333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, petit suisse, morango",
+            "unidade": "gramas",
+            "cal": "1.21105954",
+            "protein": "0.0578666",
+            "fats": "0.028383333",
+            "carb": "0.184620067",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, prato",
+            "unidade": "gramas",
+            "cal": "3.598804624",
+            "protein": "0.226617604",
+            "fats": "0.291063333",
+            "carb": "0.018785729",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, requeijão, cremoso",
+            "unidade": "gramas",
+            "cal": "2.565781487",
+            "protein": "0.096295467",
+            "fats": "0.23441",
+            "carb": "0.024324533",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Queijo, ricota",
+            "unidade": "gramas",
+            "cal": "1.3973178",
+            "protein": "0.126005",
+            "fats": "0.081086667",
+            "carb": "0.037861667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

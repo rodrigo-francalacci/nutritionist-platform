@@ -1,0 +1,166 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Amêndoa, torrada, salgada",
+            "unidade": "gramas",
+            "cal": "5.807469546",
+            "protein": "0.185547594",
+            "fats": "0.473243333",
+            "carb": "0.1790724",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Castanha-de-caju, torrada, salgada",
+            "unidade": "gramas",
+            "cal": "5.701676265",
+            "protein": "0.185093673",
+            "fats": "0.462796667",
+            "carb": "0.25471966",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Castanha-do-Brasil, crua",
+            "unidade": "gramas",
+            "cal": "6.429630717",
+            "protein": "0.145363401",
+            "fats": "0.63459",
+            "carb": "0.071476599",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Coco, cru",
+            "unidade": "gramas",
+            "cal": "4.064873531",
+            "protein": "0.036918341",
+            "fats": "0.419763333",
+            "carb": "0.050234992",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Coco,  verde, cru",
+            "unidade": "gramas",
+            "cal": "4.064873531",
+            "protein": "0.036918341",
+            "fats": "0.419763333",
+            "carb": "0.050234992",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de mesocarpo de babaçu, crua",
+            "unidade": "gramas",
+            "cal": "3.287714002",
+            "protein": "0.014062667",
+            "fats": "0.00198",
+            "carb": "0.613130666",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Gergelim, semente",
+            "unidade": "gramas",
+            "cal": "5.835467148",
+            "protein": "0.211646674",
+            "fats": "0.504326667",
+            "carb": "0.097493326",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Linhaça, semente",
+            "unidade": "gramas",
+            "cal": "4.950961138",
+            "protein": "0.140838672",
+            "fats": "0.322529333",
+            "carb": "0.098095328",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pinhão, cozido",
+            "unidade": "gramas",
+            "cal": "1.74369902",
+            "protein": "0.029803667",
+            "fats": "0.00747",
+            "carb": "0.283143",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pupunha, cozida",
+            "unidade": "gramas",
+            "cal": "2.185338809",
+            "protein": "0.025229167",
+            "fats": "0.127616667",
+            "carb": "0.253160833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Noz, crua",
+            "unidade": "gramas",
+            "cal": "6.200600198",
+            "protein": "0.139708005",
+            "fats": "0.593596667",
+            "carb": "0.111141995",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Azeitona, preta, conserva",
+            "unidade": "gramas",
+            "cal": "1.94153847",
+            "protein": "0.011625",
+            "fats": "0.20345",
+            "carb": "0.009895",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Azeitona, verde, conserva",
+            "unidade": "gramas",
+            "cal": "1.3693643",
+            "protein": "0.009479167",
+            "fats": "0.142156667",
+            "carb": "0.002560833",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chantilly, spray, com gordura vegetal",
+            "unidade": "gramas",
+            "cal": "3.149560003",
+            "protein": "0.00525",
+            "fats": "0.272706667",
+            "carb": "0.168550001",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Leite, de coco",
+            "unidade": "gramas",
+            "cal": "1.661603016",
+            "protein": "0.010140667",
+            "fats": "0.183643333",
+            "carb": "0.015109333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Maionese, tradicional com ovos",
+            "unidade": "gramas",
+            "cal": "3.021526777",
+            "protein": "0.0058125",
+            "fats": "0.304976667",
+            "carb": "0.0789975",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Paçoca, amendoim",
+            "unidade": "gramas",
+            "cal": "4.869270865",
+            "protein": "0.159958333",
+            "fats": "0.260753333",
+            "carb": "0.450571667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pé-de-moleque, amendoim",
+            "unidade": "gramas",
+            "cal": "5.031903658",
+            "protein": "0.131622401",
+            "fats": "0.280483333",
+            "carb": "0.513370932",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

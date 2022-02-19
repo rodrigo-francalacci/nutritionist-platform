@@ -1,0 +1,570 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Arroz, integral, cozido",
+            "unidade": "gramas",
+            "cal": "1.235348925",
+            "protein": "0.0258825",
+            "fats": "0.010003333",
+            "carb": "0.230604167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Arroz, integral, cru",
+            "unidade": "gramas",
+            "cal": "3.59678002",
+            "protein": "0.073232859",
+            "fats": "0.018648333",
+            "carb": "0.726315475",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Arroz, tipo 1, cozido",
+            "unidade": "gramas",
+            "cal": "1.282584857",
+            "protein": "0.025208167",
+            "fats": "0.00227",
+            "carb": "0.2649885",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Arroz, tipo 1, cru",
+            "unidade": "gramas",
+            "cal": "3.577892731",
+            "protein": "0.071585399",
+            "fats": "0.00335",
+            "carb": "0.771203768",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Arroz, tipo 2, cozido",
+            "unidade": "gramas",
+            "cal": "1.301196483",
+            "protein": "0.025684167",
+            "fats": "0.003616667",
+            "carb": "0.271229167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Arroz, tipo 2, cru",
+            "unidade": "gramas",
+            "cal": "3.581167615",
+            "protein": "0.07241883",
+            "fats": "0.002755",
+            "carb": "0.77161617",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Aveia, flocos, crua",
+            "unidade": "gramas",
+            "cal": "3.938226894",
+            "protein": "0.139210261",
+            "fats": "0.084966667",
+            "carb": "0.575056406",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, doce, maisena",
+            "unidade": "gramas",
+            "cal": "4.428193901",
+            "protein": "0.080725217",
+            "fats": "0.119666667",
+            "carb": "0.731341449",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, doce, recheado com chocolate",
+            "unidade": "gramas",
+            "cal": "4.718247797",
+            "protein": "0.063972174",
+            "fats": "0.195833333",
+            "carb": "0.675927826",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, doce, recheado com morango",
+            "unidade": "gramas",
+            "cal": "4.711747362",
+            "protein": "0.057198261",
+            "fats": "0.195733333",
+            "carb": "0.694801739",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, doce, wafer, recheado de chocolate",
+            "unidade": "gramas",
+            "cal": "5.02456858",
+            "protein": "0.055645217",
+            "fats": "0.246733333",
+            "carb": "0.657321449",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, doce, wafer, recheado de morango",
+            "unidade": "gramas",
+            "cal": "5.134461826",
+            "protein": "0.045170435",
+            "fats": "0.264",
+            "carb": "0.665329565",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Biscoito, salgado, cream cracker",
+            "unidade": "gramas",
+            "cal": "4.317322812",
+            "protein": "0.100551304",
+            "fats": "0.144366667",
+            "carb": "0.662215362",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bolo, mistura para",
+            "unidade": "gramas",
+            "cal": "4.186333333",
+            "protein": "0.061594203",
+            "fats": "0.061266667",
+            "carb": "0.830105797",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bolo, pronto, aipim",
+            "unidade": "gramas",
+            "cal": "3.238516667",
+            "protein": "0.044166667",
+            "fats": "0.127476667",
+            "carb": "0.471733333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bolo, pronto, chocolate",
+            "unidade": "gramas",
+            "cal": "4.100136667",
+            "protein": "0.062229167",
+            "fats": "0.184723333",
+            "carb": "0.5328775",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bolo, pronto, coco",
+            "unidade": "gramas",
+            "cal": "3.334376667",
+            "protein": "0.056666667",
+            "fats": "0.112963333",
+            "carb": "0.51221",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Bolo, pronto, milho",
+            "unidade": "gramas",
+            "cal": "3.11387",
+            "protein": "0.048041667",
+            "fats": "0.12415",
+            "carb": "0.443988333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Canjica, branca, crua",
+            "unidade": "gramas",
+            "cal": "3.5760259",
+            "protein": "0.072",
+            "fats": "0.00971",
+            "carb": "0.725616667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Canjica, com leite integral",
+            "unidade": "gramas",
+            "cal": "1.124567772",
+            "protein": "0.023606",
+            "fats": "0.012443333",
+            "carb": "0.224110666",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cereais, milho, flocos, com sal",
+            "unidade": "gramas",
+            "cal": "3.6959975",
+            "protein": "0.072916667",
+            "fats": "0.016033333",
+            "carb": "0.755416667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cereais, milho, flocos, sem sal",
+            "unidade": "gramas",
+            "cal": "3.633383167",
+            "protein": "0.06875",
+            "fats": "0.011833333",
+            "carb": "0.786116667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cereais, mingau, milho, infantil",
+            "unidade": "gramas",
+            "cal": "3.944275217",
+            "protein": "0.064311594",
+            "fats": "0.010933333",
+            "carb": "0.840521739",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cereais, mistura para vitamina, trigo, cevada e aveia",
+            "unidade": "gramas",
+            "cal": "3.811333333",
+            "protein": "0.088958333",
+            "fats": "0.0212",
+            "carb": "0.766341667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cereal matinal, milho",
+            "unidade": "gramas",
+            "cal": "3.653541638",
+            "protein": "0.071557971",
+            "fats": "0.009566667",
+            "carb": "0.797075362",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cereal matinal, milho, açúcar",
+            "unidade": "gramas",
+            "cal": "3.765552536",
+            "protein": "0.047427536",
+            "fats": "0.006666667",
+            "carb": "0.86733913",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Creme de arroz, pó",
+            "unidade": "gramas",
+            "cal": "3.860011903",
+            "protein": "0.070269498",
+            "fats": "0.01226",
+            "carb": "0.827980502",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Creme de milho, pó",
+            "unidade": "gramas",
+            "cal": "3.330341927",
+            "protein": "0.048208333",
+            "fats": "0.016393333",
+            "carb": "0.824261667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Curau, milho verde",
+            "unidade": "gramas",
+            "cal": "0.784338183",
+            "protein": "0.023606",
+            "fats": "0.01637",
+            "carb": "0.134877333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Curau, milho verde, mistura para",
+            "unidade": "gramas",
+            "cal": "4.022865774",
+            "protein": "0.022229167",
+            "fats": "0.133713333",
+            "carb": "0.7729375",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de arroz, enriquecida",
+            "unidade": "gramas",
+            "cal": "3.630564802",
+            "protein": "0.012693333",
+            "fats": "0.003",
+            "carb": "0.84924",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de centeio, integral",
+            "unidade": "gramas",
+            "cal": "3.357776628",
+            "protein": "0.125150665",
+            "fats": "0.017533333",
+            "carb": "0.578182668",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de milho, amarela",
+            "unidade": "gramas",
+            "cal": "3.505869332",
+            "protein": "0.071875",
+            "fats": "0.014666667",
+            "carb": "0.735891667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de rosca",
+            "unidade": "gramas",
+            "cal": "3.705780967",
+            "protein": "0.113809996",
+            "fats": "0.014633333",
+            "carb": "0.709623333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, de trigo",
+            "unidade": "gramas",
+            "cal": "3.604729786",
+            "protein": "0.097907826",
+            "fats": "0.013666667",
+            "carb": "0.727458841",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Farinha, láctea, de cereais",
+            "unidade": "gramas",
+            "cal": "4.148505174",
+            "protein": "0.118791304",
+            "fats": "0.0579",
+            "carb": "0.758308696",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lasanha, massa fresca, cozida",
+            "unidade": "gramas",
+            "cal": "1.637636667",
+            "protein": "0.058125",
+            "fats": "0.011583333",
+            "carb": "0.308858333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Lasanha, massa fresca, crua",
+            "unidade": "gramas",
+            "cal": "2.203056667",
+            "protein": "0.070083333",
+            "fats": "0.013376667",
+            "carb": "0.43452",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Macarrão, instantâneo",
+            "unidade": "gramas",
+            "cal": "4.358647805",
+            "protein": "0.0879168",
+            "fats": "0.172366667",
+            "carb": "0.568216533",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Macarrão, trigo, cru",
+            "unidade": "gramas",
+            "cal": "3.71122613",
+            "protein": "0.099956522",
+            "fats": "0.013033333",
+            "carb": "0.750176812",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Macarrão, trigo, cru, com ovos",
+            "unidade": "gramas",
+            "cal": "3.705671133",
+            "protein": "0.103208",
+            "fats": "0.0197",
+            "carb": "0.743258667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Milho, amido, cru",
+            "unidade": "gramas",
+            "cal": "3.613668239",
+            "protein": "0.005978261",
+            "carb": "0.864055106",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Milho, fubá, cru",
+            "unidade": "gramas",
+            "cal": "3.534822681",
+            "protein": "0.072137681",
+            "fats": "0.019033333",
+            "carb": "0.741595652",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Milho, verde, cru",
+            "unidade": "gramas",
+            "cal": "1.38166565",
+            "protein": "0.065895833",
+            "fats": "0.00609",
+            "carb": "0.2463775",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Milho, verde, enlatado, drenado",
+            "unidade": "gramas",
+            "cal": "0.975648942",
+            "protein": "0.032282609",
+            "fats": "0.023533333",
+            "carb": "0.124917391",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mingau tradicional, pó",
+            "unidade": "gramas",
+            "cal": "3.734214667",
+            "protein": "0.005833333",
+            "fats": "0.0037",
+            "carb": "0.884566667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pamonha, barra para cozimento, pré-cozida",
+            "unidade": "gramas",
+            "cal": "1.712191117",
+            "protein": "0.025520833",
+            "fats": "0.048496667",
+            "carb": "0.283139167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, aveia, forma",
+            "unidade": "gramas",
+            "cal": "3.430853667",
+            "protein": "0.1235",
+            "fats": "0.056933333",
+            "carb": "0.535866667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, de soja",
+            "unidade": "gramas",
+            "cal": "3.087263233",
+            "protein": "0.11343",
+            "fats": "0.0358",
+            "carb": "0.508036667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, glúten, forma",
+            "unidade": "gramas",
+            "cal": "2.5299403",
+            "protein": "0.119509996",
+            "fats": "0.027266667",
+            "carb": "0.41639",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, milho, forma",
+            "unidade": "gramas",
+            "cal": "2.9201349",
+            "protein": "0.08303",
+            "fats": "0.0311",
+            "carb": "0.521003333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, trigo, forma, integral",
+            "unidade": "gramas",
+            "cal": "2.531936183",
+            "protein": "0.094251667",
+            "fats": "0.036533333",
+            "carb": "0.430581667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, trigo, francês",
+            "unidade": "gramas",
+            "cal": "2.998101504",
+            "protein": "0.079535652",
+            "fats": "0.031033333",
+            "carb": "0.563397681",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pão, trigo, sovado",
+            "unidade": "gramas",
+            "cal": "3.1096494",
+            "protein": "0.08398",
+            "fats": "0.0284",
+            "carb": "0.590186667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pastel, de carne, cru",
+            "unidade": "gramas",
+            "cal": "2.887020715",
+            "protein": "0.107406996",
+            "fats": "0.08793",
+            "carb": "0.409766337",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pastel, de carne, frito",
+            "unidade": "gramas",
+            "cal": "3.883746516",
+            "protein": "0.101041997",
+            "fats": "0.201366667",
+            "carb": "0.427811337",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pastel, de queijo, cru",
+            "unidade": "gramas",
+            "cal": "3.084744339",
+            "protein": "0.098533997",
+            "fats": "0.096346667",
+            "carb": "0.44841267",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pastel, de queijo, frito",
+            "unidade": "gramas",
+            "cal": "4.2211208",
+            "protein": "0.087095997",
+            "fats": "0.226703333",
+            "carb": "0.471894003",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pastel, massa, crua",
+            "unidade": "gramas",
+            "cal": "3.102025143",
+            "protein": "0.069027",
+            "fats": "0.05477",
+            "carb": "0.559663",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pastel, massa, frita",
+            "unidade": "gramas",
+            "cal": "5.696724593",
+            "protein": "0.060192",
+            "fats": "0.408603333",
+            "carb": "0.480338",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Pipoca, com óleo de soja, sem sal",
+            "unidade": "gramas",
+            "cal": "4.483342618",
+            "protein": "0.099270833",
+            "fats": "0.15941",
+            "carb": "0.559759167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Polenta, pré-cozida",
+            "unidade": "gramas",
+            "cal": "1.027411667",
+            "protein": "0.022916667",
+            "fats": "0.003033333",
+            "carb": "0.209083333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Torrada, pão francês",
+            "unidade": "gramas",
+            "cal": "3.77422283",
+            "protein": "0.105241",
+            "fats": "0.03301",
+            "carb": "0.711609",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

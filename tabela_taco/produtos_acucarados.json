@@ -1,0 +1,184 @@
+﻿{
+    "Plan1": [
+        {
+            "nome": "Achocolatado, pó",
+            "unidade": "gramas",
+            "cal": "4.0102",
+            "protein": "0.042033333",
+            "fats": "0.021666667",
+            "carb": "0.872866667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Açúcar, cristal",
+            "unidade": "gramas",
+            "cal": "3.86845724",
+            "protein": "0.0032",
+            "fats": "0",
+            "carb": "0.9961",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Açúcar, mascavo",
+            "unidade": "gramas",
+            "cal": "3.685548225",
+            "protein": "0.007583333",
+            "fats": "0.00092",
+            "carb": "0.9445",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Açúcar, refinado",
+            "unidade": "gramas",
+            "cal": "3.86574824",
+            "protein": "0.0032",
+            "fats": "0",
+            "carb": "0.9954",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chocolate, ao leite",
+            "unidade": "gramas",
+            "cal": "5.395866667",
+            "protein": "0.0722",
+            "fats": "0.302666667",
+            "carb": "0.574066667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chocolate, ao leite, com castanha do Pará",
+            "unidade": "gramas",
+            "cal": "5.588763333",
+            "protein": "0.074125",
+            "fats": "0.34191",
+            "carb": "0.529188333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chocolate, ao leite, dietético",
+            "unidade": "gramas",
+            "cal": "5.568243333",
+            "protein": "0.068979167",
+            "fats": "0.33771",
+            "carb": "0.5347675",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chocolate, meio amargo",
+            "unidade": "gramas",
+            "cal": "4.7491777",
+            "protein": "0.048624434",
+            "fats": "0.298566667",
+            "carb": "0.574792232",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cocada branca",
+            "unidade": "gramas",
+            "cal": "4.488454524",
+            "protein": "0.011218334",
+            "fats": "0.13587",
+            "carb": "0.778141666",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Doce, de abóbora, cremoso",
+            "unidade": "gramas",
+            "cal": "1.98936063",
+            "protein": "0.009166667",
+            "fats": "0.002066667",
+            "carb": "0.523333333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Doce, de leite, cremoso",
+            "unidade": "gramas",
+            "cal": "3.063101302",
+            "protein": "0.054782934",
+            "fats": "0.05993",
+            "carb": "0.594933732",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Geléia, mocotó, natural",
+            "unidade": "gramas",
+            "cal": "1.060866667",
+            "protein": "0.02125",
+            "fats": "0.000733333",
+            "carb": "0.242316667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Glicose de milho",
+            "unidade": "gramas",
+            "cal": "2.921184053",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.7938",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Maria mole",
+            "unidade": "gramas",
+            "cal": "3.012358875",
+            "protein": "0.038128501",
+            "fats": "0.0019",
+            "carb": "0.728868165",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Maria mole, coco queimado",
+            "unidade": "gramas",
+            "cal": "3.06631897",
+            "protein": "0.039349501",
+            "fats": "0.000893333",
+            "carb": "0.744227165",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Marmelada",
+            "unidade": "gramas",
+            "cal": "2.572414732",
+            "protein": "0.004",
+            "fats": "0.001373333",
+            "carb": "0.666933333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Mel, de abelha",
+            "unidade": "gramas",
+            "cal": "3.092426667",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.840333333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Melado",
+            "unidade": "gramas",
+            "cal": "2.965064912",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.766166667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Quindim",
+            "unidade": "gramas",
+            "cal": "4.113487216",
+            "protein": "0.047375",
+            "fats": "0.24425",
+            "carb": "0.430755",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Rapadura",
+            "unidade": "gramas",
+            "cal": "3.519581221",
+            "protein": "0.009895833",
+            "fats": "0.000706667",
+            "carb": "0.907924167",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}
