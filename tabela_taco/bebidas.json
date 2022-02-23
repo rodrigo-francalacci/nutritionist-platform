@@ -1,128 +1,130 @@
-[
- {
-  "Name ": "Isotonic drink, assorted flavors ",
-  "unity ": "grams ",
-  "lime ": 0.25613333333333344,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.0640333333333334,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Coffee, infusion 10% ",
-  "unity ": "grams ",
-  "lime ": 0.09070868599613517,
-  "protein ": 0.007125,
-  "fats ": 0.0006933333333333335,
-  "carb ": 0.01478666666666667,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "sugarcane brandy 1 ",
-  "unity ": "grams ",
-  "lime ": 2.156616,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "cane, broth ",
-  "unity ": "grams ",
-  "lime ": 0.6534359826898573,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.1801466666666667,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "beer, pilsen 2 ",
-  "unity ": "grams ",
-  "lime ": 0.4072018855062866,
-  "protein ": 0.005625,
-  "fats ": 0,
-  "carb ": 0.033174999999999996,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Tea, fennel, infusion 5% ",
-  "unity ": "grams ",
-  "lime ": 0.013970599738756386,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.003913333333333213,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Tea, mate, infusion 5% ",
-  "unity ": "grams ",
-  "lime ": 0.02730749951124143,
-  "protein ": 0,
-  "fats ": 0.00052,
-  "carb ": 0.006429999999999931,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Tea, black, 5% infusion ",
-  "unity ": "grams ",
-  "lime ": 0.022479099579652103,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.006296666666666653,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "coconut water ",
-  "unity ": "grams ",
-  "lime ": 0.2150859424050649,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.05154333333333338,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Soda, like tonic water ",
-  "unity ": "grams ",
-  "lime ": 0.307794,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.0795333333333334,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Soft drink, cola type ",
-  "unity ": "grams ",
-  "lime ": 0.33514200000000044,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.08660000000000011,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Soft drink, guarana type ",
-  "unity ": "grams ",
-  "lime ": 0.387,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.1,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Soft drink, orange type ",
-  "unity ": "grams ",
-  "lime ": 0.45627300000000026,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.11789999999999999,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- },
- {
-  "Name ": "Soft drink, lemon type ",
-  "unity ": "grams ",
-  "lime ": 0.3971910000000001,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.10263333333333335,
-  "Details ": "SOURCE: Club table (UNICAMP) "
- }
-]
+﻿{
+    "Plan1": [
+        {
+            "nome": "Bebida isotônica, sabores variados",
+            "unidade": "gramas",
+            "cal": "0.256133333",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.064033333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Café, infusão 10%",
+            "unidade": "gramas",
+            "cal": "0.090708686",
+            "protein": "0.007125",
+            "fats": "0.000693333",
+            "carb": "0.014786667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cana, aguardente 1",
+            "unidade": "gramas",
+            "cal": "2.156616",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cana, caldo de",
+            "unidade": "gramas",
+            "cal": "0.653435983",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.180146667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Cerveja, pilsen 2",
+            "unidade": "gramas",
+            "cal": "0.407201886",
+            "protein": "0.005625",
+            "fats": "0",
+            "carb": "0.033175",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chá, erva-doce, infusão 5%",
+            "unidade": "gramas",
+            "cal": "0.0139706",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.003913333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chá, mate, infusão 5%",
+            "unidade": "gramas",
+            "cal": "0.0273075",
+            "protein": "0",
+            "fats": "0.00052",
+            "carb": "0.00643",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Chá, preto, infusão 5%",
+            "unidade": "gramas",
+            "cal": "0.0224791",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.006296667",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Coco, água de",
+            "unidade": "gramas",
+            "cal": "0.215085942",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.051543333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Refrigerante, tipo água tônica",
+            "unidade": "gramas",
+            "cal": "0.307794",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.079533333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Refrigerante, tipo cola",
+            "unidade": "gramas",
+            "cal": "0.335142",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.0866",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Refrigerante, tipo guaraná",
+            "unidade": "gramas",
+            "cal": "0.387",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.1",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Refrigerante, tipo laranja",
+            "unidade": "gramas",
+            "cal": "0.456273",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.1179",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        },
+        {
+            "nome": "Refrigerante, tipo limão",
+            "unidade": "gramas",
+            "cal": "0.397191",
+            "protein": "0",
+            "fats": "0",
+            "carb": "0.102633333",
+            "detalhes": "FONTE: Tabela taco (UNICAMP)"
+        }
+    ]
+}

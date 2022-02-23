@@ -50,6 +50,7 @@ function updateFood(rowID){
             
           case "Tabela TACO":
             TACOgruposLoad(row);
+            //document.getElementById("foods-" + row).value = "Selecione uma categoria..."
             break;
             
           case "-Bebidas":
@@ -142,8 +143,9 @@ function TACOgruposLoad(row){
 <option value="-Verduras e Hortaliças" style="background-color:var(--cor1); color:var(--cor4);">-Verduras e Hortaliças</option>'
     
     document.getElementById("foods-"+row).innerHTML = tacoOptions;
-    document.getElementById("foods-"+row).value = "-Bebidas"
+    //document.getElementById("foods-"+row).value = "-Bebidas"
     data[row].nome = "-Bebidas";
+
     
 }
 

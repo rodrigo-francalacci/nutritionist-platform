@@ -1,128 +1,128 @@
 [
  {
-  "Name ": "Isotonic drink, assorted flavors ",
-  "unity ": "grams ",
-  "lime ": 0.25613333333333344,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.0640333333333334,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Isotonic drink, assorted flavors",
+  "unidade": "grams",
+  "cal": 0.25613333333333344,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.0640333333333334,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Coffee, infusion 10% ",
-  "unity ": "grams ",
-  "lime ": 0.09070868599613517,
-  "protein ": 0.007125,
-  "fats ": 0.0006933333333333335,
-  "carb ": 0.01478666666666667,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Coffee, infusion 10%",
+  "unidade": "grams",
+  "cal": 0.09070868599613517,
+  "protein": 0.007125,
+  "fats": 0.0006933333333333335,
+  "carb": 0.01478666666666667,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "sugarcane brandy 1 ",
-  "unity ": "grams ",
-  "lime ": 2.156616,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "sugarcane brandy 1",
+  "unidade": "grams",
+  "cal": 2.156616,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "cane, broth ",
-  "unity ": "grams ",
-  "lime ": 0.6534359826898573,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.1801466666666667,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "cane, broth",
+  "unidade": "grams",
+  "cal": 0.6534359826898573,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.1801466666666667,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "beer, pilsen 2 ",
-  "unity ": "grams ",
-  "lime ": 0.4072018855062866,
-  "protein ": 0.005625,
-  "fats ": 0,
-  "carb ": 0.033174999999999996,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "beer, pilsen 2",
+  "unidade": "grams",
+  "cal": 0.4072018855062866,
+  "protein": 0.005625,
+  "fats": 0,
+  "carb": 0.033174999999999996,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Tea, fennel, infusion 5% ",
-  "unity ": "grams ",
-  "lime ": 0.013970599738756386,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.003913333333333213,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Tea, fennel, infusion 5%",
+  "unidade": "grams",
+  "cal": 0.013970599738756386,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.003913333333333213,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Tea, mate, infusion 5% ",
-  "unity ": "grams ",
-  "lime ": 0.02730749951124143,
-  "protein ": 0,
-  "fats ": 0.00052,
-  "carb ": 0.006429999999999931,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Tea, mate, infusion 5%",
+  "unidade": "grams",
+  "cal": 0.02730749951124143,
+  "protein": 0,
+  "fats": 0.00052,
+  "carb": 0.006429999999999931,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Tea, black, 5% infusion ",
-  "unity ": "grams ",
-  "lime ": 0.022479099579652103,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.006296666666666653,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Tea, black, 5% infusion",
+  "unidade": "grams",
+  "cal": 0.022479099579652103,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.006296666666666653,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "coconut water ",
-  "unity ": "grams ",
-  "lime ": 0.2150859424050649,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.05154333333333338,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "coconut water",
+  "unidade": "grams",
+  "cal": 0.2150859424050649,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.05154333333333338,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Soda, like tonic water ",
-  "unity ": "grams ",
-  "lime ": 0.307794,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.0795333333333334,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Soda, like tonic water",
+  "unidade": "grams",
+  "cal": 0.307794,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.0795333333333334,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Soft drink, cola type ",
-  "unity ": "grams ",
-  "lime ": 0.33514200000000044,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.08660000000000011,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Soft drink, cola type",
+  "unidade": "grams",
+  "cal": 0.33514200000000044,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.08660000000000011,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Soft drink, guarana type ",
-  "unity ": "grams ",
-  "lime ": 0.387,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.1,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Soft drink, guarana type",
+  "unidade": "grams",
+  "cal": 0.387,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.1,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Soft drink, orange type ",
-  "unity ": "grams ",
-  "lime ": 0.45627300000000026,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.11789999999999999,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Soft drink, orange type",
+  "unidade": "grams",
+  "cal": 0.45627300000000026,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.11789999999999999,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  },
  {
-  "Name ": "Soft drink, lemon type ",
-  "unity ": "grams ",
-  "lime ": 0.3971910000000001,
-  "protein ": 0,
-  "fats ": 0,
-  "carb ": 0.10263333333333335,
-  "Details ": "SOURCE: Club table (UNICAMP) "
+  "nome": "Soft drink, lemon type",
+  "unidade": "grams",
+  "cal": 0.3971910000000001,
+  "protein": 0,
+  "fats": 0,
+  "carb": 0.10263333333333335,
+  "detalhes": "SOURCE: Club table (UNICAMP)"
  }
 ]
