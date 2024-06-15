@@ -208,4 +208,166 @@
                carb:0.6328, 
                protein:0.1294,
                detalhes: "Rico e fibras, possui pouco carboidrato de impacto glicêmico." };
+
+    foods[26]={nome: "Lidl (16oz Thick Cut Rump Steak)",
+               unidade: "gramas", 
+               cal: 1.74, 
+               fats: 0.041, 
+               carb:0, 
+               protein:0.207,
+               detalhes: "" };
+
+    foods[27]={nome: "Aldi Essentials (Raw Beef Mince 25% Fat)",
+               unidade: "gramas", 
+               cal: 2.86, 
+               fats: 0.238, 
+               carb:0, 
+               protein:0.177,
+               detalhes: "Raw, always check proportionaly after cooking" };
+
+    foods[28]={nome: "M&S Greek Yogurt 10% Fat",
+               unidade: "gramas", 
+               cal: 1.34, 
+               fats: 0.101, 
+               carb:0.042, 
+               protein:0.064,
+               detalhes: "" };
+
+    foods[29]={nome: "Grahm's Jersey Gold Top Milk",
+               unidade: "ml", 
+               cal: 0.74, 
+               fats: 0.048, 
+               carb:0.044, 
+               protein:0.036,
+               detalhes: "" };
+
+    foods[30]={nome: "Double Cream",
+               unidade: "ml", 
+               cal: 4.67, 
+               fats: 0.505, 
+               carb:0.016, 
+               protein:0.015,
+               detalhes: "" };
+
+    foods[31]={nome: "Aldi Chicken Breast Fillets (Raw)",
+               unidade: "mg", 
+               cal: 1.06, 
+               fats: 0.011, 
+               carb:0, 
+               protein:0.24,
+               detalhes: "" };
+
+    foods[32]={nome: "Aldi Beef Quarter Punders (Grilled)",
+               unidade: "burgers (114g)", 
+               cal: 2.63, 
+               fats: 0.167, 
+               carb:0.026, 
+               protein:0.219,
+               detalhes: "" };
+
+    foods[33]={nome: "Lidl Lasagne Sheets (Dry)",
+               unidade: "grams", 
+               cal: 3.48, 
+               fats: 0.011, 
+               carb:0.71, 
+               protein:0.12,
+               detalhes: "" };
+
+    foods[34]={nome: "Co-op Polenta Maize Meal",
+               unidade: "grams", 
+               cal: 0.68, 
+               fats: 0.019, 
+               carb:0.152, 
+               protein:0.019,
+               detalhes: "" };
+
+    foods[35]={nome: "Tesco Finest - Scottish Porridge Oats",
+               unidade: "grams", 
+               cal: 3.68, 
+               fats: 0.07, 
+               carb:0.619, 
+               protein:0.103,
+               detalhes: "" };
+
+    foods[36]={nome: "Aldi - Cucina Bolognese Pasta Sauce",
+               unidade: "grams", 
+               cal: 0.37, 
+               fats: 0.004, 
+               carb:0.07, 
+               protein:0.009,
+               detalhes: "" };
+
+    foods[37]={nome: "MCT C8 Organic",
+               unidade: "grams", 
+               cal: 8.4, 
+               fats: 1, 
+               carb:0, 
+               protein:0,
+               detalhes: "" };
+
+    foods[38]={nome: "Lidl Italian Olive Oil",
+               unidade: "grams", 
+               cal: 8.24, 
+               fats: 0.916, 
+               carb:0, 
+               protein:0,
+               detalhes: "" };
+
+    foods[39]={nome: "Aldi Mushrooms Closed Cup",
+               unidade: "grams", 
+               cal: 0.16, 
+               fats: 0.005, 
+               carb:0.004, 
+               protein:0.018,
+               detalhes: "" };
+
+    foods[40]={nome: "Aldi British Baby Potatoes",
+               unidade: "grams", 
+               cal: 0.16, 
+               fats: 0.005, 
+               carb:0.004, 
+               protein:0.018,
+               detalhes: "" };
+
+    foods[41]={nome: "M&S Beef Stock",
+               unidade: "grams", 
+               cal: 1.24, 
+               fats: 0.009, 
+               carb:0.002, 
+               protein:0.051,
+               detalhes: "" };
+
+    foods[42]={nome: "Aldi Summer Fruits",
+               unidade: "grams", 
+               cal: 0.32, 
+               fats: 0, 
+               carb:0.052, 
+               protein:0.011,
+               detalhes: "" };
+
+    foods[43]={nome: "Aldi Black Forest Fruits",
+               unidade: "grams", 
+               cal: 0.49, 
+               fats: 0, 
+               carb:0.101, 
+               protein:0.008,
+               detalhes: "" };
+
+    foods[44]={nome: "Aldi British Petits Pois",
+               unidade: "grams", 
+               cal: 0.85, 
+               fats: 0.014, 
+               carb:0.084, 
+               protein:0.061,
+               detalhes: "" };
+
+    foods[45]={nome: "Peak Supps Whey Protein Concentrate 80% - Grass Fed",
+               unidade: "grams", 
+               cal: 3.98, 
+               fats: 0.078, 
+               carb:0.03, 
+               protein:0.791,
+               detalhes: "" };
+
+
     
