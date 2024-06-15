@@ -369,5 +369,58 @@
                protein:0.791,
                detalhes: "" };
 
+    foods[46]={nome: "Aldi Everyday Essentials Mozzarella 200g (125g Drained)",
+               unidade: "unit (125g)", 
+               cal: 310, 
+               fats: 23.75, 
+               carb: 1.875, 
+               protein:22.5,
+               detalhes: "" };
+
+    foods[47]={nome: "Aldi Everyday Essentials Light Mozzarella 200g (125g Drained)",
+               unidade: "units (125g)", 
+               cal: 196, 
+               fats: 10.6, 
+               carb: 1.25, 
+               protein:23.75,
+               detalhes: "" };
+
+    foods[48]={nome: "Aldi Emporium Dutch Gouda Cheese Slices",
+               unidade: "slices (25g)", 
+               cal: 91, 
+               fats: 7.5, 
+               carb: 0, 
+               protein: 5.75,
+               detalhes: "From Aldi Emporium Dutch Gouda Cheese Slices 400g/16 Pack" };
+
+    foods[49]={nome: "Aldi Emporium Dutch Cheese Emmental Slices",
+               unidade: "slices (25g)", 
+               cal: 92, 
+               fats: 7.25, 
+               carb: 0, 
+               protein: 6.75,
+               detalhes: "From Aldi Emporium Dutch Cheese Emmental Slices 400g/16 Pack" };
+
+    foods[50]={nome: "Aldi Emporium Mozzarella Slices",
+               unidade: "slices (25g)", 
+               cal: 73.25, 
+               fats: 5, 
+               carb: 0.65, 
+               protein: 6.25,
+               detalhes: "From Aldi Emporium Mozzarella Slices 250g/10 Pack" };
+
+    foods[51]={nome: "Avocado",
+               unidade: "grams", 
+               cal: 1.71, 
+               fats: 0.174, 
+               carb: 0.018, 
+               protein: 0.018,
+               detalhes: "" };
+
+
+
+
+
+
 
     
