@@ -417,6 +417,14 @@
                protein: 0.018,
                detalhes: "" };
 
+    foods[51]={nome: "Tesco Oatgran",
+               unidade: "grams", 
+               cal: 3.64, 
+               fats: 0.075, 
+               carb: 0.524, 
+               protein: 0.157,
+               detalhes: "" };
+
 
 
 
