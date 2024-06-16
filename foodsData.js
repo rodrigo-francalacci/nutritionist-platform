@@ -457,6 +457,22 @@
                protein: 0.208,
                detalhes: "" };
 
+    foods[57]={nome: "Tesco Cheese Red Leicester",
+               unidade: "slice (25g)", 
+               cal: 101, 
+               fats: 8.4, 
+               carb: 0, 
+               protein: 6.3,
+               detalhes: "" };
+
+    foods[58]={nome: "Tesco Cheese Mozzarella Slice",
+               unidade: "slice (25g)", 
+               cal: 74, 
+               fats: 5.3, 
+               carb: 0, 
+               protein: 6.4,
+               detalhes: "" };
+
 
 
 
