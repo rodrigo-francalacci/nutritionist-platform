@@ -440,6 +440,22 @@
                carb: 0.17, 
                protein: 0.17,
                detalhes: "" };
+    
+    foods[55]={nome: "M&S High Protein Yogurt",
+               unidade: "1 pot (200g)", 
+               cal: 154, 
+               fats: 1.2, 
+               carb: 11, 
+               protein: 15,
+               detalhes: "" };
+
+    foods[56]={nome: "Tesco Beef Steak Mince 5% Fat",
+               unidade: "grams", 
+               cal: 1.24, 
+               fats: 0.045, 
+               carb: 0, 
+               protein: 0.208,
+               detalhes: "" };
 
 
 
