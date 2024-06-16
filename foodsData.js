@@ -417,12 +417,28 @@
                protein: 0.018,
                detalhes: "" };
 
-    foods[51]={nome: "Tesco Oatgran",
+    foods[52]={nome: "Tesco Oatgran",
                unidade: "grams", 
                cal: 3.64, 
                fats: 0.075, 
                carb: 0.524, 
                protein: 0.157,
+               detalhes: "" };
+
+    foods[53]={nome: "Aldi Four Seasons Blueberries",
+               unidade: "grams", 
+               cal: 0.45, 
+               fats: 0, 
+               carb: 0.091, 
+               protein: 0.009,
+               detalhes: "" };
+
+    foods[54]={nome: "Aldi Essentials Roasted Salted Cashews",
+               unidade: "grams", 
+               cal: 5.92, 
+               fats: 0.5, 
+               carb: 0.17, 
+               protein: 0.17,
                detalhes: "" };
 
 
