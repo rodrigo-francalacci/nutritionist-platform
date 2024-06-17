@@ -473,7 +473,7 @@
                protein: 6.4,
                detalhes: "" };
 
-    foods[58]={nome: "Aldi Ashfields British 30 Day Matured Sirloin Steak 227g",
+    foods[59]={nome: "Aldi Ashfields British 30 Day Matured Sirloin Steak 227g",
                unidade: "gram", 
                cal: 1.35, 
                fats: 0.045, 
@@ -481,7 +481,7 @@
                protein: 0.24,
                detalhes: "" };
 
-    foods[58]={nome: "Aldi Smoked Mackeral Fillets",
+    foods[60]={nome: "Aldi Smoked Mackeral Fillets",
                unidade: "gram", 
                cal: 2.87, 
                fats: 0.223, 
