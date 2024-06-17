@@ -323,15 +323,15 @@
 
     foods[40]={nome: "Aldi British Baby Potatoes",
                unidade: "grams", 
-               cal: 0.16, 
+               cal: 0.70, 
                fats: 0.005, 
-               carb:0.004, 
+               carb:0.15, 
                protein:0.018,
                detalhes: "" };
 
     foods[41]={nome: "M&S Beef Stock",
                unidade: "grams", 
-               cal: 1.24, 
+               cal: 0.3, 
                fats: 0.009, 
                carb:0.002, 
                protein:0.051,
@@ -488,6 +488,8 @@
                carb: 0.001, 
                protein: 0.205,
                detalhes: "" };
+
+
 
 
 
