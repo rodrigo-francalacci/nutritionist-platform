@@ -497,12 +497,20 @@
                protein: 4.1,
                detalhes: "" };
 
-    foods[61]={nome: "Lidl Pork Chipolata Sausages",
+    foods[62]={nome: "Lidl Pork Chipolata Sausages",
                unidade: "grams", 
                cal: 2.42, 
                fats: 0.163, 
                carb: 0.041, 
                protein: 0.192,
+               detalhes: "" };
+
+    foods[63]={nome: "Tesco Whole Earth Drizzler Peanut Butter",
+               unidade: "grams", 
+               cal: 5.96, 
+               fats: 0.46, 
+               carb: 0.116, 
+               protein: 0.296,
                detalhes: "" };
 
 
