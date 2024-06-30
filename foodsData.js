@@ -489,6 +489,22 @@
                protein: 0.205,
                detalhes: "" };
 
+    foods[61]={nome: "Lidl Oak Smoked Ham",
+               unidade: "slice (17g)", 
+               cal: 22, 
+               fats: 0.6, 
+               carb: 0.1, 
+               protein: 4.1,
+               detalhes: "" };
+
+    foods[61]={nome: "Lidl Pork Chipolata Sausages",
+               unidade: "grams", 
+               cal: 2.42, 
+               fats: 0.163, 
+               carb: 0.041, 
+               protein: 0.192,
+               detalhes: "" };
+
 
 
 
