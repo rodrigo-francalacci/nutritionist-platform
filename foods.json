@@ -648,5 +648,15 @@
     "carb": 1.33,
     "fats": 1.46,
     "detalhes": ""
+  },
+  {
+    "nome": "Whey Vanilla (H&B)",
+    "categoria": "Suplementos",
+    "unidade": "Scoop (30g)",
+    "cal": 113,
+    "protein": 22,
+    "carb": 2.6,
+    "fats": 1.8,
+    "detalhes": ""
   }
 ]
