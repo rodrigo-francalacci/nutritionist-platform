@@ -57,6 +57,15 @@ function categorias(lista) {
   return [...new Set(lista.map(f => f.categoria || 'Outros'))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
 }
 
+// unidades em uso, da mais comum para a menos comum
+function unidades(lista) {
+  const conta = new Map();
+  lista.forEach(f => conta.set(f.unidade, (conta.get(f.unidade) || 0) + 1));
+  return [...conta.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'pt-BR'))
+    .map(([unidade, n]) => ({ unidade, n }));
+}
+
 // ignora acentos e caixa nas buscas
 const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
@@ -137,6 +146,37 @@ async function perguntarCategoria(io, lista, padrao) {
   return r;
 }
 
+// A unidade define o que o usuario digita na tela: "2 ovos", "1 fatia",
+// "1 colher de sopa". Os macros sao sempre POR UMA unidade dessas.
+// Oferece as que ja existem porque foi assim que a base acabou com
+// grama/gramas/gram/grams — quatro grafias da mesma coisa.
+async function perguntarUnidade(io, lista, padrao) {
+  const uns = unidades(lista);
+
+  console.log(c('fraco', '  unidades já em uso:'));
+  uns.forEach((u, i) => console.log(c('fraco',
+    '    ' + String(i + 1).padStart(2) + ') ' + u.unidade.padEnd(22) + String(u.n).padStart(3) + ' alimento(s)')));
+  console.log(c('fraco', '    (ou digite uma nova: ovo, fatia, colher de sopa, lata...)'));
+
+  for (;;) {
+    const r = await perguntar(io, 'unidade', padrao);
+
+    const i = parseInt(r, 10);
+    if (!isNaN(i) && i >= 1 && i <= uns.length) return uns[i - 1].unidade;
+    if (!r) { console.log(c('verm', '  a unidade não pode ficar vazia')); continue; }
+
+    // se so muda acento/caixa/plural em relacao a uma existente, usa a existente
+    const parecida = uns.find(u => norm(u.unidade) === norm(r) ||
+                                   norm(u.unidade) === norm(r) + 's' ||
+                                   norm(u.unidade) + 's' === norm(r));
+    if (parecida && parecida.unidade !== r) {
+      console.log(c('amar', '  "' + r + '" é praticamente "' + parecida.unidade + '", que já existe — usando essa.'));
+      return parecida.unidade;
+    }
+    return r;
+  }
+}
+
 // ---------- comandos ----------
 
 function cmdList(lista, termo) {
@@ -181,7 +221,8 @@ async function cmdAdd(lista) {
 
   const novo = { nome };
   novo.categoria = await perguntarCategoria(io, lista);
-  novo.unidade = await perguntar(io, 'unidade', 'gramas');
+  novo.unidade = await perguntarUnidade(io, lista, 'gramas');
+  console.log(c('fraco', '\n  agora os macros de UM(A) ' + novo.unidade + ':'));
   novo.cal = await perguntarNumero(io, 'calorias por ' + novo.unidade);
   novo.protein = await perguntarNumero(io, 'proteína (g) por ' + novo.unidade);
   novo.carb = await perguntarNumero(io, 'carboidrato (g) por ' + novo.unidade);
@@ -204,7 +245,14 @@ async function cmdEdit(lista, nome) {
 
   f.nome = await perguntar(io, 'nome', f.nome);
   f.categoria = await perguntarCategoria(io, lista, f.categoria);
-  f.unidade = await perguntar(io, 'unidade', f.unidade);
+
+  const unidadeAntes = f.unidade;
+  f.unidade = await perguntarUnidade(io, lista, f.unidade);
+  if (f.unidade !== unidadeAntes) {
+    console.log(c('amar', '\n  a unidade mudou de "' + unidadeAntes + '" para "' + f.unidade + '".'));
+    console.log(c('amar', '  reveja os macros abaixo: agora valem por ' + f.unidade + '.'));
+  }
+
   for (const campo of CAMPOS_NUM) f[campo] = await perguntarNumero(io, campo + ' por ' + f.unidade, f[campo]);
   f.detalhes = await perguntar(io, 'detalhes', f.detalhes);
 
@@ -256,8 +304,16 @@ function cmdCheck(lista) {
     }
   });
 
+  // unidades que so diferem por acento, caixa ou plural
+  const uns = unidades(lista).map(u => u.unidade);
+  uns.forEach((a, i) => uns.slice(i + 1).forEach(b => {
+    if (norm(a) === norm(b) || norm(a) + 's' === norm(b) || norm(a) === norm(b) + 's') {
+      problemas.push('unidades quase iguais: "' + a + '" e "' + b + '" — vale unificar');
+    }
+  }));
+
   const cats = categorias(lista);
-  console.log(lista.length + ' alimentos, ' + cats.length + ' categorias');
+  console.log(lista.length + ' alimentos, ' + cats.length + ' categorias, ' + uns.length + ' unidades');
   if (!problemas.length) return console.log(c('verde', 'nenhum problema encontrado.'));
   console.log(c('amar', '\n' + problemas.length + ' aviso(s):'));
   problemas.forEach(p => console.log('  ' + p));

@@ -12,8 +12,17 @@ sem dependências e sem build. Publicado pelo GitHub Pages em
 | `tabela_taco/*.json` | Tabela TACO 4ª edição (UNICAMP), somente leitura |
 
 Cada alimento tem `nome`, `categoria`, `unidade`, `cal`, `protein`, `carb`, `fats`
-e `detalhes`. **Os macros são por unidade**, não por 100 g: se a unidade é `gramas`,
-`cal` é a caloria de **um** grama.
+e `detalhes`.
+
+### A unidade
+
+`unidade` é o que você digita na tela ao montar o plano — a quantidade que faz
+sentido para aquele alimento. Ovo se conta em `ovos`, queijo em `fatias (25g)`,
+azeite em `colher de sopa`, carne em `gramas`.
+
+**Os macros são sempre por UMA unidade**, nunca por 100 g. Se a unidade é
+`gramas`, `cal` é a caloria de **um** grama; se é `colher de sopa`, é a de
+**uma** colher.
 
 ```json
 {
@@ -47,6 +56,15 @@ node tools/foods.js check            # procura erros na base
 A busca por nome ignora acentos e maiúsculas, e aceita pedaço do nome:
 `edit "tofu"` acha `Tofu Firme`.
 
+Ao perguntar a **categoria** e a **unidade**, o gerenciador lista as que já
+existem e aceita o número da opção — ou uma nova, digitada por extenso. Se a
+nova só difere por acento, caixa ou plural (`ovo` quando já existe `ovos`), ele
+reaproveita a existente. Foi assim que a base acabou com `grama`, `gramas`,
+`gram` e `grams` convivendo.
+
+Mudando a unidade de um alimento no `edit`, ele avisa para você revisar os
+macros — eles passam a valer por outra coisa.
+
 Acrescente `--push` para commitar e enviar ao GitHub de uma vez:
 
 ```bash
@@ -56,9 +74,9 @@ node tools/foods.js add --push
 Estando na `main`, o workflow em `.github/workflows/static.yml` republica o site
 em cerca de um minuto. Sem `--push`, o arquivo é só salvo localmente.
 
-`check` avisa sobre campos faltando, nomes repetidos, números inválidos e
-calorias que destoam dos macros (a conta `4P + 4C + 9G`) — útil depois de
-digitar um rótulo errado.
+`check` avisa sobre campos faltando, nomes repetidos, números inválidos,
+unidades quase iguais e calorias que destoam dos macros (a conta
+`4P + 4C + 9G`) — útil depois de digitar um rótulo errado.
 
 ## Arquivos
 
@@ -72,13 +90,18 @@ foods.json        base pessoal
 tabela_taco/      Tabela TACO (json + planilhas de origem)
 receitas/         receitas salvas (json)
 tools/foods.js    gerenciador da base pessoal
+tools/serve.js    servidor local para testar antes de publicar
 ```
 
 ## Rodando localmente
 
-A página busca os JSON via `fetch`, então precisa de um servidor HTTP —
-abrir o `index.html` direto do disco não funciona:
+A página busca os JSON via `fetch`, e o navegador bloqueia `fetch` em `file://` —
+então abrir o `index.html` direto do disco **não funciona**. Use o servidor
+que vem junto (só precisa de Node):
 
 ```bash
-npx serve .        # ou: python -m http.server
+node tools/serve.js          # http://localhost:8080
+node tools/serve.js 3000     # se a porta estiver ocupada
 ```
+
+Ele não guarda cache, então recarregar a página já mostra a última alteração.
