@@ -3,8 +3,9 @@
   <head>
     <base target="_top">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial=scale=1, shrik-to-fit=no">
- 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Relatório</title>
+
 <style type="text/css">
     table {
         border-top-style: dashed;
@@ -52,28 +53,41 @@
     
     
 </style>
-    
+
+<style type="text/css">
+    /* a barra de acoes nao sai na impressao */
+    @media print {
+        .no-print { display: none; }
+        body { border: none; box-shadow: none; margin: 0; }
+    }
+</style>
+
     </head>
-    
-<body id="print">
-    
 
+<body>
 
+<div class="no-print">
+    <input type="button" value="Imprimir" onclick="window.print()"/>
+</div>
 
-    
-  
-<input type="button" value="Get" onclick="get()"/>    
-</body>
+<div id="print"></div>
 
 <script>
-function get(){
-  document.getElementById("print").innerHTML = first;
-}
+//O relatorio e passado pela pagina principal via sessionStorage.
+(function(){
+    var conteudo = sessionStorage.getItem("relatorio");
+
+    if (conteudo === null){
+        document.getElementById("print").textContent =
+            "Nenhum relatório encontrado. Volte à página principal e clique em Print.";
+        return;
+    }
+
+    document.getElementById("print").innerHTML = conteudo;
+})();
 </script>
 
-
-
-    
+</body>
 </html>
     
 

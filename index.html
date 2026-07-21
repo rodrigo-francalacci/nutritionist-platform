@@ -3,10 +3,11 @@
   <head>
     <base target="_top">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial=scale=1, shrik-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Plataforma Nutricional</title>
     <script src="foodsData.js"></script>
     <script src="jquery-3.6.0.min.js"></script>
-    <script src=" loadTACO.js"></script>
+    <script src="loadTACO.js"></script>
     
     
    
@@ -239,7 +240,7 @@ textarea {
 }
 
 .file > input[type="file"] {
-  position: absoulte;
+  position: absolute;
   opacity: 0;
   top: 0;
   left: 0;
@@ -379,16 +380,15 @@ a:active {
     <nav>
             <!-- Trigger/Open The Modal -->   
         
-        <li class="details">
-            
-            <ul><button id="myBtn">Save Recipes</button></ul>
-            <ul><input type="button" value="Print" onclick="printRel()"/></ul>
-            <ul><p contenteditable="true" id="nome">Name</p>
-            <p contenteditable="true" id="dia">Notes</p></ul>
-           
+        <ul class="details">
 
-        </li>
-        
+            <li><button id="myBtn">Save Recipes</button></li>
+            <li><input type="button" value="Print" onclick="printRel()"/></li>
+            <li><p contenteditable="true" id="nome">Name</p>
+            <p contenteditable="true" id="dia">Notes</p></li>
+
+        </ul>
+
   </nav>
         
     
@@ -465,10 +465,10 @@ a:active {
     <div class="form-row" id="form-row-0" name="form-row-0">
        
         
-        <div class="col-alimentos" onchange="updateFood('-0')">
+        <div class="col-alimentos">
         <label>Alimento: </label><br>
-          <select name="alimentos" id="foods-0">
-             
+          <select name="alimentos" id="foods-0" onchange="updateFood('-0')">
+
           </select>
         </div>
         
@@ -517,7 +517,7 @@ a:active {
         
         <div class="col-grupo">
          <label>Receita</label><br>
-         <select name="grupo" id="grupo-0">
+         <select name="grupo" id="grupo-0" onchange="updateGrupo('-0')">
             <option value="--">--</option>
             <option value="R1">R1</option>
             <option value="R2">R2</option>
@@ -596,7 +596,7 @@ a:active {
         
         <div class="col-grupo">
          <label>Receita</label><br>
-         <select name="grupo" id="grupo-1">
+         <select name="grupo" id="grupo-1" onchange="updateGrupo('-1')">
             <option value="--">--</option>
             <option value="R1">R1</option>
             <option value="R2">R2</option>
@@ -621,10 +621,10 @@ a:active {
         
     <div class="form-row" id="form-row-2" name="form-row-2">
        
-        <div class="col-alimentos" onchange="updateFood('-2')">
+        <div class="col-alimentos">
         <label>Alimento: </label><br>
-          <select name="alimentos" id="foods-2">
-             
+          <select name="alimentos" id="foods-2" onchange="updateFood('-2')">
+
           </select>
         </div>
         
@@ -672,7 +672,7 @@ a:active {
         
         <div class="col-grupo">
          <label>Receita</label><br>
-         <select name="grupo" id="grupo-2">
+         <select name="grupo" id="grupo-2" onchange="updateGrupo('-2')">
             <option value="--">--</option>
             <option value="R1">R1</option>
             <option value="R2">R2</option>

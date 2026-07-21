@@ -1,34 +1,21 @@
 //----------------------------------------------------------//
 var data = [];    
 var sum = {};
-var newLine = {refeicao: "Manhã", nome:"Ovo", unidade: "ovos", qtd: "0",  cal:"0",  fats: "0",  carb:"0", protein:"0", detalhes: "Sem detalhes."};
 var actualGroup = [];
 var outPage = "";
+var rowTemplate = "";   //molde de uma linha vazia, capturado em initializePop()
     
 function uptadeRefeicao(rowID){
 var row = parseInt(rowID.replace("-",""));
 
     data[row].refeicao = document.getElementById('refeicao-'+row).value;
-    
-    switch(data[row].refeicao){
-           
-           case "Manhã":
-           document.getElementById('refeicao-'+row).style.backgroundColor = corTema[5];
-           break;
-           
-           case "Almoço":
-           document.getElementById('refeicao-'+row).style.backgroundColor = corTema[4];
-           break;
-            
-           case "Tarde":
-           document.getElementById('refeicao-'+row).style.backgroundColor = corTema[3];
-           break;
-            
-           case "Noite":
-           document.getElementById('refeicao-'+row).style.backgroundColor = corTema[2];
-           break;
-            
-           }
+    pintaRefeicao(row);
+}
+
+function updateGrupo(rowID){
+var row = parseInt(rowID.replace("-",""));
+
+    data[row].grupo = document.getElementById('grupo-'+row).value;
 }
     
 function updateFood(rowID){
@@ -143,21 +130,26 @@ function TACOgruposLoad(row){
 <option value="-Verduras e Hortaliças" style="background-color:var(--cor1); color:var(--cor4);">-Verduras e Hortaliças</option>'
     
     document.getElementById("foods-"+row).innerHTML = tacoOptions;
-    //document.getElementById("foods-"+row).value = "-Bebidas"
-    data[row].nome = "-Bebidas";
 
-    
 }
 
 function TACOgrupoLoad(row, groupData, groupName){
-    
+
 document.getElementById("file-"+row).style.display="none";
 document.getElementById("col-qtd-"+row).style.display="block";
-    
+
 TACOgruposLoad(row);
-    
+
+//os arquivos da tabela TACO sao carregados de forma assincrona,
+//entao o grupo pode ainda estar vazio quando o usuario seleciona
+if(!groupData || groupData.length == 0){
+    alert("A tabela TACO ainda nao terminou de carregar (ou falhou). Tente de novo em instantes.");
+    document.getElementById("foods-"+row).value = groupName;
+    return groupData || [];
+}
+
 groupData.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
-    
+
     for (let i = 0; i < groupData.length; i++){
             var option = document.createElement("option");
             option.value = groupData[i].nome;
@@ -165,97 +157,95 @@ groupData.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
             document.getElementById('foods-' + row).appendChild(option);
         }
 document.getElementById("foods-"+row).value = groupName;
+data[row].nome = groupName;
 return groupData;
 }
 
-function updateNormalList(row, rowFood){
-    
-          document.getElementById("file-"+row).style.display="none";
-          document.getElementById("col-qtd-"+row).style.display="block";
-     
-        //atualizar alimento no database
-        data[row].nome = rowFood;
-    
-        //encontrar e atualizar fatos deste alimento
-        var n = 0;
-        var q = 0;
-        while(rowFood != foods[n].nome){n=n+1;}
-        
-        
-        //atualiza a unidade
-        document.getElementById('uni-'+row).innerHTML = foods[n].unidade;
-        data[row].unidade = foods[n].unidade;
-        
-        //atualiza os detalhes
-        document.getElementById('detalhes-'+row).innerHTML = foods[n].detalhes;
-        data[row].detalhes = foods[n].detalhes;
-        
-        //atualiza a quantidade
-        data[row].qtd = document.getElementById('qtd-'+row).value;
-        q = data[row].qtd;
-        
-        //atualiza a quantidade de proteínas
-        document.getElementById('qtd-protein-'+row).innerHTML = rd(q*parseFloat(foods[n].protein));
-        data[row].protein = rd(q*parseFloat(foods[n].protein));
-    
-        //atualiza a quantidade de carboidratos
-        document.getElementById('qtd-carb-'+row).innerHTML = rd(q*parseFloat(foods[n].carb));
-        data[row].carb = rd(q*parseFloat(foods[n].carb));
-    
-        //atualiza a quantidade de gorduras
-        document.getElementById('qtd-fat-'+row).innerHTML = rd(q*parseFloat(foods[n].fats));
-        data[row].fats = rd(q*parseFloat(foods[n].fats));
-    
-        //atualiza a quantidade de calorias
-        document.getElementById('qtd-cal-'+row).innerHTML = rd(q*parseFloat(foods[n].cal));
-        data[row].cal = rd(q*parseFloat(foods[n].cal));
-    
-        sumFacts();  
+//procura um alimento pelo nome. Devolve null se nao existir,
+//em vez de estourar o fim da lista.
+function findByName(list, nome){
+
+    if(!list){return null;}
+
+    for(var i = 0; i < list.length; i++){
+        if(list[i] && list[i].nome == nome){return list[i];}
+    }
+    return null;
 }
-    
+
+//aceita tanto "1.5" quanto "1,5" e devolve 0 para entrada invalida
+function parseNum(value){
+
+    var n = parseFloat(String(value).replace(",", "."));
+    return isNaN(n) ? 0 : n;
+}
+
+function updateNormalList(row, rowFood){
+
+    aplicaAlimento(row, rowFood, findByName(foods, rowFood));
+}
+
 function updateWhenTacoList(row, rowFood){
-          
+
+    //se o alimento nao estiver no grupo TACO carregado, procura na lista principal
+    var item = findByName(actualGroup, rowFood) || findByName(foods, rowFood);
+    aplicaAlimento(row, rowFood, item);
+}
+
+function aplicaAlimento(row, rowFood, item){
+
           document.getElementById("file-"+row).style.display="none";
           document.getElementById("col-qtd-"+row).style.display="block";
-     
+
         //atualizar alimento no database
         data[row].nome = rowFood;
-    
-        //encontrar e atualizar fatos deste alimento
-        var n = 0;
-        var q = 0;
-        while(rowFood != actualGroup[n].nome){n=n+1;}
-        
-        
+
+        if(item == null){
+            //zera os macros para nao somar numeros antigos de outro alimento
+            console.warn('Alimento nao encontrado na base: "' + rowFood + '"');
+            data[row].detalhes = "Alimento não encontrado na base de dados.";
+            data[row].protein = 0;
+            data[row].carb = 0;
+            data[row].fats = 0;
+            data[row].cal = 0;
+            document.getElementById('detalhes-'+row).textContent = data[row].detalhes;
+            document.getElementById('qtd-protein-'+row).textContent = 0;
+            document.getElementById('qtd-carb-'+row).textContent = 0;
+            document.getElementById('qtd-fat-'+row).textContent = 0;
+            document.getElementById('qtd-cal-'+row).textContent = 0;
+            sumFacts();
+            return;
+        }
+
         //atualiza a unidade
-        document.getElementById('uni-'+row).innerHTML = actualGroup[n].unidade;
-        data[row].unidade = actualGroup[n].unidade;
-        
+        document.getElementById('uni-'+row).textContent = item.unidade;
+        data[row].unidade = item.unidade;
+
         //atualiza os detalhes
-        document.getElementById('detalhes-'+row).innerHTML = actualGroup[n].detalhes;
-        data[row].detalhes = actualGroup[n].detalhes;
-        
+        document.getElementById('detalhes-'+row).innerHTML = item.detalhes;
+        data[row].detalhes = item.detalhes;
+
         //atualiza a quantidade
         data[row].qtd = document.getElementById('qtd-'+row).value;
-        q = data[row].qtd;
-        
+        var q = parseNum(data[row].qtd);
+
         //atualiza a quantidade de proteínas
-        document.getElementById('qtd-protein-'+row).innerHTML = rd(q*parseFloat(actualGroup[n].protein));
-        data[row].protein = rd(q*parseFloat(actualGroup[n].protein));
-    
+        data[row].protein = rd(q*parseNum(item.protein));
+        document.getElementById('qtd-protein-'+row).textContent = data[row].protein;
+
         //atualiza a quantidade de carboidratos
-        document.getElementById('qtd-carb-'+row).innerHTML = rd(q*parseFloat(actualGroup[n].carb));
-        data[row].carb = rd(q*parseFloat(actualGroup[n].carb));
-    
+        data[row].carb = rd(q*parseNum(item.carb));
+        document.getElementById('qtd-carb-'+row).textContent = data[row].carb;
+
         //atualiza a quantidade de gorduras
-        document.getElementById('qtd-fat-'+row).innerHTML = rd(q*parseFloat(actualGroup[n].fats));
-        data[row].fats = rd(q*parseFloat(actualGroup[n].fats));
-    
+        data[row].fats = rd(q*parseNum(item.fats));
+        document.getElementById('qtd-fat-'+row).textContent = data[row].fats;
+
         //atualiza a quantidade de calorias
-        document.getElementById('qtd-cal-'+row).innerHTML = rd(q*parseFloat(actualGroup[n].cal));
-        data[row].cal = rd(q*parseFloat(actualGroup[n].cal));
-    
-        sumFacts();  
+        data[row].cal = rd(q*parseNum(item.cal));
+        document.getElementById('qtd-cal-'+row).textContent = data[row].cal;
+
+        sumFacts();
 }
     
 function sumFacts(){
@@ -289,57 +279,115 @@ function sumFacts(){
 }
     
 function addRow(rowID){
-   
-   //var thisRowID = "form-row"+rowID;
-   var row = parseInt(rowID.replace("-",""));  
-   var rows = listRows();
-   var lastRow = rows.length-1;
-   
-   //se sor a última linha
-   if (row == lastRow){
-   createLastRow(row+1);
-   sumFacts();
-   }
-    
-   //se for outra linha
-   if (row != lastRow){
-   createSpace(row+1);
-   createMidRow(row+1);
-   sumFacts()
-   }
-    
+
+   var row = parseInt(rowID.replace("-",""));
+   inserirLinha(row+1);
 }
 
 function delRow(rowID){
-   var row = parseInt(rowID.replace("-",""));   
-   if(row !=0){removeSpace(row);} 
+
+   var row = parseInt(rowID.replace("-",""));
+   removerLinha(row);
 }
 
-function createSpace(newRowLocation){
-    
-    var rows = listRows();
-    var lastRow = rows.length-1;
-    var i = lastRow;
-    var n=0;
-    
-    
-    while (i >= newRowLocation) {
-         var el = document.getElementById('form-row-'+i)
-         var rowCode = el.innerHTML;
-         var values = copyRowValues(i);
-         
-        
-         n = i+1;
-         //data[n]=data[i];
-         pasteInData(copyFromData(i),n);
-        
-         rowCode = rowCode.replaceAll("-"+i, "-"+n);
-         el.innerHTML = rowCode;
-         el.id = "form-row-" + n;
-         pasteRowValues(n, values);
-         i=i-1;
+//Renumera os atributos de uma linha (id, for, onchange, onclick).
+//Trabalha atributo por atributo, no elemento vivo. A versao antiga
+//fazia replaceAll sobre o innerHTML inteiro, o que corrompia
+//qualquer texto que contivesse hifen+numero (ex: "Ômega-3") e
+//destruia o estado dos selects.
+function renumeraLinha(el, oldRow, newRow){
+
+    el.id = "form-row-" + newRow;
+    el.setAttribute("name", "form-row-" + newRow);
+
+    //ancorado no fim: "-1" nao casa com "foods-10"
+    var idRe  = new RegExp("-" + oldRow + "$");
+    var argRe = new RegExp("'-" + oldRow + "'", "g");
+    var nodes = el.querySelectorAll("[id], [for], [onchange], [onclick]");
+
+    for (var i = 0; i < nodes.length; i++){
+        var node = nodes[i];
+
+        if (node.id){
+            node.id = node.id.replace(idRe, "-" + newRow);
+        }
+
+        var attrFor = node.getAttribute("for");
+        if (attrFor){
+            node.setAttribute("for", attrFor.replace(idRe, "-" + newRow));
+        }
+
+        var onchange = node.getAttribute("onchange");
+        if (onchange){
+            node.setAttribute("onchange", onchange.replace(argRe, "'-" + newRow + "'"));
+        }
+
+        var onclick = node.getAttribute("onclick");
+        if (onclick){
+            node.setAttribute("onclick", onclick.replace(argRe, "'-" + newRow + "'"));
+        }
     }
-    
+}
+
+function novaLinha(){
+
+    return {refeicao: "Manhã",
+            nome: "Ovo",
+            unidade: "ovos",
+            qtd: "0",
+            cal: "0",
+            fats: "0",
+            carb: "0",
+            protein: "0",
+            grupo: "--",
+            detalhes: "Sem detalhes."};
+}
+
+function inserirLinha(pos){
+
+    var total = listRows().length;
+    if(pos > total){ pos = total; }
+
+    //renumera de tras para frente, senao os ids colidem no meio do caminho
+    for (var i = total-1; i >= pos; i--){
+        renumeraLinha(document.getElementById('form-row-'+i), i, i+1);
+    }
+
+    var nova = document.createElement("div");
+    nova.className = "form-row";
+    nova.innerHTML = rowTemplate;
+    renumeraLinha(nova, 0, pos);
+
+    if (pos >= total){
+        document.getElementById('row-container').appendChild(nova);
+    } else {
+        //a linha que estava em pos agora se chama pos+1
+        document.getElementById('row-container').insertBefore(nova, document.getElementById('form-row-'+(pos+1)));
+    }
+
+    data.splice(pos, 0, novaLinha());
+    popFoods(pos);
+    popNewLine(pos);
+    sumFacts();
+}
+
+function removerLinha(pos){
+
+    var total = listRows().length;
+
+    //sempre manter pelo menos uma linha
+    if (total <= 1){ return; }
+
+    var el = document.getElementById('form-row-'+pos);
+    el.parentNode.removeChild(el);
+    data.splice(pos, 1);
+
+    //renumera de frente para tras
+    for (var i = pos+1; i < total; i++){
+        renumeraLinha(document.getElementById('form-row-'+i), i, i-1);
+    }
+
+    sumFacts();
 }
 
 function copyRowValues(row){
@@ -354,6 +402,7 @@ function copyRowValues(row){
                fats: document.getElementById('qtd-fat-'+row).innerHTML, 
                carb: document.getElementById('qtd-carb-'+row).innerHTML, 
                protein: document.getElementById('qtd-protein-'+row).innerHTML,
+               grupo: document.getElementById('grupo-'+row).value,
                detalhes: document.getElementById('detalhes-'+row).innerHTML
               };
 
@@ -372,9 +421,24 @@ function pasteRowValues(row, values){
         document.getElementById('qtd-carb-'+row).innerHTML = values.carb;
         document.getElementById('qtd-fat-'+row).innerHTML = values.fats;
         document.getElementById('qtd-cal-'+row).innerHTML = values.cal;
+        document.getElementById('grupo-'+row).value = values.grupo || "--";
         document.getElementById('detalhes-'+row).innerHTML = values.detalhes;
-    
 
+        //mantem a cor do seletor de refeicao em sincronia com o valor
+        pintaRefeicao(row);
+
+}
+
+function pintaRefeicao(row){
+
+    var el = document.getElementById('refeicao-'+row);
+
+    switch(el.value){
+           case "Manhã": el.style.backgroundColor = corTema[5]; break;
+           case "Almoço": el.style.backgroundColor = corTema[4]; break;
+           case "Tarde":  el.style.backgroundColor = corTema[3]; break;
+           case "Noite":  el.style.backgroundColor = corTema[2]; break;
+           }
 }
     
 function listRows(){
@@ -394,90 +458,17 @@ function listRows(){
   return rows;
 }
     
-function createMidRow(newRowLocation){
-    
-var referenceRow = newRowLocation-1;
-var referenceNode = document.getElementById('form-row-'+referenceRow);
-var rowCode = document.getElementById('form-row-0').innerHTML;
-    
-    rowCode = rowCode.replaceAll('-0', '-'+newRowLocation);
-    var newRow = document.createElement("div");
-    newRow.id = "form-row-" + newRowLocation;
-    newRow.className = "form-row";
-    newRow.innerHTML = rowCode;
-    insertAfter(newRow, referenceNode);
-    
-    //data[newRowLocation]=data[0];
-    pasteInData(newLine,newRowLocation);
-    popNewLine(newRowLocation);
-    
-}
-
-function insertAfter(newNode, referenceNode) {
-referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-   
-function createLastRow(row){
-    
-    var rowCode = document.getElementById('form-row-0').innerHTML;
-    rowCode = rowCode.replace(/-0/g, '-'+row);
-    var newRow = document.createElement("div");
-    newRow.id = "form-row-" + row;
-    newRow.className = "form-row";
-    newRow.innerHTML = rowCode;
-    document.getElementById('row-container').appendChild(newRow);
-    pasteInData(newLine, row);
-    popNewLine(row);
-    
-    //data[row]=data[0];
-}
-    
-function removeRow(row){
-    var delRow = document.getElementById('form-row-'+row);
-    delRow.remove();
-}
-    
-function removeSpace(removedRow){
-    
-    var rows = listRows();
-    var lastRow = rows.length-1;
-    var i = removedRow;
-    var n=0;
-    
-    
-   for(i=removedRow; i<lastRow; i++) {
-         n = i+1;
-         var el = document.getElementById('form-row-'+n)// copia o codigo do elemento da frente
-         var rowCode = el.innerHTML;
-         var values = copyRowValues(n); //copia os valores do elemento da frente
-         
-        
-         
-         //data[n]=data[i];
-         pasteInData(copyFromData(n),i); //cola o elemento da frente no elemento anterior no data Base
-        
-         rowCode = rowCode.replaceAll("-"+n, "-"+i); // substitui os Ids das tags do elemento da frente para o anterior
-         document.getElementById('form-row-'+i).innerHTML = rowCode;
-         //el.innerHTML = rowCode;
-         //el.id = "form-row-" + n;
-         pasteRowValues(i, values);
-        
-    }
-    removeRow(lastRow);
-    data.pop();
-    sumFacts();
-    
-}    
-
 function popNewLine(row){
-        document.getElementById('uni-'+row).innerHTML = "ovos";
-        document.getElementById('foods-'+row).value = "Ovo"
+        document.getElementById('uni-'+row).textContent = "ovos";
+        document.getElementById('foods-'+row).value = "Ovo";
         document.getElementById('qtd-'+row).value = 0;
-        document.getElementById('qtd-protein-'+row).innerHTML = 0;
-        document.getElementById('qtd-carb-'+row).innerHTML = 0;
-        document.getElementById('qtd-fat-'+row).innerHTML = 0;
-        document.getElementById('qtd-cal-'+row).innerHTML = 0;
-        document.getElementById('detalhes-'+row).innerHTML = "Sem detalhes."
+        document.getElementById('qtd-protein-'+row).textContent = 0;
+        document.getElementById('qtd-carb-'+row).textContent = 0;
+        document.getElementById('qtd-fat-'+row).textContent = 0;
+        document.getElementById('qtd-cal-'+row).textContent = 0;
+        document.getElementById('grupo-'+row).value = "--";
+        document.getElementById('detalhes-'+row).textContent = "Sem detalhes.";
+        pintaRefeicao(row);
 }
 
 function popFoods(row){
@@ -506,50 +497,57 @@ function popFoods(row){
 }
     
 function initializePop(){
-    
-  
 
-data[0] = {refeicao: "Manhã", 
-           nome:"Ovo", 
-           unidade: "ovos", 
-           qtd: "2", 
-           cal:"77", 
-           fats: "5.28", 
-           carb:"0.56", 
+//Guarda o molde de uma linha vazia ANTES de qualquer alteracao.
+//As linhas novas sao clonadas daqui, e nao da linha 0 em uso,
+//que a essa altura ja pode ter a lista TACO carregada dentro dela.
+rowTemplate = document.getElementById('form-row-0').innerHTML;
+
+data[0] = {refeicao: "Manhã",
+           nome:"Ovo",
+           unidade: "ovos",
+           qtd: "2",
+           cal:"77",
+           fats: "5.28",
+           carb:"0.56",
            protein:"6.26",
-           detalhes: "trala"};
+           grupo: "--",
+           detalhes: "Sem detalhes."};
 
-data[1] = {refeicao: "Manhã", 
-           nome:"Mozzarella", 
-           unidade: "grama", 
-           qtd: "1", 
-           cal:"3", 
-           fats: "0.22", 
-           carb:"0.02", 
+data[1] = {refeicao: "Manhã",
+           nome:"Mozzarella",
+           unidade: "gramas",
+           qtd: "1",
+           cal:"3",
+           fats: "0.22",
+           carb:"0.02",
            protein:"0.22",
-           detalhes: "trala"};
-    
-data[2] = {refeicao: "Manhã", 
+           grupo: "--",
+           detalhes: "Sem detalhes."};
+
+data[2] = {refeicao: "Manhã",
            nome:"Carne Moída",
-           unidade: "grama", 
-           qtd: "1", 
-           cal:"3", 
-           fats: "0.19", 
-           carb:"0", 
+           unidade: "gramas",
+           qtd: "1",
+           cal:"3",
+           fats: "0.19",
+           carb:"0",
            protein:"0.25",
-           detalhes: "trala"};
-    
+           grupo: "--",
+           detalhes: "Sem detalhes."};
+
+    var linhas = listRows().length;
     var n=0;
-    for (n = 0; n <=2; n++){
+
+    for (n = 0; n < linhas; n++){
         popFoods(n);
     }
-    
-    for (n = 0; n <=2; n++){
+
+    for (n = 0; n < linhas; n++){
         pasteRowValues(n, data[n]);
     }
-    
-    
-    
+
+    sumFacts();
 }
     
 function copyFromData(row){
@@ -564,6 +562,7 @@ function copyFromData(row){
     valuesCopied.fats = data[row].fats;
     valuesCopied.carb = data[row].carb;
     valuesCopied.protein = data[row].protein;
+    valuesCopied.grupo = data[row].grupo;
     valuesCopied.detalhes = data[row].detalhes;
 
         
@@ -573,17 +572,8 @@ function copyFromData(row){
     
 function pasteInData(values, DataRow){
 
-data[DataRow] = {refeicao: "Manhã", 
-           nome:"Ovo", 
-           unidade: "ovos", 
-           qtd: "2", 
-           cal:"77", 
-           fats: "5.28", 
-           carb:"0.56", 
-           protein:"6.26",
-           detalhes: "trala"};
-
 data[DataRow] = {
+    refeicao: values.refeicao || "Manhã",
     nome: values.nome,
     unidade: values.unidade,
     qtd: values.qtd,
@@ -591,10 +581,11 @@ data[DataRow] = {
     fats: values.fats,
     carb: values.carb,
     protein: values.protein,
+    grupo: values.grupo || "--",
     detalhes: values.detalhes
 };
 
-    
+
 }
     
 function pasteInFoods(values, DataFood){
@@ -634,10 +625,6 @@ function parseRd(strNum){
    return rd(parseFloat(strNum));
 }
     
-function replaceIDS(){
-///fazer esta função
-}
-       
 ///----------RECEITAS-----------------
     
 function loadIngredientes(){
@@ -677,7 +664,7 @@ function loadIngredientes(){
   document.getElementById("qtd-protein-receita").innerHTML = receita.protein;
   document.getElementById("qtd-carb-receita").innerHTML = receita.carb;
   document.getElementById("qtd-cal-receita").innerHTML = receita.cal;
-  document.getElementById("qtd-fat-receita").innerHTML = receita.protein;
+  document.getElementById("qtd-fat-receita").innerHTML = receita.fats;
     
   document.getElementById("saveStr").value = str;
 }    
@@ -814,16 +801,23 @@ go();
 }
     
 function go(){
-// (A) VARIABLES TO PASS
-var first = outPage;
-  
-// (B) OPEN NEW WINDOW
-// Just pass variables over to new window
+
+// Passa o relatorio por sessionStorage em vez de escrever numa variavel
+// da janela nova. A versao antiga dependia de newwin.onload disparar
+// depois do window.open, o que corria com o carregamento da pagina e
+// falhava de forma intermitente ("first is not defined").
+try {
+    sessionStorage.setItem("relatorio", outPage);
+} catch(e){
+    alert("Nao foi possivel preparar o relatorio: " + e.message);
+    return;
+}
+
 var newwin = window.open("relatorio.html");
-newwin.onload = function(){
-// "this" refers to newwin
-this.first = first;
-};
+
+if (!newwin){
+    alert("O navegador bloqueou a janela do relatorio. Libere pop-ups para este site.");
+}
 }
 
 function buildPrintHead(){

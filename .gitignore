@@ -1,0 +1,9 @@
+# Windows Explorer artifacts
+desktop.ini
+Thumbs.db
+
+# macOS
+.DS_Store
+
+# Node (para as ferramentas de linha de comando)
+node_modules/
