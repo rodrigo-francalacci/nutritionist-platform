@@ -1,7 +1,6 @@
 //----------------------------------------------------------//
 var data = [];    
 var sum = {};
-var actualGroup = [];
 var outPage = "";
 var rowTemplate = "";   //molde de uma linha vazia, capturado em initializePop()
     
@@ -18,147 +17,187 @@ var row = parseInt(rowID.replace("-",""));
     data[row].grupo = document.getElementById('grupo-'+row).value;
 }
     
+//O seletor de alimentos funciona como um menu com niveis. As entradas de
+//navegacao usam valores com prefixo "__" para nunca colidirem com o nome
+//de um alimento de verdade (antes, um alimento chamado "Voltar" ou
+//"Receita" quebraria a tela).
+var NAV = {
+    VOLTAR:     "__voltar",
+    RECEITA:    "__receita",
+    MINHA_BASE: "__minhabase",
+    TACO:       "__taco",
+    CAT:        "__cat:",    // categoria da base pessoal
+    GRUPO_TACO: "__taco:"    // grupo da tabela TACO
+};
+
 function updateFood(rowID){
-    
+
     var row = parseInt(rowID.replace("-",""));
-    //encontrar alimento alterado
-    var rowFood = document.getElementById('foods-'+row).value;   
+    var escolha = document.getElementById('foods-'+row).value;
 
-    switch(rowFood) {
-        
-          case "Voltar":
-            voltarListaNormal(row);
-            break;
-            
-          case "Receita":
-            document.getElementById("file-"+row).style.display="block";
-            document.getElementById("col-qtd-"+row).style.display="none";
-            break;
-            
-          case "Tabela TACO":
-            TACOgruposLoad(row);
-            //document.getElementById("foods-" + row).value = "Selecione uma categoria..."
-            break;
-            
-          case "-Bebidas":
-            actualGroup = TACOgrupoLoad(row,bebidas,"-Bebidas");
-            break;
-            
-          case "-Carnes e Derivados":
-            actualGroup = TACOgrupoLoad(row,carnes_e_derivados,"-Carnes e Derivados");
-            break;
-            
-          case "-Cereais e Derivados":
-            actualGroup = TACOgrupoLoad(row,cereais_e_derivados,"-Cereais e Derivados");
-            break;
-            
-          case "-Frutas e Derivados":
-            actualGroup = TACOgrupoLoad(row,frutas_e_derivados,"-Frutas e Derivados");
-            break;
-            
-          case "-Leguminosas e Derivados":
-            actualGroup = TACOgrupoLoad(row,leguminosas_e_derivados,"-Leguminosas e Derivados");
-            break;
-            
-          case "-Leite e Derivados":
-            actualGroup = TACOgrupoLoad(row,leite_e_derivados,"-Leite e Derivados");
-            break;
-            
-          case "-Nozes e Castanhas":
-            actualGroup = TACOgrupoLoad(row,nozes_castanhas_e_outros,"-Nozes e Castanhas");
-            break;
-            
-          case "-Óleos e Gorduras":
-            actualGroup = TACOgrupoLoad(row,oleos_e_gorduras,"-Óleos e Gorduras");
-            break;
-            
-          case "-Pescados e Frutos do Mar":
-            actualGroup = TACOgrupoLoad(row,pescados_e_frutos_do_mar,"-Pescados e Frutos do Mar");
-            break;
-          
-          case "-Produtos Açucarados":
-            actualGroup = TACOgrupoLoad(row,produtos_acucarados,"-Produtos Açucarados");
-            break;
-            
-          case "-Verduras e Hortaliças":
-            actualGroup = TACOgrupoLoad(row,verduras_hortalicas_e_derivados,"-Verduras e Hortaliças");
-            
-            break;
-            
-          default: //caso seja um alimento da lista principal
-              if(document.getElementById("foods-"+row).firstChild.value == "Voltar"){
+    if (escolha === NAV.VOLTAR){
+        mostrarMenuPrincipal(row);
+        return;
+    }
 
-                 updateWhenTacoList(row, rowFood) 
+    if (escolha === NAV.RECEITA){
+        document.getElementById("file-"+row).style.display="block";
+        document.getElementById("col-qtd-"+row).style.display="none";
+        return;
+    }
 
-              }else{
+    if (escolha === NAV.MINHA_BASE){
+        mostrarCategoriasPessoais(row);
+        return;
+    }
 
-                 updateNormalList(row, rowFood);   
+    if (escolha === NAV.TACO){
+        mostrarGruposTaco(row);
+        return;
+    }
 
-              };
-           
-               
-}// end switch
-     
-    
-    
+    if (escolha.indexOf(NAV.CAT) === 0){
+        mostrarCategoriaPessoal(row, escolha.slice(NAV.CAT.length));
+        return;
+    }
+
+    if (escolha.indexOf(NAV.GRUPO_TACO) === 0){
+        mostrarGrupoTaco(row, escolha.slice(NAV.GRUPO_TACO.length));
+        return;
+    }
+
+    //e um alimento: procura na lista que esta em uso NESTA linha
+    var select = document.getElementById('foods-'+row);
+    var item = findByName(select._lista, escolha) || findByName(foods, escolha);
+    aplicaAlimento(row, escolha, item);
 }
 
-function voltarListaNormal(row){
+//--- montagem das listas do seletor ---
 
-document.getElementById("foods-"+row).innerHTML = "";
-popFoods(row);
-    
+function opcaoNav(select, valor, texto, destaque){
+
+    var o = document.createElement("option");
+    o.value = valor;
+    o.text = texto;
+    if (destaque === "acao"){ o.style.color = "var(--cor8)"; }
+    if (destaque === "grupo"){
+        o.style.backgroundColor = "var(--cor1)";
+        o.style.color = "var(--cor4)";
+    }
+    select.appendChild(o);
+    return o;
 }
 
-function TACOgruposLoad(row){
-    
+function opcoesDeAlimentos(select, lista){
+
+    lista.slice()
+         .sort(function(a,b){ return String(a.nome).localeCompare(String(b.nome), "pt-BR"); })
+         .forEach(function(f){
+             var o = document.createElement("option");
+             o.value = f.nome;
+             o.text = f.nome;
+             select.appendChild(o);
+         });
+
+    //guarda a lista no proprio elemento: assim cada linha sabe de onde
+    //veio o seu alimento, mesmo depois de as linhas serem renumeradas
+    select._lista = lista;
+}
+
+function prepararSelect(row){
+
     document.getElementById("file-"+row).style.display="none";
     document.getElementById("col-qtd-"+row).style.display="block";
-    
-    var tacoOptions = '<option value="Voltar" style="color:var(--cor8);">Voltar</option>\
-                       <option value="Receita" style="color:var(--cor8);">Receita</option>\
-<option value="-Bebidas" style="background-color:var(--cor1); color:var(--cor4);">-Bebidas</option>\
-<option value="-Carnes e Derivados" style="background-color:var(--cor1); color:var(--cor4);">-Carnes e Derivados</option>\
-<option value="-Cereais e Derivados" style="background-color:var(--cor1); color:var(--cor4);">-Cereais e Derivados</option>\
-<option value="-Frutas e Derivados" style="background-color:var(--cor1); color:var(--cor4);">-Frutas e Derivados</option>\
-<option value="-Leguminosas e Derivados" style="background-color:var(--cor1); color:var(--cor4);">-Leguminosas e Derivados</option>\
-<option value="-Leite e Derivados" style="background-color:var(--cor1); color:var(--cor4);">-Leite e Derivados</option>\
-<option value="-Nozes e Castanhas" style="background-color:var(--cor1); color:var(--cor4);">-Nozes e Castanhas</option>\
-<option value="-Óleos e Gorduras" style="background-color:var(--cor1); color:var(--cor4);">-Óleos e Gorduras</option>\
-<option value="-Pescados e Frutos do Mar" style="background-color:var(--cor1); color:var(--cor4);">-Pescados e Frutos do Mar</option>\
-<option value="-Produtos Açucarados" style="background-color:var(--cor1); color:var(--cor4);">-Produtos Açucarados</option>\
-<option value="-Verduras e Hortaliças" style="background-color:var(--cor1); color:var(--cor4);">-Verduras e Hortaliças</option>'
-    
-    document.getElementById("foods-"+row).innerHTML = tacoOptions;
 
+    var select = document.getElementById('foods-'+row);
+    select.innerHTML = "";
+    return select;
 }
 
-function TACOgrupoLoad(row, groupData, groupName){
+// nivel 0: acoes + base pessoal inteira (lista plana, como antes)
+function mostrarMenuPrincipal(row){
 
-document.getElementById("file-"+row).style.display="none";
-document.getElementById("col-qtd-"+row).style.display="block";
+    var select = prepararSelect(row);
 
-TACOgruposLoad(row);
-
-//os arquivos da tabela TACO sao carregados de forma assincrona,
-//entao o grupo pode ainda estar vazio quando o usuario seleciona
-if(!groupData || groupData.length == 0){
-    alert("A tabela TACO ainda nao terminou de carregar (ou falhou). Tente de novo em instantes.");
-    document.getElementById("foods-"+row).value = groupName;
-    return groupData || [];
+    opcaoNav(select, NAV.RECEITA,    "Receita",              "acao");
+    opcaoNav(select, NAV.MINHA_BASE, "Minha base por categoria", "acao");
+    opcaoNav(select, NAV.TACO,       "Tabela TACO",          "acao");
+    opcoesDeAlimentos(select, foods);
 }
 
-groupData.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
+//cabecalho nao selecionavel, so para dizer onde o usuario esta
+function opcaoTitulo(select, texto){
 
-    for (let i = 0; i < groupData.length; i++){
-            var option = document.createElement("option");
-            option.value = groupData[i].nome;
-            option.text = groupData[i].nome;
-            document.getElementById('foods-' + row).appendChild(option);
-        }
-document.getElementById("foods-"+row).value = groupName;
-data[row].nome = groupName;
-return groupData;
+    var o = document.createElement("option");
+    o.text = texto;
+    o.disabled = true;
+    o.selected = true;
+    select.appendChild(o);
+}
+
+// nivel 1a: categorias da base pessoal
+function mostrarCategoriasPessoais(row){
+
+    var select = prepararSelect(row);
+
+    opcaoTitulo(select, "— escolha uma categoria —");
+    opcaoNav(select, NAV.VOLTAR, "Voltar", "acao");
+
+    categoriasPessoais().forEach(function(cat){
+        var qtd = alimentosDaCategoria(cat).length;
+        opcaoNav(select, NAV.CAT + cat, cat + " (" + qtd + ")", "grupo");
+    });
+
+    select._lista = [];
+    select.selectedIndex = 0;
+}
+
+// nivel 2a: alimentos de uma categoria da base pessoal
+function mostrarCategoriaPessoal(row, categoria){
+
+    var select = prepararSelect(row);
+
+    opcaoNav(select, NAV.VOLTAR,     "Voltar",                  "acao");
+    opcaoNav(select, NAV.MINHA_BASE, "« " + categoria,          "grupo");
+
+    opcoesDeAlimentos(select, alimentosDaCategoria(categoria));
+    select.value = NAV.MINHA_BASE;
+}
+
+// nivel 1b: grupos da tabela TACO
+function mostrarGruposTaco(row){
+
+    var select = prepararSelect(row);
+
+    opcaoTitulo(select, "— escolha um grupo da TACO —");
+    opcaoNav(select, NAV.VOLTAR, "Voltar", "acao");
+
+    Object.keys(TACO_ARQUIVOS)
+          .sort(function(a,b){ return a.localeCompare(b, "pt-BR"); })
+          .forEach(function(grupo){
+              opcaoNav(select, NAV.GRUPO_TACO + grupo, grupo, "grupo");
+          });
+
+    select._lista = [];
+    select.selectedIndex = 0;
+}
+
+// nivel 2b: alimentos de um grupo da TACO
+function mostrarGrupoTaco(row, grupo){
+
+    var select = prepararSelect(row);
+    var lista = tacoGrupos[grupo] || [];
+
+    opcaoNav(select, NAV.VOLTAR, "Voltar",      "acao");
+    opcaoNav(select, NAV.TACO,   "« " + grupo,  "grupo");
+
+    if (lista.length === 0){
+        console.error('Grupo TACO "' + grupo + '" vazio ou nao carregado.');
+        opcaoNav(select, NAV.TACO, "(nao foi possivel carregar este grupo)", "acao");
+    }
+
+    opcoesDeAlimentos(select, lista);
+    select.value = NAV.TACO;
 }
 
 //procura um alimento pelo nome. Devolve null se nao existir,
@@ -178,18 +217,6 @@ function parseNum(value){
 
     var n = parseFloat(String(value).replace(",", "."));
     return isNaN(n) ? 0 : n;
-}
-
-function updateNormalList(row, rowFood){
-
-    aplicaAlimento(row, rowFood, findByName(foods, rowFood));
-}
-
-function updateWhenTacoList(row, rowFood){
-
-    //se o alimento nao estiver no grupo TACO carregado, procura na lista principal
-    var item = findByName(actualGroup, rowFood) || findByName(foods, rowFood);
-    aplicaAlimento(row, rowFood, item);
 }
 
 function aplicaAlimento(row, rowFood, item){
@@ -472,28 +499,8 @@ function popNewLine(row){
 }
 
 function popFoods(row){
-    
-            var option = document.createElement("option");
-            option.value = "Receita";
-            option.text = "Receita";
-            option.style.color = "var(--cor8)";
-            document.getElementById('foods-' + row).appendChild(option);
-            
-            var option = document.createElement("option");
-            option.value = "Tabela TACO";
-            option.text = "Tabela TACO";
-            option.style.color = "var(--cor8)";
-            document.getElementById('foods-' + row).appendChild(option);
-    
-    
-    foods.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
-    
-    for (let i = 0; i < foods.length; i++){
-            var option = document.createElement("option");
-            option.value = foods[i].nome;
-            option.text = foods[i].nome;
-            document.getElementById('foods-' + row).appendChild(option);
-        }
+
+    mostrarMenuPrincipal(row);
 }
     
 function initializePop(){
@@ -848,4 +855,13 @@ function buildItem(alimento, descricao, protein, carb, fats, cal){
 }
 //----------------------------
     
-initializePop();
+//As bases agora vem de arquivos JSON, entao a tela so pode ser montada
+//depois que o carregamento terminar.
+carregarDados()
+    .then(initializePop)
+    .catch(function(erro){
+        console.error(erro);
+        document.getElementById('row-container').innerHTML =
+            '<p style="color:var(--cor8);">Não foi possível carregar a base de alimentos (foods.json): '
+            + erro.message + '</p>';
+    });

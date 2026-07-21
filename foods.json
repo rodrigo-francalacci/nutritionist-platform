@@ -1,0 +1,642 @@
+[
+  {
+    "nome": "Aldi - Cucina Bolognese Pasta Sauce",
+    "categoria": "Molhos e Temperos",
+    "unidade": "gramas",
+    "cal": 0.37,
+    "protein": 0.009,
+    "carb": 0.07,
+    "fats": 0.004,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Ashfields British 30 Day Matured Sirloin Steak 227g",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 1.35,
+    "protein": 0.24,
+    "carb": 0,
+    "fats": 0.045,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Beef Quarter Punders (Grilled)",
+    "categoria": "Carnes e Derivados",
+    "unidade": "hamburgueres (114g)",
+    "cal": 2.63,
+    "protein": 0.219,
+    "carb": 0.026,
+    "fats": 0.167,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Black Forest Fruits",
+    "categoria": "Frutas e Derivados",
+    "unidade": "gramas",
+    "cal": 0.49,
+    "protein": 0.008,
+    "carb": 0.101,
+    "fats": 0,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi British Baby Potatoes",
+    "categoria": "Verduras e Hortaliças",
+    "unidade": "gramas",
+    "cal": 0.7,
+    "protein": 0.018,
+    "carb": 0.15,
+    "fats": 0.005,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi British Petits Pois",
+    "categoria": "Leguminosas e Derivados",
+    "unidade": "gramas",
+    "cal": 0.85,
+    "protein": 0.061,
+    "carb": 0.084,
+    "fats": 0.014,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Chicken Breast Fillets (Raw)",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 1.06,
+    "protein": 0.24,
+    "carb": 0,
+    "fats": 0.011,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Emporium Dutch Cheese Emmental Slices",
+    "categoria": "Leite e Derivados",
+    "unidade": "fatias (25g)",
+    "cal": 92,
+    "protein": 6.75,
+    "carb": 0,
+    "fats": 7.25,
+    "detalhes": "From Aldi Emporium Dutch Cheese Emmental Slices 400g/16 Pack"
+  },
+  {
+    "nome": "Aldi Emporium Dutch Gouda Cheese Slices",
+    "categoria": "Leite e Derivados",
+    "unidade": "fatias (25g)",
+    "cal": 91,
+    "protein": 5.75,
+    "carb": 0,
+    "fats": 7.5,
+    "detalhes": "From Aldi Emporium Dutch Gouda Cheese Slices 400g/16 Pack"
+  },
+  {
+    "nome": "Aldi Emporium Mozzarella Slices",
+    "categoria": "Leite e Derivados",
+    "unidade": "fatias (25g)",
+    "cal": 73.25,
+    "protein": 6.25,
+    "carb": 0.65,
+    "fats": 5,
+    "detalhes": "From Aldi Emporium Mozzarella Slices 250g/10 Pack"
+  },
+  {
+    "nome": "Aldi Essentials (Raw Beef Mince 25% Fat)",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 2.86,
+    "protein": 0.177,
+    "carb": 0,
+    "fats": 0.238,
+    "detalhes": "Raw, always check proportionaly after cooking"
+  },
+  {
+    "nome": "Aldi Essentials Roasted Salted Cashews",
+    "categoria": "Nozes e Castanhas",
+    "unidade": "gramas",
+    "cal": 5.92,
+    "protein": 0.17,
+    "carb": 0.17,
+    "fats": 0.5,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Everyday Essentials Light Mozzarella 200g (125g Drained)",
+    "categoria": "Leite e Derivados",
+    "unidade": "unidades (125g)",
+    "cal": 196,
+    "protein": 23.75,
+    "carb": 1.25,
+    "fats": 10.6,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Everyday Essentials Mozzarella 200g (125g Drained)",
+    "categoria": "Leite e Derivados",
+    "unidade": "unidades (125g)",
+    "cal": 310,
+    "protein": 22.5,
+    "carb": 1.875,
+    "fats": 23.75,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Four Seasons Blueberries",
+    "categoria": "Frutas e Derivados",
+    "unidade": "gramas",
+    "cal": 0.45,
+    "protein": 0.009,
+    "carb": 0.091,
+    "fats": 0,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Mushrooms Closed Cup",
+    "categoria": "Verduras e Hortaliças",
+    "unidade": "gramas",
+    "cal": 0.16,
+    "protein": 0.018,
+    "carb": 0.004,
+    "fats": 0.005,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Smoked Mackeral Fillets",
+    "categoria": "Pescados e Frutos do Mar",
+    "unidade": "gramas",
+    "cal": 2.87,
+    "protein": 0.205,
+    "carb": 0.001,
+    "fats": 0.223,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aldi Summer Fruits",
+    "categoria": "Frutas e Derivados",
+    "unidade": "gramas",
+    "cal": 0.32,
+    "protein": 0.011,
+    "carb": 0.052,
+    "fats": 0,
+    "detalhes": ""
+  },
+  {
+    "nome": "Arroz Branco",
+    "categoria": "Cereais e Derivados",
+    "unidade": "colher de sopa",
+    "cal": 32,
+    "protein": 0.63,
+    "carb": 7.05,
+    "fats": 0.06,
+    "detalhes": ""
+  },
+  {
+    "nome": "Arroz Integral",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 1.11,
+    "protein": 0.0258,
+    "carb": 0.23,
+    "fats": 0.009,
+    "detalhes": "Como todo grão integral é recomendável deixar de molho no mínimo 12hs."
+  },
+  {
+    "nome": "Atum Enlatado (sem óleo)",
+    "categoria": "Pescados e Frutos do Mar",
+    "unidade": "gramas",
+    "cal": 1.35,
+    "protein": 0.28,
+    "carb": 0,
+    "fats": 0.03,
+    "detalhes": ""
+  },
+  {
+    "nome": "Aveia (Flocos Finos)",
+    "categoria": "Cereais e Derivados",
+    "unidade": "colher de sopa",
+    "cal": 3.87,
+    "protein": 0.1294,
+    "carb": 0.6328,
+    "fats": 0.0454,
+    "detalhes": "Rico e fibras, possui pouco carboidrato de impacto glicêmico."
+  },
+  {
+    "nome": "Avocado",
+    "categoria": "Frutas e Derivados",
+    "unidade": "gramas",
+    "cal": 1.71,
+    "protein": 0.018,
+    "carb": 0.018,
+    "fats": 0.174,
+    "detalhes": ""
+  },
+  {
+    "nome": "Azeite de Oliva",
+    "categoria": "Óleos e Gorduras",
+    "unidade": "colher de sopa",
+    "cal": 119,
+    "protein": 0,
+    "carb": 0,
+    "fats": 13.5,
+    "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada."
+  },
+  {
+    "nome": "Brócolis",
+    "categoria": "Verduras e Hortaliças",
+    "unidade": "gramas",
+    "cal": 0.22,
+    "protein": 0.0231,
+    "carb": 0.044,
+    "fats": 0.0012,
+    "detalhes": ""
+  },
+  {
+    "nome": "Carne Moída",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 3,
+    "protein": 0.25,
+    "carb": 0,
+    "fats": 0.19,
+    "detalhes": ""
+  },
+  {
+    "nome": "Cenoura",
+    "categoria": "Verduras e Hortaliças",
+    "unidade": "gramas",
+    "cal": 0.41,
+    "protein": 0.0093,
+    "carb": 0.0958,
+    "fats": 0.0024,
+    "detalhes": ""
+  },
+  {
+    "nome": "Co-op Polenta Maize Meal",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 0.68,
+    "protein": 0.019,
+    "carb": 0.152,
+    "fats": 0.019,
+    "detalhes": ""
+  },
+  {
+    "nome": "Colagem PuraVida",
+    "categoria": "Suplementos",
+    "unidade": "1/2 scoop",
+    "cal": 83,
+    "protein": 21,
+    "carb": 0,
+    "fats": 0,
+    "detalhes": ""
+  },
+  {
+    "nome": "Contrafilé",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 1,
+    "protein": 0.22,
+    "carb": 0,
+    "fats": 0.05,
+    "detalhes": ""
+  },
+  {
+    "nome": "Coração de Frango",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 2,
+    "protein": 0.26,
+    "carb": 0,
+    "fats": 0.08,
+    "detalhes": ""
+  },
+  {
+    "nome": "Couve-Flor",
+    "categoria": "Verduras e Hortaliças",
+    "unidade": "gramas",
+    "cal": 0.25,
+    "protein": 0.0198,
+    "carb": 0.053,
+    "fats": 0.001,
+    "detalhes": ""
+  },
+  {
+    "nome": "Double Cream",
+    "categoria": "Leite e Derivados",
+    "unidade": "ml",
+    "cal": 4.67,
+    "protein": 0.015,
+    "carb": 0.016,
+    "fats": 0.505,
+    "detalhes": ""
+  },
+  {
+    "nome": "Farinha de Amêndoas",
+    "categoria": "Nozes e Castanhas",
+    "unidade": "gramas",
+    "cal": 5.64,
+    "protein": 0.2074,
+    "carb": 0.0775,
+    "fats": 0.494,
+    "detalhes": "Rico e fibras, possui pouco carboidrato de impacto glicêmico."
+  },
+  {
+    "nome": "Feijão Carioca",
+    "categoria": "Leguminosas e Derivados",
+    "unidade": "gramas",
+    "cal": 0.76,
+    "protein": 0.05,
+    "carb": 0.14,
+    "fats": 0.0085,
+    "detalhes": "- É recomendável deixar de molho no mínimo 12hs em água morna com uma colher de sopa de vinagre.<br> - Alimento slow carb."
+  },
+  {
+    "nome": "Feijão Preto",
+    "categoria": "Leguminosas e Derivados",
+    "unidade": "gramas",
+    "cal": 1.32,
+    "protein": 0.09,
+    "carb": 0.24,
+    "fats": 0.01,
+    "detalhes": "É recomendável deixar de molho no mínimo 12hs em água morna com uma colher de sopa de vinagre."
+  },
+  {
+    "nome": "Filé de Frango",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 2,
+    "protein": 0.31,
+    "carb": 0,
+    "fats": 0.04,
+    "detalhes": ""
+  },
+  {
+    "nome": "Grahm's Jersey Gold Top Milk",
+    "categoria": "Leite e Derivados",
+    "unidade": "ml",
+    "cal": 0.74,
+    "protein": 0.036,
+    "carb": 0.044,
+    "fats": 0.048,
+    "detalhes": ""
+  },
+  {
+    "nome": "Iogurte Natural",
+    "categoria": "Leite e Derivados",
+    "unidade": "potes (230g)",
+    "cal": 143,
+    "protein": 11.92,
+    "carb": 15.98,
+    "fats": 3.52,
+    "detalhes": ""
+  },
+  {
+    "nome": "Lidl (16oz Thick Cut Rump Steak)",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 1.74,
+    "protein": 0.207,
+    "carb": 0,
+    "fats": 0.041,
+    "detalhes": ""
+  },
+  {
+    "nome": "Lidl Italian Olive Oil",
+    "categoria": "Óleos e Gorduras",
+    "unidade": "gramas",
+    "cal": 8.24,
+    "protein": 0,
+    "carb": 0,
+    "fats": 0.916,
+    "detalhes": ""
+  },
+  {
+    "nome": "Lidl Lasagne Sheets (Dry)",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 3.48,
+    "protein": 0.12,
+    "carb": 0.71,
+    "fats": 0.011,
+    "detalhes": ""
+  },
+  {
+    "nome": "Lidl Oak Smoked Ham",
+    "categoria": "Carnes e Derivados",
+    "unidade": "fatias (17g)",
+    "cal": 22,
+    "protein": 4.1,
+    "carb": 0.1,
+    "fats": 0.6,
+    "detalhes": ""
+  },
+  {
+    "nome": "Lidl Pork Chipolata Sausages",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 2.42,
+    "protein": 0.192,
+    "carb": 0.041,
+    "fats": 0.163,
+    "detalhes": ""
+  },
+  {
+    "nome": "M&S Beef Stock",
+    "categoria": "Molhos e Temperos",
+    "unidade": "gramas",
+    "cal": 0.3,
+    "protein": 0.051,
+    "carb": 0.002,
+    "fats": 0.009,
+    "detalhes": ""
+  },
+  {
+    "nome": "M&S Greek Yogurt 10% Fat",
+    "categoria": "Leite e Derivados",
+    "unidade": "gramas",
+    "cal": 1.34,
+    "protein": 0.064,
+    "carb": 0.042,
+    "fats": 0.101,
+    "detalhes": ""
+  },
+  {
+    "nome": "M&S High Protein Yogurt",
+    "categoria": "Leite e Derivados",
+    "unidade": "potes (200g)",
+    "cal": 154,
+    "protein": 15,
+    "carb": 11,
+    "fats": 1.2,
+    "detalhes": ""
+  },
+  {
+    "nome": "Maminha",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 2,
+    "protein": 0.22,
+    "carb": 0.02,
+    "fats": 0.07,
+    "detalhes": ""
+  },
+  {
+    "nome": "Manteiga",
+    "categoria": "Óleos e Gorduras",
+    "unidade": "colher de sopa",
+    "cal": 102,
+    "protein": 0.12,
+    "carb": 0.01,
+    "fats": 11.52,
+    "detalhes": "Rico em vitamina A e butirato, uma gordura benéfica para os intestinos"
+  },
+  {
+    "nome": "MCT C8 Organic",
+    "categoria": "Óleos e Gorduras",
+    "unidade": "gramas",
+    "cal": 8.4,
+    "protein": 0,
+    "carb": 0,
+    "fats": 1,
+    "detalhes": ""
+  },
+  {
+    "nome": "Mozzarella",
+    "categoria": "Leite e Derivados",
+    "unidade": "gramas",
+    "cal": 3,
+    "protein": 0.22,
+    "carb": 0.02,
+    "fats": 0.22,
+    "detalhes": ""
+  },
+  {
+    "nome": "Ovo",
+    "categoria": "Ovos e Derivados",
+    "unidade": "ovos",
+    "cal": 77,
+    "protein": 6.26,
+    "carb": 0.56,
+    "fats": 5.28,
+    "detalhes": ""
+  },
+  {
+    "nome": "Peak Supps Whey Protein Concentrate 80% - Grass Fed",
+    "categoria": "Suplementos",
+    "unidade": "gramas",
+    "cal": 3.98,
+    "protein": 0.791,
+    "carb": 0.03,
+    "fats": 0.078,
+    "detalhes": ""
+  },
+  {
+    "nome": "Pipoca",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 3.87,
+    "protein": 0.1294,
+    "carb": 0.6328,
+    "fats": 0.0454,
+    "detalhes": "Rico e fibras, possui pouco carboidrato de impacto glicêmico."
+  },
+  {
+    "nome": "Salmão",
+    "categoria": "Pescados e Frutos do Mar",
+    "unidade": "gramas",
+    "cal": 1.46,
+    "protein": 0.2162,
+    "carb": 0,
+    "fats": 0.0593,
+    "detalhes": ""
+  },
+  {
+    "nome": "Sardinha Enlatada",
+    "categoria": "Pescados e Frutos do Mar",
+    "unidade": "gramas",
+    "cal": 1.9,
+    "protein": 0.23,
+    "carb": 0,
+    "fats": 0.11,
+    "detalhes": ""
+  },
+  {
+    "nome": "TCM de coco",
+    "categoria": "Óleos e Gorduras",
+    "unidade": "colher de sopa",
+    "cal": 135,
+    "protein": 0,
+    "carb": 0,
+    "fats": 15,
+    "detalhes": "Fácil assimilação, rápida absorção e imediata utilização como fonte de energia cetogênica. Fornece energia sem aumentar a insulina e portanto ajudando a perda de peso"
+  },
+  {
+    "nome": "Tesco Beef Steak Mince 5% Fat",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 1.24,
+    "protein": 0.208,
+    "carb": 0,
+    "fats": 0.045,
+    "detalhes": ""
+  },
+  {
+    "nome": "Tesco Cheese Mozzarella Slice",
+    "categoria": "Leite e Derivados",
+    "unidade": "fatias (25g)",
+    "cal": 74,
+    "protein": 6.4,
+    "carb": 0,
+    "fats": 5.3,
+    "detalhes": ""
+  },
+  {
+    "nome": "Tesco Cheese Red Leicester",
+    "categoria": "Leite e Derivados",
+    "unidade": "fatias (25g)",
+    "cal": 101,
+    "protein": 6.3,
+    "carb": 0,
+    "fats": 8.4,
+    "detalhes": ""
+  },
+  {
+    "nome": "Tesco Finest - Scottish Porridge Oats",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 3.68,
+    "protein": 0.103,
+    "carb": 0.619,
+    "fats": 0.07,
+    "detalhes": ""
+  },
+  {
+    "nome": "Tesco Oatgran",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 3.64,
+    "protein": 0.157,
+    "carb": 0.524,
+    "fats": 0.075,
+    "detalhes": ""
+  },
+  {
+    "nome": "Tesco Whole Earth Drizzler Peanut Butter",
+    "categoria": "Nozes e Castanhas",
+    "unidade": "gramas",
+    "cal": 5.96,
+    "protein": 0.296,
+    "carb": 0.116,
+    "fats": 0.46,
+    "detalhes": ""
+  },
+  {
+    "nome": "Whey PuraVida",
+    "categoria": "Suplementos",
+    "unidade": "1/2 scoop",
+    "cal": 81,
+    "protein": 16.6,
+    "carb": 1.33,
+    "fats": 1.46,
+    "detalhes": ""
+  }
+]
