@@ -370,6 +370,16 @@
     "detalhes": ""
   },
   {
+    "nome": "Farelo de aveia (oat bran)",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 2.46,
+    "protein": 0.173,
+    "carb": 0.662,
+    "fats": 0.0703,
+    "detalhes": "Valores de referência (USDA), farelo de aveia cru."
+  },
+  {
     "nome": "Farinha de Amêndoas",
     "categoria": "Nozes e Castanhas",
     "unidade": "gramas",
