@@ -13,6 +13,11 @@ const path = require('path');
 const readline = require('readline');
 const { spawnSync } = require('child_process');
 
+// A base de alimentos roda DENTRO deste processo, compartilhando o mesmo
+// leitor de teclado. Antes cada comando abria um processo filho e o stdin
+// era passado adiante — no Windows isso travava depois da 1a pergunta.
+const foods = require('./foods.js');
+
 const REPO = path.resolve(__dirname, '..');
 
 const cores = { reset:'\x1b[0m', neg:'\x1b[1m', fraco:'\x1b[2m', verm:'\x1b[31m', verde:'\x1b[32m', amar:'\x1b[33m', ciano:'\x1b[36m' };
@@ -23,9 +28,9 @@ const c = (cor, t) => cores[cor] + t + cores.reset;
 // muta: altera arquivos (mostra o lembrete de publicar) | grupo/desc: para o menu
 
 const COMANDOS = {
-  add:      { grupo: 'BASE DE ALIMENTOS', uso: 'add',            desc: 'adiciona um alimento',            tool: 'foods',    args: ['add'],        muta: true, interativo: true },
-  edit:     { grupo: 'BASE DE ALIMENTOS', uso: 'edit <nome>',    desc: 'edita um alimento',               tool: 'foods',    args: ['edit'],       muta: true, interativo: true, precisaArg: 'o nome do alimento' },
-  rm:       { grupo: 'BASE DE ALIMENTOS', uso: 'rm <nome>',      desc: 'remove um alimento',              tool: 'foods',    args: ['rm'],         muta: true, interativo: true, precisaArg: 'o nome do alimento' },
+  add:      { grupo: 'BASE DE ALIMENTOS', uso: 'add',            desc: 'adiciona um alimento',            tool: 'foods',    args: ['add'],        muta: true },
+  edit:     { grupo: 'BASE DE ALIMENTOS', uso: 'edit <nome>',    desc: 'edita um alimento',               tool: 'foods',    args: ['edit'],       muta: true, precisaArg: 'o nome do alimento' },
+  rm:       { grupo: 'BASE DE ALIMENTOS', uso: 'rm <nome>',      desc: 'remove um alimento',              tool: 'foods',    args: ['rm'],         muta: true, precisaArg: 'o nome do alimento' },
   list:     { grupo: 'BASE DE ALIMENTOS', uso: 'list [termo]',   desc: 'lista os alimentos (filtra)',     tool: 'foods',    args: ['list'] },
   cats:     { grupo: 'BASE DE ALIMENTOS', uso: 'cats',           desc: 'mostra as categorias',            tool: 'foods',    args: ['categorias'] },
   check:    { grupo: 'BASE DE ALIMENTOS', uso: 'check',          desc: 'procura erros na base',           tool: 'foods',    args: ['check'] },
@@ -75,13 +80,12 @@ function banner(){
 
 // ---------- execução ----------
 
-// Comandos que fazem perguntas (add/edit/rm) recebem o terminal (stdin
-// 'inherit'). Os demais nao leem stdin, entao usam 'ignore' — assim o
-// leitor do menu continua dono da entrada.
-function rodarTool(tool, args, interativo){
+// Usado só para o sessions.js, que não faz perguntas: roda como processo
+// filho com stdin ignorado, então o leitor do menu continua dono da entrada.
+function rodarTool(tool, args){
   var r = spawnSync(process.execPath, [path.join(REPO, 'tools', tool + '.js')].concat(args), {
     cwd: REPO,
-    stdio: [ interativo ? 'inherit' : 'ignore', 'inherit', 'inherit' ],
+    stdio: ['ignore', 'inherit', 'inherit'],
     env: Object.assign({}, process.env, { NUTRI_CONSOLE: '1' }),
   });
   return r.status === 0;
@@ -111,7 +115,10 @@ function publicar(){
 }
 
 // Executa um comando. Devolve false só para "exit".
-function executar(cmd, arg){
+// `io` (o leitor do menu) é passado adiante para a base de alimentos, que
+// roda dentro deste processo. No modo de um comando só, `io` vem indefinido
+// e a própria base abre e fecha o seu leitor.
+async function executar(cmd, arg, io){
   cmd = (cmd || '').toLowerCase();
   cmd = APELIDOS[cmd] || cmd;
 
@@ -139,9 +146,16 @@ function executar(cmd, arg){
   var argsFinais = def.args.slice();
   if (arg) argsFinais.push(arg);
 
-  var ok = rodarTool(def.tool, argsFinais, def.interativo);
+  var mutou = false;
+  if (def.tool === 'foods'){
+    var alterou = await foods.main(argsFinais, io);   // no mesmo processo, mesmo teclado
+    mutou = !!alterou;
+  } else {
+    var ok = rodarTool(def.tool, argsFinais);         // sessions.js, não-interativo
+    mutou = def.muta && ok;
+  }
 
-  if (def.muta && ok){
+  if (mutou){
     console.log(c('fraco', '\n  alterações salvas localmente — digite ') + c('ciano', 'publish') + c('fraco', ' para enviar ao site.'));
   }
   return true;
@@ -185,25 +199,17 @@ async function menu(){
     if (!linha) continue;
 
     var partes = linha.split(/\s+/);
-    var cmd = (partes[0] || '').toLowerCase();
-    cmd = APELIDOS[cmd] || cmd;
+    var cmd = partes[0];
     var arg = partes.slice(1).join(' ');
 
-    var def = COMANDOS[cmd];
-    if (def && def.especial === 'exit') break;
+    var continuar = true;
+    try { continuar = await executar(cmd, arg, io); }   // um só leitor, sem troca de stdin
+    catch (e){ console.log(c('verm', 'erro: ' + e.message)); }
 
-    try {
-      if (def && def.interativo){
-        // entrega o terminal ao comando que faz perguntas, depois reabre o leitor
-        io.close();
-        executar(cmd, arg);
-        io = criarLeitor();
-      } else {
-        executar(cmd, arg);
-      }
-    } catch (e){ console.log(c('verm', 'erro: ' + e.message)); }
+    if (continuar === false) break;
   }
 
+  io.close();
   console.log(c('fraco', '\naté logo!\n'));
 }
 
@@ -211,8 +217,10 @@ async function menu(){
 
 var argv = process.argv.slice(2);
 if (argv.length){
-  // modo de um comando só (avançado / testes)
-  executar(argv[0], argv.slice(1).join(' '));
+  // modo de um comando só (avançado / testes) — sem io: a base abre o seu
+  executar(argv[0], argv.slice(1).join(' '))
+    .then(function(){ process.exit(0); })
+    .catch(function(e){ console.error(c('verm', e.message)); process.exit(1); });
 } else {
   menu();
 }

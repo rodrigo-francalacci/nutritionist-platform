@@ -130,8 +130,7 @@ async function perguntarNumero(io, texto, padrao) {
     if (!isNaN(n) && n >= 0) return n;
     console.log(c('verm', '  precisa ser um número >= 0'));
   }
-  console.error(c('verm', 'entrada inválida demais; abortando.'));
-  process.exit(1);
+  throw new Error('entrada inválida demais; operação cancelada.');
 }
 
 async function perguntarCategoria(io, lista, padrao) {
@@ -209,14 +208,13 @@ function cmdCategorias(lista) {
   });
 }
 
-async function cmdAdd(lista) {
-  const io = rl();
+async function cmdAdd(lista, io) {
   console.log(c('neg', '\nNovo alimento') + c('fraco', '  (os macros são POR UNIDADE)\n'));
 
   const nome = await perguntar(io, 'nome');
-  if (!nome) { console.log(c('verm', 'nome é obrigatório.')); io.close(); return null; }
+  if (!nome) { console.log(c('verm', 'nome é obrigatório.')); return null; }
   if (achar(lista, nome) !== -1 && lista.some(f => f.nome === nome)) {
-    console.log(c('verm', 'já existe um alimento com esse nome.')); io.close(); return null;
+    console.log(c('verm', 'já existe um alimento com esse nome.')); return null;
   }
 
   const novo = { nome };
@@ -229,18 +227,16 @@ async function cmdAdd(lista) {
   novo.fats = await perguntarNumero(io, 'gordura (g) por ' + novo.unidade);
   novo.detalhes = await perguntar(io, 'detalhes', '');
 
-  io.close();
   lista.push(novo);
   console.log(c('verde', '\n+ ' + novo.nome) + c('fraco', '  (' + novo.categoria + ')'));
   return novo.nome;
 }
 
-async function cmdEdit(lista, nome) {
+async function cmdEdit(lista, io, nome) {
   const i = achar(lista, nome);
   if (i === -1) { console.log(c('verm', 'não encontrei "' + nome + '".')); return null; }
 
   const f = lista[i];
-  const io = rl();
   console.log(c('neg', '\nEditando ' + f.nome) + c('fraco', '  (Enter mantém o valor)\n'));
 
   f.nome = await perguntar(io, 'nome', f.nome);
@@ -256,20 +252,17 @@ async function cmdEdit(lista, nome) {
   for (const campo of CAMPOS_NUM) f[campo] = await perguntarNumero(io, campo + ' por ' + f.unidade, f[campo]);
   f.detalhes = await perguntar(io, 'detalhes', f.detalhes);
 
-  io.close();
   console.log(c('verde', '\n~ ' + f.nome));
   return f.nome;
 }
 
-async function cmdRm(lista, nome) {
+async function cmdRm(lista, io, nome) {
   const i = achar(lista, nome);
   if (i === -1) { console.log(c('verm', 'não encontrei "' + nome + '".')); return null; }
 
   const f = lista[i];
-  const io = rl();
   console.log('\n' + c('neg', f.nome) + c('fraco', '  ' + f.categoria + ' | ' + f.cal + ' cal por ' + f.unidade));
   const ok = await perguntar(io, c('amar', 'remover? (s/N)'), 'n');
-  io.close();
 
   if (ok.toLowerCase() !== 's') { console.log('cancelado.'); return null; }
 
@@ -363,28 +356,39 @@ ${c('neg', 'Base pessoal de alimentos')}
   --push    commita e envia ao GitHub depois de alterar
 `;
 
-(async function main() {
-  const args = process.argv.slice(2);
-  const push = args.includes('--push');
-  const resto = args.filter(a => a !== '--push');
+// Roda um comando. Se `ioExterno` for passado (pelo gerenciador), usa aquele
+// leitor e NAO o fecha — assim tudo compartilha uma unica readline e nao ha
+// troca de stdin entre processos (que travava no Windows). Sozinho, cria e
+// fecha o proprio leitor apenas quando o comando faz perguntas.
+async function main(argv, ioExterno) {
+  argv = argv || process.argv.slice(2);
+  const push = argv.includes('--push');
+  const resto = argv.filter(a => a !== '--push');
   const cmd = resto[0];
   const arg = resto.slice(1).join(' ');
 
   const lista = carregar();
   let alterou = null;
 
-  switch (cmd) {
-    case 'list': case 'ls': cmdList(lista, arg); break;
-    case 'categorias': case 'cats': cmdCategorias(lista); break;
-    case 'check': cmdCheck(lista); break;
-    case 'add': alterou = await cmdAdd(lista); break;
-    case 'edit':
-      if (!arg) { console.log(c('verm', 'informe o nome: edit "<nome>"')); process.exit(1); }
-      alterou = await cmdEdit(lista, arg); break;
-    case 'rm': case 'remove':
-      if (!arg) { console.log(c('verm', 'informe o nome: rm "<nome>"')); process.exit(1); }
-      alterou = await cmdRm(lista, arg); break;
-    default: console.log(AJUDA);
+  const interativo = ['add', 'edit', 'rm', 'remove'].includes(cmd);
+  const io = ioExterno || (interativo ? rl() : null);
+
+  try {
+    switch (cmd) {
+      case 'list': case 'ls': cmdList(lista, arg); break;
+      case 'categorias': case 'cats': cmdCategorias(lista); break;
+      case 'check': cmdCheck(lista); break;
+      case 'add': alterou = await cmdAdd(lista, io); break;
+      case 'edit':
+        if (!arg) { console.log(c('verm', 'informe o nome: edit "<nome>"')); break; }
+        alterou = await cmdEdit(lista, io, arg); break;
+      case 'rm': case 'remove':
+        if (!arg) { console.log(c('verm', 'informe o nome: rm "<nome>"')); break; }
+        alterou = await cmdRm(lista, io, arg); break;
+      default: console.log(AJUDA);
+    }
+  } finally {
+    if (io && !ioExterno) io.close();   // só fecha o leitor que este main criou
   }
 
   if (alterou) {
@@ -393,4 +397,13 @@ ${c('neg', 'Base pessoal de alimentos')}
     if (push) publicar('Base de alimentos: ' + cmd + ' "' + alterou + '"');
     else if (!process.env.NUTRI_CONSOLE) console.log(c('fraco', 'use --push para publicar no GitHub.'));
   }
-})();
+
+  return alterou;
+}
+
+module.exports = { main };
+
+// roda como programa autonomo (node tools/foods.js ...)
+if (require.main === module) {
+  main().catch(e => { console.error(c('verm', e.message)); process.exit(1); });
+}
