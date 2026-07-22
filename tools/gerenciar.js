@@ -95,20 +95,32 @@ function git(args, mostrar){
   return spawnSync('git', args, { cwd: REPO, stdio: mostrar ? 'inherit' : 'pipe', encoding: 'utf8' });
 }
 
+function branchAtual(){
+  return (git(['rev-parse', '--abbrev-ref', 'HEAD']).stdout || 'main').trim();
+}
+
 function publicar(){
+  // O site publica SÓ a partir da main. Fora dela, não publica — assim a
+  // alteração não vai parar numa branch que não atualiza o site (e o usuário
+  // não fica achando que publicou).
+  var branch = branchAtual();
+  if (branch !== 'main'){
+    console.log(c('verm', '\n  Você está na branch "' + branch + '", não na main.'));
+    console.log(c('verm', '  O site publica só a partir da main, então NÃO publiquei.'));
+    console.log(c('fraco', '  Suas alterações estão salvas no arquivo; peça ajuda para voltar à main.'));
+    return;
+  }
+
   git(['add', 'foods.json', 'estados', 'receitas']);
   var st = git(['status', '--porcelain', 'foods.json', 'estados', 'receitas']);
   if (!st.stdout || !st.stdout.trim()){ console.log(c('fraco', 'nada para publicar.')); return; }
 
-  var branch = (git(['rev-parse', '--abbrev-ref', 'HEAD']).stdout || 'main').trim();
-
   var commit = git(['commit', '-m', 'Atualiza base/sessoes pelo gerenciador'], true);
   if (commit.status !== 0){ console.log(c('verm', 'falha ao criar o commit.')); return; }
 
-  var push = git(['push', 'origin', branch], true);
+  var push = git(['push', 'origin', 'main'], true);
   if (push.status === 0){
-    console.log(c('verde', 'enviado ao GitHub.') + c('fraco', ' O site republica em ~1 min.'));
-    if (branch !== 'main') console.log(c('amar', 'você está em "' + branch + '" — o site publica a partir de main.'));
+    console.log(c('verde', '\n  enviado ao GitHub.') + c('fraco', ' O site republica em ~1 min.'));
   } else {
     console.log(c('verm', 'falha no push (confira sua conexão / login do git).'));
   }
@@ -189,6 +201,12 @@ function criarLeitor(){
 
 async function menu(){
   banner();
+
+  // aviso logo de cara se o usuário não estiver na main (o site só publica dela)
+  if (branchAtual() !== 'main'){
+    console.log(c('verm', '  ⚠  você não está na branch main — o site publica só da main.'));
+  }
+
   var io = criarLeitor();
 
   for (;;){
