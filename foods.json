@@ -270,6 +270,16 @@
     "detalhes": ""
   },
   {
+    "nome": "Cherries",
+    "categoria": "Frutas e Derivados",
+    "unidade": "gramas",
+    "cal": 0.71,
+    "protein": 0.013,
+    "carb": 0.146,
+    "fats": 0,
+    "detalhes": ""
+  },
+  {
     "nome": "Co-op Polenta Maize Meal",
     "categoria": "Cereais e Derivados",
     "unidade": "gramas",
