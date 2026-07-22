@@ -360,6 +360,16 @@
     "detalhes": ""
   },
   {
+    "nome": "FAGE Greek Yoghurt (5%)",
+    "categoria": "Leite e Derivados",
+    "unidade": "gramas",
+    "cal": 0.93,
+    "protein": 0.09,
+    "carb": 0.03,
+    "fats": 0.05,
+    "detalhes": ""
+  },
+  {
     "nome": "Farinha de Amêndoas",
     "categoria": "Nozes e Castanhas",
     "unidade": "gramas",
