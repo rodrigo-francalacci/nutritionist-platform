@@ -40,21 +40,46 @@ azeite em `colher de sopa`, carne em `gramas`.
 As duas bases usam o mesmo vocabulário de categorias, então o seletor de alimentos
 navega igual nas duas: **Minha base por categoria** ou **Tabela TACO** → categoria → alimento.
 
-## Editando a base pessoal
+## Gerenciando pela linha de comando
 
-Não edite `foods.json` na mão — use o gerenciador (só precisa de Node, sem `npm install`):
+A forma mais fácil: **dois cliques no `Gerenciar.bat`**. Ele abre um menu com
+comandos curtos e lista tudo ao iniciar (só precisa do Node instalado, sem
+`npm install`):
 
-```bash
-node tools/foods.js list [termo]     # lista, filtrando por nome ou categoria
-node tools/foods.js categorias       # categorias e quantos alimentos tem cada
-node tools/foods.js add              # acrescenta (pergunta campo a campo)
-node tools/foods.js edit "<nome>"    # edita (Enter mantém o valor atual)
-node tools/foods.js rm "<nome>"      # remove (pede confirmação)
-node tools/foods.js check            # procura erros na base
+```
+BASE DE ALIMENTOS
+  add                 adiciona um alimento
+  edit <nome>         edita um alimento
+  rm <nome>           remove um alimento
+  list [termo]        lista os alimentos (filtra)
+  cats                mostra as categorias
+  check               procura erros na base
+
+SESSÕES
+  pub <arquivo>       publica um estado/receita baixado
+  unpub <nome>        remove um estado/receita
+  sessions            lista estados e receitas
+  reindex             reconstrói os índices
+
+GITHUB
+  publish             envia tudo ao site (commit + push)
+  pull                baixa as últimas alterações
+
+  help                mostra esta lista
+  exit                sair
 ```
 
+No menu você digita só `add`, `edit Ovo`, `list frango`, `publish` e por aí vai.
+Para `pub`, pode **arrastar o arquivo** `.json` para dentro da janela — o caminho
+aparece sozinho. Editar não publica na hora: as mudanças ficam locais até você
+digitar `publish`, que faz o commit e o push (o site republica em ~1 min).
+
 A busca por nome ignora acentos e maiúsculas, e aceita pedaço do nome:
-`edit "tofu"` acha `Tofu Firme`.
+`edit tofu` acha `Tofu Firme`.
+
+> Por baixo, o menu é o `tools/gerenciar.js` chamando `tools/foods.js` e
+> `tools/sessions.js`. Dá para usar esses direto também
+> (`node tools/foods.js add --push`), mas o menu é mais simples.
 
 Ao perguntar a **categoria** e a **unidade**, o gerenciador lista as que já
 existem e aceita o número da opção — ou uma nova, digitada por extenso. Se a
@@ -65,18 +90,13 @@ reaproveita a existente. Foi assim que a base acabou com `grama`, `gramas`,
 Mudando a unidade de um alimento no `edit`, ele avisa para você revisar os
 macros — eles passam a valer por outra coisa.
 
-Acrescente `--push` para commitar e enviar ao GitHub de uma vez:
-
-```bash
-node tools/foods.js add --push
-```
-
-Estando na `main`, o workflow em `.github/workflows/static.yml` republica o site
-em cerca de um minuto. Sem `--push`, o arquivo é só salvo localmente.
-
 `check` avisa sobre campos faltando, nomes repetidos, números inválidos,
 unidades quase iguais e calorias que destoam dos macros (a conta
 `4P + 4C + 9G`) — útil depois de digitar um rótulo errado.
+
+Publicar (pelo `publish` no menu, ou `--push` nos utilitários) faz o commit e o
+push. Estando na `main`, o workflow em `.github/workflows/static.yml` republica
+o site em cerca de um minuto.
 
 ## Montando o plano
 
@@ -100,17 +120,10 @@ O botão **Sessões** abre uma janela com três coisas:
 
 Como o app roda no GitHub Pages, ele **lê** do repositório à vontade, mas não
 **escreve** — isso exigiria guardar um token do GitHub no navegador. Então salvar
-é em dois passos: o app baixa o arquivo, e um comando publica no repositório.
+é em dois passos: o app baixa o arquivo, e você publica pelo menu (`pub <arquivo>`
+seguido de `publish`).
 
-```bash
-node tools/sessions.js add <arquivo.json>    # copia p/ a pasta certa e reindexa
-node tools/sessions.js list                  # lista estados e receitas publicados
-node tools/sessions.js reindex               # reconstrói os index.json
-node tools/sessions.js rm "<nome|arquivo>"   # remove
-node tools/sessions.js add <arquivo> --push  # publica no GitHub
-```
-
-O `add` detecta sozinho se o arquivo é um estado (`itens[]`) ou uma receita
+O `pub` detecta sozinho se o arquivo é um estado (`itens[]`) ou uma receita
 (`nome` + `cal`) e o coloca em `estados/` ou `receitas/`. Cada pasta tem um
 `index.json` — a lista que o app consulta, já que o Pages não faz listagem de
 diretório. O `reindex` reconstrói essa lista a partir do conteúdo da pasta.
@@ -118,18 +131,20 @@ diretório. O `reindex` reconstrói essa lista a partir do conteúdo da pasta.
 ## Arquivos
 
 ```
-index.html        tela principal
-main-script.js    linhas, cálculo, receitas, relatório, sessões
-data-loader.js    carrega foods.json e a tabela TACO
-modal-window.js   janela de salvar receita
-relatorio.html    página de impressão
-foods.json        base pessoal
-tabela_taco/      Tabela TACO (json + planilhas de origem)
-receitas/         receitas salvas (json) + index.json
-estados/          planos inteiros salvos (json) + index.json
-tools/foods.js    gerenciador da base pessoal
-tools/sessions.js publica e indexa estados e receitas
-tools/serve.js    servidor local para testar antes de publicar
+index.html         tela principal
+main-script.js     linhas, cálculo, receitas, relatório, sessões
+data-loader.js     carrega foods.json e a tabela TACO
+modal-window.js    janela de salvar receita
+relatorio.html     página de impressão
+foods.json         base pessoal
+tabela_taco/       Tabela TACO (json + planilhas de origem)
+receitas/          receitas salvas (json) + index.json
+estados/           planos inteiros salvos (json) + index.json
+Gerenciar.bat      abre o menu (dois cliques)
+tools/gerenciar.js o menu de comandos curtos
+tools/foods.js     gerenciador da base pessoal
+tools/sessions.js  publica e indexa estados e receitas
+tools/serve.js     servidor local para testar antes de publicar
 ```
 
 ## Rodando localmente

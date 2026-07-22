@@ -197,5 +197,5 @@ ${c('neg', 'Sessões publicadas (estados e receitas)')}
   }
 
   if (alterou && push) publicar(msg);
-  else if (alterou) console.log(c('fraco', 'use --push para publicar no GitHub.'));
+  else if (alterou && !process.env.NUTRI_CONSOLE) console.log(c('fraco', 'use --push para publicar no GitHub.'));
 })();

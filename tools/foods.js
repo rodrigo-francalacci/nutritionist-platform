@@ -391,6 +391,6 @@ ${c('neg', 'Base pessoal de alimentos')}
     salvar(lista);
     console.log(c('fraco', 'foods.json salvo (' + lista.length + ' alimentos).'));
     if (push) publicar('Base de alimentos: ' + cmd + ' "' + alterou + '"');
-    else console.log(c('fraco', 'use --push para publicar no GitHub.'));
+    else if (!process.env.NUTRI_CONSOLE) console.log(c('fraco', 'use --push para publicar no GitHub.'));
   }
 })();
