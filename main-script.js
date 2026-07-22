@@ -9,6 +9,7 @@ var row = parseInt(rowID.replace("-",""));
 
     data[row].refeicao = document.getElementById('refeicao-'+row).value;
     pintaRefeicao(row);
+    renderBreakdown();   //o item mudou de periodo: atualiza o resumo por periodo
 }
 
 function updateGrupo(rowID){
@@ -302,7 +303,62 @@ function sumFacts(){
     document.getElementById('qtd-carb-sum').innerHTML = rd(Tcarb);
     document.getElementById('qtd-fat-sum').innerHTML = rd(Tfats);
     document.getElementById('qtd-cal-sum').innerHTML = rd(Tcal);
-    
+
+    renderBreakdown();
+}
+
+// Os quatro periodos, na ordem do dia.
+var PERIODOS = ["Manhã", "Almoço", "Tarde", "Noite"];
+
+// Soma os macros de cada periodo e junta os itens de cada um.
+function calcPorPeriodo(){
+
+    var res = {};
+    PERIODOS.forEach(function(p){ res[p] = {itens: [], protein: 0, carb: 0, fats: 0, cal: 0}; });
+
+    for (var i = 0; i < data.length; i++){
+        var d = data[i];
+        var p = res[d.refeicao];
+        if (!p){ continue; }
+        p.itens.push(d);
+        p.protein += parseRd(d.protein);
+        p.carb    += parseRd(d.carb);
+        p.fats    += parseRd(d.fats);
+        p.cal     += parseRd(d.cal);
+    }
+
+    PERIODOS.forEach(function(p){
+        res[p].protein = rd(res[p].protein);
+        res[p].carb    = rd(res[p].carb);
+        res[p].fats    = rd(res[p].fats);
+        res[p].cal     = rd(res[p].cal);
+    });
+
+    return res;
+}
+
+// Preenche a tabela de resumo por periodo (pula periodos sem itens).
+function renderBreakdown(){
+
+    var body = document.getElementById('periodos-body');
+    if (!body){ return; }
+
+    var res = calcPorPeriodo();
+    body.innerHTML = "";
+
+    PERIODOS.forEach(function(p){
+        var d = res[p];
+        if (d.itens.length === 0){ return; }
+
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+            '<td class="periodo-nome">' + p + '</td>' +
+            '<td>' + d.protein + ' <span>g</span></td>' +
+            '<td>' + d.carb    + ' <span>g</span></td>' +
+            '<td>' + d.fats    + ' <span>g</span></td>' +
+            '<td>' + d.cal     + ' <span>cal</span></td>';
+        body.appendChild(tr);
+    });
 }
     
 function addRow(rowID){
@@ -1035,7 +1091,147 @@ function openJSONfile(rowID) {
 } //abre uma banco de dados json
 
 //------------------------------------
-    
+
+///----------GERADOR DE LaTeX-----------------
+
+// Escapa os caracteres especiais do LaTeX. Nomes como "M&S ... 10% Fat"
+// tem & e %, que sem escape quebram a compilacao.
+function escLatex(s){
+    return String(s)
+        .replace(/\\/g, "\\textbackslash{}")
+        .replace(/([&%$#_{}])/g, "\\$1")
+        .replace(/~/g, "\\textasciitilde{}")
+        .replace(/\^/g, "\\textasciicircum{}");
+}
+
+// Tira HTML/quebras de linha dos detalhes para caber numa celula.
+function stripHtml(s){
+    return String(s)
+        .replace(/<br\s*\/?>/gi, "; ")
+        .replace(/<[^>]+>/g, "")
+        .replace(/\s*\n+\s*/g, "; ")
+        .trim();
+}
+
+// Monta um documento LaTeX completo, pronto para colar no Overleaf.
+function gerarLatex(){
+
+    var nome  = document.getElementById("nome").textContent.trim();
+    var notas = document.getElementById("dia").textContent.trim();
+    var res   = calcPorPeriodo();
+
+    var L = [];
+    L.push("\\documentclass[11pt]{article}");
+    L.push("\\usepackage[utf8]{inputenc}");
+    L.push("\\usepackage[T1]{fontenc}");
+    L.push("\\usepackage[margin=2cm]{geometry}");
+    L.push("\\usepackage{booktabs}");
+    L.push("\\usepackage{array}");
+    L.push("\\usepackage{xcolor}");
+    L.push("\\definecolor{accent}{HTML}{0B25D4}");
+    L.push("\\renewcommand{\\arraystretch}{1.3}");
+    L.push("\\setlength{\\parindent}{0pt}");
+    L.push("");
+    L.push("\\begin{document}");
+    L.push("");
+
+    // cabecalho
+    L.push("\\begin{center}");
+    L.push("{\\LARGE\\bfseries\\color{accent} " + escLatex(nome || "Plano alimentar") + "}");
+    if (notas){ L.push("\\\\[4pt]"); L.push("{\\large " + escLatex(notas) + "}"); }
+    L.push("\\end{center}");
+    L.push("\\vspace{10pt}");
+    L.push("");
+
+    // resumo por periodo + total
+    L.push("\\section*{Resumo}");
+    L.push("\\begin{center}");
+    L.push("\\begin{tabular}{@{}lrrrr@{}}");
+    L.push("\\toprule");
+    L.push("\\textbf{Período} & \\textbf{Prot. (g)} & \\textbf{Carb. (g)} & \\textbf{Gord. (g)} & \\textbf{Cal.} \\\\");
+    L.push("\\midrule");
+
+    var tP = 0, tC = 0, tF = 0, tCal = 0;
+    PERIODOS.forEach(function(p){
+        var d = res[p];
+        if (d.itens.length === 0){ return; }
+        L.push(escLatex(p) + " & " + d.protein + " & " + d.carb + " & " + d.fats + " & " + d.cal + " \\\\");
+        tP += d.protein; tC += d.carb; tF += d.fats; tCal += d.cal;
+    });
+
+    L.push("\\midrule");
+    L.push("\\textbf{Total} & \\textbf{" + rd(tP) + "} & \\textbf{" + rd(tC) + "} & \\textbf{" + rd(tF) + "} & \\textbf{" + rd(tCal) + "} \\\\");
+    L.push("\\bottomrule");
+    L.push("\\end{tabular}");
+    L.push("\\end{center}");
+    L.push("");
+
+    // uma secao por periodo, com os itens
+    PERIODOS.forEach(function(p){
+        var d = res[p];
+        if (d.itens.length === 0){ return; }
+
+        L.push("\\section*{" + escLatex(p) + "}");
+        L.push("\\begin{tabular}{@{}p{6.5cm}rrrrr@{}}");
+        L.push("\\toprule");
+        L.push("\\textbf{Alimento} & \\textbf{Qtd} & \\textbf{Prot} & \\textbf{Carb} & \\textbf{Gord} & \\textbf{Cal} \\\\");
+        L.push("\\midrule");
+
+        d.itens.forEach(function(it){
+            var alimento = escLatex(it.nome);
+            var obs = stripHtml(it.detalhes || "");
+            if (obs && obs !== "Sem detalhes."){
+                alimento += " \\newline \\textit{\\small " + escLatex(obs) + "}";
+            }
+            var qtd = escLatex(it.qtd + " " + it.unidade);
+            L.push(alimento + " & " + qtd + " & " + it.protein + " & " + it.carb + " & " + it.fats + " & " + it.cal + " \\\\");
+        });
+
+        L.push("\\midrule");
+        L.push("\\textbf{Subtotal} & & \\textbf{" + d.protein + "} & \\textbf{" + d.carb + "} & \\textbf{" + d.fats + "} & \\textbf{" + d.cal + "} \\\\");
+        L.push("\\bottomrule");
+        L.push("\\end{tabular}");
+        L.push("");
+    });
+
+    L.push("\\end{document}");
+
+    document.getElementById("latexOut").value = L.join("\n");
+    document.getElementById("latexModal").style.display = "block";
+}
+
+function copiarLatex(){
+    var ta = document.getElementById("latexOut");
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);   // iOS
+
+    var feito = function(){
+        var b = document.getElementById("btnCopiarLatex");
+        if (!b){ return; }
+        var t = b.textContent;
+        b.textContent = "Copiado!";
+        setTimeout(function(){ b.textContent = t; }, 1500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(ta.value).then(feito, function(){ document.execCommand("copy"); feito(); });
+    } else {
+        document.execCommand("copy");
+        feito();
+    }
+}
+
+function fecharLatex(){
+    var m = document.getElementById("latexModal");
+    if (m){ m.style.display = "none"; }
+}
+
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('latexModal')){ fecharLatex(); }
+});
+
+//------------------------------------
+
 function printRel(){
 
 outPage = buildPrintHead();
