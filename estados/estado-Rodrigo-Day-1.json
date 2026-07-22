@@ -1,0 +1,183 @@
+{
+  "tipo": "estado",
+  "versao": 1,
+  "nome": "Rodrigo Day 1",
+  "notas": "22/07/2026",
+  "salvoEm": "2026-07-22T21:58:14.831Z",
+  "soma": {
+    "protein": 142.9,
+    "carb": 114.4,
+    "fats": 93.2,
+    "cal": 1896.2
+  },
+  "itens": [
+    {
+      "refeicao": "Manhã",
+      "nome": "Collagen Peptides (Dose & Co.)",
+      "unidade": "gramas",
+      "qtd": "10",
+      "cal": 37.2,
+      "fats": 0,
+      "carb": 0,
+      "protein": 9.3,
+      "grupo": "--",
+      "detalhes": ""
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Walnuts",
+      "unidade": "gramas",
+      "qtd": "30",
+      "cal": 206.7,
+      "fats": 19.5,
+      "carb": 2.1,
+      "protein": 4.5,
+      "grupo": "--",
+      "detalhes": ""
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Whey Vanilla (H&B)",
+      "unidade": "Scoop (30g)",
+      "qtd": "1",
+      "cal": 113,
+      "fats": 1.8,
+      "carb": 2.6,
+      "protein": 22,
+      "grupo": "--",
+      "detalhes": ""
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Feijão Carioca",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 114,
+      "fats": 1.3,
+      "carb": 21,
+      "protein": 7.5,
+      "grupo": "R1",
+      "detalhes": "- É recomendável deixar de molho no mínimo 12hs em água morna com uma colher de sopa de vinagre.<br> - Alimento slow carb."
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Arroz, tipo 1, cozido",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 128.3,
+      "fats": 0.2,
+      "carb": 26.5,
+      "protein": 2.5,
+      "grupo": "R1",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Carne, bovina, capa de contra-filé, sem gordura, grelhada",
+      "unidade": "gramas",
+      "qtd": "120",
+      "cal": 287.3,
+      "fats": 11.9,
+      "carb": 0,
+      "protein": 42.1,
+      "grupo": "R1",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Azeite de Oliva",
+      "unidade": "colher de sopa",
+      "qtd": "2",
+      "cal": 238,
+      "fats": 27,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "R1",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada."
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Feijão, carioca, cozido",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 114.6,
+      "fats": 0.8,
+      "carb": 20.4,
+      "protein": 7.2,
+      "grupo": "R2",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Arroz, tipo 1, cozido",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 128.3,
+      "fats": 0.2,
+      "carb": 26.5,
+      "protein": 2.5,
+      "grupo": "R2",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Frango, peito, sem pele, grelhado",
+      "unidade": "gramas",
+      "qtd": "120",
+      "cal": 191,
+      "fats": 3,
+      "carb": 0,
+      "protein": 38.4,
+      "grupo": "R2",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Azeite de Oliva",
+      "unidade": "colher de sopa",
+      "qtd": "2",
+      "cal": 238,
+      "fats": 27,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "R2",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada."
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Aldi Four Seasons Blueberries",
+      "unidade": "gramas",
+      "qtd": "80",
+      "cal": 36,
+      "fats": 0,
+      "carb": 7.3,
+      "protein": 0.7,
+      "grupo": "--",
+      "detalhes": ""
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Cherries",
+      "unidade": "gramas",
+      "qtd": "50",
+      "cal": 35.5,
+      "fats": 0,
+      "carb": 7.3,
+      "protein": 0.7,
+      "grupo": "--",
+      "detalhes": ""
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Whey Vanilla (H&B)",
+      "unidade": "Scoop (30g)",
+      "qtd": "0.25",
+      "cal": 28.3,
+      "fats": 0.5,
+      "carb": 0.7,
+      "protein": 5.5,
+      "grupo": "--",
+      "detalhes": ""
+    }
+  ]
+}
