@@ -592,6 +592,15 @@ a:active {
       .periodos tbody tr:hover{ background-color: #fafcff; }
 
       /* ---- área do código LaTeX ---- */
+      .latex-opcao{
+          display: block;
+          font-size: 13px;
+          color: var(--cor1);
+          margin: 6px 0 12px;
+          cursor: pointer;
+      }
+      .latex-opcao input{ margin-right: 6px; vertical-align: middle; }
+
       #latexOut{
           column-count: 1;
           width: 100%;
@@ -784,6 +793,10 @@ a:active {
     <div class="sessao-bloco" style="border-bottom: none;">
       <p class="fraco">Cole num documento novo do <b>Overleaf</b> e compile com pdfLaTeX.
         Usa só pacotes padrão (booktabs, geometry, xcolor).</p>
+      <label class="latex-opcao">
+        <input type="checkbox" id="latexEnxuto" onchange="atualizarLatex()">
+        versão enxuta (sem o resumo e sem as observações dos alimentos)
+      </label>
       <button id="btnCopiarLatex" onclick="copiarLatex()">Copiar código</button>
       <textarea id="latexOut" readonly wrap="off"></textarea>
     </div>

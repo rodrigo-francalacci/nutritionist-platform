@@ -1118,8 +1118,10 @@ function stripHtml(s){
         .trim();
 }
 
-// Monta um documento LaTeX completo, pronto para colar no Overleaf.
-function gerarLatex(){
+// Monta o documento LaTeX. Na versão enxuta tira o resumo do topo e as
+// observações dos alimentos, deixando só as tabelas por refeição — menos
+// ruído para quem só quer o plano.
+function montarLatex(enxuto){
 
     var nome  = document.getElementById("nome").textContent.trim();
     var notas = document.getElementById("dia").textContent.trim();
@@ -1148,28 +1150,30 @@ function gerarLatex(){
     L.push("\\vspace{10pt}");
     L.push("");
 
-    // resumo por periodo + total
-    L.push("\\section*{Resumo}");
-    L.push("\\begin{center}");
-    L.push("\\begin{tabular}{@{}lrrrr@{}}");
-    L.push("\\toprule");
-    L.push("\\textbf{Período} & \\textbf{Prot. (g)} & \\textbf{Carb. (g)} & \\textbf{Gord. (g)} & \\textbf{Cal.} \\\\");
-    L.push("\\midrule");
+    // resumo por periodo + total (só na versão completa)
+    if (!enxuto){
+        L.push("\\section*{Resumo}");
+        L.push("\\begin{center}");
+        L.push("\\begin{tabular}{@{}lrrrr@{}}");
+        L.push("\\toprule");
+        L.push("\\textbf{Período} & \\textbf{Prot. (g)} & \\textbf{Carb. (g)} & \\textbf{Gord. (g)} & \\textbf{Cal.} \\\\");
+        L.push("\\midrule");
 
-    var tP = 0, tC = 0, tF = 0, tCal = 0;
-    PERIODOS.forEach(function(p){
-        var d = res[p];
-        if (d.itens.length === 0){ return; }
-        L.push(escLatex(p) + " & " + d.protein + " & " + d.carb + " & " + d.fats + " & " + d.cal + " \\\\");
-        tP += d.protein; tC += d.carb; tF += d.fats; tCal += d.cal;
-    });
+        var tP = 0, tC = 0, tF = 0, tCal = 0;
+        PERIODOS.forEach(function(p){
+            var d = res[p];
+            if (d.itens.length === 0){ return; }
+            L.push(escLatex(p) + " & " + d.protein + " & " + d.carb + " & " + d.fats + " & " + d.cal + " \\\\");
+            tP += d.protein; tC += d.carb; tF += d.fats; tCal += d.cal;
+        });
 
-    L.push("\\midrule");
-    L.push("\\textbf{Total} & \\textbf{" + rd(tP) + "} & \\textbf{" + rd(tC) + "} & \\textbf{" + rd(tF) + "} & \\textbf{" + rd(tCal) + "} \\\\");
-    L.push("\\bottomrule");
-    L.push("\\end{tabular}");
-    L.push("\\end{center}");
-    L.push("");
+        L.push("\\midrule");
+        L.push("\\textbf{Total} & \\textbf{" + rd(tP) + "} & \\textbf{" + rd(tC) + "} & \\textbf{" + rd(tF) + "} & \\textbf{" + rd(tCal) + "} \\\\");
+        L.push("\\bottomrule");
+        L.push("\\end{tabular}");
+        L.push("\\end{center}");
+        L.push("");
+    }
 
     // uma secao por periodo, com os itens
     PERIODOS.forEach(function(p){
@@ -1184,9 +1188,11 @@ function gerarLatex(){
 
         d.itens.forEach(function(it){
             var alimento = escLatex(it.nome);
-            var obs = stripHtml(it.detalhes || "");
-            if (obs && obs !== "Sem detalhes."){
-                alimento += " \\newline \\textit{\\small " + escLatex(obs) + "}";
+            if (!enxuto){
+                var obs = stripHtml(it.detalhes || "");
+                if (obs && obs !== "Sem detalhes."){
+                    alimento += " \\newline \\textit{\\small " + escLatex(obs) + "}";
+                }
             }
             var qtd = escLatex(it.qtd + " " + it.unidade);
             L.push(alimento + " & " + qtd + " & " + it.protein + " & " + it.carb + " & " + it.fats + " & " + it.cal + " \\\\");
@@ -1200,9 +1206,23 @@ function gerarLatex(){
     });
 
     L.push("\\end{document}");
+    return L.join("\n");
+}
 
-    document.getElementById("latexOut").value = L.join("\n");
+function latexEnxutoMarcado(){
+    var chk = document.getElementById("latexEnxuto");
+    return !!(chk && chk.checked);
+}
+
+// abre o modal com o código (respeita o estado da caixa "versão enxuta")
+function gerarLatex(){
+    document.getElementById("latexOut").value = montarLatex(latexEnxutoMarcado());
     document.getElementById("latexModal").style.display = "block";
+}
+
+// regera o código quando o usuário marca/desmarca "versão enxuta"
+function atualizarLatex(){
+    document.getElementById("latexOut").value = montarLatex(latexEnxutoMarcado());
 }
 
 function copiarLatex(){
