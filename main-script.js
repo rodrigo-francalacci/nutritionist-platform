@@ -417,6 +417,38 @@ function removerLinha(pos){
     sumFacts();
 }
 
+function subirLinha(rowID){ moverLinha(parseInt(rowID.replace("-","")), -1); }
+function descerLinha(rowID){ moverLinha(parseInt(rowID.replace("-","")), +1); }
+
+//Troca uma linha com a vizinha. Move os NOS inteiros no DOM, entao o
+//estado dos selects (opcoes carregadas, valor escolhido e a propriedade
+//_lista) viaja junto — nao ha copia de valores, campo por campo.
+function moverLinha(pos, dir){
+
+    var destino = pos + dir;
+    var total = listRows().length;
+    if (destino < 0 || destino >= total){ return; }   //ja esta na ponta
+
+    var a = document.getElementById('form-row-'+pos);       //linha que se move
+    var b = document.getElementById('form-row-'+destino);   //vizinha
+
+    //renumera usando um numero temporario para os ids nao colidirem
+    var TMP = 999999;
+    renumeraLinha(a, pos, TMP);
+    renumeraLinha(b, destino, pos);
+    renumeraLinha(a, TMP, destino);
+
+    //poe os nos na ordem numerica certa dentro do container
+    var container = document.getElementById('row-container');
+    if (dir > 0){ container.insertBefore(b, a); }   //a desceu: b vem antes
+    else        { container.insertBefore(a, b); }   //a subiu: a vem antes
+
+    //troca no modelo de dados
+    var t = data[pos]; data[pos] = data[destino]; data[destino] = t;
+
+    sumFacts();
+}
+
 function copyRowValues(row){
     
     var values = {};
@@ -721,7 +753,251 @@ a.download = fileName;
 a.click();
 } //salva um banco de dados json
 // downloadReceita(JSON.stringify(foods), 'foods.json', 'application/json');
-    
+
+///----------ESTADO / SESSOES-----------------
+
+// baixa um texto como arquivo (generico)
+function baixarArquivo(conteudo, nomeArquivo, tipo){
+    var a = document.createElement("a");
+    var blob = new Blob([conteudo], {type: tipo || 'application/octet-stream'});
+    a.href = URL.createObjectURL(blob);
+    a.download = nomeArquivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+}
+
+// Monta o objeto que representa o plano inteiro na tela.
+function estadoAtual(){
+    return {
+        tipo: "estado",
+        versao: 1,
+        nome: document.getElementById("nome").textContent.trim(),
+        notas: document.getElementById("dia").textContent.trim(),
+        salvoEm: new Date().toISOString(),
+        soma: {protein: sum.protein, carb: sum.carb, fats: sum.fats, cal: sum.cal},
+        itens: data.map(function(d){
+            return {refeicao: d.refeicao, nome: d.nome, unidade: d.unidade,
+                    qtd: d.qtd, cal: d.cal, fats: d.fats, carb: d.carb,
+                    protein: d.protein, grupo: d.grupo, detalhes: d.detalhes};
+        })
+    };
+}
+
+function nomeArquivoEstado(nome){
+    var base = (nome || "").trim().replace(/[^\p{L}\p{N} _-]/gu, "").replace(/\s+/g, "-");
+    if (!base){ base = "sem-nome"; }
+    return "estado-" + base + ".json";
+}
+
+function salvarEstado(){
+    var estado = estadoAtual();
+    baixarArquivo(JSON.stringify(estado, null, 2), nomeArquivoEstado(estado.nome), 'application/json');
+}
+
+// Reconstroi a tela inteira a partir de um estado salvo.
+function carregarEstado(estado){
+    if (!estado || !Array.isArray(estado.itens) || estado.itens.length === 0){
+        alert("Este arquivo nao parece um estado valido (sem itens).");
+        return;
+    }
+
+    document.getElementById("nome").textContent = estado.nome || "";
+    document.getElementById("dia").textContent = estado.notas || "";
+
+    // ajusta o numero de linhas para bater com o estado
+    while (listRows().length > 1){ removerLinha(listRows().length - 1); }
+    while (listRows().length < estado.itens.length){ inserirLinha(listRows().length); }
+
+    for (var i = 0; i < estado.itens.length; i++){
+        aplicarItemNaLinha(i, estado.itens[i]);
+    }
+    sumFacts();
+    fecharSessoes();
+}
+
+// Coloca um item salvo numa linha existente, exibindo os valores
+// guardados. Se o alimento nao estiver na base (veio da TACO ou de uma
+// receita), ele e adicionado como opcao e como fonte por-unidade, para
+// que mudar a quantidade depois recalcule certo.
+function aplicarItemNaLinha(row, item){
+
+    data[row] = {
+        refeicao: item.refeicao || "Manhã",
+        nome: item.nome,
+        unidade: item.unidade,
+        qtd: item.qtd,
+        cal: item.cal, fats: item.fats, carb: item.carb, protein: item.protein,
+        grupo: item.grupo || "--",
+        detalhes: item.detalhes || ""
+    };
+
+    mostrarMenuPrincipal(row);   //popula a lista principal, _lista = foods
+
+    if (!findByName(foods, item.nome)){
+        var select = document.getElementById('foods-'+row);
+        var o = document.createElement("option");
+        o.value = item.nome; o.text = item.nome;
+        select.appendChild(o);
+
+        var perUnidade = derivarPorUnidade(item);
+        if (perUnidade){ select._lista = foods.concat([perUnidade]); }
+    }
+
+    pasteRowValues(row, data[row]);
+}
+
+// Recupera os macros POR UNIDADE a partir dos totais guardados
+// (os totais foram gravados como qtd * por-unidade).
+function derivarPorUnidade(item){
+    var q = parseNum(item.qtd);
+    if (q <= 0){ return null; }
+    return {
+        nome: item.nome,
+        unidade: item.unidade,
+        cal: parseNum(item.cal)/q,
+        protein: parseNum(item.protein)/q,
+        carb: parseNum(item.carb)/q,
+        fats: parseNum(item.fats)/q,
+        detalhes: item.detalhes || ""
+    };
+}
+
+// Acrescenta uma receita como uma nova linha do plano.
+function carregarReceitaComoLinha(receita){
+    inserirLinha(listRows().length);            //nova linha no fim
+    var row = listRows().length - 1;
+
+    // uma receita e "1 porcao": os valores ja sao por unidade
+    var porUnidade = {
+        nome: receita.nome,
+        unidade: receita.unidade || "porção",
+        cal: parseNum(receita.cal),
+        protein: parseNum(receita.protein),
+        carb: parseNum(receita.carb),
+        fats: parseNum(receita.fats),
+        detalhes: String(receita.detalhes || "").replaceAll("\n", "<br>")
+    };
+
+    var select = document.getElementById('foods-'+row);
+    var o = document.createElement("option");
+    o.value = porUnidade.nome; o.text = porUnidade.nome;
+    select.appendChild(o);
+    select._lista = (select._lista || foods).concat([porUnidade]);
+    select.value = porUnidade.nome;
+
+    document.getElementById('qtd-'+row).value = 1;
+    updateFood('-'+row);
+    fecharSessoes();
+}
+
+// Decide se um arquivo carregado e um estado (plano inteiro) ou uma
+// receita (item unico), e trata cada caso.
+function carregarArquivoDetectado(obj){
+    if (obj && Array.isArray(obj.itens)){ carregarEstado(obj); return; }
+    if (obj && typeof obj.nome === "string" && obj.cal !== undefined){ carregarReceitaComoLinha(obj); return; }
+    alert("Nao reconheci este arquivo como estado nem como receita.");
+}
+
+function abrirEstadoArquivo(input){
+    var file = input.files[0];
+    if (!file){ return; }
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+        var obj;
+        try { obj = JSON.parse(e.target.result); }
+        catch(err){ alert("Arquivo JSON invalido: " + err.message); return; }
+        carregarArquivoDetectado(obj);
+    };
+    reader.readAsText(file);
+    input.value = "";   //permite reabrir o mesmo arquivo depois
+}
+
+//--- carregar do repositorio (GitHub Pages / servidor local) ---
+
+var indiceSessoes = { estados: [], receitas: [] };
+
+function carregarIndiceSessoes(){
+    var sel = document.getElementById("sessoesRepo");
+    if (!sel){ return; }
+
+    Promise.all([
+        pegarJSON("estados/index.json").catch(function(){ return []; }),
+        pegarJSON("receitas/index.json").catch(function(){ return []; })
+    ]).then(function(res){
+        indiceSessoes.estados  = Array.isArray(res[0]) ? res[0] : [];
+        indiceSessoes.receitas = Array.isArray(res[1]) ? res[1] : [];
+        montarSelectSessoes();
+    });
+}
+
+function montarSelectSessoes(){
+    var sel = document.getElementById("sessoesRepo");
+    sel.innerHTML = "";
+
+    var vazio = document.createElement("option");
+    vazio.value = ""; vazio.disabled = true; vazio.selected = true;
+    vazio.text = (indiceSessoes.estados.length || indiceSessoes.receitas.length)
+                 ? "— escolha —" : "— nada publicado ainda —";
+    sel.appendChild(vazio);
+
+    adicionarGrupoSessoes(sel, "Estados",  "estado",  indiceSessoes.estados,  "estados/");
+    adicionarGrupoSessoes(sel, "Receitas", "receita", indiceSessoes.receitas, "receitas/");
+}
+
+function adicionarGrupoSessoes(sel, rotulo, tipo, lista, pasta){
+    if (!lista || !lista.length){ return; }
+
+    var og = document.createElement("optgroup");
+    og.label = rotulo;
+
+    lista.slice()
+         .sort(function(a,b){ return String(a.nome).localeCompare(String(b.nome), "pt-BR"); })
+         .forEach(function(item){
+             var o = document.createElement("option");
+             o.value = tipo + "|" + pasta + "|" + item.arquivo;
+             o.text = item.nome + (item.salvoEm ? "  (" + String(item.salvoEm).slice(0,10) + ")" : "");
+             og.appendChild(o);
+         });
+
+    sel.appendChild(og);
+}
+
+function carregarSessaoDoRepo(){
+    var sel = document.getElementById("sessoesRepo");
+    var v = sel.value;
+    if (!v){ alert("Escolha uma sessao para carregar."); return; }
+
+    var partes = v.split("|");
+    var url = partes[1] + encodeURIComponent(partes[2]);
+
+    pegarJSON(url)
+        .then(carregarArquivoDetectado)
+        .catch(function(err){ alert("Nao consegui carregar: " + err.message); });
+}
+
+//--- modal ---
+
+function abrirSessoes(){
+    document.getElementById("nomeEstadoAtual").textContent =
+        (document.getElementById("nome").textContent.trim() || "(sem nome)") +
+        " — " + data.length + " item(ns)";
+    carregarIndiceSessoes();
+    document.getElementById("sessoesModal").style.display = "block";
+}
+
+function fecharSessoes(){
+    var m = document.getElementById("sessoesModal");
+    if (m){ m.style.display = "none"; }
+}
+
+// fecha ao clicar fora (coexiste com o window.onclick de modal-window.js)
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('sessoesModal')){ fecharSessoes(); }
+});
+
 //----------------------------
 
 function openJSONfile(rowID) {

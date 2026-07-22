@@ -291,6 +291,41 @@ textarea {
         #qtd-protein-sum, #qtd-carb-sum, #qtd-fat-sum, #qtd-cal-sum{
             color: var(--cor2);
         }
+
+        .sessao-bloco{
+            width: 90%;
+            margin: 0 auto 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--cor4);
+        }
+
+        .sessao-bloco h3{
+            margin: 0 0 8px;
+            font-size: 16px;
+            color: var(--cor2);
+        }
+
+        .sessao-bloco .fraco{
+            font-size: 12px;
+            color: #666;
+            margin: 8px 0;
+        }
+
+        .sessao-bloco code{
+            background: var(--cor6);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .sessao-bloco select{
+            min-width: 240px;
+            margin-right: 8px;
+        }
+
+        .containerBot button{
+            min-width: 26px;
+        }
         
 
         
@@ -381,6 +416,7 @@ a:active {
         <ul class="details">
 
             <li><button id="myBtn">Save Recipes</button></li>
+            <li><button onclick="abrirSessoes()">Sessões</button></li>
             <li><input type="button" value="Print" onclick="printRel()"/></li>
             <li><p contenteditable="true" id="nome">Name</p>
             <p contenteditable="true" id="dia">Notes</p></li>
@@ -458,8 +494,41 @@ a:active {
 </div>
         
         
+<!-- Modal de Sessões (salvar/carregar o plano inteiro) -->
+<div id="sessoesModal" class="modal">
+  <div class="modal-content" style="flex-direction: column;">
+
+    <div class="saveHead">
+      <label class="tituloReceita">Sessões</label>
+      <span class="close" onclick="fecharSessoes()">&times;</span>
+    </div>
+
+    <div class="sessao-bloco">
+      <h3>Salvar estado atual</h3>
+      <p class="fraco" id="nomeEstadoAtual"></p>
+      <button onclick="salvarEstado()">Baixar estado (.json)</button>
+      <p class="fraco">Para publicar no repositório, no terminal:<br>
+        <code>node tools/sessions.js add &lt;arquivo&gt; --push</code></p>
+    </div>
+
+    <div class="sessao-bloco">
+      <h3>Carregar do repositório</h3>
+      <select id="sessoesRepo"><option disabled selected>— carregando… —</option></select>
+      <button onclick="carregarSessaoDoRepo()">Carregar</button>
+      <p class="fraco">Estados substituem o plano inteiro; receitas entram como uma nova linha.</p>
+    </div>
+
+    <div class="sessao-bloco">
+      <h3>Abrir arquivo local</h3>
+      <input type="file" accept="application/json,.json" onchange="abrirEstadoArquivo(this)">
+      <p class="fraco">Um estado (plano inteiro) ou uma receita (.json).</p>
+    </div>
+
+  </div>
+</div>
+
     <div id="row-container">
-        
+
     <div class="form-row" id="form-row-0" name="form-row-0">
        
         
@@ -526,8 +595,10 @@ a:active {
         
         
         <div class="containerBot">
-            <button onclick="addRow('-0')">+</button>
-            <button onclick="delRow('-0')">-</button>
+            <button onclick="addRow('-0')" title="Adicionar linha">+</button>
+            <button onclick="delRow('-0')" title="Remover linha">-</button>
+            <button onclick="subirLinha('-0')" title="Subir">&#9650;</button>
+            <button onclick="descerLinha('-0')" title="Descer">&#9660;</button>
         </div>
         
         
@@ -605,8 +676,10 @@ a:active {
         
         
         <div class="containerBot">
-            <button onclick="addRow('-1')">+</button>
-            <button onclick="delRow('-1')">-</button>
+            <button onclick="addRow('-1')" title="Adicionar linha">+</button>
+            <button onclick="delRow('-1')" title="Remover linha">-</button>
+            <button onclick="subirLinha('-1')" title="Subir">&#9650;</button>
+            <button onclick="descerLinha('-1')" title="Descer">&#9660;</button>
         </div>
     
         <div class="col-detalhes">
@@ -681,8 +754,10 @@ a:active {
         
         
         <div class="containerBot">
-            <button onclick="addRow('-2')">+</button>
-            <button onclick="delRow('-2')">-</button>
+            <button onclick="addRow('-2')" title="Adicionar linha">+</button>
+            <button onclick="delRow('-2')" title="Remover linha">-</button>
+            <button onclick="subirLinha('-2')" title="Subir">&#9650;</button>
+            <button onclick="descerLinha('-2')" title="Descer">&#9660;</button>
         </div>
         
         <div class="col-detalhes">

@@ -78,18 +78,57 @@ em cerca de um minuto. Sem `--push`, o arquivo é só salvo localmente.
 unidades quase iguais e calorias que destoam dos macros (a conta
 `4P + 4C + 9G`) — útil depois de digitar um rótulo errado.
 
+## Montando o plano
+
+Cada linha é um alimento. Os botões na ponta direita da linha:
+
+| botão | o que faz |
+|---|---|
+| `+` | adiciona uma linha logo abaixo |
+| `-` | remove a linha |
+| ▲ ▼ | sobe / desce a linha (reordena) |
+
+## Sessões: salvar e carregar o plano inteiro
+
+O botão **Sessões** abre uma janela com três coisas:
+
+- **Salvar estado atual** — baixa o plano inteiro (todas as linhas, nome e
+  notas) como um `.json`.
+- **Carregar do repositório** — lista o que já foi publicado no repositório.
+  Um *estado* substitui o plano inteiro; uma *receita* entra como uma nova linha.
+- **Abrir arquivo local** — carrega um `.json` do seu computador (estado ou receita).
+
+Como o app roda no GitHub Pages, ele **lê** do repositório à vontade, mas não
+**escreve** — isso exigiria guardar um token do GitHub no navegador. Então salvar
+é em dois passos: o app baixa o arquivo, e um comando publica no repositório.
+
+```bash
+node tools/sessions.js add <arquivo.json>    # copia p/ a pasta certa e reindexa
+node tools/sessions.js list                  # lista estados e receitas publicados
+node tools/sessions.js reindex               # reconstrói os index.json
+node tools/sessions.js rm "<nome|arquivo>"   # remove
+node tools/sessions.js add <arquivo> --push  # publica no GitHub
+```
+
+O `add` detecta sozinho se o arquivo é um estado (`itens[]`) ou uma receita
+(`nome` + `cal`) e o coloca em `estados/` ou `receitas/`. Cada pasta tem um
+`index.json` — a lista que o app consulta, já que o Pages não faz listagem de
+diretório. O `reindex` reconstrói essa lista a partir do conteúdo da pasta.
+
 ## Arquivos
 
 ```
 index.html        tela principal
-main-script.js    linhas, cálculo, receitas e relatório
+main-script.js    linhas, cálculo, receitas, relatório, sessões
 data-loader.js    carrega foods.json e a tabela TACO
 modal-window.js   janela de salvar receita
 relatorio.html    página de impressão
 foods.json        base pessoal
 tabela_taco/      Tabela TACO (json + planilhas de origem)
-receitas/         receitas salvas (json)
+receitas/         receitas salvas (json) + index.json
+estados/          planos inteiros salvos (json) + index.json
 tools/foods.js    gerenciador da base pessoal
+tools/sessions.js publica e indexa estados e receitas
 tools/serve.js    servidor local para testar antes de publicar
 ```
 
