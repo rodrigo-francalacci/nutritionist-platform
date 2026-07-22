@@ -111,6 +111,12 @@ function publicar(){
     return;
   }
 
+  // reconstrói os índices antes de publicar: assim qualquer arquivo que
+  // tenha ido parar em estados/ ou receitas/ (mesmo sem passar pelo "pub")
+  // entra na lista que o app lê. Sem isso, o arquivo ia pro GitHub mas
+  // ficava invisível no app.
+  rodarTool('sessions', ['reindex']);
+
   git(['add', 'foods.json', 'estados', 'receitas']);
   var st = git(['status', '--porcelain', 'foods.json', 'estados', 'receitas']);
   if (!st.stdout || !st.stdout.trim()){ console.log(c('fraco', 'nada para publicar.')); return; }

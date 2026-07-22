@@ -979,9 +979,14 @@ function carregarIndiceSessoes(){
     var sel = document.getElementById("sessoesRepo");
     if (!sel){ return; }
 
+    // O GitHub Pages guarda os arquivos em cache por 10 min. Sem o "?t=", uma
+    // sessão recém-publicada demorava a aparecer aqui. O parametro muda a cada
+    // abertura, forçando a busca da lista mais recente.
+    var t = "?t=" + Date.now();
+
     Promise.all([
-        pegarJSON("estados/index.json").catch(function(){ return []; }),
-        pegarJSON("receitas/index.json").catch(function(){ return []; })
+        pegarJSON("estados/index.json" + t).catch(function(){ return []; }),
+        pegarJSON("receitas/index.json" + t).catch(function(){ return []; })
     ]).then(function(res){
         indiceSessoes.estados  = Array.isArray(res[0]) ? res[0] : [];
         indiceSessoes.receitas = Array.isArray(res[1]) ? res[1] : [];
@@ -1027,7 +1032,7 @@ function carregarSessaoDoRepo(){
     if (!v){ alert("Escolha uma sessao para carregar."); return; }
 
     var partes = v.split("|");
-    var url = partes[1] + encodeURIComponent(partes[2]);
+    var url = partes[1] + encodeURIComponent(partes[2]) + "?t=" + Date.now();
 
     pegarJSON(url)
         .then(carregarArquivoDetectado)
