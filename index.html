@@ -162,6 +162,38 @@ textarea {
 }
 .picker-vazio{ padding: 16px; color: #888; }
 .picker-dica{ font-size: 12px; color: #888; margin: 10px 2px 0; }
+
+/* painel de busca no Open Food Facts (supermercados do Reino Unido) */
+.picker-off-head{ display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.picker-voltar{
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: var(--cor5);
+    color: var(--cor1);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+}
+.picker-voltar:hover{ background-color: var(--cor4); }
+.picker-off-busca{
+    flex: 1 1 auto;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+}
+.picker-off-btn{
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: var(--cor2);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+.picker-off-btn:disabled{ opacity: .5; cursor: default; }
+.picker-off-status{ font-size: 12px; color: #666; margin: 4px 2px 8px; }
+.picker-off-resultados{ height: 400px; }
 </style>
     
     <script>
@@ -902,6 +934,18 @@ a:active {
     <div id="pickerColunas" class="picker-colunas"></div>
     <div id="pickerResultados" class="picker-resultados" style="display:none;"></div>
 
+    <div id="pickerOFF" class="picker-off" style="display:none;">
+      <div class="picker-off-head">
+        <button type="button" class="picker-voltar" onclick="voltarDoOFF()">&#8249; Voltar</button>
+        <input type="text" id="offBusca" class="picker-off-busca"
+               placeholder="Produto no Reino Unido (ex.: chicken breast, hummus, oat milk)…"
+               onkeydown="if(event.key==='Enter'){executarBuscaOFF();}">
+        <button type="button" id="offBtn" class="picker-off-btn" onclick="executarBuscaOFF()">Buscar</button>
+      </div>
+      <div id="offStatus" class="picker-off-status">Fonte: Open Food Facts — produtos de supermercados do Reino Unido. Valores por 100 g convertidos automaticamente.</div>
+      <div id="offResultados" class="picker-resultados picker-off-resultados"></div>
+    </div>
+
     <p class="picker-dica">Clique numa pasta para abrir a próxima coluna; clique num alimento para selecioná-lo.</p>
 
   </div>
@@ -1218,8 +1262,10 @@ a:active {
     
     
     <script src="modal-window.js" type="text/javascript"></script> <!-- modal script end -->
-    
-    <script src="main-script.js" type="text/javascript"></script> 
+
+    <script src="off-adapter.js" type="text/javascript"></script>
+
+    <script src="main-script.js" type="text/javascript"></script>
     
     
 </html>

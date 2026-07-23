@@ -1284,6 +1284,7 @@ function abrirPicker(rowID){
     var busca = document.getElementById("pickerBusca");
     busca.value = "";
     document.getElementById("pickerResultados").style.display = "none";
+    document.getElementById("pickerOFF").style.display = "none";
     document.getElementById("pickerColunas").style.display = "flex";
     pickerPath = [];
     renderPickerColunas();
@@ -1303,6 +1304,7 @@ function pickerFilhos(entry){
         return [
             {tipo:"grupo", rotulo:"Minha base",  fonte:"base"},
             {tipo:"grupo", rotulo:"Tabela TACO", fonte:"taco"},
+            {tipo:"acao",  rotulo:"Supermercado UK (Open Food Facts)", fonte:"off"},
             {tipo:"acao",  rotulo:"Carregar receita (arquivo)…", fonte:"receita"}
         ];
     }
@@ -1386,6 +1388,8 @@ function colunaEl(filhos, nivel, selecionado){
                 pickerPath = pickerPath.slice(0, nivel);
                 pickerPath.push(entry);
                 renderPickerColunas();
+            } else if (entry.tipo === "acao" && entry.fonte === "off"){
+                abrirBuscaOFF();
             } else if (entry.tipo === "acao" && entry.fonte === "receita"){
                 abrirReceitaArquivo(pickerRow);
             } else {
@@ -1419,6 +1423,9 @@ function buscarNoPicker(){
     var termo = document.getElementById("pickerBusca").value.trim().toLowerCase();
     var cols  = document.getElementById("pickerColunas");
     var res   = document.getElementById("pickerResultados");
+
+    //a busca do topo age sobre as bases locais; sair dela volta para as colunas
+    document.getElementById("pickerOFF").style.display = "none";
 
     if (termo.length < 2){
         cols.style.display = "flex";
@@ -1458,6 +1465,70 @@ function buscarNoPicker(){
         it.onclick = function(){ escolherAlimentoDoPicker(x.item); };
         res.appendChild(it);
     });
+}
+
+//--- Supermercado UK (Open Food Facts) -----------------------------------
+//As funcoes de rede vivem em off-adapter.js (buscarOpenFoodFacts,
+//offParaAlimento). Aqui e so a interface dentro do seletor.
+
+function abrirBuscaOFF(){
+    document.getElementById("pickerColunas").style.display   = "none";
+    document.getElementById("pickerResultados").style.display = "none";
+    document.getElementById("pickerOFF").style.display        = "block";
+    document.getElementById("offBusca").focus();
+}
+
+function voltarDoOFF(){
+    document.getElementById("pickerOFF").style.display      = "none";
+    document.getElementById("pickerColunas").style.display  = "flex";
+}
+
+function executarBuscaOFF(){
+
+    var termo  = document.getElementById("offBusca").value.trim();
+    var status = document.getElementById("offStatus");
+    var lista  = document.getElementById("offResultados");
+    var botao  = document.getElementById("offBtn");
+
+    if (termo.length < 2){ status.textContent = "Digite ao menos 2 letras."; return; }
+
+    lista.innerHTML = "";
+    status.textContent = "Buscando no Open Food Facts…";
+    botao.disabled = true;
+
+    buscarOpenFoodFacts(termo)
+        .then(function(alimentos){
+            botao.disabled = false;
+
+            if (alimentos.length === 0){
+                status.textContent = "Nenhum produto com dados completos de macros. Tente outro termo.";
+                return;
+            }
+
+            status.textContent = alimentos.length + " produto(s) — clique para usar (valores por grama):";
+
+            alimentos.forEach(function(a){
+                var it = document.createElement("div");
+                it.className = "picker-item";
+
+                var nome = document.createElement("span");
+                nome.textContent = a.nome;
+
+                var org = document.createElement("span");
+                org.className = "picker-origem";
+                org.textContent = Math.round(a.cal * 100) + " kcal/100g";
+
+                it.appendChild(nome);
+                it.appendChild(org);
+                it.onclick = function(){ escolherAlimentoDoPicker(a); };
+                lista.appendChild(it);
+            });
+        })
+        .catch(function(err){
+            botao.disabled = false;
+            status.textContent = "O serviço está ocupado no momento. Tente de novo em alguns segundos.";
+            console.error("Open Food Facts:", err);
+        });
 }
 
 //Revela o campo "Abrir Receita" daquela linha (mesma acao que a antiga
