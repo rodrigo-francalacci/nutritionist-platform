@@ -228,6 +228,9 @@ function aplicaAlimento(row, rowFood, item){
         //atualizar alimento no database
         data[row].nome = rowFood;
 
+        //mostra o nome escolhido no "chip" que substituiu o dropdown
+        atualizarNomeAlimento(row, rowFood);
+
         if(item == null){
             //zera os macros para nao somar numeros antigos de outro alimento
             console.warn('Alimento nao encontrado na base: "' + rowFood + '"');
@@ -530,6 +533,7 @@ function pasteRowValues(row, values){
     
         document.getElementById('refeicao-'+row).value = values.refeicao;
         document.getElementById('foods-'+row).value = values.nome;
+        atualizarNomeAlimento(row, values.nome);
         document.getElementById('qtd-'+row).value = values.qtd;
         document.getElementById('uni-'+row).innerHTML = values.unidade;
         document.getElementById('qtd-protein-'+row).innerHTML = values.protein;
@@ -576,6 +580,7 @@ function listRows(){
 function popNewLine(row){
         document.getElementById('uni-'+row).textContent = "ovos";
         document.getElementById('foods-'+row).value = "Ovo";
+        atualizarNomeAlimento(row, "Ovo");
         document.getElementById('qtd-'+row).value = 0;
         document.getElementById('qtd-protein-'+row).textContent = 0;
         document.getElementById('qtd-carb-'+row).textContent = 0;
@@ -1253,6 +1258,245 @@ function fecharLatex(){
 
 window.addEventListener('click', function(event){
     if (event.target === document.getElementById('latexModal')){ fecharLatex(); }
+});
+
+//====================================================================
+// Seletor de alimentos em colunas (estilo Finder / Miller columns)
+//
+// O <select id="foods-N"> continua sendo a fonte de verdade do valor
+// (salvar sessao, renumerar linhas etc.). Este seletor e so uma forma
+// mais rapida de navegar: ao escolher um alimento, escrevemos o valor
+// no <select> e chamamos aplicaAlimento(), a mesma rotina do dropdown.
+//====================================================================
+
+var pickerRow  = null;   // linha que abriu o seletor
+var pickerPath = [];     // pastas escolhidas, uma por coluna
+
+//Escreve o nome do alimento no "chip" visivel. O <select> escondido
+//continua guardando o valor; isto e so a etiqueta que o usuario ve.
+function atualizarNomeAlimento(row, nome){
+    var chip = document.getElementById("chip-" + row);
+    if (chip){ chip.textContent = nome || "Escolher alimento…"; }
+}
+
+function abrirPicker(rowID){
+    pickerRow = parseInt(String(rowID).replace("-",""), 10);
+    var busca = document.getElementById("pickerBusca");
+    busca.value = "";
+    document.getElementById("pickerResultados").style.display = "none";
+    document.getElementById("pickerColunas").style.display = "flex";
+    pickerPath = [];
+    renderPickerColunas();
+    document.getElementById("pickerModal").style.display = "block";
+    busca.focus();
+}
+
+function fecharPicker(){
+    document.getElementById("pickerModal").style.display = "none";
+    pickerRow = null;
+}
+
+//Filhos de uma "pasta". entry === null significa a raiz.
+function pickerFilhos(entry){
+
+    if (!entry){
+        return [
+            {tipo:"grupo", rotulo:"Minha base",  fonte:"base"},
+            {tipo:"grupo", rotulo:"Tabela TACO", fonte:"taco"},
+            {tipo:"acao",  rotulo:"Carregar receita (arquivo)…", fonte:"receita"}
+        ];
+    }
+
+    if (entry.fonte === "base"){
+        return categoriasPessoais().map(function(cat){
+            return {tipo:"grupo", rotulo:cat + " (" + alimentosDaCategoria(cat).length + ")",
+                    fonte:"base-cat", cat:cat};
+        });
+    }
+
+    if (entry.fonte === "base-cat"){
+        return alimentosDaCategoria(entry.cat).map(function(f){
+            return {tipo:"folha", rotulo:f.nome, item:f};
+        });
+    }
+
+    if (entry.fonte === "taco"){
+        return Object.keys(TACO_ARQUIVOS)
+            .sort(function(a,b){ return a.localeCompare(b, "pt-BR"); })
+            .map(function(g){
+                return {tipo:"grupo", rotulo:g, fonte:"taco-grupo", grupo:g};
+            });
+    }
+
+    if (entry.fonte === "taco-grupo"){
+        return (tacoGrupos[entry.grupo] || [])
+            .slice()
+            .sort(function(a,b){ return String(a.nome).localeCompare(String(b.nome), "pt-BR"); })
+            .map(function(f){ return {tipo:"folha", rotulo:f.nome, item:f}; });
+    }
+
+    return [];
+}
+
+function mesmaEntrada(a, b){
+    return a && b && a.fonte === b.fonte && a.cat === b.cat &&
+           a.grupo === b.grupo && a.rotulo === b.rotulo;
+}
+
+function renderPickerColunas(){
+
+    var wrap = document.getElementById("pickerColunas");
+    wrap.innerHTML = "";
+
+    for (var nivel = 0; nivel <= pickerPath.length; nivel++){
+        var pai    = (nivel === 0) ? null : pickerPath[nivel - 1];
+        var filhos = pickerFilhos(pai);
+        var sel    = pickerPath[nivel];   // pasta aberta nesta coluna, se houver
+        wrap.appendChild(colunaEl(filhos, nivel, sel));
+    }
+
+    //mostra sempre a coluna mais profunda
+    wrap.scrollLeft = wrap.scrollWidth;
+}
+
+function colunaEl(filhos, nivel, selecionado){
+
+    var col = document.createElement("div");
+    col.className = "picker-col";
+
+    filhos.forEach(function(entry){
+
+        var it = document.createElement("div");
+        it.className = "picker-item" + (entry.tipo === "grupo" ? " picker-folder" : "");
+        if (selecionado && mesmaEntrada(entry, selecionado)){ it.className += " sel"; }
+
+        var rot = document.createElement("span");
+        rot.textContent = entry.rotulo;
+        it.appendChild(rot);
+
+        if (entry.tipo === "grupo"){
+            var seta = document.createElement("span");
+            seta.className = "picker-seta";
+            seta.innerHTML = "&#8250;";   // ›
+            it.appendChild(seta);
+        }
+
+        it.onclick = function(){
+            if (entry.tipo === "grupo"){
+                pickerPath = pickerPath.slice(0, nivel);
+                pickerPath.push(entry);
+                renderPickerColunas();
+            } else if (entry.tipo === "acao" && entry.fonte === "receita"){
+                abrirReceitaArquivo(pickerRow);
+            } else {
+                escolherAlimentoDoPicker(entry.item);
+            }
+        };
+
+        col.appendChild(it);
+    });
+
+    return col;
+}
+
+//Lista achatada de tudo, para a busca por texto.
+function todosAlimentos(){
+
+    var out = [];
+    foods.forEach(function(f){
+        out.push({item:f, origem: (f.categoria || "Outros")});
+    });
+    Object.keys(tacoGrupos).forEach(function(g){
+        (tacoGrupos[g] || []).forEach(function(f){
+            out.push({item:f, origem:"TACO · " + g});
+        });
+    });
+    return out;
+}
+
+function buscarNoPicker(){
+
+    var termo = document.getElementById("pickerBusca").value.trim().toLowerCase();
+    var cols  = document.getElementById("pickerColunas");
+    var res   = document.getElementById("pickerResultados");
+
+    if (termo.length < 2){
+        cols.style.display = "flex";
+        res.style.display  = "none";
+        return;
+    }
+
+    cols.style.display = "none";
+    res.style.display  = "block";
+    res.innerHTML = "";
+
+    var achados = todosAlimentos().filter(function(x){
+        return String(x.item.nome).toLowerCase().indexOf(termo) !== -1;
+    }).slice(0, 100);
+
+    if (achados.length === 0){
+        var vazio = document.createElement("div");
+        vazio.className = "picker-vazio";
+        vazio.textContent = "Nenhum alimento encontrado.";
+        res.appendChild(vazio);
+        return;
+    }
+
+    achados.forEach(function(x){
+        var it = document.createElement("div");
+        it.className = "picker-item";
+
+        var nome = document.createElement("span");
+        nome.textContent = x.item.nome;
+
+        var org = document.createElement("span");
+        org.className = "picker-origem";
+        org.textContent = x.origem;
+
+        it.appendChild(nome);
+        it.appendChild(org);
+        it.onclick = function(){ escolherAlimentoDoPicker(x.item); };
+        res.appendChild(it);
+    });
+}
+
+//Revela o campo "Abrir Receita" daquela linha (mesma acao que a antiga
+//opcao "Receita" do dropdown) e fecha o seletor.
+function abrirReceitaArquivo(row){
+    if (row === null){ return; }
+    document.getElementById("file-" + row).style.display = "block";
+    document.getElementById("col-qtd-" + row).style.display = "none";
+    fecharPicker();
+}
+
+function escolherAlimentoDoPicker(item){
+
+    if (pickerRow === null){ return; }
+
+    var row    = pickerRow;
+    var select = document.getElementById("foods-" + row);
+
+    //garante que o nome exista como <option> e fique selecionado,
+    //para que salvar a sessao (que le select.value) veja o nome certo
+    var existe = false;
+    for (var i = 0; i < select.options.length; i++){
+        if (select.options[i].value === item.nome){ existe = true; break; }
+    }
+    if (!existe){
+        var o = document.createElement("option");
+        o.value = item.nome;
+        o.text  = item.nome;
+        select.appendChild(o);
+    }
+    select.value   = item.nome;
+    select._lista  = [item];
+
+    aplicaAlimento(row, item.nome, item);
+    fecharPicker();
+}
+
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('pickerModal')){ fecharPicker(); }
 });
 
 //------------------------------------

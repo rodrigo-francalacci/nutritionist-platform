@@ -77,9 +77,92 @@ textarea {
     resize: none;
     column-count: 3;
     orphans: 10px;
-    
+
 }
-</style> 
+
+/* Seletor de alimentos em colunas (estilo Finder) */
+
+/* o <select> antigo continua no DOM (guarda o valor), mas fica escondido */
+.foods-oculto{ display: none; }
+
+/* "chip" que mostra o nome do alimento e abre o seletor ao ser clicado */
+.alimento-chip{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-top: 4px;
+    padding: 7px 30px 7px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #fff;
+    color: var(--cor1);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.alimento-chip:hover{ background-color: var(--cor5); }
+.alimento-chip::after{
+    content: "\25BE";           /* ▾ */
+    position: absolute;
+    right: 10px;
+    color: var(--cor3);
+}
+
+#pickerModal{ padding-top: 40px; }
+#pickerModal .modal-content{ flex-direction: column; width: 92%; max-width: 1300px; }
+.picker-busca{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+}
+.picker-colunas{
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    height: 460px;
+    border: 1px solid var(--cor6);
+    border-radius: 6px;
+    background-color: #fff;
+}
+.picker-col{
+    min-width: 220px;
+    max-width: 280px;
+    flex: 0 0 auto;
+    overflow-y: auto;
+    border-right: 1px solid var(--cor6);
+}
+.picker-item{
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--cor1);
+    border-bottom: 1px solid #f2f2f2;
+}
+.picker-item:hover{ background-color: var(--cor5); }
+.picker-item.sel{ background-color: var(--cor4); font-weight: bold; }
+.picker-folder{ font-weight: 600; }
+.picker-seta{ color: var(--cor3); font-size: 16px; margin-left: 8px; }
+.picker-origem{ color: #8a8a8a; font-size: 12px; margin-left: 8px; white-space: nowrap; }
+.picker-resultados{
+    height: 460px;
+    overflow-y: auto;
+    border: 1px solid var(--cor6);
+    border-radius: 6px;
+    background-color: #fff;
+}
+.picker-vazio{ padding: 16px; color: #888; }
+.picker-dica{ font-size: 12px; color: #888; margin: 10px 2px 0; }
+</style>
     
     <script>
       var corTema = [];
@@ -804,6 +887,26 @@ a:active {
   </div>
 </div>
 
+<div id="pickerModal" class="modal">
+  <div class="modal-content">
+
+    <div class="saveHead">
+      <label class="tituloReceita">Escolher alimento</label>
+      <span class="close" onclick="fecharPicker()">&times;</span>
+    </div>
+
+    <input type="text" id="pickerBusca" class="picker-busca"
+           placeholder="Buscar em toda a base (digite ao menos 2 letras)…"
+           oninput="buscarNoPicker()">
+
+    <div id="pickerColunas" class="picker-colunas"></div>
+    <div id="pickerResultados" class="picker-resultados" style="display:none;"></div>
+
+    <p class="picker-dica">Clique numa pasta para abrir a próxima coluna; clique num alimento para selecioná-lo.</p>
+
+  </div>
+</div>
+
     <div id="row-container">
 
     <div class="form-row" id="form-row-0" name="form-row-0">
@@ -811,7 +914,8 @@ a:active {
         
         <div class="col-alimentos">
         <label>Alimento: </label><br>
-          <select name="alimentos" id="foods-0" onchange="updateFood('-0')">
+          <button type="button" class="alimento-chip" id="chip-0" onclick="abrirPicker('-0')" title="Clique para escolher outro alimento">Ovo</button>
+          <select name="alimentos" id="foods-0" class="foods-oculto" onchange="updateFood('-0')">
 
           </select>
         </div>
@@ -893,7 +997,8 @@ a:active {
        
          <div class="col-alimentos">
         <label>Alimento: </label><br>
-          <select name="alimentos" id="foods-1" onchange="updateFood('-1')">
+          <button type="button" class="alimento-chip" id="chip-1" onclick="abrirPicker('-1')" title="Clique para escolher outro alimento">Mozzarella</button>
+          <select name="alimentos" id="foods-1" class="foods-oculto" onchange="updateFood('-1')">
              
           </select>
         </div>
@@ -971,7 +1076,8 @@ a:active {
        
         <div class="col-alimentos">
         <label>Alimento: </label><br>
-          <select name="alimentos" id="foods-2" onchange="updateFood('-2')">
+          <button type="button" class="alimento-chip" id="chip-2" onclick="abrirPicker('-2')" title="Clique para escolher outro alimento">Carne Moída</button>
+          <select name="alimentos" id="foods-2" class="foods-oculto" onchange="updateFood('-2')">
 
           </select>
         </div>
