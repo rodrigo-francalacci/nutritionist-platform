@@ -648,6 +648,28 @@ data[2] = {refeicao: "Manhã",
     }
 
     sumFacts();
+    aplicarPrefDetalhes();
+}
+
+// Liga/desliga a faixa de "detalhes" de todas as linhas. Some so a
+// observacao; os macros continuam. A preferencia fica guardada para a
+// proxima visita.
+function alternarDetalhes(){
+    var cont = document.getElementById('row-container');
+    var escondido = cont.classList.toggle('esconder-detalhes');
+    var btn = document.getElementById('btnDetalhes');
+    if (btn){ btn.textContent = escondido ? 'Mostrar detalhes' : 'Ocultar detalhes'; }
+    try { localStorage.setItem('nutri_esconder_detalhes', escondido ? '1' : '0'); } catch(e){}
+}
+
+function aplicarPrefDetalhes(){
+    var pref = null;
+    try { pref = localStorage.getItem('nutri_esconder_detalhes'); } catch(e){}
+    if (pref === '1'){
+        document.getElementById('row-container').classList.add('esconder-detalhes');
+        var btn = document.getElementById('btnDetalhes');
+        if (btn){ btn.textContent = 'Mostrar detalhes'; }
+    }
 }
     
 function copyFromData(row){
@@ -1514,12 +1536,25 @@ function executarBuscaOFF(){
                 var nome = document.createElement("span");
                 nome.textContent = a.nome;
 
+                var lado = document.createElement("span");
+                lado.className = "off-lado";
+
                 var org = document.createElement("span");
                 org.className = "picker-origem";
                 org.textContent = Math.round(a.cal * 100) + " kcal/100g";
 
+                var salvar = document.createElement("button");
+                salvar.type = "button";
+                salvar.className = "off-salvar";
+                salvar.textContent = "+ base";
+                salvar.title = "Baixar para salvar na minha base pessoal";
+                salvar.onclick = function(ev){ ev.stopPropagation(); salvarAlimentoNaBase(a); };
+
+                lado.appendChild(org);
+                lado.appendChild(salvar);
+
                 it.appendChild(nome);
-                it.appendChild(org);
+                it.appendChild(lado);
                 it.onclick = function(){ escolherAlimentoDoPicker(a); };
                 lista.appendChild(it);
             });
@@ -1529,6 +1564,40 @@ function executarBuscaOFF(){
             status.textContent = "O serviço está ocupado no momento. Tente de novo em alguns segundos.";
             console.error("Open Food Facts:", err);
         });
+}
+
+//Baixa um alimento (do Open Food Facts, ou qualquer objeto no formato do
+//app) como um .json para ser adicionado a base pessoal. O app e estatico e
+//nao pode escrever no repositorio; entao a ponte e a mesma das sessoes:
+//baixa o arquivo e o gerenciador (base-add) o grava no foods.json e publica.
+function salvarAlimentoNaBase(a){
+
+    var limpo = {
+        nome:     a.nome,
+        categoria:a.categoria,
+        unidade:  a.unidade,
+        cal:      arred4(a.cal),
+        protein:  arred4(a.protein),
+        carb:     arred4(a.carb),
+        fats:     arred4(a.fats),
+        detalhes: a.detalhes || ""
+    };
+
+    var arq = "alimento-" + slugArquivo(a.nome) + ".json";
+    baixarArquivo(JSON.stringify(limpo, null, 2), arq, 'application/json');
+
+    var status = document.getElementById("offStatus");
+    if (status){
+        status.textContent = "Baixado " + arq +
+            " (pasta Downloads). No gerenciador digite  base-add  e arraste o arquivo para publicá-lo na sua base.";
+    }
+}
+
+function arred4(x){ return Math.round(Number(x) * 10000) / 10000; }
+
+function slugArquivo(nome){
+    var s = String(nome).trim().replace(/[^\p{L}\p{N} _-]/gu, "").replace(/\s+/g, "-");
+    return s || "alimento";
 }
 
 //Revela o campo "Abrir Receita" daquela linha (mesma acao que a antiga

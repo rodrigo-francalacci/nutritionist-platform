@@ -194,6 +194,23 @@ textarea {
 .picker-off-btn:disabled{ opacity: .5; cursor: default; }
 .picker-off-status{ font-size: 12px; color: #666; margin: 4px 2px 8px; }
 .picker-off-resultados{ height: 400px; }
+
+/* lado direito de cada resultado do OFF: kcal + botão "salvar na base" */
+.off-lado{ display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
+.off-salvar{
+    padding: 2px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: var(--cor3);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.off-salvar:hover{ background-color: var(--cor2); }
+
+/* botão "ocultar detalhes": esconde só a faixa de detalhes das linhas */
+#row-container.esconder-detalhes .col-detalhes{ display: none; }
 </style>
     
     <script>
@@ -787,6 +804,7 @@ a:active {
             <li><button onclick="abrirSessoes()">Sessões</button></li>
             <li><input type="button" value="Print" onclick="printRel()"/></li>
             <li><button onclick="gerarLatex()">LaTeX</button></li>
+            <li><button id="btnDetalhes" onclick="alternarDetalhes()">Ocultar detalhes</button></li>
             <li><p contenteditable="true" id="nome">Name</p>
             <p contenteditable="true" id="dia">Notes</p></li>
 

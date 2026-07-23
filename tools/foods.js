@@ -5,6 +5,7 @@
 //   node tools/foods.js list [termo]
 //   node tools/foods.js categorias
 //   node tools/foods.js add
+//   node tools/foods.js import <arquivo.json>
 //   node tools/foods.js edit "<nome>"
 //   node tools/foods.js rm "<nome>"
 //   node tools/foods.js check
@@ -271,6 +272,56 @@ async function cmdRm(lista, io, nome) {
   return f.nome;
 }
 
+// valida um alimento vindo de fora (import). Devolve null se ok, ou o motivo.
+function validarAlimento(f) {
+  if (!f || typeof f !== 'object' || Array.isArray(f)) return 'não é objeto';
+  if (!f.nome || typeof f.nome !== 'string') return 'sem nome';
+  for (const k of CAMPOS_NUM) {
+    const n = Number(f[k]);
+    if (!isFinite(n) || n < 0) return k + ' inválido';
+  }
+  return null;
+}
+
+// Importa alimento(s) de um .json baixado pelo app (ex.: um produto do
+// Open Food Facts). Aceita um objeto unico OU uma lista. Ja no formato do
+// foods.json (macros POR UNIDADE). Pula os que ja existem pelo nome.
+function cmdImport(lista, origem) {
+  if (!origem) { console.log(c('verm', 'informe o arquivo: import <arquivo.json>')); return null; }
+  if (!fs.existsSync(origem)) { console.log(c('verm', 'não encontrei ' + origem)); return null; }
+
+  let txt;
+  try {
+    txt = fs.readFileSync(origem, 'utf8');
+    if (txt.charCodeAt(0) === 0xFEFF) txt = txt.slice(1);   // strip BOM (Windows)
+  } catch (e) { console.log(c('verm', 'não consegui ler: ' + e.message)); return null; }
+
+  let dados;
+  try { dados = JSON.parse(txt); } catch (e) { console.log(c('verm', 'JSON inválido: ' + e.message)); return null; }
+
+  const entrada = Array.isArray(dados) ? dados : [dados];
+  let novos = 0, pulados = 0, invalidos = 0;
+
+  for (const f of entrada) {
+    const erro = validarAlimento(f);
+    if (erro) { console.log(c('amar', '  ignorado (' + erro + '): ' + ((f && f.nome) || '?'))); invalidos++; continue; }
+    if (lista.some(x => x.nome === f.nome)) { console.log(c('fraco', '  já existe, pulando: ' + f.nome)); pulados++; continue; }
+
+    lista.push({
+      nome: f.nome.trim(),
+      categoria: String(f.categoria || 'Outros').trim(),
+      unidade: String(f.unidade || 'gramas').trim(),
+      cal: Number(f.cal), protein: Number(f.protein), carb: Number(f.carb), fats: Number(f.fats),
+      detalhes: String(f.detalhes || ''),
+    });
+    console.log(c('verde', '  + ' + f.nome) + c('fraco', '  (' + (f.categoria || 'Outros') + ')'));
+    novos++;
+  }
+
+  console.log('\n  ' + c('neg', novos + ' novo(s)') + ', ' + pulados + ' repetido(s), ' + invalidos + ' inválido(s).');
+  return novos > 0 ? (novos + ' alimento(s)') : null;
+}
+
 function cmdCheck(lista) {
   const problemas = [];
   const vistos = new Map();
@@ -349,6 +400,7 @@ ${c('neg', 'Base pessoal de alimentos')}
   node tools/foods.js list [termo]     lista (filtra por nome ou categoria)
   node tools/foods.js categorias       categorias e quantos alimentos tem cada
   node tools/foods.js add              acrescenta um alimento
+  node tools/foods.js import <arquivo> importa alimento(s) de um .json baixado
   node tools/foods.js edit "<nome>"    edita
   node tools/foods.js rm "<nome>"      remove
   node tools/foods.js check            procura erros na base
@@ -379,6 +431,7 @@ async function main(argv, ioExterno) {
       case 'categorias': case 'cats': cmdCategorias(lista); break;
       case 'check': cmdCheck(lista); break;
       case 'add': alterou = await cmdAdd(lista, io); break;
+      case 'import': alterou = cmdImport(lista, arg); break;
       case 'edit':
         if (!arg) { console.log(c('verm', 'informe o nome: edit "<nome>"')); break; }
         alterou = await cmdEdit(lista, io, arg); break;

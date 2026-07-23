@@ -31,6 +31,7 @@ const COMANDOS = {
   add:      { grupo: 'BASE DE ALIMENTOS', uso: 'add',            desc: 'adiciona um alimento',            tool: 'foods',    args: ['add'],        muta: true },
   edit:     { grupo: 'BASE DE ALIMENTOS', uso: 'edit <nome>',    desc: 'edita um alimento',               tool: 'foods',    args: ['edit'],       muta: true, precisaArg: 'o nome do alimento' },
   rm:       { grupo: 'BASE DE ALIMENTOS', uso: 'rm <nome>',      desc: 'remove um alimento',              tool: 'foods',    args: ['rm'],         muta: true, precisaArg: 'o nome do alimento' },
+  'base-add': { grupo: 'BASE DE ALIMENTOS', uso: 'base-add <arquivo>', desc: 'salva na base um alimento baixado do app', tool: 'foods', args: ['import'], muta: true, precisaArg: 'o caminho do .json baixado (pode arrastar o arquivo para cá)' },
   list:     { grupo: 'BASE DE ALIMENTOS', uso: 'list [termo]',   desc: 'lista os alimentos (filtra)',     tool: 'foods',    args: ['list'] },
   cats:     { grupo: 'BASE DE ALIMENTOS', uso: 'cats',           desc: 'mostra as categorias',            tool: 'foods',    args: ['categorias'] },
   check:    { grupo: 'BASE DE ALIMENTOS', uso: 'check',          desc: 'procura erros na base',           tool: 'foods',    args: ['check'] },
@@ -49,6 +50,7 @@ const COMANDOS = {
 
 // apelidos
 const APELIDOS = { ls:'list', categorias:'cats', remove:'rm', delete:'rm', del:'rm',
+                   importar:'base-add', salvar:'base-add', 'add-base':'base-add',
                    push:'publish', publicar:'publish', quit:'exit', q:'exit', sair:'exit',
                    '?':'help', ajuda:'help' };
 
