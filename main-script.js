@@ -1812,7 +1812,8 @@ function executarBuscaOFF(){
         })
         .catch(function(err){
             botao.disabled = false;
-            status.textContent = "O serviço está ocupado no momento. Tente de novo em alguns segundos.";
+            status.textContent = "O Open Food Facts está instável ou fora do ar agora (é do serviço, não do seu app). " +
+                                 "Clique em Buscar de novo, ou tente daqui a alguns minutos.";
             console.error("Open Food Facts:", err);
         });
 }

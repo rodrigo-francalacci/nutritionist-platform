@@ -91,35 +91,45 @@ function buscarOpenFoodFacts(termo, regiaoChave, tentativas){
 
     var regiao = offRegiaoDe(regiaoChave);
 
-    // o search.pl do OFF costuma responder 503 sob carga; algumas tentativas
-    // resolvem a grande maioria dos casos
-    tentativas = tentativas || 6;
+    // o search.pl do OFF costuma responder 5xx (500/503) sob carga; várias
+    // tentativas resolvem a grande maioria dos casos
+    tentativas = tentativas || 8;
 
     var url = regiao.endpoint +
         "?search_terms=" + encodeURIComponent(termo) +
         "&search_simple=1&action=process&json=1&page_size=40" +
         "&fields=product_name,brands,quantity,code,nutriments";
 
-    function tentar(restam){
+    // Erros 5xx e falhas de rede são temporários (serviço ocupado/instável):
+    // espera um pouco e tenta de novo enquanto houver tentativas. Só 4xx e o
+    // esgotamento das tentativas viram erro de verdade.
+    function buscarComRetentativa(restam){
         return fetch(url, { headers: { "Accept": "application/json" } })
             .then(function(r){
-                // 503 = servico ocupado: espera um pouco e tenta de novo
-                if (r.status === 503 && restam > 1){
-                    return offEsperar(700).then(function(){ return tentar(restam - 1); });
+                if (r.status >= 500){
+                    var e = new Error("Open Food Facts respondeu " + r.status);
+                    e.temporario = true;
+                    throw e;
                 }
                 if (!r.ok){ throw new Error("Open Food Facts respondeu " + r.status); }
                 return r.json();
             })
-            .then(function(data){
-                var brutos = (data && data.products) || [];
-                var out = [];
-                brutos.forEach(function(p){
-                    var a = offParaAlimento(p, regiao);
-                    if (a){ out.push(a); }
-                });
-                return out;
+            .catch(function(err){
+                var temporario = (err && err.temporario) || (err && err.name === "TypeError"); // 5xx ou rede
+                if (temporario && restam > 1){
+                    return offEsperar(800).then(function(){ return buscarComRetentativa(restam - 1); });
+                }
+                throw err;
             });
     }
 
-    return tentar(tentativas);
+    return buscarComRetentativa(tentativas).then(function(data){
+        var brutos = (data && data.products) || [];
+        var out = [];
+        brutos.forEach(function(p){
+            var a = offParaAlimento(p, regiao);
+            if (a){ out.push(a); }
+        });
+        return out;
+    });
 }
