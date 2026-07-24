@@ -1462,7 +1462,8 @@ function pickerFilhos(entry){
         return [
             {tipo:"grupo", rotulo:"Minha base",  fonte:"base"},
             {tipo:"grupo", rotulo:"Tabela TACO", fonte:"taco"},
-            {tipo:"acao",  rotulo:"Supermercado UK (Open Food Facts)", fonte:"off"},
+            {tipo:"acao",  rotulo:"Supermercado Brasil (Open Food Facts)", fonte:"off", regiao:"br"},
+            {tipo:"acao",  rotulo:"Supermercado Reino Unido (Open Food Facts)", fonte:"off", regiao:"uk"},
             {tipo:"acao",  rotulo:"Carregar receita (arquivo)…", fonte:"receita"}
         ];
     }
@@ -1621,7 +1622,7 @@ function colunaEl(filhos, nivel, selecionado){
                 pickerPath.push(entry);
                 renderPickerColunas();
             } else if (entry.tipo === "acao" && entry.fonte === "off"){
-                abrirBuscaOFF();
+                abrirBuscaOFF(entry.regiao);
             } else if (entry.tipo === "acao" && entry.fonte === "receita"){
                 abrirReceitaArquivo(pickerRow);
             } else {
@@ -1709,12 +1710,26 @@ function buscarNoPicker(){
 //As funcoes de rede vivem em off-adapter.js (buscarOpenFoodFacts,
 //offParaAlimento). Aqui e so a interface dentro do seletor.
 
-function abrirBuscaOFF(){
-    document.getElementById("pickerColunas").style.display   = "none";
+var offRegiao = "uk";   // região atual da busca no Open Food Facts
+
+function abrirBuscaOFF(regiao){
+    offRegiao = regiao || "uk";
+    var info = (typeof OFF_REGIOES !== "undefined") ? OFF_REGIOES[offRegiao] : null;
+    var rotulo = info ? info.rotulo : "";
+    var exemplos = (offRegiao === "br") ? "requeijão, arroz, iogurte" : "chicken breast, hummus, oat milk";
+
+    document.getElementById("pickerColunas").style.display    = "none";
     document.getElementById("pickerResultados").style.display = "none";
     document.getElementById("pickerOFF").style.display        = "block";
+
+    var busca = document.getElementById("offBusca");
+    busca.value = "";
+    busca.placeholder = "Produto no supermercado (" + rotulo + ")… ex.: " + exemplos;
+    document.getElementById("offResultados").innerHTML = "";
+    document.getElementById("offStatus").textContent =
+        "Fonte: Open Food Facts — produtos de supermercados (" + rotulo + "). Valores por 100 g convertidos automaticamente.";
     limparPreviewOFF();
-    document.getElementById("offBusca").focus();
+    busca.focus();
 }
 
 //pré-visualização dos food facts (lado direito do painel do OFF)
@@ -1752,7 +1767,7 @@ function executarBuscaOFF(){
     status.textContent = "Buscando no Open Food Facts…";
     botao.disabled = true;
 
-    buscarOpenFoodFacts(termo)
+    buscarOpenFoodFacts(termo, offRegiao)
         .then(function(alimentos){
             botao.disabled = false;
 

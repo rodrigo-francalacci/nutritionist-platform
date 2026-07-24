@@ -1,11 +1,15 @@
 // ============================================================================
-// Ponte com o Open Food Facts (OFF) — alimentos de supermercados do Reino Unido
+// Ponte com o Open Food Facts (OFF) — produtos de supermercado, ao vivo
 // ----------------------------------------------------------------------------
 // O app tem duas bases locais (foods.json e a tabela TACO). Este modulo
-// adiciona uma TERCEIRA fonte, ao vivo: produtos vendidos no Reino Unido,
-// buscados no Open Food Facts. E gratuito, nao precisa de chave de API e
-// responde com CORS liberado (Access-Control-Allow-Origin: *), entao funciona
-// direto de um site estatico como o GitHub Pages.
+// adiciona fontes AO VIVO: produtos de supermercado buscados no Open Food
+// Facts. E gratuito, nao precisa de chave de API e responde com CORS liberado
+// (Access-Control-Allow-Origin: *), entao funciona direto de um site estatico
+// como o GitHub Pages.
+//
+// Ha duas regioes, cada uma no seu dominio do OFF (que ja filtra por pais):
+//   uk -> uk.openfoodfacts.org (Reino Unido)
+//   br -> br.openfoodfacts.org (Brasil)
 //
 // O OFF guarda os nutrientes POR 100 g. O app fala "por unidade" (por grama
 // quando unidade === "gramas", que e o caso aqui). offParaAlimento() faz essa
@@ -15,18 +19,31 @@
 // um produto do supermercado igualzinho a um alimento da base pessoal.
 // ============================================================================
 
-// Endpoint de busca no dominio "uk.": ja devolve so produtos vendidos no
-// Reino Unido. (O search.pl as vezes responde 503 por sobrecarga; por isso a
-// busca abaixo tenta algumas vezes antes de desistir.)
-var OFF_ENDPOINT  = "https://uk.openfoodfacts.org/cgi/search.pl";
-var OFF_CATEGORIA = "Supermercado (Reino Unido)";
+var OFF_REGIOES = {
+    uk: {
+        endpoint:  "https://uk.openfoodfacts.org/cgi/search.pl",
+        categoria: "Supermercado (Reino Unido)",
+        origem:    "Reino Unido",
+        rotulo:    "Reino Unido"
+    },
+    br: {
+        endpoint:  "https://br.openfoodfacts.org/cgi/search.pl",
+        categoria: "Supermercado (Brasil)",
+        origem:    "Brasil",
+        rotulo:    "Brasil"
+    }
+};
+
+function offRegiaoDe(chave){ return OFF_REGIOES[chave] || OFF_REGIOES.uk; }
 
 function offArred(x){ return Math.round(Number(x) * 10) / 10; }
 
 // Converte um produto do OFF para o formato de alimento do app.
 // Devolve null se faltar algum macro essencial (o produto tem dados
 // incompletos e nao serviria para montar o plano).
-function offParaAlimento(prod){
+function offParaAlimento(prod, regiao){
+
+    regiao = regiao || OFF_REGIOES.uk;
 
     var n = prod && prod.nutriments;
     if (!n){ return null; }
@@ -45,7 +62,7 @@ function offParaAlimento(prod){
     var marca = String(prod.brands || "").split(",")[0].trim();
     if (marca){ nome = nome + " — " + marca; }   // "Nome — Marca"
 
-    var detalhes = "Open Food Facts (Reino Unido)";
+    var detalhes = "Open Food Facts (" + regiao.origem + ")";
     if (prod.quantity){ detalhes += " · " + prod.quantity; }
     if (prod.code){ detalhes += " · cód " + prod.code; }
     detalhes += " · por 100 g: " +
@@ -54,7 +71,7 @@ function offParaAlimento(prod){
 
     return {
         nome: nome,
-        categoria: OFF_CATEGORIA,
+        categoria: regiao.categoria,
         unidade: "gramas",
         // OFF vem por 100 g; o app quer por 1 g
         cal:     cal  / 100,
@@ -67,16 +84,18 @@ function offParaAlimento(prod){
 
 function offEsperar(ms){ return new Promise(function(res){ setTimeout(res, ms); }); }
 
-// Busca no OFF (Reino Unido) e devolve uma lista de alimentos JA no formato
-// do app. Produtos com dados incompletos sao descartados. Faz ate `tentativas`
-// tentativas porque o endpoint as vezes devolve 503 sob carga.
-function buscarOpenFoodFacts(termo, tentativas){
+// Busca no OFF de uma regiao ("uk" ou "br") e devolve uma lista de alimentos
+// JA no formato do app. Produtos com dados incompletos sao descartados. Faz
+// ate `tentativas` tentativas porque o endpoint as vezes devolve 503 sob carga.
+function buscarOpenFoodFacts(termo, regiaoChave, tentativas){
+
+    var regiao = offRegiaoDe(regiaoChave);
 
     // o search.pl do OFF costuma responder 503 sob carga; algumas tentativas
     // resolvem a grande maioria dos casos
     tentativas = tentativas || 6;
 
-    var url = OFF_ENDPOINT +
+    var url = regiao.endpoint +
         "?search_terms=" + encodeURIComponent(termo) +
         "&search_simple=1&action=process&json=1&page_size=40" +
         "&fields=product_name,brands,quantity,code,nutriments";
@@ -95,7 +114,7 @@ function buscarOpenFoodFacts(termo, tentativas){
                 var brutos = (data && data.products) || [];
                 var out = [];
                 brutos.forEach(function(p){
-                    var a = offParaAlimento(p);
+                    var a = offParaAlimento(p, regiao);
                     if (a){ out.push(a); }
                 });
                 return out;
