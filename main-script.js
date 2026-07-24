@@ -234,6 +234,7 @@ function aplicaAlimento(row, rowFood, item){
         if(item == null){
             //zera os macros para nao somar numeros antigos de outro alimento
             console.warn('Alimento nao encontrado na base: "' + rowFood + '"');
+            data[row]._base = null;
             data[row].detalhes = "Alimento não encontrado na base de dados.";
             data[row].protein = 0;
             data[row].carb = 0;
@@ -244,39 +245,147 @@ function aplicaAlimento(row, rowFood, item){
             document.getElementById('qtd-carb-'+row).textContent = 0;
             document.getElementById('qtd-fat-'+row).textContent = 0;
             document.getElementById('qtd-cal-'+row).textContent = 0;
+            document.getElementById('uni-'+row).textContent = "";
             sumFacts();
             return;
         }
 
-        //atualiza a unidade
-        document.getElementById('uni-'+row).textContent = item.unidade;
+        //guarda os macros POR UNIDADE PRINCIPAL + as unidades extras do alimento.
+        //a linha começa na unidade principal; o usuário pode trocar depois.
+        data[row]._base = baseDeAlimento(item);
         data[row].unidade = item.unidade;
 
         //atualiza os detalhes
         document.getElementById('detalhes-'+row).innerHTML = item.detalhes;
         data[row].detalhes = item.detalhes;
 
-        //atualiza a quantidade
         data[row].qtd = document.getElementById('qtd-'+row).value;
-        var q = parseNum(data[row].qtd);
 
-        //atualiza a quantidade de proteínas
-        data[row].protein = rd(q*parseNum(item.protein));
-        document.getElementById('qtd-protein-'+row).textContent = data[row].protein;
-
-        //atualiza a quantidade de carboidratos
-        data[row].carb = rd(q*parseNum(item.carb));
-        document.getElementById('qtd-carb-'+row).textContent = data[row].carb;
-
-        //atualiza a quantidade de gorduras
-        data[row].fats = rd(q*parseNum(item.fats));
-        document.getElementById('qtd-fat-'+row).textContent = data[row].fats;
-
-        //atualiza a quantidade de calorias
-        data[row].cal = rd(q*parseNum(item.cal));
-        document.getElementById('qtd-cal-'+row).textContent = data[row].cal;
-
+        aplicarUnidadeControl(row);   //mostra o seletor de unidade se houver mais de uma
+        recomputarMacros(row);
         sumFacts();
+}
+
+// ---- unidades múltiplas por alimento -------------------------------------
+// Cada alimento tem uma unidade PRINCIPAL (macros por 1 dela) e pode ter
+// unidades EXTRAS, definidas por equivalência: {unidade, equivale}, onde
+// `equivale` = quantas unidades principais valem 1 dessa unidade. Ex.: base
+// em gramas, "1 scoop = 30" -> scoop.equivale = 30.
+
+// Extrai de um alimento os macros por unidade principal + a tabela de unidades.
+function baseDeAlimento(f){
+    return {
+        unidadePrincipal: f.unidade,
+        unidades: Array.isArray(f.unidades) ? f.unidades : [],
+        cal: parseNum(f.cal), protein: parseNum(f.protein),
+        carb: parseNum(f.carb), fats: parseNum(f.fats)
+    };
+}
+
+// Garante que a linha tenha _base. Se o alimento estiver na base pessoal,
+// usa a definição completa (com as unidades extras). Senão (TACO, OFF,
+// receita — uma unidade só) deriva de UMA unidade a partir dos totais.
+function garantirBase(row){
+    if (data[row]._base){ return; }
+    var f = findByName(foods, data[row].nome);
+    if (f){ data[row]._base = baseDeAlimento(f); return; }
+    var q = parseNum(data[row].qtd);
+    var por = q > 0 ? 1 / q : 0;
+    data[row]._base = {
+        unidadePrincipal: data[row].unidade,
+        unidades: [],
+        cal:     parseNum(data[row].cal)     * por,
+        protein: parseNum(data[row].protein) * por,
+        carb:    parseNum(data[row].carb)    * por,
+        fats:    parseNum(data[row].fats)    * por
+    };
+}
+
+// Nomes de todas as unidades da linha: principal + extras (sem repetir).
+function unidadesDaLinha(row){
+    var b = data[row]._base;
+    var principal = b ? b.unidadePrincipal : data[row].unidade;
+    var nomes = [principal];
+    if (b && b.unidades){
+        b.unidades.forEach(function(u){
+            if (u && u.unidade && nomes.indexOf(u.unidade) === -1){ nomes.push(u.unidade); }
+        });
+    }
+    return nomes;
+}
+
+// Quantas unidades principais valem 1 da unidade escolhida.
+function fatorDaUnidade(base, unidade){
+    if (!base){ return 1; }
+    if (unidade === base.unidadePrincipal){ return 1; }
+    var lista = base.unidades || [];
+    for (var i = 0; i < lista.length; i++){
+        if (lista[i].unidade === unidade){ return parseNum(lista[i].equivale); }
+    }
+    return 1;
+}
+
+// Mostra a unidade: texto quando só há uma, <select> quando há extras.
+function aplicarUnidadeControl(row){
+    var host = document.getElementById('uni-'+row);
+    if (!host){ return; }
+
+    var nomes = unidadesDaLinha(row);
+    var atual = data[row].unidade || nomes[0];
+    if (nomes.indexOf(atual) === -1){ atual = nomes[0]; data[row].unidade = atual; }
+
+    if (nomes.length <= 1){
+        host.textContent = atual || "";
+        return;
+    }
+
+    host.innerHTML = "";
+    var sel = document.createElement("select");
+    sel.className = "uni-select";
+    sel.id = "uni-sel-" + row;
+    sel.setAttribute("onchange", "trocarUnidade('-" + row + "')");
+    nomes.forEach(function(u){
+        var o = document.createElement("option");
+        o.value = u; o.textContent = u;
+        sel.appendChild(o);
+    });
+    sel.value = atual;
+    host.appendChild(sel);
+}
+
+function trocarUnidade(rowID){
+    var row = parseInt(rowID.replace("-", ""));
+    var sel = document.getElementById("uni-sel-" + row);
+    if (sel){ data[row].unidade = sel.value; }
+    recomputarMacros(row);
+    sumFacts();
+}
+
+// Recalcula os macros: quantidade × fator da unidade × macros por unidade
+// principal. Atualiza data[] e a tela.
+function recomputarMacros(row){
+    garantirBase(row);
+    var b = data[row]._base;
+    var q = parseNum(data[row].qtd);
+    var f = q * fatorDaUnidade(b, data[row].unidade);
+
+    data[row].protein = rd(f * (b ? b.protein : 0));
+    data[row].carb    = rd(f * (b ? b.carb : 0));
+    data[row].fats    = rd(f * (b ? b.fats : 0));
+    data[row].cal     = rd(f * (b ? b.cal : 0));
+
+    document.getElementById('qtd-protein-'+row).textContent = data[row].protein;
+    document.getElementById('qtd-carb-'+row).textContent = data[row].carb;
+    document.getElementById('qtd-fat-'+row).textContent = data[row].fats;
+    document.getElementById('qtd-cal-'+row).textContent = data[row].cal;
+}
+
+// Só a quantidade mudou: mantém a unidade escolhida e recalcula.
+function atualizarQuantidade(rowID){
+    var row = parseInt(rowID.replace("-", ""));
+    data[row].qtd = document.getElementById('qtd-'+row).value;
+    recomputarMacros(row);
+    sumFacts();
 }
     
 function setTexto(id, valor){
@@ -546,7 +655,11 @@ function pasteRowValues(row, values){
         document.getElementById('foods-'+row).value = values.nome;
         atualizarNomeAlimento(row, values.nome);
         document.getElementById('qtd-'+row).value = values.qtd;
-        document.getElementById('uni-'+row).innerHTML = values.unidade;
+        //a unidade vira texto ou <select> conforme o alimento tenha extras.
+        //(values === data[row] nas chamadas reais, então data[row].unidade já existe.)
+        data[row].unidade = values.unidade;
+        garantirBase(row);
+        aplicarUnidadeControl(row);
         document.getElementById('qtd-protein-'+row).innerHTML = values.protein;
         document.getElementById('qtd-carb-'+row).innerHTML = values.carb;
         document.getElementById('qtd-fat-'+row).innerHTML = values.fats;
@@ -594,7 +707,6 @@ function listRows(){
 }
     
 function popNewLine(row){
-        document.getElementById('uni-'+row).textContent = "ovos";
         document.getElementById('foods-'+row).value = "Ovo";
         atualizarNomeAlimento(row, "Ovo");
         document.getElementById('qtd-'+row).value = 0;
@@ -604,6 +716,12 @@ function popNewLine(row){
         document.getElementById('qtd-cal-'+row).textContent = 0;
         document.getElementById('grupo-'+row).value = "--";
         document.getElementById('detalhes-'+row).textContent = "Sem detalhes.";
+        //linha nova é "Ovo": pega a unidade (e extras, se houver) da base
+        data[row].nome = "Ovo";
+        data[row].unidade = "ovos";
+        data[row]._base = null;
+        garantirBase(row);
+        aplicarUnidadeControl(row);
         pintaRefeicao(row);
 }
 
@@ -1441,6 +1559,16 @@ function colunaPreview(item){
     nota.className = "preview-nota";
     nota.textContent = rotuloQtd;
     col.appendChild(nota);
+
+    //unidades extras (equivalência), quando o alimento tiver
+    if (Array.isArray(item.unidades) && item.unidades.length){
+        var u = document.createElement("div");
+        u.className = "preview-nota";
+        u.textContent = "outras unidades: " + item.unidades.map(function(x){
+            return x.unidade + " (= " + x.equivale + " " + item.unidade + ")";
+        }).join(", ");
+        col.appendChild(u);
+    }
 
     var det = stripHtml(item.detalhes || "");
     if (det && det !== "Sem detalhes."){

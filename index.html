@@ -224,6 +224,18 @@ textarea {
 /* botão "ocultar detalhes": esconde só a faixa de detalhes das linhas */
 #row-container.esconder-detalhes .col-detalhes{ display: none; }
 
+/* seletor de unidade na linha (aparece quando o alimento tem mais de uma) */
+.uni-select{
+    font-size: 13px;
+    padding: 2px 4px;
+    max-width: 120px;
+    margin-left: 2px;
+    border: 1px solid var(--cor3);
+    border-radius: 4px;
+    background-color: #fff;
+    color: var(--cor1);
+}
+
 /* coluna de pré-visualização do alimento (facts antes de selecionar) */
 .picker-preview{
     min-width: 240px;
@@ -1072,7 +1084,7 @@ a:active {
         
         <div class="col-qtd" id="col-qtd-0">
         <label>Quantidade: </label><br>
-        <input type="text" onchange="updateFood('-0')" id="qtd-0" style="width: 30%;";><span id="uni-0">gramas</span>
+        <input type="text" onchange="atualizarQuantidade('-0')" id="qtd-0" style="width: 30%;";><span id="uni-0">gramas</span>
         </div>
         
         <div class="col-protein">
@@ -1154,7 +1166,7 @@ a:active {
         
         <div class="col-qtd" id="col-qtd-1">
         <label>Quantidade: </label><br>
-        <input type="text" onchange="updateFood('-1')" id="qtd-1" style="width: 30%;";><span id="uni-1">gramas</span>
+        <input type="text" onchange="atualizarQuantidade('-1')" id="qtd-1" style="width: 30%;";><span id="uni-1">gramas</span>
         </div>
         
         <div class="col-protein">
@@ -1234,7 +1246,7 @@ a:active {
         
         <div class="col-qtd" id="col-qtd-2">
         <label>Quantidade: </label><br>
-        <input type="text" onchange="updateFood('-2')" id="qtd-2" style="width: 30%;";><span id="uni-2">gramas</span>
+        <input type="text" onchange="atualizarQuantidade('-2')" id="qtd-2" style="width: 30%;";><span id="uni-2">gramas</span>
         </div>
         
         <div class="col-protein">

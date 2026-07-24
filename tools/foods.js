@@ -177,6 +177,35 @@ async function perguntarUnidade(io, lista, padrao) {
   }
 }
 
+// Unidades ADICIONAIS, definidas por equivalência à unidade principal.
+// Ex.: principal "gramas"; extra "scoop" com "1 scoop = 30 gramas".
+// Guardadas como [{ unidade, equivale }]. `equivale` = quantas unidades
+// principais valem 1 dessa unidade.
+async function perguntarUnidadesExtra(io, principal, atuais) {
+  if (atuais && atuais.length) {
+    console.log(c('fraco', '\n  unidades adicionais atuais: ' +
+      atuais.map(u => u.unidade + ' (= ' + u.equivale + ' ' + principal + ')').join(', ')));
+  }
+  console.log(c('fraco', '\n  unidades adicionais (equivalência à principal "' + principal + '"):'));
+  console.log(c('fraco', '    ex.: scoop  →  1 scoop = 30 ' + principal));
+  console.log(c('fraco', '    deixe o nome em branco e tecle Enter para terminar.'));
+
+  const extras = [];
+  for (;;) {
+    const nome = await perguntar(io, '  unidade extra (Enter p/ terminar)', '');
+    if (!nome) break;
+    if (norm(nome) === norm(principal)) { console.log(c('amar', '  essa é a unidade principal; ignorada.')); continue; }
+    if (extras.some(e => norm(e.unidade) === norm(nome))) { console.log(c('amar', '  já adicionada; ignorada.')); continue; }
+
+    const eq = await perguntarNumero(io, '  1 ' + nome + ' = quantos ' + principal, '');
+    if (eq <= 0) { console.log(c('amar', '  a equivalência precisa ser > 0; ignorada.')); continue; }
+
+    extras.push({ unidade: nome, equivale: eq });
+    console.log(c('verde', '    + ' + nome + '  (= ' + eq + ' ' + principal + ')'));
+  }
+  return extras;
+}
+
 // ---------- comandos ----------
 
 function cmdList(lista, termo) {
@@ -228,6 +257,9 @@ async function cmdAdd(lista, io) {
   novo.fats = await perguntarNumero(io, 'gordura (g) por ' + novo.unidade);
   novo.detalhes = await perguntar(io, 'detalhes', '');
 
+  const extras = await perguntarUnidadesExtra(io, novo.unidade);
+  if (extras.length) novo.unidades = extras;
+
   lista.push(novo);
   console.log(c('verde', '\n+ ' + novo.nome) + c('fraco', '  (' + novo.categoria + ')'));
   return novo.nome;
@@ -252,6 +284,12 @@ async function cmdEdit(lista, io, nome) {
 
   for (const campo of CAMPOS_NUM) f[campo] = await perguntarNumero(io, campo + ' por ' + f.unidade, f[campo]);
   f.detalhes = await perguntar(io, 'detalhes', f.detalhes);
+
+  const mexer = await perguntar(io, 'mexer nas unidades adicionais? (s/N)', 'n');
+  if (mexer.toLowerCase() === 's') {
+    const extras = await perguntarUnidadesExtra(io, f.unidade, f.unidades);
+    if (extras.length) f.unidades = extras; else delete f.unidades;
+  }
 
   console.log(c('verde', '\n~ ' + f.nome));
   return f.nome;
@@ -307,13 +345,24 @@ function cmdImport(lista, origem) {
     if (erro) { console.log(c('amar', '  ignorado (' + erro + '): ' + ((f && f.nome) || '?'))); invalidos++; continue; }
     if (lista.some(x => x.nome === f.nome)) { console.log(c('fraco', '  já existe, pulando: ' + f.nome)); pulados++; continue; }
 
-    lista.push({
+    const novo = {
       nome: f.nome.trim(),
       categoria: String(f.categoria || 'Outros').trim(),
       unidade: String(f.unidade || 'gramas').trim(),
       cal: Number(f.cal), protein: Number(f.protein), carb: Number(f.carb), fats: Number(f.fats),
       detalhes: String(f.detalhes || ''),
-    });
+    };
+    // preserva unidades adicionais válidas, se vierem no arquivo
+    if (Array.isArray(f.unidades)) {
+      const extras = [];
+      for (const u of f.unidades) {
+        if (u && typeof u.unidade === 'string' && u.unidade.trim() && Number(u.equivale) > 0) {
+          extras.push({ unidade: u.unidade.trim(), equivale: Number(u.equivale) });
+        }
+      }
+      if (extras.length) novo.unidades = extras;
+    }
+    lista.push(novo);
     console.log(c('verde', '  + ' + f.nome) + c('fraco', '  (' + (f.categoria || 'Outros') + ')'));
     novos++;
   }
@@ -345,6 +394,15 @@ function cmdCheck(lista) {
       if (est > 0 && f.cal > 0 && (f.cal / est > 1.7 || f.cal / est < 0.55)) {
         problemas.push(onde + ': calorias (' + f.cal + ') destoam dos macros (~' + est.toFixed(1) + ')');
       }
+    }
+    // unidades adicionais: lista de { unidade, equivale>0 }, sem repetir a principal
+    if (f.unidades !== undefined) {
+      if (!Array.isArray(f.unidades)) problemas.push(onde + ': unidades não é uma lista');
+      else f.unidades.forEach((u, j) => {
+        if (!u || typeof u.unidade !== 'string' || !u.unidade.trim()) problemas.push(onde + ': unidade extra [' + j + '] sem nome');
+        else if (norm(u.unidade) === norm(f.unidade)) problemas.push(onde + ': unidade extra "' + u.unidade + '" repete a principal');
+        if (!isFinite(Number(u && u.equivale)) || Number(u && u.equivale) <= 0) problemas.push(onde + ': unidade extra "' + (u && u.unidade) + '" com equivalência inválida');
+      });
     }
   });
 
