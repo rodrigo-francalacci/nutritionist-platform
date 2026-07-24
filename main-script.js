@@ -1585,7 +1585,24 @@ function abrirBuscaOFF(){
     document.getElementById("pickerColunas").style.display   = "none";
     document.getElementById("pickerResultados").style.display = "none";
     document.getElementById("pickerOFF").style.display        = "block";
+    limparPreviewOFF();
     document.getElementById("offBusca").focus();
+}
+
+//pré-visualização dos food facts (lado direito do painel do OFF)
+function limparPreviewOFF(){
+    var pane = document.getElementById("offPreview");
+    if (pane){ pane.innerHTML = '<div class="picker-off-vazio">Clique num produto para ver os valores nutricionais.</div>'; }
+}
+
+function mostrarPreviewOFF(a, el){
+    var itens = document.querySelectorAll("#offResultados .picker-item");
+    for (var i = 0; i < itens.length; i++){ itens[i].classList.remove("sel"); }
+    if (el){ el.classList.add("sel"); }
+
+    var pane = document.getElementById("offPreview");
+    pane.innerHTML = "";
+    pane.appendChild(colunaPreview(a));
 }
 
 function voltarDoOFF(){
@@ -1603,6 +1620,7 @@ function executarBuscaOFF(){
     if (termo.length < 2){ status.textContent = "Digite ao menos 2 letras."; return; }
 
     lista.innerHTML = "";
+    limparPreviewOFF();
     status.textContent = "Buscando no Open Food Facts…";
     botao.disabled = true;
 
@@ -1615,7 +1633,7 @@ function executarBuscaOFF(){
                 return;
             }
 
-            status.textContent = alimentos.length + " produto(s) — clique para usar (valores por grama):";
+            status.textContent = alimentos.length + " produto(s) — clique para ver os valores; duplo-clique (ou “Selecionar”) para usar.";
 
             alimentos.forEach(function(a){
                 var it = document.createElement("div");
@@ -1643,7 +1661,9 @@ function executarBuscaOFF(){
 
                 it.appendChild(nome);
                 it.appendChild(lado);
-                it.onclick = function(){ escolherAlimentoDoPicker(a); };
+                //um clique mostra os food facts; duplo-clique seleciona direto
+                it.onclick = function(){ mostrarPreviewOFF(a, it); };
+                it.ondblclick = function(){ escolherAlimentoDoPicker(a); };
                 lista.appendChild(it);
             });
         })
