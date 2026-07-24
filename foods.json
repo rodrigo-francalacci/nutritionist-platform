@@ -430,6 +430,22 @@
     "detalhes": ""
   },
   {
+    "nome": "Iogurte Integral Natural Danone",
+    "categoria": "Leite e Derivados",
+    "unidade": "gramas",
+    "cal": 0.756,
+    "protein": 0.047,
+    "carb": 0.063,
+    "fats": 0.036,
+    "detalhes": "1 Copo =  160g",
+    "unidades": [
+      {
+        "unidade": "copo",
+        "equivale": 160
+      }
+    ]
+  },
+  {
     "nome": "Iogurte Natural",
     "categoria": "Leite e Derivados",
     "unidade": "potes (230g)",
