@@ -279,9 +279,14 @@ function aplicaAlimento(row, rowFood, item){
         sumFacts();
 }
     
+function setTexto(id, valor){
+    var el = document.getElementById(id);
+    if (el){ el.textContent = valor; }
+}
+
 function sumFacts(){
-    
-    
+
+
     var iRow=0;
     var lastRow = data.length-1;
     var Tprotein = 0;
@@ -306,6 +311,12 @@ function sumFacts(){
     document.getElementById('qtd-carb-sum').innerHTML = rd(Tcarb);
     document.getElementById('qtd-fat-sum').innerHTML = rd(Tfats);
     document.getElementById('qtd-cal-sum').innerHTML = rd(Tcal);
+
+    //barra de resumo fixa (sempre visivel no rodape)
+    setTexto('rf-protein', rd(Tprotein));
+    setTexto('rf-carb', rd(Tcarb));
+    setTexto('rf-fat', rd(Tfats));
+    setTexto('rf-cal', rd(Tcal));
 
     renderBreakdown();
 }
@@ -552,12 +563,17 @@ function pintaRefeicao(row){
 
     var el = document.getElementById('refeicao-'+row);
 
+    //fundo por periodo + cor de fonte com contraste suficiente.
+    //"Noite" tem fundo azul-escuro (corTema[2]), entao a fonte vai a branco.
+    var bg = corTema[5], fg = corTema[1];
     switch(el.value){
-           case "Manhã": el.style.backgroundColor = corTema[5]; break;
-           case "Almoço": el.style.backgroundColor = corTema[4]; break;
-           case "Tarde":  el.style.backgroundColor = corTema[3]; break;
-           case "Noite":  el.style.backgroundColor = corTema[2]; break;
+           case "Manhã": bg = corTema[5]; fg = corTema[1]; break;
+           case "Almoço": bg = corTema[4]; fg = corTema[1]; break;
+           case "Tarde":  bg = corTema[3]; fg = corTema[1]; break;
+           case "Noite":  bg = corTema[2]; fg = "#ffffff";  break;
            }
+    el.style.backgroundColor = bg;
+    el.style.color = fg;
 }
     
 function listRows(){
@@ -1291,8 +1307,9 @@ window.addEventListener('click', function(event){
 // no <select> e chamamos aplicaAlimento(), a mesma rotina do dropdown.
 //====================================================================
 
-var pickerRow  = null;   // linha que abriu o seletor
-var pickerPath = [];     // pastas escolhidas, uma por coluna
+var pickerRow     = null;   // linha que abriu o seletor
+var pickerPath    = [];     // pastas escolhidas, uma por coluna
+var pickerPreview = null;   // alimento (folha) em pré-visualização
 
 //Escreve o nome do alimento no "chip" visivel. O <select> escondido
 //continua guardando o valor; isto e so a etiqueta que o usuario ve.
@@ -1309,6 +1326,7 @@ function abrirPicker(rowID){
     document.getElementById("pickerOFF").style.display = "none";
     document.getElementById("pickerColunas").style.display = "flex";
     pickerPath = [];
+    pickerPreview = null;
     renderPickerColunas();
     document.getElementById("pickerModal").style.display = "block";
     busca.focus();
@@ -1379,9 +1397,70 @@ function renderPickerColunas(){
         wrap.appendChild(colunaEl(filhos, nivel, sel));
     }
 
+    //coluna extra: os "food facts" do alimento em foco, antes de selecionar
+    if (pickerPreview){
+        wrap.appendChild(colunaPreview(pickerPreview));
+    }
+
     //mostra sempre a coluna mais profunda
     wrap.scrollLeft = wrap.scrollWidth;
 }
+
+// Mostra os valores nutricionais do alimento em foco. Para alimentos em
+// gramas, exibe por 100 g (mais legível que "por 1 grama"); para os demais,
+// por unidade (ovo, fatia...).
+function colunaPreview(item){
+
+    var col = document.createElement("div");
+    col.className = "picker-col picker-preview";
+
+    var emGramas = /^gram/i.test(item.unidade || "") || item.unidade === "g";
+    var fator    = emGramas ? 100 : 1;
+    var rotuloQtd = emGramas ? "por 100 g" : "por " + item.unidade;
+
+    var h = document.createElement("div");
+    h.className = "preview-nome";
+    h.textContent = item.nome;
+    col.appendChild(h);
+
+    var facts = [
+        ["Calorias",    arred1(parseNum(item.cal)     * fator) + " cal"],
+        ["Proteína",    arred1(parseNum(item.protein) * fator) + " g"],
+        ["Carboidrato", arred1(parseNum(item.carb)    * fator) + " g"],
+        ["Gordura",     arred1(parseNum(item.fats)    * fator) + " g"]
+    ];
+    facts.forEach(function(f){
+        var r = document.createElement("div"); r.className = "preview-linha";
+        var k = document.createElement("span"); k.className = "preview-rot"; k.textContent = f[0];
+        var v = document.createElement("span"); v.className = "preview-val"; v.textContent = f[1];
+        r.appendChild(k); r.appendChild(v);
+        col.appendChild(r);
+    });
+
+    var nota = document.createElement("div");
+    nota.className = "preview-nota";
+    nota.textContent = rotuloQtd;
+    col.appendChild(nota);
+
+    var det = stripHtml(item.detalhes || "");
+    if (det && det !== "Sem detalhes."){
+        var d = document.createElement("div");
+        d.className = "preview-det";
+        d.textContent = det;
+        col.appendChild(d);
+    }
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "preview-btn";
+    btn.textContent = "Selecionar este alimento";
+    btn.onclick = function(){ escolherAlimentoDoPicker(item); };
+    col.appendChild(btn);
+
+    return col;
+}
+
+function arred1(x){ return Math.round(Number(x) * 10) / 10; }
 
 function colunaEl(filhos, nivel, selecionado){
 
@@ -1393,6 +1472,8 @@ function colunaEl(filhos, nivel, selecionado){
         var it = document.createElement("div");
         it.className = "picker-item" + (entry.tipo === "grupo" ? " picker-folder" : "");
         if (selecionado && mesmaEntrada(entry, selecionado)){ it.className += " sel"; }
+        //destaca a folha que está em pré-visualização
+        if (entry.tipo === "folha" && entry.item === pickerPreview){ it.className += " sel"; }
 
         var rot = document.createElement("span");
         rot.textContent = entry.rotulo;
@@ -1407,6 +1488,7 @@ function colunaEl(filhos, nivel, selecionado){
 
         it.onclick = function(){
             if (entry.tipo === "grupo"){
+                pickerPreview = null;               // trocou de pasta: some o preview
                 pickerPath = pickerPath.slice(0, nivel);
                 pickerPath.push(entry);
                 renderPickerColunas();
@@ -1415,9 +1497,15 @@ function colunaEl(filhos, nivel, selecionado){
             } else if (entry.tipo === "acao" && entry.fonte === "receita"){
                 abrirReceitaArquivo(pickerRow);
             } else {
-                escolherAlimentoDoPicker(entry.item);
+                //folha: mostra os food facts numa coluna; selecionar é 1 clique a mais
+                pickerPreview = entry.item;
+                renderPickerColunas();
             }
         };
+        //duplo-clique numa folha seleciona direto (atalho)
+        if (entry.tipo === "folha"){
+            it.ondblclick = function(){ escolherAlimentoDoPicker(entry.item); };
+        }
 
         col.appendChild(it);
     });
