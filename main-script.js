@@ -387,6 +387,80 @@ function atualizarQuantidade(rowID){
     recomputarMacros(row);
     sumFacts();
 }
+
+// Normaliza a quantidade atual para UMA unidade nova, só nesta linha (não
+// mexe na base). Ex.: 123 g de tomate -> o usuário chama de "tomate médio";
+// passa a valer 1 "tomate médio" (= 123 g). A unidade extra é criada na hora
+// e viaja com a sessão (guardamos _base ao salvar).
+function normalizarUnidade(rowID){
+    var row = parseInt(rowID.replace("-", ""));
+    garantirBase(row);
+    var b = data[row]._base;
+    if (!b){ return; }
+
+    var q = parseNum(data[row].qtd);
+    if (q <= 0){
+        alert("Defina primeiro uma quantidade maior que zero para normalizar.");
+        return;
+    }
+
+    var atualUnid = data[row].unidade || b.unidadePrincipal;
+    var nome = prompt("Normalizar " + rd(q) + " " + atualUnid + " para a unidade chamada:", "");
+    if (nome === null){ return; }            // cancelou
+    nome = String(nome).trim();
+    if (!nome){ return; }
+
+    if (nome === b.unidadePrincipal){
+        alert('"' + nome + '" é a unidade principal deste alimento; escolha outro nome.');
+        return;
+    }
+
+    // quantas unidades principais valem 1 da nova unidade
+    var equivale = q * fatorDaUnidade(b, atualUnid);
+
+    // adiciona (ou substitui) a unidade nas unidades extras da linha
+    if (!Array.isArray(b.unidades)){ b.unidades = []; }
+    b.unidades = b.unidades.filter(function(u){ return u && u.unidade !== nome; });
+    b.unidades.push({ unidade: nome, equivale: equivale });
+
+    // passa a valer 1 desta nova unidade (os macros totais não mudam)
+    data[row].unidade = nome;
+    data[row].qtd = "1";
+    document.getElementById('qtd-'+row).value = "1";
+
+    aplicarUnidadeControl(row);
+    recomputarMacros(row);
+    sumFacts();
+}
+
+// Renomeia o alimento SÓ nesta linha da tabela (não altera foods.json nem os
+// macros). Útil para dar um nome mais claro no plano.
+function renomearAlimento(rowID){
+    var row = parseInt(rowID.replace("-", ""));
+    var atual = data[row].nome || "";
+    var novo = prompt("Nome do alimento nesta tabela (não altera a base de dados):", atual);
+    if (novo === null){ return; }
+    novo = String(novo).trim();
+    if (!novo){ return; }
+
+    data[row].nome = novo;
+    atualizarNomeAlimento(row, novo);
+
+    // mantém o <select> escondido em sincronia (é ele que alguns fluxos leem)
+    var sel = document.getElementById('foods-'+row);
+    if (sel){
+        var existe = false;
+        for (var i = 0; i < sel.options.length; i++){
+            if (sel.options[i].value === novo){ existe = true; break; }
+        }
+        if (!existe){
+            var o = document.createElement("option");
+            o.value = novo; o.text = novo;
+            sel.appendChild(o);
+        }
+        sel.value = novo;
+    }
+}
     
 function setTexto(id, valor){
     var el = document.getElementById(id);
@@ -509,7 +583,7 @@ function renumeraLinha(el, oldRow, newRow){
     //ancorado no fim: "-1" nao casa com "foods-10"
     var idRe  = new RegExp("-" + oldRow + "$");
     var argRe = new RegExp("'-" + oldRow + "'", "g");
-    var nodes = el.querySelectorAll("[id], [for], [onchange], [onclick]");
+    var nodes = el.querySelectorAll("[id], [for], [onchange], [onclick], [ondblclick]");
 
     for (var i = 0; i < nodes.length; i++){
         var node = nodes[i];
@@ -531,6 +605,11 @@ function renumeraLinha(el, oldRow, newRow){
         var onclick = node.getAttribute("onclick");
         if (onclick){
             node.setAttribute("onclick", onclick.replace(argRe, "'-" + newRow + "'"));
+        }
+
+        var ondblclick = node.getAttribute("ondblclick");
+        if (ondblclick){
+            node.setAttribute("ondblclick", ondblclick.replace(argRe, "'-" + newRow + "'"));
         }
     }
 }
@@ -997,7 +1076,10 @@ function estadoAtual(){
         itens: data.map(function(d){
             return {refeicao: d.refeicao, nome: d.nome, unidade: d.unidade,
                     qtd: d.qtd, cal: d.cal, fats: d.fats, carb: d.carb,
-                    protein: d.protein, grupo: d.grupo, detalhes: d.detalhes};
+                    protein: d.protein, grupo: d.grupo, detalhes: d.detalhes,
+                    // guarda macros por unidade principal + unidades (inclui as
+                    // criadas na hora), para reconstruir o seletor de unidade
+                    base: d._base || null};
         })
     };
 }
@@ -1049,6 +1131,10 @@ function aplicarItemNaLinha(row, item){
         grupo: item.grupo || "--",
         detalhes: item.detalhes || ""
     };
+
+    // sessões novas guardam o "base" (macros por unidade principal + unidades,
+    // inclusive as criadas na hora): reconstrói o seletor de unidade exatamente.
+    if (item.base){ data[row]._base = item.base; }
 
     mostrarMenuPrincipal(row);   //popula a lista principal, _lista = foods
 

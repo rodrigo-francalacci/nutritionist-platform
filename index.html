@@ -224,6 +224,10 @@ textarea {
 /* botão "ocultar detalhes": esconde só a faixa de detalhes das linhas */
 #row-container.esconder-detalhes .col-detalhes{ display: none; }
 
+/* dicas de duplo-clique: renomear o alimento e normalizar a unidade */
+.rotulo-dclick{ cursor: pointer; }
+.uni-dclick{ cursor: pointer; border-bottom: 1px dotted var(--cor3); }
+
 /* seletor de unidade na linha (aparece quando o alimento tem mais de uma) */
 .uni-select{
     font-size: 13px;
@@ -1058,7 +1062,7 @@ a:active {
        
         
         <div class="col-alimentos">
-        <label>Alimento: </label><br>
+        <label class="rotulo-dclick" title="Duplo-clique para renomear só nesta tabela" ondblclick="renomearAlimento('-0')">Alimento: </label><br>
           <button type="button" class="alimento-chip" id="chip-0" onclick="abrirPicker('-0')" title="Clique para escolher outro alimento">Ovo</button>
           <select name="alimentos" id="foods-0" class="foods-oculto" onchange="updateFood('-0')">
 
@@ -1084,7 +1088,7 @@ a:active {
         
         <div class="col-qtd" id="col-qtd-0">
         <label>Quantidade: </label><br>
-        <input type="text" onchange="atualizarQuantidade('-0')" id="qtd-0" style="width: 30%;";><span id="uni-0">gramas</span>
+        <input type="text" onchange="atualizarQuantidade('-0')" id="qtd-0" style="width: 30%;";><span id="uni-0" class="uni-dclick" title="Duplo-clique para transformar a quantidade atual em uma nova unidade" ondblclick="normalizarUnidade('-0')">gramas</span>
         </div>
         
         <div class="col-protein">
@@ -1141,7 +1145,7 @@ a:active {
     <div class="form-row" id="form-row-1" name="form-row-1">
        
          <div class="col-alimentos">
-        <label>Alimento: </label><br>
+        <label class="rotulo-dclick" title="Duplo-clique para renomear só nesta tabela" ondblclick="renomearAlimento('-1')">Alimento: </label><br>
           <button type="button" class="alimento-chip" id="chip-1" onclick="abrirPicker('-1')" title="Clique para escolher outro alimento">Mozzarella</button>
           <select name="alimentos" id="foods-1" class="foods-oculto" onchange="updateFood('-1')">
              
@@ -1166,7 +1170,7 @@ a:active {
         
         <div class="col-qtd" id="col-qtd-1">
         <label>Quantidade: </label><br>
-        <input type="text" onchange="atualizarQuantidade('-1')" id="qtd-1" style="width: 30%;";><span id="uni-1">gramas</span>
+        <input type="text" onchange="atualizarQuantidade('-1')" id="qtd-1" style="width: 30%;";><span id="uni-1" class="uni-dclick" title="Duplo-clique para transformar a quantidade atual em uma nova unidade" ondblclick="normalizarUnidade('-1')">gramas</span>
         </div>
         
         <div class="col-protein">
@@ -1220,7 +1224,7 @@ a:active {
     <div class="form-row" id="form-row-2" name="form-row-2">
        
         <div class="col-alimentos">
-        <label>Alimento: </label><br>
+        <label class="rotulo-dclick" title="Duplo-clique para renomear só nesta tabela" ondblclick="renomearAlimento('-2')">Alimento: </label><br>
           <button type="button" class="alimento-chip" id="chip-2" onclick="abrirPicker('-2')" title="Clique para escolher outro alimento">Carne Moída</button>
           <select name="alimentos" id="foods-2" class="foods-oculto" onchange="updateFood('-2')">
 
@@ -1246,7 +1250,7 @@ a:active {
         
         <div class="col-qtd" id="col-qtd-2">
         <label>Quantidade: </label><br>
-        <input type="text" onchange="atualizarQuantidade('-2')" id="qtd-2" style="width: 30%;";><span id="uni-2">gramas</span>
+        <input type="text" onchange="atualizarQuantidade('-2')" id="qtd-2" style="width: 30%;";><span id="uni-2" class="uni-dclick" title="Duplo-clique para transformar a quantidade atual em uma nova unidade" ondblclick="normalizarUnidade('-2')">gramas</span>
         </div>
         
         <div class="col-protein">
