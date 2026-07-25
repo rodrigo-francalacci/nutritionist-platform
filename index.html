@@ -224,6 +224,46 @@ textarea {
 /* botão "ocultar detalhes": esconde só a faixa de detalhes das linhas */
 #row-container.esconder-detalhes .col-detalhes{ display: none; }
 
+/* modal de notas (gerais + por período), cada nota com vários parágrafos */
+#notasModal .modal-content{ width: 80%; max-width: 780px; }
+#notasBody{ width: 100%; }
+.notas-bloco{ margin-bottom: 16px; }
+.notas-titulo{ font-weight: bold; color: var(--cor2); margin-bottom: 6px; }
+.notas-grupo{ display: flex; flex-direction: column; gap: 6px; }
+.nota-paragrafo{ display: flex; gap: 6px; align-items: flex-start; }
+.nota-area{
+    flex: 1 1 auto;
+    resize: vertical;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.nota-remover{
+    flex: 0 0 auto;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    background-color: var(--cor6);
+    color: var(--cor8);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1;
+}
+.nota-add{
+    margin-top: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: var(--cor5);
+    color: var(--cor1);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+}
+.nota-add:hover{ background-color: var(--cor4); }
+
 /* dicas de duplo-clique: renomear o alimento e normalizar a unidade */
 .rotulo-dclick{ cursor: pointer; }
 .uni-dclick{ cursor: pointer; border-bottom: 1px dotted var(--cor3); }
@@ -888,6 +928,7 @@ a:active {
             <li><button onclick="abrirSessoes()">Sessões</button></li>
             <li><input type="button" value="Print" onclick="printRel()"/></li>
             <li><button onclick="gerarLatex()">LaTeX</button></li>
+            <li><button onclick="abrirNotas()">Notas</button></li>
             <li><button id="btnDetalhes" onclick="alternarDetalhes()">Ocultar detalhes</button></li>
             <li><p contenteditable="true" id="nome">Name</p>
             <p contenteditable="true" id="dia">Notes</p></li>
@@ -1021,6 +1062,22 @@ a:active {
   </div>
 </div>
 
+<div id="notasModal" class="modal">
+  <div class="modal-content" style="flex-direction: column;">
+
+    <div class="saveHead">
+      <label class="tituloReceita">Notas do plano</label>
+      <span class="close" onclick="fecharNotas()">&times;</span>
+    </div>
+
+    <div class="sessao-bloco" style="border-bottom: none;">
+      <p class="fraco">Notas gerais e por período. Cada parágrafo vira um parágrafo no LaTeX.</p>
+      <div id="notasBody"></div>
+    </div>
+
+  </div>
+</div>
+
 <div id="pickerModal" class="modal">
   <div class="modal-content">
 
@@ -1129,6 +1186,7 @@ a:active {
             <button onclick="delRow('-0')" title="Remover linha">-</button>
             <button onclick="subirLinha('-0')" title="Subir">&#9650;</button>
             <button onclick="descerLinha('-0')" title="Descer">&#9660;</button>
+            <button onclick="duplicarLinha('-0')" title="Duplicar este alimento">&#10697;</button>
         </div>
         
         
@@ -1211,6 +1269,7 @@ a:active {
             <button onclick="delRow('-1')" title="Remover linha">-</button>
             <button onclick="subirLinha('-1')" title="Subir">&#9650;</button>
             <button onclick="descerLinha('-1')" title="Descer">&#9660;</button>
+            <button onclick="duplicarLinha('-1')" title="Duplicar este alimento">&#10697;</button>
         </div>
     
         <div class="col-detalhes">
@@ -1290,6 +1349,7 @@ a:active {
             <button onclick="delRow('-2')" title="Remover linha">-</button>
             <button onclick="subirLinha('-2')" title="Subir">&#9650;</button>
             <button onclick="descerLinha('-2')" title="Descer">&#9660;</button>
+            <button onclick="duplicarLinha('-2')" title="Duplicar este alimento">&#10697;</button>
         </div>
         
         <div class="col-detalhes">

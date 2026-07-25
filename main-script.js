@@ -678,6 +678,42 @@ function removerLinha(pos){
 function subirLinha(rowID){ moverLinha(parseInt(rowID.replace("-","")), -1); }
 function descerLinha(rowID){ moverLinha(parseInt(rowID.replace("-","")), +1); }
 
+// Copia os dados de uma linha (inclusive o _base com as unidades).
+function clonarDadoLinha(d){
+    var c = {};
+    ["refeicao","nome","unidade","qtd","cal","fats","carb","protein","grupo","detalhes"]
+        .forEach(function(k){ c[k] = d[k]; });
+    if (d._base){ c._base = JSON.parse(JSON.stringify(d._base)); }
+    return c;
+}
+
+// Duplica uma linha logo abaixo dela — útil para reaproveitar alimentos
+// (ex.: o jantar começa parecido com o almoço) sem procurar de novo na base.
+function duplicarLinha(rowID){
+    var row = parseInt(rowID.replace("-",""));
+    var copia = clonarDadoLinha(data[row]);
+
+    inserirLinha(row + 1);          // cria uma linha nova (vazia) logo abaixo
+    data[row + 1] = copia;          // substitui pelos dados copiados
+
+    // garante que o nome exista como opção no <select> escondido da nova linha
+    var sel = document.getElementById('foods-' + (row + 1));
+    if (sel){
+        var existe = false;
+        for (var i = 0; i < sel.options.length; i++){
+            if (sel.options[i].value === copia.nome){ existe = true; break; }
+        }
+        if (!existe){
+            var o = document.createElement("option");
+            o.value = copia.nome; o.text = copia.nome;
+            sel.appendChild(o);
+        }
+    }
+
+    pasteRowValues(row + 1, copia);  // pinta a linha nova com os dados copiados
+    sumFacts();
+}
+
 //Troca uma linha com a vizinha. Move os NOS inteiros no DOM, entao o
 //estado dos selects (opcoes carregadas, valor escolhido e a propriedade
 //_lista) viaja junto — nao ha copia de valores, campo por campo.
@@ -1066,11 +1102,13 @@ function baixarArquivo(conteudo, nomeArquivo, tipo){
 
 // Monta o objeto que representa o plano inteiro na tela.
 function estadoAtual(){
+    lerNotasVivas();   // se o modal de notas estiver aberto, captura o que foi digitado
     return {
         tipo: "estado",
         versao: 1,
         nome: document.getElementById("nome").textContent.trim(),
         notas: document.getElementById("dia").textContent.trim(),
+        notasPlano: JSON.parse(JSON.stringify(notasPlano)),
         salvoEm: new Date().toISOString(),
         soma: {protein: sum.protein, carb: sum.carb, fats: sum.fats, cal: sum.cal},
         itens: data.map(function(d){
@@ -1104,6 +1142,7 @@ function carregarEstado(estado){
 
     document.getElementById("nome").textContent = estado.nome || "";
     document.getElementById("dia").textContent = estado.notas || "";
+    notasPlano = normalizarNotas(estado.notasPlano);   // notas gerais + por período
 
     // ajusta o numero de linhas para bater com o estado
     while (listRows().length > 1){ removerLinha(listRows().length - 1); }
@@ -1368,22 +1407,45 @@ function stripHtml(s){
 // Monta o documento LaTeX. Na versão enxuta tira o resumo do topo e as
 // observações dos alimentos, deixando só as tabelas por refeição — menos
 // ruído para quem só quer o plano.
+// Empurra parágrafos de nota (cada string vira um parágrafo LaTeX).
+function paragrafosLatex(L, lista){
+    if (!Array.isArray(lista)){ return; }
+    lista.forEach(function(txt){
+        var s = String(txt || "").replace(/\s*\n\s*/g, " ").trim();
+        if (!s){ return; }
+        L.push(escLatex(s));
+        L.push("");   // linha em branco = novo parágrafo
+    });
+}
+
+function temNotas(lista){
+    return Array.isArray(lista) && lista.some(function(s){ return String(s).trim() !== ""; });
+}
+
 function montarLatex(enxuto){
 
     var nome  = document.getElementById("nome").textContent.trim();
     var notas = document.getElementById("dia").textContent.trim();
+    lerNotasVivas();                 // garante notasPlano atualizado
     var res   = calcPorPeriodo();
 
     var L = [];
-    L.push("\\documentclass[11pt]{article}");
+    L.push("\\documentclass[10pt]{article}");
     L.push("\\usepackage[utf8]{inputenc}");
     L.push("\\usepackage[T1]{fontenc}");
-    L.push("\\usepackage[margin=2cm]{geometry}");
+    // margens menores para aproveitar melhor a folha
+    L.push("\\usepackage[a4paper,top=1.3cm,bottom=1.3cm,left=1.4cm,right=1.4cm]{geometry}");
     L.push("\\usepackage{booktabs}");
     L.push("\\usepackage{array}");
+    L.push("\\usepackage{tabularx}");
     L.push("\\usepackage{xcolor}");
     L.push("\\definecolor{accent}{HTML}{0B25D4}");
-    L.push("\\renewcommand{\\arraystretch}{1.3}");
+    // colunas de largura fixa: as tabelas ficam iguais em TODOS os períodos,
+    // independentemente do tamanho dos nomes dos alimentos (o nome usa a
+    // coluna X, que ocupa o espaço restante e quebra linha se preciso).
+    L.push("\\newcolumntype{N}{>{\\raggedleft\\arraybackslash}p{1.1cm}}");
+    L.push("\\newcolumntype{Q}{>{\\raggedright\\arraybackslash}p{2.2cm}}");
+    L.push("\\renewcommand{\\arraystretch}{1.15}");
     L.push("\\setlength{\\parindent}{0pt}");
     L.push("");
     L.push("\\begin{document}");
@@ -1394,14 +1456,20 @@ function montarLatex(enxuto){
     L.push("{\\LARGE\\bfseries\\color{accent} " + escLatex(nome || "Plano alimentar") + "}");
     if (notas){ L.push("\\\\[4pt]"); L.push("{\\large " + escLatex(notas) + "}"); }
     L.push("\\end{center}");
-    L.push("\\vspace{10pt}");
+    L.push("\\vspace{8pt}");
     L.push("");
+
+    // notas gerais (parágrafos), em qualquer versão
+    if (temNotas(notasPlano.geral)){
+        paragrafosLatex(L, notasPlano.geral);
+        L.push("\\vspace{4pt}");
+        L.push("");
+    }
 
     // resumo por periodo + total (só na versão completa)
     if (!enxuto){
         L.push("\\section*{Resumo}");
-        L.push("\\begin{center}");
-        L.push("\\begin{tabular}{@{}lrrrr@{}}");
+        L.push("\\begin{tabularx}{\\textwidth}{@{}X N N N N@{}}");
         L.push("\\toprule");
         L.push("\\textbf{Período} & \\textbf{Prot. (g)} & \\textbf{Carb. (g)} & \\textbf{Gord. (g)} & \\textbf{Cal.} \\\\");
         L.push("\\midrule");
@@ -1417,38 +1485,49 @@ function montarLatex(enxuto){
         L.push("\\midrule");
         L.push("\\textbf{Total} & \\textbf{" + rd(tP) + "} & \\textbf{" + rd(tC) + "} & \\textbf{" + rd(tF) + "} & \\textbf{" + rd(tCal) + "} \\\\");
         L.push("\\bottomrule");
-        L.push("\\end{tabular}");
-        L.push("\\end{center}");
+        L.push("\\end{tabularx}");
+        L.push("\\vspace{6pt}");
         L.push("");
     }
 
-    // uma secao por periodo, com os itens
+    // uma secao por periodo, com os itens e as notas do período
     PERIODOS.forEach(function(p){
         var d = res[p];
-        if (d.itens.length === 0){ return; }
+        var comNotas = temNotas(notasPlano[p]);
+        if (d.itens.length === 0 && !comNotas){ return; }
 
         L.push("\\section*{" + escLatex(p) + "}");
-        L.push("\\begin{tabular}{@{}p{6.5cm}rrrrr@{}}");
-        L.push("\\toprule");
-        L.push("\\textbf{Alimento} & \\textbf{Qtd} & \\textbf{Prot} & \\textbf{Carb} & \\textbf{Gord} & \\textbf{Cal} \\\\");
-        L.push("\\midrule");
 
-        d.itens.forEach(function(it){
-            var alimento = escLatex(it.nome);
-            if (!enxuto){
-                var obs = stripHtml(it.detalhes || "");
-                if (obs && obs !== "Sem detalhes."){
-                    alimento += " \\newline \\textit{\\small " + escLatex(obs) + "}";
+        if (d.itens.length > 0){
+            L.push("{\\small");
+            L.push("\\begin{tabularx}{\\textwidth}{@{}X Q N N N N@{}}");
+            L.push("\\toprule");
+            L.push("\\textbf{Alimento} & \\textbf{Qtd} & \\textbf{Prot} & \\textbf{Carb} & \\textbf{Gord} & \\textbf{Cal} \\\\");
+            L.push("\\midrule");
+
+            d.itens.forEach(function(it){
+                var alimento = escLatex(it.nome);
+                if (!enxuto){
+                    var obs = stripHtml(it.detalhes || "");
+                    if (obs && obs !== "Sem detalhes."){
+                        alimento += " \\newline \\textit{\\footnotesize " + escLatex(obs) + "}";
+                    }
                 }
-            }
-            var qtd = escLatex(it.qtd + " " + it.unidade);
-            L.push(alimento + " & " + qtd + " & " + it.protein + " & " + it.carb + " & " + it.fats + " & " + it.cal + " \\\\");
-        });
+                var qtd = escLatex(it.qtd + " " + it.unidade);
+                L.push(alimento + " & " + qtd + " & " + it.protein + " & " + it.carb + " & " + it.fats + " & " + it.cal + " \\\\");
+            });
 
-        L.push("\\midrule");
-        L.push("\\textbf{Subtotal} & & \\textbf{" + d.protein + "} & \\textbf{" + d.carb + "} & \\textbf{" + d.fats + "} & \\textbf{" + d.cal + "} \\\\");
-        L.push("\\bottomrule");
-        L.push("\\end{tabular}");
+            L.push("\\midrule");
+            L.push("\\textbf{Subtotal} & & \\textbf{" + d.protein + "} & \\textbf{" + d.carb + "} & \\textbf{" + d.fats + "} & \\textbf{" + d.cal + "} \\\\");
+            L.push("\\bottomrule");
+            L.push("\\end{tabularx}");
+            L.push("}");
+        }
+
+        if (comNotas){
+            L.push("\\vspace{3pt}");
+            paragrafosLatex(L, notasPlano[p]);
+        }
         L.push("");
     });
 
@@ -1500,6 +1579,133 @@ function fecharLatex(){
 
 window.addEventListener('click', function(event){
     if (event.target === document.getElementById('latexModal')){ fecharLatex(); }
+});
+
+//====================================================================
+// Notas do plano: notas gerais + uma por período. Cada nota é uma LISTA
+// de parágrafos (strings). No LaTeX, cada parágrafo vira um parágrafo.
+//====================================================================
+
+var notasPlano = { geral: [], "Manhã": [], "Almoço": [], "Tarde": [], "Noite": [] };
+
+// grupos na ordem em que aparecem no modal
+var NOTAS_GRUPOS = [
+    { chave: "geral",  rotulo: "Notas gerais" },
+    { chave: "Manhã",  rotulo: "Manhã" },
+    { chave: "Almoço", rotulo: "Almoço" },
+    { chave: "Tarde",  rotulo: "Tarde" },
+    { chave: "Noite",  rotulo: "Noite" }
+];
+
+// Normaliza um objeto de notas vindo de fora (sessão) para o formato certo.
+function normalizarNotas(obj){
+    var out = { geral: [], "Manhã": [], "Almoço": [], "Tarde": [], "Noite": [] };
+    if (obj && typeof obj === "object"){
+        NOTAS_GRUPOS.forEach(function(g){
+            var v = obj[g.chave];
+            if (Array.isArray(v)){
+                out[g.chave] = v.map(function(s){ return String(s); }).filter(function(s){ return s.trim() !== ""; });
+            } else if (typeof v === "string" && v.trim()){
+                out[g.chave] = [v];
+            }
+        });
+    }
+    return out;
+}
+
+// Lê os textareas do modal para dentro de notasPlano (fonte de verdade).
+function coletarNotas(){
+    NOTAS_GRUPOS.forEach(function(g){
+        var cont = document.getElementById("notas-grupo-" + g.chave);
+        if (!cont){ return; }   // modal ainda não renderizado
+        var areas = cont.querySelectorAll("textarea");
+        var lista = [];
+        for (var i = 0; i < areas.length; i++){
+            var t = areas[i].value.trim();
+            if (t){ lista.push(t); }
+        }
+        notasPlano[g.chave] = lista;
+    });
+}
+
+// Só coleta se o modal estiver aberto/renderizado (usado antes de LaTeX/salvar).
+function lerNotasVivas(){
+    if (document.getElementById("notas-grupo-geral")){ coletarNotas(); }
+}
+
+function paragrafoNota(chave, texto){
+    var wrap = document.createElement("div");
+    wrap.className = "nota-paragrafo";
+
+    var ta = document.createElement("textarea");
+    ta.className = "nota-area";
+    ta.rows = 2;
+    ta.value = texto || "";
+    ta.placeholder = "escreva um parágrafo…";
+    ta.oninput = coletarNotas;
+
+    var x = document.createElement("button");
+    x.type = "button";
+    x.className = "nota-remover";
+    x.textContent = "×";
+    x.title = "remover este parágrafo";
+    x.onclick = function(){ wrap.parentNode.removeChild(wrap); coletarNotas(); };
+
+    wrap.appendChild(ta);
+    wrap.appendChild(x);
+    return wrap;
+}
+
+function renderNotas(){
+    var body = document.getElementById("notasBody");
+    if (!body){ return; }
+    body.innerHTML = "";
+
+    NOTAS_GRUPOS.forEach(function(g){
+        var bloco = document.createElement("div");
+        bloco.className = "notas-bloco";
+
+        var h = document.createElement("div");
+        h.className = "notas-titulo";
+        h.textContent = g.rotulo;
+        bloco.appendChild(h);
+
+        var cont = document.createElement("div");
+        cont.id = "notas-grupo-" + g.chave;
+        cont.className = "notas-grupo";
+
+        var lista = notasPlano[g.chave] || [];
+        if (lista.length === 0){ lista = [""]; }   // sempre pelo menos um campo
+        lista.forEach(function(txt){ cont.appendChild(paragrafoNota(g.chave, txt)); });
+        bloco.appendChild(cont);
+
+        var add = document.createElement("button");
+        add.type = "button";
+        add.className = "nota-add";
+        add.textContent = "+ parágrafo";
+        add.onclick = function(){
+            var novo = paragrafoNota(g.chave, "");
+            cont.appendChild(novo);
+            novo.querySelector("textarea").focus();
+        };
+        bloco.appendChild(add);
+
+        body.appendChild(bloco);
+    });
+}
+
+function abrirNotas(){
+    renderNotas();
+    document.getElementById("notasModal").style.display = "block";
+}
+
+function fecharNotas(){
+    coletarNotas();
+    document.getElementById("notasModal").style.display = "none";
+}
+
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('notasModal')){ fecharNotas(); }
 });
 
 //====================================================================
