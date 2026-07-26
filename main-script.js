@@ -898,6 +898,7 @@ data[2] = {refeicao: "Manhã",
 
     sumFacts();
     aplicarPrefDetalhes();
+    aplicarPrefCompacto();
 }
 
 // Liga/desliga a faixa de "detalhes" de todas as linhas. Some so a
@@ -918,6 +919,27 @@ function aplicarPrefDetalhes(){
         document.getElementById('row-container').classList.add('esconder-detalhes');
         var btn = document.getElementById('btnDetalhes');
         if (btn){ btn.textContent = 'Mostrar detalhes'; }
+    }
+}
+
+// Modo compacto: aperta as linhas para caber mais alimentos sem rolar.
+function alternarCompacto(){
+    var cont = document.getElementById('row-container');
+    var compacto = cont.classList.toggle('compacto');
+    var btn = document.getElementById('btnCompacto');
+    if (btn){ btn.textContent = compacto ? 'Espaçoso' : 'Compacto'; }
+    try { localStorage.setItem('nutri_compacto', compacto ? '1' : '0'); } catch(e){}
+}
+
+function aplicarPrefCompacto(){
+    var pref = null;
+    try { pref = localStorage.getItem('nutri_compacto'); } catch(e){}
+    // padrão: compacto LIGADO (só fica espaçoso se o usuário desligar)
+    var ligar = (pref !== '0');
+    if (ligar){
+        document.getElementById('row-container').classList.add('compacto');
+        var btn = document.getElementById('btnCompacto');
+        if (btn){ btn.textContent = 'Espaçoso'; }
     }
 }
     

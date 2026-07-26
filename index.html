@@ -224,6 +224,42 @@ textarea {
 /* botão "ocultar detalhes": esconde só a faixa de detalhes das linhas */
 #row-container.esconder-detalhes .col-detalhes{ display: none; }
 
+/* modo compacto: aperta as linhas para caber mais alimentos na tela.
+   O nome do alimento passa a dividir a linha com os macros (não ocupa mais
+   uma faixa inteira só para ele), e todo o espaçamento vertical encolhe. */
+#row-container.compacto .form-row{
+    margin-bottom: 4px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    line-height: 1.15;
+    row-gap: 2px;
+}
+#row-container.compacto .form-row div{ margin-left: 3px; margin-right: 3px; }
+#row-container.compacto .col-alimentos{
+    width: auto;
+    flex: 1 1 220px;
+    min-width: 160px;
+    margin-bottom: 0;
+    padding-left: 6px;
+}
+#row-container.compacto .alimento-chip{
+    margin-top: 1px;
+    padding: 2px 22px 2px 8px;
+    font-size: 13px;
+}
+#row-container.compacto .form-row label{ font-size: 10px; }
+#row-container.compacto .form-row span,
+#row-container.compacto .form-row input{ font-size: 13px; }
+#row-container.compacto .col-qtd{ width: 98px; }
+#row-container.compacto .col-qtd input{ width: 34px !important; }
+#row-container.compacto .col-protein,
+#row-container.compacto .col-carb,
+#row-container.compacto .col-fats,
+#row-container.compacto .col-cal{ width: 82px; }
+#row-container.compacto .col-detalhes{ margin-top: 3px; margin-bottom: 3px; }
+#row-container.compacto .col-detalhes p{ margin: 4px 10px; font-size: 12px; }
+#row-container.compacto .containerBot button{ padding: 1px 5px; }
+
 /* modal de notas (gerais + por período), cada nota com vários parágrafos */
 #notasModal .modal-content{ width: 80%; max-width: 780px; }
 #notasBody{ width: 100%; }
@@ -930,6 +966,7 @@ a:active {
             <li><button onclick="gerarLatex()">LaTeX</button></li>
             <li><button onclick="abrirNotas()">Notas</button></li>
             <li><button id="btnDetalhes" onclick="alternarDetalhes()">Ocultar detalhes</button></li>
+            <li><button id="btnCompacto" onclick="alternarCompacto()">Compacto</button></li>
             <li><p contenteditable="true" id="nome">Name</p>
             <p contenteditable="true" id="dia">Notes</p></li>
 
