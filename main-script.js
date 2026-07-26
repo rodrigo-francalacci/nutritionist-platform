@@ -1454,7 +1454,13 @@ function temNotas(lista){
     return Array.isArray(lista) && lista.some(function(s){ return String(s).trim() !== ""; });
 }
 
-function montarLatex(enxuto){
+// modo: "completa" (resumo + macros por alimento), "enxuta" (sem resumo e
+// sem observações) ou "ultra" (uma página: só nome+quantidade, totais no
+// título, instruções ao lado da tabela).
+function montarLatex(modo){
+
+    var enxuto = (modo === "enxuta");
+    var ultra  = (modo === "ultra");
 
     var nome  = document.getElementById("nome").textContent.trim();
     var notas = document.getElementById("dia").textContent.trim();
@@ -1470,6 +1476,7 @@ function montarLatex(enxuto){
     L.push("\\usepackage{booktabs}");
     L.push("\\usepackage{array}");
     L.push("\\usepackage{tabularx}");
+    L.push("\\usepackage{wrapfig}");
     L.push("\\usepackage{xcolor}");
     L.push("\\definecolor{accent}{HTML}{0B25D4}");
     // colunas de largura fixa: as tabelas ficam iguais em TODOS os períodos,
@@ -1488,7 +1495,7 @@ function montarLatex(enxuto){
     L.push("{\\LARGE\\bfseries\\color{accent} " + escLatex(nome || "Plano alimentar") + "}");
     if (notas){ L.push("\\\\[4pt]"); L.push("{\\large " + escLatex(notas) + "}"); }
     L.push("\\end{center}");
-    L.push("\\vspace{8pt}");
+    L.push("\\vspace{" + (ultra ? "4pt" : "8pt") + "}");
     L.push("");
 
     // notas gerais (parágrafos), em qualquer versão
@@ -1498,7 +1505,17 @@ function montarLatex(enxuto){
         L.push("");
     }
 
-    // resumo por periodo + total (só na versão completa)
+    if (ultra){ montarLatexUltra(L, res); }
+    else      { montarLatexNormal(L, res, enxuto); }
+
+    L.push("\\end{document}");
+    return L.join("\n");
+}
+
+// Versões "completa" e "enxuta": resumo (só completa) + uma tabela larga por
+// período com os macros de cada alimento.
+function montarLatexNormal(L, res, enxuto){
+
     if (!enxuto){
         L.push("\\section*{Resumo}");
         L.push("\\begin{tabularx}{\\textwidth}{@{}X N N N N@{}}");
@@ -1522,7 +1539,6 @@ function montarLatex(enxuto){
         L.push("");
     }
 
-    // uma secao por periodo, com os itens e as notas do período
     PERIODOS.forEach(function(p){
         var d = res[p];
         var comNotas = temNotas(notasPlano[p]);
@@ -1546,7 +1562,6 @@ function montarLatex(enxuto){
                     }
                 }
                 if (it.semQtd){
-                    // item livre: mostra o texto da quantidade (se houver) e nada de macros
                     var ql = escLatex(String(it.qtd || "").trim());
                     L.push(alimento + " & " + ql + " & & & & \\\\");
                     return;
@@ -1568,25 +1583,88 @@ function montarLatex(enxuto){
         }
         L.push("");
     });
-
-    L.push("\\end{document}");
-    return L.join("\n");
 }
 
-function latexEnxutoMarcado(){
-    var chk = document.getElementById("latexEnxuto");
-    return !!(chk && chk.checked);
+// Tabela compacta de duas colunas (nome | quantidade), largura fixa.
+function tabelaNomeQtd(d, largura){
+    var t = [];
+    t.push("{\\small");
+    t.push("\\begin{tabularx}{" + largura + "}{@{}X >{\\raggedleft\\arraybackslash}p{2.3cm}@{}}");
+    t.push("\\toprule");
+    t.push("\\textbf{Alimento} & \\textbf{Qtd} \\\\");
+    t.push("\\midrule");
+    d.itens.forEach(function(it){
+        var nome = escLatex(it.nome);
+        var qtd = it.semQtd ? escLatex(String(it.qtd || "").trim()) : escLatex(it.qtd + " " + it.unidade);
+        t.push(nome + " & " + qtd + " \\\\");
+    });
+    t.push("\\bottomrule");
+    t.push("\\end{tabularx}");
+    t.push("}");
+    return t.join("\n");
 }
 
-// abre o modal com o código (respeita o estado da caixa "versão enxuta")
+// Versão "ultra" (uma página): totais no título de cada período; tabela de
+// nome+quantidade ocupando metade da largura, à esquerda; as instruções do
+// período começam à direita da tabela e seguem em largura cheia embaixo.
+function montarLatexUltra(L, res){
+
+    // total do dia numa linha compacta
+    var totP = 0, totC = 0, totF = 0, totCal = 0;
+    PERIODOS.forEach(function(p){ var d = res[p]; totP += d.protein; totC += d.carb; totF += d.fats; totCal += d.cal; });
+    L.push("{\\small\\textbf{Total do dia:}~ Prot " + rd(totP) + " g \\textbullet{} Carb " + rd(totC) +
+           " g \\textbullet{} Gord " + rd(totF) + " g \\textbullet{} " + rd(totCal) + " cal}\\par");
+    L.push("\\vspace{6pt}");
+    L.push("");
+
+    PERIODOS.forEach(function(p){
+        var d = res[p];
+        var comNotas = temNotas(notasPlano[p]);
+        var temItens = d.itens.length > 0;
+        if (!temItens && !comNotas){ return; }
+
+        // título: nome do período à esquerda, totais do período à direita
+        var tot = "(P " + d.protein + " \\textbullet{} C " + d.carb + " \\textbullet{} G " + d.fats + " \\textbullet{} " + d.cal + " cal)";
+        L.push("\\section*{" + escLatex(p) + "\\hfill\\normalsize\\mdseries " + tot + "}");
+
+        if (temItens && comNotas){
+            // tabela à esquerda (metade), texto envolve à direita e continua abaixo
+            L.push("\\begin{wraptable}{l}{0.5\\textwidth}");
+            L.push("\\vspace{-\\baselineskip}");
+            L.push(tabelaNomeQtd(d, "0.47\\textwidth"));
+            L.push("\\end{wraptable}");
+            L.push("");
+            paragrafosLatex(L, notasPlano[p]);
+            L.push("\\par");
+        } else if (temItens){
+            // só a tabela (metade da largura), sem instruções
+            L.push("\\noindent");
+            L.push("\\begin{minipage}{0.5\\textwidth}");
+            L.push(tabelaNomeQtd(d, "0.47\\textwidth"));
+            L.push("\\end{minipage}\\par");
+        } else {
+            // só instruções
+            paragrafosLatex(L, notasPlano[p]);
+        }
+        L.push("\\vspace{6pt}");
+        L.push("");
+    });
+}
+
+function latexModoSelecionado(){
+    var s = document.getElementById("latexModo");
+    return s ? s.value : "completa";
+}
+
+// abre o modal com o código (respeita a versão escolhida)
 function gerarLatex(){
-    document.getElementById("latexOut").value = montarLatex(latexEnxutoMarcado());
+    document.getElementById("latexOut").value = montarLatex(latexModoSelecionado());
     document.getElementById("latexModal").style.display = "block";
 }
 
-// regera o código quando o usuário marca/desmarca "versão enxuta"
+// regera o código quando o usuário troca a versão
 function atualizarLatex(){
-    document.getElementById("latexOut").value = montarLatex(latexEnxutoMarcado());
+    document.getElementById("latexOut").value = montarLatex(latexModoSelecionado());
 }
 
 function copiarLatex(){

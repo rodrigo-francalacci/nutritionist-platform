@@ -1121,8 +1121,12 @@ a:active {
       <p class="fraco">Cole num documento novo do <b>Overleaf</b> e compile com pdfLaTeX.
         Usa só pacotes padrão (booktabs, geometry, xcolor).</p>
       <label class="latex-opcao">
-        <input type="checkbox" id="latexEnxuto" onchange="atualizarLatex()">
-        versão enxuta (sem o resumo e sem as observações dos alimentos)
+        Versão:
+        <select id="latexModo" onchange="atualizarLatex()">
+          <option value="completa">Completa — resumo + macros por alimento</option>
+          <option value="enxuta">Enxuta — sem resumo e sem observações</option>
+          <option value="ultra">Ultra / uma página — só nome e quantidade, totais no título, instruções ao lado</option>
+        </select>
       </label>
       <button id="btnCopiarLatex" onclick="copiarLatex()">Copiar código</button>
       <textarea id="latexOut" readonly wrap="off"></textarea>
