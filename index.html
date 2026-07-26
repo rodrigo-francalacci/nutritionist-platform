@@ -241,9 +241,9 @@ textarea {
    "colher de sopa". */
 #row-container.compacto .col-alimentos{
     width: auto;
-    flex: 3 1 150px;
-    min-width: 110px;
-    max-width: 360px;
+    flex: 4 1 200px;
+    min-width: 130px;
+    max-width: 520px;
     margin-bottom: 0;
     padding-left: 6px;
 }
@@ -257,8 +257,8 @@ textarea {
 #row-container.compacto .form-row input{ font-size: 13px; }
 #row-container.compacto .col-qtd{
     width: auto;
-    flex: 2 1 150px;
-    min-width: 148px;
+    flex: 2 1 146px;
+    min-width: 146px;
 }
 #row-container.compacto .col-qtd input{ width: 34px !important; }
 #row-container.compacto .col-qtd .uni-select{ max-width: 112px; }
@@ -278,6 +278,17 @@ textarea {
 #row-container.compacto .col-detalhes{ margin-top: 3px; margin-bottom: 3px; }
 #row-container.compacto .col-detalhes p{ margin: 4px 10px; font-size: 12px; }
 #row-container.compacto .containerBot button{ padding: 1px 5px; }
+
+/* linha "livre" (item sem quantidade: chá, temperos a gosto...): esconde os
+   macros e a unidade; a quantidade vira um campo de texto livre (opcional). */
+.form-row.linha-livre .col-protein,
+.form-row.linha-livre .col-carb,
+.form-row.linha-livre .col-fats,
+.form-row.linha-livre .col-cal{ visibility: hidden; }
+.form-row.linha-livre .col-qtd span,
+.form-row.linha-livre .col-qtd .uni-select{ display: none; }
+#row-container .form-row.linha-livre .col-qtd input{ width: 118px !important; }
+.form-row.linha-livre .col-qtd label::after{ content: " (livre)"; color: var(--cor3); }
 
 /* modal de notas (gerais + por período), cada nota com vários parágrafos */
 #notasModal .modal-content{ width: 80%; max-width: 780px; }

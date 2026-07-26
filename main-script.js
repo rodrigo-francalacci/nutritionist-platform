@@ -227,6 +227,8 @@ function aplicaAlimento(row, rowFood, item){
 
         //atualizar alimento no database
         data[row].nome = rowFood;
+        data[row].semQtd = false;      // escolher um alimento sai do modo "livre"
+        aplicarModoLivre(row);
 
         //mostra o nome escolhido no "chip" que substituiu o dropdown
         atualizarNomeAlimento(row, rowFood);
@@ -364,6 +366,10 @@ function trocarUnidade(rowID){
 // Recalcula os macros: quantidade × fator da unidade × macros por unidade
 // principal. Atualiza data[] e a tela.
 function recomputarMacros(row){
+    if (data[row].semQtd){   // item livre não entra na conta de macros
+        data[row].protein = 0; data[row].carb = 0; data[row].fats = 0; data[row].cal = 0;
+        return;
+    }
     garantirBase(row);
     var b = data[row]._base;
     var q = parseNum(data[row].qtd);
@@ -384,6 +390,7 @@ function recomputarMacros(row){
 function atualizarQuantidade(rowID){
     var row = parseInt(rowID.replace("-", ""));
     data[row].qtd = document.getElementById('qtd-'+row).value;
+    if (data[row].semQtd){ sumFacts(); return; }   // item livre: qtd é só texto
     recomputarMacros(row);
     sumFacts();
 }
@@ -681,7 +688,7 @@ function descerLinha(rowID){ moverLinha(parseInt(rowID.replace("-","")), +1); }
 // Copia os dados de uma linha (inclusive o _base com as unidades).
 function clonarDadoLinha(d){
     var c = {};
-    ["refeicao","nome","unidade","qtd","cal","fats","carb","protein","grupo","detalhes"]
+    ["refeicao","nome","unidade","qtd","cal","fats","carb","protein","grupo","detalhes","semQtd"]
         .forEach(function(k){ c[k] = d[k]; });
     if (d._base){ c._base = JSON.parse(JSON.stringify(d._base)); }
     return c;
@@ -784,6 +791,7 @@ function pasteRowValues(row, values){
 
         //mantem a cor do seletor de refeicao em sincronia com o valor
         pintaRefeicao(row);
+        aplicarModoLivre(row);   //aplica/retira o visual de item livre
 
 }
 
@@ -1137,6 +1145,7 @@ function estadoAtual(){
             return {refeicao: d.refeicao, nome: d.nome, unidade: d.unidade,
                     qtd: d.qtd, cal: d.cal, fats: d.fats, carb: d.carb,
                     protein: d.protein, grupo: d.grupo, detalhes: d.detalhes,
+                    semQtd: d.semQtd || false,
                     // guarda macros por unidade principal + unidades (inclui as
                     // criadas na hora), para reconstruir o seletor de unidade
                     base: d._base || null};
@@ -1190,7 +1199,8 @@ function aplicarItemNaLinha(row, item){
         qtd: item.qtd,
         cal: item.cal, fats: item.fats, carb: item.carb, protein: item.protein,
         grupo: item.grupo || "--",
-        detalhes: item.detalhes || ""
+        detalhes: item.detalhes || "",
+        semQtd: item.semQtd || false
     };
 
     // sessões novas guardam o "base" (macros por unidade principal + unidades,
@@ -1535,6 +1545,12 @@ function montarLatex(enxuto){
                         alimento += " \\newline \\textit{\\footnotesize " + escLatex(obs) + "}";
                     }
                 }
+                if (it.semQtd){
+                    // item livre: mostra o texto da quantidade (se houver) e nada de macros
+                    var ql = escLatex(String(it.qtd || "").trim());
+                    L.push(alimento + " & " + ql + " & & & & \\\\");
+                    return;
+                }
                 var qtd = escLatex(it.qtd + " " + it.unidade);
                 L.push(alimento + " & " + qtd + " & " + it.protein + " & " + it.carb + " & " + it.fats + " & " + it.cal + " \\\\");
             });
@@ -1778,6 +1794,7 @@ function pickerFilhos(entry){
             {tipo:"grupo", rotulo:"Tabela TACO", fonte:"taco"},
             {tipo:"acao",  rotulo:"Supermercado Brasil (Open Food Facts)", fonte:"off", regiao:"br"},
             {tipo:"acao",  rotulo:"Supermercado Reino Unido (Open Food Facts)", fonte:"off", regiao:"uk"},
+            {tipo:"acao",  rotulo:"Item livre / sem quantidade…", fonte:"livre"},
             {tipo:"acao",  rotulo:"Carregar receita (arquivo)…", fonte:"receita"}
         ];
     }
@@ -1937,6 +1954,8 @@ function colunaEl(filhos, nivel, selecionado){
                 renderPickerColunas();
             } else if (entry.tipo === "acao" && entry.fonte === "off"){
                 abrirBuscaOFF(entry.regiao);
+            } else if (entry.tipo === "acao" && entry.fonte === "livre"){
+                criarItemLivre(pickerRow);
             } else if (entry.tipo === "acao" && entry.fonte === "receita"){
                 abrirReceitaArquivo(pickerRow);
             } else {
@@ -2166,6 +2185,60 @@ function slugArquivo(nome){
     return s || "alimento";
 }
 
+//--- Item livre / sem quantidade ------------------------------------------
+// Uma linha "livre" é um item que não entra na conta de macros: chá, água,
+// "temperos a gosto", uma lista de ingredientes... O nome é texto livre e a
+// quantidade também (opcional: "1 xícara", "a gosto"), sem unidade nem macros.
+
+function criarItemLivre(row){
+    if (row === null){ return; }
+    var texto = prompt("Item sem quantidade (ex.: Chá de gengibre; Temperos: sal, alho a gosto):", "");
+    if (texto === null){ return; }
+    texto = String(texto).trim();
+    if (!texto){ return; }
+    definirLinhaLivre(row, texto);
+    fecharPicker();
+}
+
+function definirLinhaLivre(row, texto){
+    document.getElementById("file-"+row).style.display = "none";
+    document.getElementById("col-qtd-"+row).style.display = "block";
+
+    data[row].nome = texto;
+    data[row].semQtd = true;
+    data[row]._base = null;
+    data[row].unidade = "";
+    data[row].detalhes = "";
+    data[row].qtd = "";
+    data[row].cal = 0; data[row].protein = 0; data[row].carb = 0; data[row].fats = 0;
+
+    atualizarNomeAlimento(row, texto);
+    document.getElementById('qtd-'+row).value = "";
+    document.getElementById('uni-'+row).textContent = "";
+    document.getElementById('detalhes-'+row).textContent = "";
+    document.getElementById('qtd-protein-'+row).textContent = "";
+    document.getElementById('qtd-carb-'+row).textContent = "";
+    document.getElementById('qtd-fat-'+row).textContent = "";
+    document.getElementById('qtd-cal-'+row).textContent = "";
+
+    aplicarModoLivre(row);
+    sumFacts();
+}
+
+// Liga/desliga o visual "livre" da linha conforme data[row].semQtd.
+function aplicarModoLivre(row){
+    var linha = document.getElementById('form-row-'+row);
+    if (!linha){ return; }
+    var q = document.getElementById('qtd-'+row);
+    if (data[row] && data[row].semQtd){
+        linha.classList.add('linha-livre');
+        if (q){ q.placeholder = "à vontade / qtd livre"; }
+    } else {
+        linha.classList.remove('linha-livre');
+        if (q){ q.placeholder = ""; }
+    }
+}
+
 //Revela o campo "Abrir Receita" daquela linha (mesma acao que a antiga
 //opcao "Receita" do dropdown) e fecha o seletor.
 function abrirReceitaArquivo(row){
@@ -2217,7 +2290,7 @@ var iRow = 0;
 for (iRow=0; iRow<data.length; iRow++){
 
     if (data[iRow].refeicao == "Manhã"){
-    outPage = outPage + buildItem(data[iRow].nome, data[iRow].detalhes, data[iRow].protein, data[iRow].carb, data[iRow].fats, data[iRow].cal) 
+    outPage = outPage + buildItem(data[iRow]) 
     };
 };
     
@@ -2226,7 +2299,7 @@ outPage = outPage +  buildPeriodo("ALMOÇO");
 for (iRow=0; iRow<data.length; iRow++){
 
     if (data[iRow].refeicao == "Almoço"){
-    outPage = outPage + buildItem(data[iRow].nome, data[iRow].detalhes, data[iRow].protein, data[iRow].carb, data[iRow].fats, data[iRow].cal)
+    outPage = outPage + buildItem(data[iRow])
     };
 };
     
@@ -2235,7 +2308,7 @@ outPage = outPage +  buildPeriodo("TARDE");
 for (iRow=0; iRow<data.length; iRow++){
 
     if (data[iRow].refeicao == "Tarde"){
-    outPage = outPage + buildItem(data[iRow].nome, data[iRow].detalhes, data[iRow].protein, data[iRow].carb, data[iRow].fats, data[iRow].cal)
+    outPage = outPage + buildItem(data[iRow])
     };
 };
     
@@ -2244,7 +2317,7 @@ outPage = outPage +  buildPeriodo("NOITE");
 for (iRow=0; iRow<data.length; iRow++){
 
     if (data[iRow].refeicao == "Noite"){
-    outPage = outPage + buildItem(data[iRow].nome, data[iRow].detalhes, data[iRow].protein, data[iRow].carb, data[iRow].fats, data[iRow].cal)
+    outPage = outPage + buildItem(data[iRow])
     };
 };
   
@@ -2291,13 +2364,22 @@ function buildPeriodo(periodo){
     return str;
 }
 
-function buildItem(alimento, descricao, protein, carb, fats, cal){
-    
- 
-    
-    
-    var str = '<table><tr><td  style="text-align:center width: 20%;">' + alimento + '</td><td style="width: 60%">' + descricao + '</td><td style="width: 20%"><ul><li>Proteína: ' + protein + 'g</li><li>Carbs: ' + carb + 'g</li><li>Fats: ' + fats + 'g</li><li>Calorias: ' + cal + '</li></ul></td</tr></table>'
-    
+function buildItem(d){
+
+    var alimento = d.nome;
+    var descricao = d.detalhes;
+
+    // item livre: mostra o nome e a quantidade em texto, sem os macros
+    if (d.semQtd){
+        var q = String(d.qtd || "").trim();
+        var linhaQtd = q ? (' <em>(' + q + ')</em>') : ' <em>(à vontade)</em>';
+        return '<table><tr><td style="width: 20%;">' + alimento + linhaQtd +
+               '</td><td style="width: 60%">' + descricao +
+               '</td><td style="width: 20%">—</td></tr></table>';
+    }
+
+    var str = '<table><tr><td  style="text-align:center width: 20%;">' + alimento + '</td><td style="width: 60%">' + descricao + '</td><td style="width: 20%"><ul><li>Proteína: ' + d.protein + 'g</li><li>Carbs: ' + d.carb + 'g</li><li>Fats: ' + d.fats + 'g</li><li>Calorias: ' + d.cal + '</li></ul></td</tr></table>'
+
     return str;
 }
 //----------------------------
