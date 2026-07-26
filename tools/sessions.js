@@ -104,6 +104,59 @@ function cmdAdd(origem) {
   return { tipo, arquivo: destinoNome };
 }
 
+// tempo de referência de um arquivo: usa "salvoEm" do JSON, senão a data do arquivo.
+function tempoDe(obj, arquivo) {
+  if (obj && obj.salvoEm) { const t = Date.parse(obj.salvoEm); if (!isNaN(t)) return t; }
+  try { return fs.statSync(arquivo).mtimeMs; } catch { return 0; }
+}
+
+// Sincroniza de uma vez: (1) se uma pasta de origem for dada, copia dela para
+// estados/receitas todos os estados/receitas válidos — os novos entram, e os
+// de mesmo nome só são substituídos se a origem for MAIS RECENTE; (2) sempre
+// reindexa as pastas (pega também arquivos jogados direto nelas). O commit/push
+// fica por conta de quem chamou (o gerenciador, ou --push).
+function cmdSync(origem) {
+  let novos = 0, atualizados = 0, pulados = 0, ignorados = 0;
+
+  if (origem) {
+    origem = origem.replace(/^"(.*)"$/, '$1');
+    if (!fs.existsSync(origem) || !fs.statSync(origem).isDirectory()) {
+      console.error(c('verm', 'pasta não encontrada: ' + origem)); process.exit(1);
+    }
+    for (const arquivo of fs.readdirSync(origem)) {
+      if (!arquivo.toLowerCase().endsWith('.json')) continue;
+      const src = path.join(origem, arquivo);
+      let st; try { st = fs.statSync(src); } catch { continue; }
+      if (!st.isFile()) continue;
+
+      const obj = lerJSON(src);
+      const tipo = detectarTipo(obj);
+      if (!tipo) { ignorados++; continue; }           // json que não é estado/receita
+
+      const pasta = PASTAS[tipo];
+      if (!fs.existsSync(pasta)) fs.mkdirSync(pasta, { recursive: true });
+      const destino = path.join(pasta, arquivo);
+
+      if (fs.existsSync(destino)) {
+        if (tempoDe(obj, src) <= tempoDe(lerJSON(destino), destino)) { pulados++; continue; }
+        fs.copyFileSync(src, destino);
+        console.log(c('amar', '~ ' + tipo + '/' + arquivo) + c('fraco', '  (atualizado)')); atualizados++;
+      } else {
+        fs.copyFileSync(src, destino);
+        console.log(c('verde', '+ ' + tipo + '/' + arquivo)); novos++;
+      }
+    }
+  }
+
+  const idx = reindexarTudo();
+  console.log('\n' + c('neg', idx.estados.length + ' estado(s), ' + idx.receitas.length + ' receita(s) no repositório.'));
+  if (origem) {
+    console.log(c('fraco', '  da pasta: ' + novos + ' novo(s), ' + atualizados + ' atualizado(s), ' +
+      pulados + ' já atual(is), ' + ignorados + ' ignorado(s).'));
+  }
+  return { novos, atualizados };
+}
+
 function cmdList() {
   const idx = reindexarTudo();   // reindexa antes de listar, para refletir a pasta
   for (const [rotulo, lista] of [['Estados', idx.estados], ['Receitas', idx.receitas]]) {
@@ -170,6 +223,7 @@ const AJUDA = `
 ${c('neg', 'Sessões publicadas (estados e receitas)')}
 
   node tools/sessions.js add <arquivo.json>    copia p/ a pasta certa e reindexa
+  node tools/sessions.js sync [pasta]          traz todos os estados/receitas da pasta e reindexa
   node tools/sessions.js list                  lista o que está publicado
   node tools/sessions.js reindex               reconstrói os index.json
   node tools/sessions.js rm "<nome|arquivo>"   remove
@@ -189,6 +243,7 @@ ${c('neg', 'Sessões publicadas (estados e receitas)')}
 
   switch (cmd) {
     case 'add':     { const r = cmdAdd(arg); alterou = true; msg = 'Sessões: add ' + r.tipo + '/' + r.arquivo; break; }
+    case 'sync':    { cmdSync(arg);           alterou = true; msg = 'Sessões: sync'; break; }
     case 'rm':
     case 'remove':  { const r = cmdRm(arg);  alterou = true; msg = 'Sessões: rm ' + r.tipo + '/' + r.arquivo; break; }
     case 'reindex': { reindexarTudo();       alterou = true; msg = 'Sessões: reindex'; console.log(c('verde', 'index.json reconstruídos.')); break; }

@@ -37,6 +37,7 @@ const COMANDOS = {
   check:    { grupo: 'BASE DE ALIMENTOS', uso: 'check',          desc: 'procura erros na base',           tool: 'foods',    args: ['check'] },
 
   pub:      { grupo: 'SESSÕES',           uso: 'pub <arquivo>',  desc: 'publica um estado/receita baixado', tool: 'sessions', args: ['add'],      muta: true, precisaArg: 'o caminho do .json (pode arrastar o arquivo para cá)' },
+  sync:     { grupo: 'SESSÕES',           uso: 'sync [pasta]',   desc: 'envia de uma vez TODOS os estados/receitas (commit + push)', especial: 'sync' },
   unpub:    { grupo: 'SESSÕES',           uso: 'unpub <nome>',   desc: 'remove um estado/receita',        tool: 'sessions', args: ['rm'],         muta: true, precisaArg: 'o nome ou arquivo' },
   sessions: { grupo: 'SESSÕES',           uso: 'sessions',       desc: 'lista estados e receitas',        tool: 'sessions', args: ['list'] },
   reindex:  { grupo: 'SESSÕES',           uso: 'reindex',        desc: 'reconstrói os índices',           tool: 'sessions', args: ['reindex'], muta: true },
@@ -51,7 +52,7 @@ const COMANDOS = {
 // apelidos
 const APELIDOS = { ls:'list', categorias:'cats', remove:'rm', delete:'rm', del:'rm',
                    importar:'base-add', salvar:'base-add', 'add-base':'base-add',
-                   push:'publish', publicar:'publish', quit:'exit', q:'exit', sair:'exit',
+                   push:'publish', publicar:'publish', sincronizar:'sync', quit:'exit', q:'exit', sair:'exit',
                    '?':'help', ajuda:'help' };
 
 // ---------- menu ----------
@@ -134,6 +135,39 @@ function publicar(){
   }
 }
 
+// Sincroniza os estados/receitas de uma vez: traz os arquivos de uma pasta
+// (arrastada; sem pasta, só reindexa os que já estão em estados/receitas) e
+// então commita + envia ao GitHub. Estados/receitas de mesmo nome são
+// atualizados com a versão mais recente.
+function sincronizar(arg){
+  var branch = branchAtual();
+  if (branch !== 'main'){
+    console.log(c('verm', '\n  Você está na branch "' + branch + '", não na main.'));
+    console.log(c('verm', '  O site publica só a partir da main, então NÃO sincronizei.'));
+    return;
+  }
+
+  arg = (arg || '').replace(/^"(.*)"$/, '$1');
+  var args = ['sync'];
+  if (arg) args.push(arg);
+  var ok = rodarTool('sessions', args);         // copia da pasta (se houver) + reindexa
+  if (!ok){ console.log(c('verm', 'falha ao preparar os arquivos.')); return; }
+
+  git(['add', 'estados', 'receitas']);
+  var st = git(['status', '--porcelain', 'estados', 'receitas']);
+  if (!st.stdout || !st.stdout.trim()){ console.log(c('fraco', '\n  nada novo para enviar.')); return; }
+
+  var commit = git(['commit', '-m', 'Sincroniza estados/receitas pelo gerenciador'], true);
+  if (commit.status !== 0){ console.log(c('verm', 'falha ao criar o commit.')); return; }
+
+  var push = git(['push', 'origin', 'main'], true);
+  if (push.status === 0){
+    console.log(c('verde', '\n  enviado ao GitHub.') + c('fraco', ' O site republica em ~1 min.'));
+  } else {
+    console.log(c('verm', 'falha no push (confira sua conexão / login do git).'));
+  }
+}
+
 // Executa um comando. Devolve false só para "exit".
 // `io` (o leitor do menu) é passado adiante para a base de alimentos, que
 // roda dentro deste processo. No modo de um comando só, `io` vem indefinido
@@ -152,6 +186,7 @@ async function executar(cmd, arg, io){
     case 'exit':  return false;
     case 'help':  banner(); return true;
     case 'publish': publicar(); return true;
+    case 'sync':  sincronizar(arg); return true;
     case 'pull':  git(['pull', '--ff-only'], true); return true;
   }
 
