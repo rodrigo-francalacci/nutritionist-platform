@@ -1476,6 +1476,7 @@ function montarLatex(modo){
     L.push("\\usepackage{booktabs}");
     L.push("\\usepackage{array}");
     L.push("\\usepackage{tabularx}");
+    L.push("\\usepackage{wrapfig}");
     L.push("\\usepackage{xcolor}");
     L.push("\\definecolor{accent}{HTML}{0B25D4}");
     // colunas de largura fixa: as tabelas ficam iguais em TODOS os períodos,
@@ -1611,14 +1612,30 @@ function paragrafoNotaLatex(L, txt){
     L.push("");
 }
 
+// Estimativa (limite INFERIOR) de quantas linhas as notas ocupam a ~meia
+// largura. Uso um teto alto de caracteres por linha para NUNCA superestimar
+// — assim só considero as notas "longas" quando com certeza passam da tabela.
+function estimarLinhasNotas(notas){
+    var CH = 58;   // teto de caracteres por linha a ~0.5\textwidth (10pt)
+    var n = 0;
+    notas.forEach(function(t){
+        var s = String(t).replace(/\s+/g, " ").trim();
+        if (s){ n += Math.ceil(s.length / CH); }
+    });
+    return n;
+}
+
 // Versão "ultra" (uma página): cada período é um BLOCO próprio, independente,
 // em largura cheia — NÃO é um documento de duas colunas. Dentro do bloco:
 //   • título com o nome do período e os totais (cal / proteína);
 //   • tabela nome+quantidade ocupando ~metade da largura, à esquerda;
-//   • o PRIMEIRO parágrafo das instruções ao lado, à direita da tabela;
-//   • os demais parágrafos continuam em LARGURA CHEIA, logo abaixo.
-// Usa minipages lado a lado (sem wrapfig), então o período seguinte sempre
-// começa num bloco novo, abaixo, sem invadir o espaço do anterior.
+//   • as instruções ENCHEM primeiro o lado direito da tabela e só então
+//     continuam em largura cheia, abaixo.
+// Quando as notas cabem ao lado da tabela, uso duas minipages lado a lado
+// (determinístico, sem risco de vazamento). Quando as notas são LONGAS o
+// bastante para passar da tabela, uso wrapfig, que enche a direita e desce
+// para a largura cheia. Só uso wrapfig nesse caso porque, com texto curto,
+// ele deixaria o próximo período vazar para o lado (vira jornal de 2 colunas).
 function montarLatexUltra(L, res){
 
     // total do dia numa linha compacta
@@ -1640,22 +1657,31 @@ function montarLatexUltra(L, res){
         L.push("\\section*{" + tit + "}");
 
         if (temItens){
-            // linha de dois blocos: tabela à esquerda, 1º parágrafo à direita
-            L.push("\\noindent");
-            L.push("\\begin{minipage}[t]{0.46\\textwidth}");
-            L.push("\\vspace{0pt}");                 // alinha o topo do conteúdo
-            L.push(tabelaNomeQtd(d, "\\linewidth"));
-            L.push("\\end{minipage}\\hfill");
-            L.push("\\begin{minipage}[t]{0.5\\textwidth}");
-            L.push("\\vspace{0pt}");
-            if (notas.length){ paragrafoNotaLatex(L, notas[0]); }
-            L.push("\\end{minipage}");
-            L.push("\\par");
+            var linhasTabela = d.itens.length + 3;                 // ~altura da tabela em linhas
+            var linhasNotas  = estimarLinhasNotas(notas);          // limite inferior
+            var notasLongas  = notas.length > 0 && linhasNotas >= linhasTabela + 1;
 
-            // demais parágrafos: largura cheia, abaixo
-            if (notas.length > 1){
-                L.push("\\vspace{4pt}");
-                notas.slice(1).forEach(function(t){ paragrafoNotaLatex(L, t); });
+            if (notasLongas){
+                // enche a direita da tabela e continua abaixo, em largura cheia
+                L.push("\\begin{wraptable}{l}{0.5\\textwidth}");
+                L.push("\\vspace{-\\intextsep}");
+                L.push(tabelaNomeQtd(d, "0.47\\textwidth"));
+                L.push("\\end{wraptable}");
+                L.push("");
+                notas.forEach(function(t){ paragrafoNotaLatex(L, t); });
+                L.push("");
+            } else {
+                // notas cabem ao lado: tabela e notas em minipages lado a lado
+                L.push("\\noindent");
+                L.push("\\begin{minipage}[t]{0.46\\textwidth}");
+                L.push("\\vspace{0pt}");
+                L.push(tabelaNomeQtd(d, "\\linewidth"));
+                L.push("\\end{minipage}\\hfill");
+                L.push("\\begin{minipage}[t]{0.5\\textwidth}");
+                L.push("\\vspace{0pt}");
+                notas.forEach(function(t){ paragrafoNotaLatex(L, t); });
+                L.push("\\end{minipage}");
+                L.push("\\par");
             }
         } else {
             // sem itens: só as instruções, em largura cheia
