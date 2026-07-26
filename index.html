@@ -235,10 +235,15 @@ textarea {
     row-gap: 2px;
 }
 #row-container.compacto .form-row div{ margin-left: 3px; margin-right: 3px; }
+/* o nome divide o espaço livre com a quantidade (grow 3:2), em vez de
+   engolir tudo. O nome trunca com "…" (o texto inteiro fica no tooltip e na
+   pré-visualização); a quantidade cresce para caber unidades longas como
+   "colher de sopa". */
 #row-container.compacto .col-alimentos{
     width: auto;
-    flex: 1 1 220px;
-    min-width: 160px;
+    flex: 3 1 150px;
+    min-width: 110px;
+    max-width: 360px;
     margin-bottom: 0;
     padding-left: 6px;
 }
@@ -250,8 +255,22 @@ textarea {
 #row-container.compacto .form-row label{ font-size: 10px; }
 #row-container.compacto .form-row span,
 #row-container.compacto .form-row input{ font-size: 13px; }
-#row-container.compacto .col-qtd{ width: 98px; }
+#row-container.compacto .col-qtd{
+    width: auto;
+    flex: 2 1 150px;
+    min-width: 148px;
+}
 #row-container.compacto .col-qtd input{ width: 34px !important; }
+#row-container.compacto .col-qtd .uni-select{ max-width: 112px; }
+/* unidade em texto (uma só) não empurra a linha: trunca com "…" se enorme */
+#row-container.compacto .col-qtd .uni-dclick{
+    display: inline-block;
+    max-width: 112px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
 #row-container.compacto .col-protein,
 #row-container.compacto .col-carb,
 #row-container.compacto .col-fats,
