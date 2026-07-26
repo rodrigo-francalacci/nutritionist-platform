@@ -1,0 +1,605 @@
+{
+  "tipo": "estado",
+  "versao": 1,
+  "nome": "Madeira",
+  "notas": "Dia 3",
+  "notasPlano": {
+    "geral": [],
+    "Manhã": [],
+    "Almoço": [
+      "Preferir limao ao inves de vinagre para temperar a salada."
+    ],
+    "Tarde": [
+      "Coloque as frutas no liquidificador e adicione 200ml de leite integral, seguidos por 25g de pasta de amendoim integral POWER1ONE e 1 scoop de Whey PuraVida. Bata tudo em potência alta por cerca de um minuto, ou até que a mistura fique completamente homogênea e cremosa, servindo imediatamente para aproveitar a melhor textura e todos os nutrientes."
+    ],
+    "Noite": [
+      "1) Pique bem a cebola, o alho e o tomate. Corte o brócolis e a couve-flor em pequenos buquês. Rale a cenoura e fatie a couve manteiga.",
+      "2) Na panela, aqueça o azeite de oliva e refogue o alho e a cebola até dourarem.",
+      "3) Adicione o tomate picado e refogue até ele desmanchar e formar uma base saborosa.",
+      "4) Acrescente a cenoura, o brócolis e a couve-flor. Cubra com água fervente, tempere e deixe cozinhar em fogo médio por cerca de 15 minutos, até os vegetais estarem macios.",
+      "5) Adicione o peito de frango desfiado e a couve manteiga fatiada. Misture bem e deixe ferver por mais 3 minutos para apurar o sabor.",
+      "6) Transfira a sopa para um prato fundo ou tigela.",
+      "7) Polvilhe a cebolinha, a salsa e as sementes de gergelim cruas por cima da sopa pronta para manter a textura e as propriedades das ervas e sementes.",
+      "8) Torre a fatia de pão de forma e espalhe a manteiga . Sirva imediatamente ao lado da sopa quente."
+    ]
+  },
+  "salvoEm": "2026-07-26T18:35:22.352Z",
+  "soma": {
+    "protein": 145.6,
+    "carb": 134.5,
+    "fats": 105.7,
+    "cal": 2086.7
+  },
+  "itens": [
+    {
+      "refeicao": "Manhã",
+      "nome": "Iogurte Integral Natural Danone Copo 160g — Danone",
+      "unidade": "copo",
+      "qtd": "1",
+      "cal": 121,
+      "fats": 5.7,
+      "carb": 10,
+      "protein": 7.5,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 160g · cód 7891025120230 · por 100 g: 75.6 kcal, 4.7 g prot, 6.3 g carb, 3.6 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "copo",
+            "equivale": 160
+          }
+        ],
+        "cal": 0.75625,
+        "protein": 0.046875,
+        "carb": 0.0625,
+        "fats": 0.035625
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Noz, crua",
+      "unidade": "Nozes",
+      "qtd": "6",
+      "cal": 186,
+      "fats": 17.8,
+      "carb": 3.3,
+      "protein": 4.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "Nozes",
+            "equivale": 5
+          }
+        ],
+        "cal": 6.200600198,
+        "protein": 0.139708005,
+        "carb": 0.111141995,
+        "fats": 0.593596667
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "1/2 Mamão Papaia",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 60.2,
+      "fats": 0.2,
+      "carb": 14.1,
+      "protein": 0.7,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.401567689,
+        "protein": 0.0045625,
+        "carb": 0.093970833,
+        "fats": 0.001243333
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Folhas Verdes temperado com 1 colher de sopa de azeite / sal / limao",
+      "unidade": "gramas",
+      "qtd": "75",
+      "cal": 119,
+      "fats": 13.5,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [
+          {
+            "unidade": "gramas",
+            "equivale": 0.01333333333
+          }
+        ],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Arroz cozido",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 128.3,
+      "fats": 0.2,
+      "carb": 26.5,
+      "protein": 2.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.282584857,
+        "protein": 0.025208167,
+        "carb": 0.2649885,
+        "fats": 0.00227
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Feijão, carioca, cozido",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 114.6,
+      "fats": 0.8,
+      "carb": 20.4,
+      "protein": 7.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.764240857,
+        "protein": 0.04775,
+        "carb": 0.136,
+        "fats": 0.005423333
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Carne, bovina, contra-filé, sem gordura, grelhado",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 193.7,
+      "fats": 4.5,
+      "carb": 0,
+      "protein": 35.9,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.936915667,
+        "protein": 0.358833333,
+        "carb": 0,
+        "fats": 0.044866667
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Whey PuraVida",
+      "unidade": "scoop",
+      "qtd": "1",
+      "cal": 162,
+      "fats": 2.9,
+      "carb": 2.7,
+      "protein": 33.2,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "1/2 scoop",
+        "unidades": [
+          {
+            "unidade": "scoop",
+            "equivale": 2
+          }
+        ],
+        "cal": 81,
+        "protein": 16.6,
+        "carb": 1.33,
+        "fats": 1.46
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Leite Integral",
+      "unidade": "ml",
+      "qtd": "200",
+      "cal": 116,
+      "fats": 6,
+      "carb": 9.2,
+      "protein": 6.2,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 1 L · cód 7898215151708 · por 100 g: 58 kcal, 3.1 g prot, 4.6 g carb, 3 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "ml",
+            "equivale": 1
+          }
+        ],
+        "cal": 0.58,
+        "protein": 0.031,
+        "carb": 0.046,
+        "fats": 0.03
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Banana prata",
+      "unidade": "unidade",
+      "qtd": "1",
+      "cal": 98.2,
+      "fats": 0.1,
+      "carb": 23.9,
+      "protein": 1.3,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "unidade",
+            "equivale": 100
+          }
+        ],
+        "cal": 0.982497022,
+        "protein": 0.012681159,
+        "carb": 0.239135507,
+        "fats": 0.00065
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Açaí, polpa, congelada",
+      "unidade": "Pacote",
+      "qtd": "1",
+      "cal": 58,
+      "fats": 3.9,
+      "carb": 3.7,
+      "protein": 0.8,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "Pacote",
+            "equivale": 100
+          }
+        ],
+        "cal": 0.580453689,
+        "protein": 0.007979167,
+        "carb": 0.036550833,
+        "fats": 0.039443333
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Pasta de amendoim integral — POWER1ONE",
+      "unidade": "gramas",
+      "qtd": "25",
+      "cal": 146.7,
+      "fats": 11,
+      "carb": 5,
+      "protein": 6.8,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 1 kg · cód 7898939072600 · por 100 g: 586.7 kcal, 27.3 g prot, 20 g carb, 44 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 5.86666666666667,
+        "protein": 0.273333333333333,
+        "carb": 0.2,
+        "fats": 0.44
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Peito de Frango Desfiado",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 159.2,
+      "fats": 2.5,
+      "carb": 0,
+      "protein": 32,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.591850072,
+        "protein": 0.320333333,
+        "carb": 0,
+        "fats": 0.024836667
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Pão de Fôrma Integral  Wickbold",
+      "unidade": "Fatia",
+      "qtd": "1",
+      "cal": 60,
+      "fats": 0.8,
+      "carb": 10.5,
+      "protein": 2.8,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 550 g · cód 7896066301778 · por 100 g: 240 kcal, 11 g prot, 42 g carb, 3.2 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "Fatia",
+            "equivale": 25
+          }
+        ],
+        "cal": 2.4,
+        "protein": 0.11,
+        "carb": 0.42,
+        "fats": 0.032
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Manteiga, com sal",
+      "unidade": "Colher Sobremesa Cheia",
+      "qtd": "1",
+      "cal": 72.6,
+      "fats": 8.2,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "Colher Sobremesa Cheia",
+            "equivale": 10
+          }
+        ],
+        "cal": 7.259689268,
+        "protein": 0.004147,
+        "carb": 0.000633,
+        "fats": 0.82361
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Azeite de Oliva",
+      "unidade": "colher de sopa",
+      "qtd": "2",
+      "cal": 238,
+      "fats": 27,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Brócolis, cru",
+      "unidade": "gramas",
+      "qtd": "50",
+      "cal": 12.7,
+      "fats": 0.1,
+      "carb": 0.6,
+      "protein": 1.8,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.254951319,
+        "protein": 0.036449275,
+        "carb": 0.011450725,
+        "fats": 0.002666667
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Couve, manteiga, crua",
+      "unidade": "gramas",
+      "qtd": "30",
+      "cal": 8.1,
+      "fats": 0.2,
+      "carb": 0.4,
+      "protein": 0.9,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.270566971,
+        "protein": 0.028731884,
+        "carb": 0.012134783,
+        "fats": 0.005466667
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Cenoura, crua",
+      "unidade": "gramas",
+      "qtd": "50",
+      "cal": 17.1,
+      "fats": 0.1,
+      "carb": 2.2,
+      "protein": 0.7,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.341353884,
+        "protein": 0.013224638,
+        "carb": 0.044766667,
+        "fats": 0.001733333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Tomate, com semente, cru",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 15.3,
+      "fats": 0.2,
+      "carb": 2,
+      "protein": 1.1,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.153351565,
+        "protein": 0.010978261,
+        "carb": 0.019655072,
+        "fats": 0.001733333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Cebola",
+      "unidade": "",
+      "qtd": "1/2 unidade",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": {
+        "unidadePrincipal": "",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Alho",
+      "unidade": "",
+      "qtd": "3 dentes medios",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": {
+        "unidadePrincipal": "",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Cebolinha crua",
+      "unidade": "",
+      "qtd": "1 colher de sopa cheia, picada",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": {
+        "unidadePrincipal": "",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Salsa",
+      "unidade": "",
+      "qtd": "1 colher de sobremesa, picada",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": {
+        "unidadePrincipal": "",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Semente de Gergelim",
+      "unidade": "",
+      "qtd": "1 colher de cha",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": {
+        "unidadePrincipal": "",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    }
+  ]
+}

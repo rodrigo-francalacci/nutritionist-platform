@@ -1,0 +1,463 @@
+{
+  "tipo": "estado",
+  "versao": 1,
+  "nome": "Madeira",
+  "notas": "Dia 2",
+  "notasPlano": {
+    "geral": [],
+    "Manhã": [
+      "Receita mingau de aveia: Misture em uma panela 200 ml de leite integral, 2 colheres de supa de aveia em flocos e 1 colher de sopa de farelo de aveia com adoçante a gosto e leve ao fogo baixo, mexendo sempre por cerca de 3 a 5 minutos até a mistura ferver e atingir uma textura bem cremosa. Para finalizar, despeje o mingau em uma tigela, polvilhe canela em pó a gosto e decore por cima com 8 castanhas de caju picadas para garantir a crocância."
+    ],
+    "Almoço": [
+      "Preferir limao ao inves de vinagre para temperar a salada. Acompanhar o almoco com um copo de agua com 1 limao espremido."
+    ],
+    "Tarde": [
+      "1) O Shake de Proteína: Comece misturando 1 scoop de Whey PuraVida com exatamente 200ml de leite de amendoas ou água (nao usar leite de vaca aqui). Bata bem e beba.",
+      "2) A Salada de Frutas: Descasque e pique as 2 laranjas e os 3 kiwis. Lave bem a maçã vermelha e corte-a em cubos, mantendo a casca para aproveitar as fibras.",
+      "3) Montagem: Coloque todas as frutas picadas em uma tigela com um pouco de gelo. Para finalizar, polvilhe as 30g de farelo de aveia Quaker por cima das frutas para adicionar textura e mais nutrientes."
+    ],
+    "Noite": [
+      "Receita:",
+      "Descasque e cozinhe a Abóbora Cabotiá e a Batata Inglesa até ficarem macias ao furar com um garfo. Escorra a água, reservando uma pequena quantidade.\n\nBata a abóbora e a batata cozidas no liquidificador (ou amasse-as muito bem), adicionando um pouco da água do cozimento reservada até atingir a consistência de sopa desejada.\n\nEm uma panela separada, aqueça o azeite em fogo médio. Refogue a cebola picada e o alho até dourarem e liberarem aroma.\n\nAdicione o peito de frango cozido e desfiado à panela e misture bem com o alho, a cebola e o azeite.\n\nDespeje o creme batido de abóbora e batata na panela com o frango. Mexa bem para incorporar.\n\nTempere com sal e pimenta-do-reino, deixando ferver em fogo brando por 3 a 5 minutos para apurar os sabores.\n\nSirva quente, finalizando com cheiro-verde fresco por cima.",
+      "Dica de Preparo:",
+      "Para render os 115g de peito de frango cozido e desfiado exigidos na receita, utilize aproximadamente 150g de peito de frango cru."
+    ]
+  },
+  "salvoEm": "2026-07-26T17:26:16.331Z",
+  "soma": {
+    "protein": 147.6,
+    "carb": 202.3,
+    "fats": 62.6,
+    "cal": 2009.3
+  },
+  "itens": [
+    {
+      "refeicao": "Manhã",
+      "nome": "Farelo de aveia  - Quaker",
+      "unidade": "colher de sopa",
+      "qtd": "1",
+      "cal": 37,
+      "fats": 1,
+      "carb": 4.5,
+      "protein": 1.9,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 165 g · cód 7892840815776 · por 100 g: 370 kcal, 19 g prot, 45 g carb, 10 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "colher de sopa",
+            "equivale": 10
+          }
+        ],
+        "cal": 3.7,
+        "protein": 0.19,
+        "carb": 0.45,
+        "fats": 0.1
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Aveia, flocos",
+      "unidade": "colher de sopa",
+      "qtd": "2",
+      "cal": 78.8,
+      "fats": 1.7,
+      "carb": 11.5,
+      "protein": 2.8,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "colher de sopa",
+            "equivale": 10
+          }
+        ],
+        "cal": 3.938226894,
+        "protein": 0.139210261,
+        "carb": 0.575056406,
+        "fats": 0.084966667
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Leite Integral",
+      "unidade": "ml",
+      "qtd": "200",
+      "cal": 116,
+      "fats": 6,
+      "carb": 9.2,
+      "protein": 6.2,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 1 L · cód 7898215151708 · por 100 g: 58 kcal, 3.1 g prot, 4.6 g carb, 3 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "ml",
+            "equivale": 1
+          }
+        ],
+        "cal": 0.58,
+        "protein": 0.031,
+        "carb": 0.046,
+        "fats": 0.03
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Castanha-de-caju",
+      "unidade": "castanhas",
+      "qtd": "8",
+      "cal": 114,
+      "fats": 9.3,
+      "carb": 5.1,
+      "protein": 3.7,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "castanhas",
+            "equivale": 2.5
+          }
+        ],
+        "cal": 5.701676265,
+        "protein": 0.185093673,
+        "carb": 0.25471966,
+        "fats": 0.462796667
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Folhas Verdes temperado com 1 colher de sopa de azeite / sal / limao",
+      "unidade": "gramas",
+      "qtd": "75",
+      "cal": 119,
+      "fats": 13.5,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [
+          {
+            "unidade": "gramas",
+            "equivale": 0.01333333333
+          }
+        ],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Arroz cozido",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 128.3,
+      "fats": 0.2,
+      "carb": 26.5,
+      "protein": 2.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.282584857,
+        "protein": 0.025208167,
+        "carb": 0.2649885,
+        "fats": 0.00227
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Feijão, carioca, cozido",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 114.6,
+      "fats": 0.8,
+      "carb": 20.4,
+      "protein": 7.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.764240857,
+        "protein": 0.04775,
+        "carb": 0.136,
+        "fats": 0.005423333
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Carne, bovina, contra-filé, sem gordura, grelhado",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 193.7,
+      "fats": 4.5,
+      "carb": 0,
+      "protein": 35.9,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.936915667,
+        "protein": 0.358833333,
+        "carb": 0,
+        "fats": 0.044866667
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Whey PuraVida",
+      "unidade": "Scoop",
+      "qtd": "1",
+      "cal": 162,
+      "fats": 2.9,
+      "carb": 2.7,
+      "protein": 33.2,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "1/2 scoop",
+        "unidades": [
+          {
+            "unidade": "Scoop",
+            "equivale": 2
+          }
+        ],
+        "cal": 81,
+        "protein": 16.6,
+        "carb": 1.33,
+        "fats": 1.46
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Laranja",
+      "unidade": "unidades(s)",
+      "qtd": "2",
+      "cal": 95.6,
+      "fats": 0.3,
+      "carb": 21.3,
+      "protein": 2.7,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "unidades(s)",
+            "equivale": 130
+          }
+        ],
+        "cal": 0.367737652,
+        "protein": 0.010434783,
+        "carb": 0.081798551,
+        "fats": 0.001266667
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Kiwi",
+      "unidade": "unidade(s)",
+      "qtd": "3",
+      "cal": 107.4,
+      "fats": 1.3,
+      "carb": 18.6,
+      "protein": 2.8,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "unidade(s)",
+            "equivale": 70
+          }
+        ],
+        "cal": 0.511363304,
+        "protein": 0.013369565,
+        "carb": 0.088463768,
+        "fats": 0.006266667
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Maçã, Fuji, com casca, crua",
+      "unidade": "Unidade",
+      "qtd": "1",
+      "cal": 101,
+      "fats": 0,
+      "carb": 25.1,
+      "protein": 0.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "Unidade",
+            "equivale": 182
+          }
+        ],
+        "cal": 0.555152,
+        "protein": 0.002866667,
+        "carb": 0.138066667,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Farelo de aveia — Quaker",
+      "unidade": "gramas",
+      "qtd": "25",
+      "cal": 92.5,
+      "fats": 2.5,
+      "carb": 11.3,
+      "protein": 4.8,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · 165 g · cód 7892840815776 · por 100 g: 370 kcal, 19 g prot, 45 g carb, 10 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 3.7,
+        "protein": 0.19,
+        "carb": 0.45,
+        "fats": 0.1
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Abóbora, Cabotia",
+      "unidade": "gramas",
+      "qtd": "300",
+      "cal": 144.1,
+      "fats": 2.2,
+      "carb": 24.9,
+      "protein": 4.3,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.480437425,
+        "protein": 0.0144375,
+        "carb": 0.0829825,
+        "fats": 0.007293333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Batata, inglesa",
+      "unidade": "gramas",
+      "qtd": "200",
+      "cal": 103.2,
+      "fats": 0,
+      "carb": 21.2,
+      "protein": 2.3,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.515884766,
+        "protein": 0.011645833,
+        "carb": 0.106004167,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Azeite de Oliva",
+      "unidade": "colher de sopa",
+      "qtd": "1",
+      "cal": 119,
+      "fats": 13.5,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Peito de Frango Desfiado",
+      "unidade": "gramas",
+      "qtd": "115",
+      "cal": 183.1,
+      "fats": 2.9,
+      "carb": 0,
+      "protein": 36.8,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.591850072,
+        "protein": 0.320333333,
+        "carb": 0,
+        "fats": 0.024836667
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Alho, cebola, sal, pimenta-do-reino e cheiro-verde",
+      "unidade": "a gosto",
+      "qtd": "1",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Sem detalhes.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "ovos",
+        "unidades": [
+          {
+            "unidade": "a gosto",
+            "equivale": 1
+          }
+        ],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    }
+  ]
+}

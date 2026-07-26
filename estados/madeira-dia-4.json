@@ -1,0 +1,503 @@
+{
+  "tipo": "estado",
+  "versao": 1,
+  "nome": "Madeira",
+  "notas": "Dia 4",
+  "notasPlano": {
+    "geral": [],
+    "Manhã": [
+      "1) Em um prato fundo ou tigela pequena, disponha os cubos de Queijo Minas Padrão, os tomates cereja e as azeitonas pretas.",
+      "2) Regue tudo generosamente com a colher de sopa de azeite de oliva extravirgem.",
+      "3) Tempere com uma pitada de sal, pimenta-do-reino e bastante orégano.",
+      "4) Misture suavemente e finalize espalhando as folhas frescas de manjericão por cima. Sirva frio."
+    ],
+    "Almoço": [
+      "1) Tempere a tilápia crua com suco de limão, alho, sal e pimenta-do-reino.",
+      "2) Aqueça metade do azeite em uma frigideira e grelhe o peixe até cozinhar por completo. Você pode deixá-lo inteiro ou desfiá-lo em pedaços grandes.",
+      "3) Na mesma frigideira, adicione o restante do azeite, um pouco de cebola picada e os tomates cereja. Refogue até os tomates começarem a murchar e soltarem um pouco de suco.",
+      "4) Misture o grão-de-bico cozido na frigideira apenas para aquecer bem e incorporar os sabores",
+      "5) Monte o prato fazendo uma cama com as folhas frescas de rúcula no fundo",
+      "6) Sirva a tilápia e a mistura quente de grão-de-bico sobre a rúcula (o calor da comida vai murchar levemente as folhas, deixando a textura perfeita).",
+      "7) Finalize espalhando os cubos de queijo minas frescal por cima de tudo, para que derretam um pouco com o calor residual"
+    ],
+    "Tarde": [
+      "1) Em um liquidificador ou processador pequeno, adicione o avocado, a banana prata e o scoop de Whey PuraVida.",
+      "2) Coloque um \"dedinho\" de água bem gelada (cerca de 30ml) apenas para ajudar a lâmina a girar.",
+      "3) Comece a bater. Se a mistura estiver muito pesada, adicione mais água aos poucos, literalmente de colher em colher. O segredo para a consistência de mousse é usar o mínimo de água possível, apenas o suficiente para transformar os ingredientes em um creme denso e liso.",
+      "4) Sirva imediatamente em uma tigela."
+    ],
+    "Noite": [
+      "1) Ferva a água com uma pitada de sal e cozinhe os 55g de macarrão integral até ficar al dente. Escorra e reserve.",
+      "2) Em uma panela, aqueça os 5ml de azeite. Refogue a cebola picada, o alho e o pimentão até que comecem a amolecer e liberar aroma.",
+      "3) Acrescente a carne moída crua e a berinjela em cubos. Tempere com sal, pimenta e orégano. Refogue bem até a carne dourar e a berinjela murchar (a berinjela vai absorver os sucos da carne, ficando muito saborosa).",
+      "4) Adicione a passata de tomate, as azeitonas pretas fatiadas e as alcaparras. Abaixe o fogo e deixe o ragu cozinhar por cerca de 5 a 10 minutos para que todos os sabores mediterrâneos se misturem e o molho engrosse.",
+      "5) Incorpore o macarrão cozido diretamente ao molho na panela, misturando bem.",
+      "6) Sirva em seguida, polvilhando os 15g de parmesão ralado e bastante manjericão fresco por cima."
+    ]
+  },
+  "salvoEm": "2026-07-26T19:40:12.716Z",
+  "soma": {
+    "protein": 143.3,
+    "carb": 102.7,
+    "fats": 123.2,
+    "cal": 2117.3
+  },
+  "itens": [
+    {
+      "refeicao": "Manhã",
+      "nome": "Queijo Minas Padrão — Tirolez",
+      "unidade": "Fatia (75g)",
+      "qtd": "1",
+      "cal": 262.5,
+      "fats": 22.5,
+      "carb": 0,
+      "protein": 15,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · cód 7896030508011 · por 100 g: 350 kcal, 20 g prot, 0 g carb, 30 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [
+          {
+            "unidade": "Fatia (75g)",
+            "equivale": 75
+          }
+        ],
+        "cal": 3.5,
+        "protein": 0.2,
+        "carb": 0,
+        "fats": 0.3
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Tomate Cereja",
+      "unidade": "gramas",
+      "qtd": "50",
+      "cal": 15,
+      "fats": 0,
+      "carb": 3.7,
+      "protein": 0.5,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · cód 7898942930355 · por 100 g: 30 kcal, 0.9 g prot, 7.3 g carb, 0 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.3,
+        "protein": 0.009000000000000001,
+        "carb": 0.073,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Azeitonas pretas",
+      "unidade": "gramas",
+      "qtd": "20",
+      "cal": 38.8,
+      "fats": 4.1,
+      "carb": 0.2,
+      "protein": 0.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.94153847,
+        "protein": 0.011625,
+        "carb": 0.009895,
+        "fats": 0.20345
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Azeite de Oliva",
+      "unidade": "colher de sopa",
+      "qtd": "1",
+      "cal": 119,
+      "fats": 13.5,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Folhas de manjericão fresco, orégano, sal e pimenta-do-reino a gosto.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "75g Rucula com uma 1 colher de sopa de azeite / sal / limao",
+      "unidade": "gramas",
+      "qtd": "75",
+      "cal": 119,
+      "fats": 13.5,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [
+          {
+            "unidade": "gramas",
+            "equivale": 0.01333333333
+          }
+        ],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Tomate cereja",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 15.3,
+      "fats": 0.2,
+      "carb": 2,
+      "protein": 1.1,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.153351565,
+        "protein": 0.010978261,
+        "carb": 0.019655072,
+        "fats": 0.001733333
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Grão-de-bico (depois de cozido)",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 148,
+      "fats": 3,
+      "carb": 18.3,
+      "protein": 8.4,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Reino Unido) · 1 x 400g (240g) · cód 4061462190681 · por 100 g: 148 kcal, 8.4 g prot, 18.3 g carb, 3 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.48,
+        "protein": 0.084,
+        "carb": 0.183,
+        "fats": 0.03
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Queijo Minas Padrão — Tirolez",
+      "unidade": "gramas",
+      "qtd": "40",
+      "cal": 140,
+      "fats": 12,
+      "carb": 0,
+      "protein": 8,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · cód 7896030508011 · por 100 g: 350 kcal, 20 g prot, 0 g carb, 30 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 3.5,
+        "protein": 0.2,
+        "carb": 0,
+        "fats": 0.3
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Filé de Tilápia",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 165,
+      "fats": 5.9,
+      "carb": 0,
+      "protein": 28.5,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · cód 7891527062991 · por 100 g: 110 kcal, 19 g prot, 0 g carb, 3.9 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.1,
+        "protein": 0.19,
+        "carb": 0,
+        "fats": 0.039
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Alho, cebola, suco de limão, sal e pimenta-do-reino a gosto.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Whey PuraVida",
+      "unidade": "scoop",
+      "qtd": "1",
+      "cal": 162,
+      "fats": 2.9,
+      "carb": 2.7,
+      "protein": 33.2,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "1/2 scoop",
+        "unidades": [
+          {
+            "unidade": "scoop",
+            "equivale": 2
+          }
+        ],
+        "cal": 81,
+        "protein": 16.6,
+        "carb": 1.33,
+        "fats": 1.46
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Avocado",
+      "unidade": "gramas",
+      "qtd": "180",
+      "cal": 307.8,
+      "fats": 31.3,
+      "carb": 3.2,
+      "protein": 3.2,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.71,
+        "protein": 0.018,
+        "carb": 0.018,
+        "fats": 0.174
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Banana, prata",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 98.2,
+      "fats": 0.1,
+      "carb": 23.9,
+      "protein": 1.3,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.982497022,
+        "protein": 0.012681159,
+        "carb": 0.239135507,
+        "fats": 0.00065
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Carne moída magra (Patinho - pesado cru)",
+      "unidade": "gramas",
+      "qtd": "140",
+      "cal": 186.9,
+      "fats": 6.3,
+      "carb": 0,
+      "protein": 30.4,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.334689,
+        "protein": 0.217233333,
+        "carb": 0,
+        "fats": 0.045133333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Macarrão integral (pesado seco/cru - tipo Penne ou Espaguete)",
+      "unidade": "gramas",
+      "qtd": "55",
+      "cal": 204.1,
+      "fats": 0.7,
+      "carb": 41.3,
+      "protein": 5.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 3.71122613,
+        "protein": 0.099956522,
+        "carb": 0.750176812,
+        "fats": 0.013033333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Molho de tomate pelati ou passata (sem açúcar)",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 27,
+      "fats": 0,
+      "carb": 4.4,
+      "protein": 1.5,
+      "grupo": "--",
+      "detalhes": "Open Food Facts (Brasil) · cód 7891103221880 · por 100 g: 27 kcal, 1.5 g prot, 4.4 g carb, 0 g gord.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.27,
+        "protein": 0.015,
+        "carb": 0.044000000000000004,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Berinjela (cortada em cubos pequenos)",
+      "unidade": "gramas",
+      "qtd": "50",
+      "cal": 9.8,
+      "fats": 0.1,
+      "carb": 0.8,
+      "protein": 0.6,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.196277536,
+        "protein": 0.012210145,
+        "carb": 0.015556522,
+        "fats": 0.001
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Pimentão vermelho ou amarelo (cortado em cubinhos)",
+      "unidade": "gramas",
+      "qtd": "50",
+      "cal": 11.6,
+      "fats": 0.1,
+      "carb": 1.9,
+      "protein": 0.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.232813638,
+        "protein": 0.010398551,
+        "carb": 0.038734783,
+        "fats": 0.001466667
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Azeitonas pretas",
+      "unidade": "gramas",
+      "qtd": "10",
+      "cal": 19.4,
+      "fats": 2,
+      "carb": 0.1,
+      "protein": 0.1,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.94153847,
+        "protein": 0.011625,
+        "carb": 0.009895,
+        "fats": 0.20345
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Queijo Parmesão Ralado",
+      "unidade": "gramas",
+      "qtd": "15",
+      "cal": 67.9,
+      "fats": 5,
+      "carb": 0.2,
+      "protein": 5.3,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 4.529637553,
+        "protein": 0.355536133,
+        "carb": 0.0166072,
+        "fats": 0.335293333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "1 colher de chá de alcaparras, Alho, cebola, orégano seco, sal, pimenta-do-reino e manjericão fresco.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    }
+  ]
+}
