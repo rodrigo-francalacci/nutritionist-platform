@@ -17,8 +17,10 @@
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* acima da barra de resumo fixa (z-index 50) */
   padding-top: 100px; /* Location of the box */
+  padding-bottom: 90px; /* espaço para o último item não ficar colado no rodapé */
+  box-sizing: border-box;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
