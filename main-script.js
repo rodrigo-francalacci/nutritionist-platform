@@ -1476,7 +1476,6 @@ function montarLatex(modo){
     L.push("\\usepackage{booktabs}");
     L.push("\\usepackage{array}");
     L.push("\\usepackage{tabularx}");
-    L.push("\\usepackage{wrapfig}");
     L.push("\\usepackage{xcolor}");
     L.push("\\definecolor{accent}{HTML}{0B25D4}");
     // colunas de largura fixa: as tabelas ficam iguais em TODOS os períodos,
@@ -1604,49 +1603,66 @@ function tabelaNomeQtd(d, largura){
     return t.join("\n");
 }
 
-// Versão "ultra" (uma página): totais no título de cada período; tabela de
-// nome+quantidade ocupando metade da largura, à esquerda; as instruções do
-// período começam à direita da tabela e seguem em largura cheia embaixo.
+// Empurra um parágrafo de nota já escapado (sem quebra de linha interna).
+function paragrafoNotaLatex(L, txt){
+    var s = String(txt || "").replace(/\s*\n\s*/g, " ").trim();
+    if (!s){ return; }
+    L.push(escLatex(s));
+    L.push("");
+}
+
+// Versão "ultra" (uma página): cada período é um BLOCO próprio, independente,
+// em largura cheia — NÃO é um documento de duas colunas. Dentro do bloco:
+//   • título com o nome do período e os totais (cal / proteína);
+//   • tabela nome+quantidade ocupando ~metade da largura, à esquerda;
+//   • o PRIMEIRO parágrafo das instruções ao lado, à direita da tabela;
+//   • os demais parágrafos continuam em LARGURA CHEIA, logo abaixo.
+// Usa minipages lado a lado (sem wrapfig), então o período seguinte sempre
+// começa num bloco novo, abaixo, sem invadir o espaço do anterior.
 function montarLatexUltra(L, res){
 
     // total do dia numa linha compacta
     var totP = 0, totC = 0, totF = 0, totCal = 0;
     PERIODOS.forEach(function(p){ var d = res[p]; totP += d.protein; totC += d.carb; totF += d.fats; totCal += d.cal; });
-    L.push("{\\small\\textbf{Total do dia:}~ Prot " + rd(totP) + " g \\textbullet{} Carb " + rd(totC) +
-           " g \\textbullet{} Gord " + rd(totF) + " g \\textbullet{} " + rd(totCal) + " cal}\\par");
+    L.push("{\\small\\textbf{Total do dia:}~ " + rd(totCal) + " cal \\textbullet{} Prot " + rd(totP) +
+           " g \\textbullet{} Carb " + rd(totC) + " g \\textbullet{} Gord " + rd(totF) + " g}\\par");
     L.push("\\vspace{6pt}");
     L.push("");
 
     PERIODOS.forEach(function(p){
         var d = res[p];
-        var comNotas = temNotas(notasPlano[p]);
         var temItens = d.itens.length > 0;
-        if (!temItens && !comNotas){ return; }
+        var notas = (notasPlano[p] || []).filter(function(s){ return String(s).trim() !== ""; });
+        if (!temItens && notas.length === 0){ return; }
 
-        // título: nome do período à esquerda, totais do período à direita
-        var tot = "(P " + d.protein + " \\textbullet{} C " + d.carb + " \\textbullet{} G " + d.fats + " \\textbullet{} " + d.cal + " cal)";
-        L.push("\\section*{" + escLatex(p) + "\\hfill\\normalsize\\mdseries " + tot + "}");
+        // título do período (largura cheia) com os totais entre parênteses
+        var tit = escLatex(p) + " {\\normalsize\\mdseries(" + d.cal + " cal \\textbullet{} " + d.protein + " g prot)}";
+        L.push("\\section*{" + tit + "}");
 
-        if (temItens && comNotas){
-            // tabela à esquerda (metade), texto envolve à direita e continua abaixo
-            L.push("\\begin{wraptable}{l}{0.5\\textwidth}");
-            L.push("\\vspace{-\\baselineskip}");
-            L.push(tabelaNomeQtd(d, "0.47\\textwidth"));
-            L.push("\\end{wraptable}");
-            L.push("");
-            paragrafosLatex(L, notasPlano[p]);
-            L.push("\\par");
-        } else if (temItens){
-            // só a tabela (metade da largura), sem instruções
+        if (temItens){
+            // linha de dois blocos: tabela à esquerda, 1º parágrafo à direita
             L.push("\\noindent");
-            L.push("\\begin{minipage}{0.5\\textwidth}");
-            L.push(tabelaNomeQtd(d, "0.47\\textwidth"));
-            L.push("\\end{minipage}\\par");
+            L.push("\\begin{minipage}[t]{0.46\\textwidth}");
+            L.push("\\vspace{0pt}");                 // alinha o topo do conteúdo
+            L.push(tabelaNomeQtd(d, "\\linewidth"));
+            L.push("\\end{minipage}\\hfill");
+            L.push("\\begin{minipage}[t]{0.5\\textwidth}");
+            L.push("\\vspace{0pt}");
+            if (notas.length){ paragrafoNotaLatex(L, notas[0]); }
+            L.push("\\end{minipage}");
+            L.push("\\par");
+
+            // demais parágrafos: largura cheia, abaixo
+            if (notas.length > 1){
+                L.push("\\vspace{4pt}");
+                notas.slice(1).forEach(function(t){ paragrafoNotaLatex(L, t); });
+            }
         } else {
-            // só instruções
-            paragrafosLatex(L, notasPlano[p]);
+            // sem itens: só as instruções, em largura cheia
+            notas.forEach(function(t){ paragrafoNotaLatex(L, t); });
         }
-        L.push("\\vspace{6pt}");
+
+        L.push("\\vspace{10pt}");
         L.push("");
     });
 }
