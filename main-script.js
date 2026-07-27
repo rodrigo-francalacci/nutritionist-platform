@@ -1740,6 +1740,137 @@ window.addEventListener('click', function(event){
 });
 
 //====================================================================
+// Exportar a sessão como HTML (colar no Word/Excel) e como CSV (Excel)
+//====================================================================
+
+function escHtml(s){
+    return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+// número no formato brasileiro (vírgula decimal), para o Excel pt-BR ler certo
+function numBR(n){ return String(n).replace(".", ","); }
+
+// campo de CSV: aspas quando tiver ; " ou quebra de linha
+function csvCampo(v){
+    var s = String(v == null ? "" : v);
+    if (/[;"\n\r]/.test(s)){ s = '"' + s.replace(/"/g, '""') + '"'; }
+    return s;
+}
+
+// Monta um HTML simples, com estilos EM LINHA (para o Word/Excel manterem a
+// formatação ao colar): resumo por período + uma tabela por período + notas.
+function exportarHTML(){
+    var nome = document.getElementById("nome").textContent.trim() || "Plano alimentar";
+    var subt = document.getElementById("dia").textContent.trim();
+    lerNotasVivas();
+    var res = calcPorPeriodo();
+
+    var TBL = "border-collapse:collapse; width:100%; margin:8px 0;";
+    var THL = "border:1px solid #999; padding:4px 8px; background:#e8eefc; text-align:left;";
+    var THR = "border:1px solid #999; padding:4px 8px; background:#e8eefc; text-align:right;";
+    var TDL = "border:1px solid #ccc; padding:4px 8px;";
+    var TDR = "border:1px solid #ccc; padding:4px 8px; text-align:right;";
+
+    var H = [];
+    H.push('<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><title>' + escHtml(nome) + '</title></head>');
+    H.push('<body style="font-family:Georgia,serif; color:#111; max-width:900px; margin:16px auto; padding:0 12px;">');
+    H.push('<h1 style="color:#0B25D4; margin:0 0 4px;">' + escHtml(nome) + '</h1>');
+    if (subt){ H.push('<div style="color:#444; margin-bottom:8px;">' + escHtml(subt) + '</div>'); }
+
+    if (temNotas(notasPlano.geral)){
+        notasPlano.geral.forEach(function(t){ if (String(t).trim()){ H.push('<p style="margin:4px 0;">' + escHtml(t) + '</p>'); } });
+    }
+
+    // resumo por período
+    H.push('<h2 style="margin:14px 0 4px;">Resumo</h2>');
+    H.push('<table style="' + TBL + '"><tr>' +
+        '<th style="' + THL + '">Período</th><th style="' + THR + '">Prot (g)</th>' +
+        '<th style="' + THR + '">Carb (g)</th><th style="' + THR + '">Gord (g)</th><th style="' + THR + '">Cal</th></tr>');
+    var tP = 0, tC = 0, tF = 0, tCal = 0;
+    PERIODOS.forEach(function(p){
+        var d = res[p]; if (!d.itens.length){ return; }
+        H.push('<tr><td style="' + TDL + '">' + escHtml(p) + '</td><td style="' + TDR + '">' + d.protein +
+            '</td><td style="' + TDR + '">' + d.carb + '</td><td style="' + TDR + '">' + d.fats +
+            '</td><td style="' + TDR + '">' + d.cal + '</td></tr>');
+        tP += d.protein; tC += d.carb; tF += d.fats; tCal += d.cal;
+    });
+    H.push('<tr><td style="' + TDL + '"><b>Total</b></td><td style="' + TDR + '"><b>' + rd(tP) +
+        '</b></td><td style="' + TDR + '"><b>' + rd(tC) + '</b></td><td style="' + TDR + '"><b>' + rd(tF) +
+        '</b></td><td style="' + TDR + '"><b>' + rd(tCal) + '</b></td></tr></table>');
+
+    // uma tabela por período
+    PERIODOS.forEach(function(p){
+        var d = res[p]; var comNotas = temNotas(notasPlano[p]);
+        if (!d.itens.length && !comNotas){ return; }
+
+        H.push('<h2 style="margin:14px 0 4px;">' + escHtml(p) + '</h2>');
+        if (d.itens.length){
+            H.push('<table style="' + TBL + '"><tr>' +
+                '<th style="' + THL + '">Alimento</th><th style="' + THR + '">Qtd</th>' +
+                '<th style="' + THR + '">Prot</th><th style="' + THR + '">Carb</th>' +
+                '<th style="' + THR + '">Gord</th><th style="' + THR + '">Cal</th></tr>');
+            d.itens.forEach(function(it){
+                var obs = stripHtml(it.detalhes || "");
+                var cel = escHtml(it.nome);
+                if (obs && obs !== "Sem detalhes."){
+                    cel += '<br><span style="font-size:12px;color:#555;font-style:italic;">' + escHtml(obs) + '</span>';
+                }
+                if (it.semQtd){
+                    var qL = escHtml(String(it.qtd || "").trim());
+                    H.push('<tr><td style="' + TDL + '">' + cel + '</td><td style="' + TDR + '">' + qL +
+                        '</td><td style="' + TDR + '"></td><td style="' + TDR + '"></td><td style="' + TDR + '"></td><td style="' + TDR + '"></td></tr>');
+                } else {
+                    var q = escHtml((it.qtd || "") + " " + (it.unidade || ""));
+                    H.push('<tr><td style="' + TDL + '">' + cel + '</td><td style="' + TDR + '">' + q +
+                        '</td><td style="' + TDR + '">' + it.protein + '</td><td style="' + TDR + '">' + it.carb +
+                        '</td><td style="' + TDR + '">' + it.fats + '</td><td style="' + TDR + '">' + it.cal + '</td></tr>');
+                }
+            });
+            H.push('<tr><td style="' + TDL + '"><b>Subtotal</b></td><td style="' + TDR + '"></td>' +
+                '<td style="' + TDR + '"><b>' + d.protein + '</b></td><td style="' + TDR + '"><b>' + d.carb +
+                '</b></td><td style="' + TDR + '"><b>' + d.fats + '</b></td><td style="' + TDR + '"><b>' + d.cal + '</b></td></tr></table>');
+        }
+        if (comNotas){
+            notasPlano[p].forEach(function(t){ if (String(t).trim()){ H.push('<p style="margin:4px 0;">' + escHtml(t) + '</p>'); } });
+        }
+    });
+
+    H.push('</body></html>');
+    baixarArquivo(H.join("\n"), slugArquivo(nome) + ".html", "text/html;charset=utf-8");
+}
+
+// Monta um CSV (separador ";", decimal com vírgula, com BOM) para abrir no
+// Excel: uma linha por alimento, subtotal por período e o total do dia.
+function exportarCSV(){
+    var nome = document.getElementById("nome").textContent.trim() || "plano";
+    lerNotasVivas();
+    var res = calcPorPeriodo();
+
+    var linhas = [];
+    linhas.push(["Período", "Alimento", "Quantidade", "Unidade", "Proteína (g)", "Carboidrato (g)", "Gordura (g)", "Calorias"]);
+
+    var tP = 0, tC = 0, tF = 0, tCal = 0;
+    PERIODOS.forEach(function(p){
+        var d = res[p]; if (!d.itens.length){ return; }
+        d.itens.forEach(function(it){
+            if (it.semQtd){
+                linhas.push([p, it.nome, String(it.qtd || ""), "", "", "", "", ""]);
+            } else {
+                linhas.push([p, it.nome, numBR(it.qtd), it.unidade || "",
+                             numBR(it.protein), numBR(it.carb), numBR(it.fats), numBR(it.cal)]);
+            }
+        });
+        linhas.push(["", "Subtotal " + p, "", "", numBR(d.protein), numBR(d.carb), numBR(d.fats), numBR(d.cal)]);
+        tP += d.protein; tC += d.carb; tF += d.fats; tCal += d.cal;
+    });
+    linhas.push(["", "Total do dia", "", "", numBR(rd(tP)), numBR(rd(tC)), numBR(rd(tF)), numBR(rd(tCal))]);
+
+    var csv = linhas.map(function(r){ return r.map(csvCampo).join(";"); }).join("\r\n");
+    baixarArquivo(String.fromCharCode(0xFEFF) + csv, slugArquivo(nome) + ".csv", "text/csv;charset=utf-8");
+}
+
+//====================================================================
 // Notas do plano: notas gerais + uma por período. Cada nota é uma LISTA
 // de parágrafos (strings). No LaTeX, cada parágrafo vira um parágrafo.
 //====================================================================
