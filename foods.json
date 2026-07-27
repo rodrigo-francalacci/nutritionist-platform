@@ -251,7 +251,7 @@
     "unidades": [
       {
         "unidade": "unidade",
-        "equivale": 180
+        "equivale": 150
       }
     ]
   },
@@ -272,7 +272,7 @@
     "cal": 2.15,
     "protein": 0.367,
     "carb": 0,
-    "fats": 0.73,
+    "fats": 0.073,
     "detalhes": ""
   },
   {
