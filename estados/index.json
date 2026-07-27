@@ -1,37 +1,37 @@
 [
   {
-    "arquivo": "madeira-dia-1.json",
-    "nome": "Madeira",
-    "salvoEm": "2026-07-26T18:37:32.625Z"
-  },
-  {
-    "arquivo": "madeira-dia-2.json",
-    "nome": "Madeira",
-    "salvoEm": "2026-07-26T17:26:16.331Z"
-  },
-  {
-    "arquivo": "madeira-dia-3.json",
-    "nome": "Madeira",
-    "salvoEm": "2026-07-26T18:35:22.352Z"
-  },
-  {
-    "arquivo": "madeira-dia-4.json",
-    "nome": "Madeira",
-    "salvoEm": "2026-07-26T19:40:12.716Z"
-  },
-  {
     "arquivo": "estado-Rodrigo-Day-1.json",
-    "nome": "Rodrigo Day 1",
+    "nome": "estado-Rodrigo-Day-1",
     "salvoEm": "2026-07-22T21:58:14.831Z"
   },
   {
     "arquivo": "estado-Rodrigo-Day-1-variacao.json",
-    "nome": "Rodrigo Day 1 - Variação",
+    "nome": "estado-Rodrigo-Day-1-variacao",
     "salvoEm": "2026-07-22T22:28:49.666Z"
   },
   {
     "arquivo": "estado-Rodrigo-Day-2.json",
-    "nome": "Rodrigo Day 2",
+    "nome": "estado-Rodrigo-Day-2",
     "salvoEm": "2026-07-22T22:39:06.151Z"
+  },
+  {
+    "arquivo": "madeira-dia-1.json",
+    "nome": "madeira-dia-1",
+    "salvoEm": "2026-07-26T18:37:32.625Z"
+  },
+  {
+    "arquivo": "madeira-dia-2.json",
+    "nome": "madeira-dia-2",
+    "salvoEm": "2026-07-26T17:26:16.331Z"
+  },
+  {
+    "arquivo": "madeira-dia-3.json",
+    "nome": "madeira-dia-3",
+    "salvoEm": "2026-07-26T18:35:22.352Z"
+  },
+  {
+    "arquivo": "madeira-dia-4.json",
+    "nome": "madeira-dia-4",
+    "salvoEm": "2026-07-26T19:40:12.716Z"
   }
 ]

@@ -240,6 +240,22 @@
     "detalhes": ""
   },
   {
+    "nome": "Avocado (Tesco)",
+    "categoria": "Nozes e Castanhas",
+    "unidade": "gramas",
+    "cal": 1.98,
+    "protein": 0.019,
+    "carb": 0.019,
+    "fats": 0.195,
+    "detalhes": "",
+    "unidades": [
+      {
+        "unidade": "unidade",
+        "equivale": 180
+      }
+    ]
+  },
+  {
     "nome": "Azeite de Oliva",
     "categoria": "Óleos e Gorduras",
     "unidade": "colher de sopa",
