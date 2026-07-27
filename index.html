@@ -332,6 +332,33 @@ textarea {
 }
 .nota-add:hover{ background-color: var(--cor4); }
 
+/* alça de arrastar para reordenar as linhas */
+.drag-grip{
+    cursor: grab;
+    user-select: none;
+    color: var(--cor2);
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 4px;
+    align-self: center;
+}
+.drag-grip:active{ cursor: grabbing; }
+.form-row.arrastando{ opacity: .45; }
+
+/* botão "guardar como atalho da sessão" na pré-visualização do alimento */
+.preview-atalho{
+    margin-top: 8px;
+    padding: 7px 12px;
+    cursor: pointer;
+    background-color: var(--cor5);
+    color: var(--cor1);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+    font-size: 13px;
+}
+.preview-atalho:hover{ background-color: var(--cor4); }
+.preview-atalho.tem{ background-color: #fdecee; border-color: var(--cor8); color: var(--cor8); }
+
 /* dicas de duplo-clique: renomear o alimento e normalizar a unidade */
 .rotulo-dclick{ cursor: pointer; }
 .uni-dclick{ cursor: pointer; border-bottom: 1px dotted var(--cor3); }
@@ -1256,7 +1283,7 @@ a:active {
         </div> 
         
         
-        <div class="containerBot">
+        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use ▲▼)">&#9783;</span>
             <button onclick="addRow('-0')" title="Adicionar linha">+</button>
             <button onclick="delRow('-0')" title="Remover linha">-</button>
             <button onclick="subirLinha('-0')" title="Subir">&#9650;</button>
@@ -1339,7 +1366,7 @@ a:active {
         </div>
         
         
-        <div class="containerBot">
+        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use ▲▼)">&#9783;</span>
             <button onclick="addRow('-1')" title="Adicionar linha">+</button>
             <button onclick="delRow('-1')" title="Remover linha">-</button>
             <button onclick="subirLinha('-1')" title="Subir">&#9650;</button>
@@ -1419,7 +1446,7 @@ a:active {
         </div>
         
         
-        <div class="containerBot">
+        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use ▲▼)">&#9783;</span>
             <button onclick="addRow('-2')" title="Adicionar linha">+</button>
             <button onclick="delRow('-2')" title="Remover linha">-</button>
             <button onclick="subirLinha('-2')" title="Subir">&#9650;</button>

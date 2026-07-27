@@ -750,6 +750,90 @@ function moverLinha(pos, dir){
     sumFacts();
 }
 
+// ---- arrastar e soltar para reordenar (além dos botões ▲▼) --------------
+
+function numeroDaLinha(el){ return parseInt(String(el.id).replace("form-row-", ""), 10); }
+
+// Renumera TODAS as linhas para 0..n-1 na ordem em que estão no DOM. Faz em
+// duas passadas (com um deslocamento temporário) para os ids nunca colidirem.
+function renumerarTodas(){
+    var els = listRows().map(function(id){ return document.getElementById(id); });
+    var TEMP = 100000;
+    els.forEach(function(el, i){ renumeraLinha(el, numeroDaLinha(el), TEMP + i); });
+    els.forEach(function(el, i){ renumeraLinha(el, TEMP + i, i); });
+}
+
+var arrastando = null;   // linha sendo arrastada
+
+// Devolve a linha ANTES da qual soltar, dada a posição vertical do cursor
+// (ou null para soltar no fim).
+function linhaAlvo(container, y){
+    var els = Array.prototype.slice.call(container.querySelectorAll('.form-row:not(.arrastando)'));
+    var melhor = { offset: -Infinity, el: null };
+    els.forEach(function(child){
+        var box = child.getBoundingClientRect();
+        var offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > melhor.offset){ melhor = { offset: offset, el: child }; }
+    });
+    return melhor.el;
+}
+
+// Depois de soltar: reordena data[] para bater com a ordem do DOM e renumera.
+function finalizarArrasto(){
+    if (!arrastando){ return; }
+    arrastando.classList.remove('arrastando');
+    arrastando.removeAttribute('draggable');
+    arrastando = null;
+
+    var ordem = listRows().map(numeroDaLinhaDoId);
+    var novo = ordem.map(function(velho){ return data[velho]; });
+    data.length = 0;
+    Array.prototype.push.apply(data, novo);
+
+    renumerarTodas();
+    sumFacts();
+}
+
+function numeroDaLinhaDoId(id){ return parseInt(String(id).replace("form-row-", ""), 10); }
+
+// Liga o arrastar-e-soltar no container (uma vez só, por delegação).
+function configurarArrastar(){
+    var container = document.getElementById('row-container');
+    if (!container || container._arrastarPronto){ return; }
+    container._arrastarPronto = true;
+
+    // a linha só fica "draggable" enquanto o mouse está pressionado na alça
+    container.addEventListener('mousedown', function(e){
+        var grip = e.target.closest ? e.target.closest('.drag-grip') : null;
+        if (!grip){ return; }
+        var row = grip.closest('.form-row');
+        if (row){ row.setAttribute('draggable', 'true'); }
+    });
+    document.addEventListener('mouseup', function(){
+        var pend = container.querySelectorAll('.form-row[draggable="true"]');
+        for (var i = 0; i < pend.length; i++){ pend[i].removeAttribute('draggable'); }
+    });
+
+    container.addEventListener('dragstart', function(e){
+        var row = e.target.closest ? e.target.closest('.form-row') : null;
+        if (!row || row.getAttribute('draggable') !== 'true'){ e.preventDefault(); return; }
+        arrastando = row;
+        row.classList.add('arrastando');
+        if (e.dataTransfer){ e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', ''); } catch(_){} }
+    });
+
+    container.addEventListener('dragover', function(e){
+        if (!arrastando){ return; }
+        e.preventDefault();
+        var ref = linhaAlvo(container, e.clientY);
+        if (ref == null){ container.appendChild(arrastando); }
+        else if (ref !== arrastando){ container.insertBefore(arrastando, ref); }
+    });
+
+    container.addEventListener('drop', function(e){ if (arrastando){ e.preventDefault(); } finalizarArrasto(); });
+    container.addEventListener('dragend', function(){ finalizarArrasto(); });
+}
+
 function copyRowValues(row){
     
     var values = {};
@@ -907,6 +991,7 @@ data[2] = {refeicao: "Manhã",
     sumFacts();
     aplicarPrefDetalhes();
     aplicarPrefCompacto();
+    configurarArrastar();
 }
 
 // Liga/desliga a faixa de "detalhes" de todas as linhas. Some so a
@@ -1139,6 +1224,7 @@ function estadoAtual(){
         nome: document.getElementById("nome").textContent.trim(),
         notas: document.getElementById("dia").textContent.trim(),
         notasPlano: JSON.parse(JSON.stringify(notasPlano)),
+        foodsSessao: JSON.parse(JSON.stringify(foodsSessao)),
         salvoEm: new Date().toISOString(),
         soma: {protein: sum.protein, carb: sum.carb, fats: sum.fats, cal: sum.cal},
         itens: data.map(function(d){
@@ -1174,6 +1260,7 @@ function carregarEstado(estado){
     document.getElementById("nome").textContent = estado.nome || "";
     document.getElementById("dia").textContent = estado.notas || "";
     notasPlano = normalizarNotas(estado.notasPlano);   // notas gerais + por período
+    foodsSessao = Array.isArray(estado.foodsSessao) ? estado.foodsSessao : [];   // atalhos da sessão
 
     // ajusta o numero de linhas para bater com o estado
     while (listRows().length > 1){ removerLinha(listRows().length - 1); }
@@ -2010,6 +2097,42 @@ var pickerRow     = null;   // linha que abriu o seletor
 var pickerPath    = [];     // pastas escolhidas, uma por coluna
 var pickerPreview = null;   // alimento (folha) em pré-visualização
 
+// "Atalhos da sessão": coleção de alimentos que o usuário junta de qualquer
+// base enquanto monta o plano, para reaproveitar rápido (trocar, testar) sem
+// procurar de novo. É salva junto com a sessão (estado).
+var foodsSessao = [];
+
+function estaNosAtalhos(item){
+    return !!(item && foodsSessao.some(function(f){ return f.nome === item.nome; }));
+}
+
+function guardarAtalho(item){
+    if (!item || estaNosAtalhos(item)){ return; }
+    var copia = {
+        nome: item.nome, categoria: item.categoria || "", unidade: item.unidade,
+        cal: item.cal, protein: item.protein, carb: item.carb, fats: item.fats,
+        detalhes: item.detalhes || ""
+    };
+    if (Array.isArray(item.unidades)){ copia.unidades = JSON.parse(JSON.stringify(item.unidades)); }
+    foodsSessao.push(copia);
+}
+
+function removerAtalho(item){
+    if (!item){ return; }
+    foodsSessao = foodsSessao.filter(function(f){ return f.nome !== item.nome; });
+}
+
+// Redesenha a pré-visualização (colunas ou painel do OFF) após guardar/remover.
+function refrescarAtalhoUI(item){
+    var off = document.getElementById("pickerOFF");
+    if (off && off.style.display === "block"){
+        var pane = document.getElementById("offPreview");
+        if (pane){ pane.innerHTML = ""; pane.appendChild(colunaPreview(item)); }
+    } else {
+        renderPickerColunas();
+    }
+}
+
 //Escreve o nome do alimento no "chip" visivel. O <select> escondido
 //continua guardando o valor; isto e so a etiqueta que o usuario ve.
 function atualizarNomeAlimento(row, nome){
@@ -2041,6 +2164,7 @@ function pickerFilhos(entry){
 
     if (!entry){
         return [
+            {tipo:"grupo", rotulo:"★ Atalhos da sessão (" + foodsSessao.length + ")", fonte:"sessao"},
             {tipo:"grupo", rotulo:"Minha base",  fonte:"base"},
             {tipo:"grupo", rotulo:"Tabela TACO", fonte:"taco"},
             {tipo:"acao",  rotulo:"Supermercado Brasil (Open Food Facts)", fonte:"off", regiao:"br"},
@@ -2048,6 +2172,10 @@ function pickerFilhos(entry){
             {tipo:"acao",  rotulo:"Item livre / sem quantidade…", fonte:"livre"},
             {tipo:"acao",  rotulo:"Carregar receita (arquivo)…", fonte:"receita"}
         ];
+    }
+
+    if (entry.fonte === "sessao"){
+        return foodsSessao.map(function(f){ return {tipo:"folha", rotulo:f.nome, item:f}; });
     }
 
     if (entry.fonte === "base"){
@@ -2167,6 +2295,17 @@ function colunaPreview(item){
     btn.textContent = "Selecionar este alimento";
     btn.onclick = function(){ escolherAlimentoDoPicker(item); };
     col.appendChild(btn);
+
+    // guardar / remover dos "Atalhos da sessão"
+    var atalho = document.createElement("button");
+    atalho.type = "button";
+    atalho.className = "preview-atalho" + (estaNosAtalhos(item) ? " tem" : "");
+    atalho.textContent = estaNosAtalhos(item) ? "✕ Remover dos atalhos" : "★ Guardar como atalho";
+    atalho.onclick = function(){
+        if (estaNosAtalhos(item)){ removerAtalho(item); } else { guardarAtalho(item); }
+        refrescarAtalhoUI(item);
+    };
+    col.appendChild(atalho);
 
     return col;
 }
