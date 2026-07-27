@@ -61,9 +61,14 @@ function reindexar(tipo) {
     const obj = lerJSON(path.join(pasta, arquivo));
     if (detectarTipo(obj) !== tipo) continue;   // ignora o que nao for do tipo
 
+    // O nome do ESTADO na lista é o NOME DO ARQUIVO (sem .json), não a
+    // propriedade "nome"/título de dentro do JSON — assim renomear o arquivo
+    // renomeia o que aparece no app. Receitas mantêm o próprio nome (é o nome
+    // do ingrediente usado no plano).
+    const semExt = arquivo.replace(/\.json$/i, '');
     entradas.push({
       arquivo,
-      nome: obj.nome || arquivo.replace(/\.json$/i, ''),
+      nome: tipo === 'estado' ? semExt : (obj.nome || semExt),
       salvoEm: obj.salvoEm || fs.statSync(path.join(pasta, arquivo)).mtime.toISOString(),
     });
   }
