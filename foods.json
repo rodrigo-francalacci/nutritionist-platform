@@ -266,6 +266,16 @@
     "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada."
   },
   {
+    "nome": "Beef Skirt Cooked (Sainsbury's)",
+    "categoria": "Carnes e Derivados",
+    "unidade": "gramas",
+    "cal": 2.15,
+    "protein": 0.367,
+    "carb": 0,
+    "fats": 0.73,
+    "detalhes": ""
+  },
+  {
     "nome": "Brócolis",
     "categoria": "Verduras e Hortaliças",
     "unidade": "gramas",
