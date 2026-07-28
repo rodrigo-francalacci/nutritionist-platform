@@ -1,5 +1,10 @@
 [
   {
+    "arquivo": "estado-Rod-plan-1.json",
+    "nome": "estado-Rod-plan-1",
+    "salvoEm": "2026-07-28T23:05:12.681Z"
+  },
+  {
     "arquivo": "estado-Rodrigo-Day-1.json",
     "nome": "estado-Rodrigo-Day-1",
     "salvoEm": "2026-07-22T21:58:14.831Z"
@@ -13,6 +18,11 @@
     "arquivo": "estado-Rodrigo-Day-2.json",
     "nome": "estado-Rodrigo-Day-2",
     "salvoEm": "2026-07-22T22:39:06.151Z"
+  },
+  {
+    "arquivo": "estado-Rodrigo-Day-4.json",
+    "nome": "estado-Rodrigo-Day-4",
+    "salvoEm": "2026-07-27T22:59:30.885Z"
   },
   {
     "arquivo": "madeira-dia-1.json",

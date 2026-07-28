@@ -1,0 +1,521 @@
+{
+  "tipo": "estado",
+  "versao": 1,
+  "nome": "Rodrigo",
+  "notas": "Day 1",
+  "notasPlano": {
+    "geral": [],
+    "Manhã": [],
+    "Almoço": [],
+    "Tarde": [
+      "In a saucepan, mix 200ml of whole milk, 2 tablespoons of porridge oats, and 1 tablespoon of oat bran with sweetener to taste. Place over a low heat, stirring constantly for about 3 to 5 minutes until the mixture boils and reaches a very creamy texture. To finish, pour the porridge into a bowl, sprinkle with ground cinnamon to taste, and top with 8 chopped walnuts nuts for added crunch."
+    ],
+    "Noite": []
+  },
+  "foodsSessao": [
+    {
+      "nome": "Feijão, carioca, cozido",
+      "categoria": "",
+      "unidade": "gramas",
+      "cal": "0.764240857",
+      "protein": "0.04775",
+      "carb": "0.136",
+      "fats": "0.005423333",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "nome": "Arroz, tipo 1, cozido",
+      "categoria": "",
+      "unidade": "gramas",
+      "cal": "1.282584857",
+      "protein": "0.025208167",
+      "carb": "0.2649885",
+      "fats": "0.00227",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)"
+    },
+    {
+      "nome": "Beef Skirt Cooked (Sainsbury's)",
+      "categoria": "Carnes e Derivados",
+      "unidade": "gramas",
+      "cal": 2.15,
+      "protein": 0.367,
+      "carb": 0,
+      "fats": 0.73,
+      "detalhes": ""
+    },
+    {
+      "nome": "Aldi Ashfields British 30 Day Matured Sirloin Steak 227g",
+      "categoria": "Carnes e Derivados",
+      "unidade": "gramas",
+      "cal": 1.35,
+      "protein": 0.24,
+      "carb": 0,
+      "fats": 0.045,
+      "detalhes": ""
+    },
+    {
+      "nome": "Aldi Everyday Essentials Mozzarella 200g (125g Drained)",
+      "categoria": "Leite e Derivados",
+      "unidade": "unidades (125g)",
+      "cal": 310,
+      "protein": 22.5,
+      "carb": 1.875,
+      "fats": 23.75,
+      "detalhes": ""
+    },
+    {
+      "nome": "Aldi Everyday Essentials Light Mozzarella 200g (125g Drained)",
+      "categoria": "Leite e Derivados",
+      "unidade": "unidades (125g)",
+      "cal": 196,
+      "protein": 23.75,
+      "carb": 1.25,
+      "fats": 10.6,
+      "detalhes": ""
+    },
+    {
+      "nome": "FAGE Greek Yoghurt (5%)",
+      "categoria": "Leite e Derivados",
+      "unidade": "gramas",
+      "cal": 0.93,
+      "protein": 0.09,
+      "carb": 0.03,
+      "fats": 0.05,
+      "detalhes": ""
+    },
+    {
+      "nome": "Grahm's Jersey Gold Top Milk",
+      "categoria": "Leite e Derivados",
+      "unidade": "ml",
+      "cal": 0.74,
+      "protein": 0.036,
+      "carb": 0.044,
+      "fats": 0.048,
+      "detalhes": ""
+    },
+    {
+      "nome": "M&S Greek Yogurt 10% Fat",
+      "categoria": "Leite e Derivados",
+      "unidade": "gramas",
+      "cal": 1.34,
+      "protein": 0.064,
+      "carb": 0.042,
+      "fats": 0.101,
+      "detalhes": ""
+    },
+    {
+      "nome": "Whey Vanilla (H&B)",
+      "categoria": "Suplementos",
+      "unidade": "Scoop (30g)",
+      "cal": 113,
+      "protein": 22,
+      "carb": 2.6,
+      "fats": 1.8,
+      "detalhes": ""
+    },
+    {
+      "nome": "Walnuts",
+      "categoria": "Nozes e Castanhas",
+      "unidade": "gramas",
+      "cal": 6.89,
+      "protein": 0.15,
+      "carb": 0.07,
+      "fats": 0.65,
+      "detalhes": ""
+    },
+    {
+      "nome": "Smoked Basa Fillets — Aldi",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 0.95,
+      "protein": 0.198,
+      "carb": 0.001,
+      "fats": 0.016,
+      "detalhes": "Open Food Facts (Reino Unido) · cód 4061462106071 · por 100 g: 95 kcal, 19.8 g prot, 0.1 g carb, 1.6 g gord."
+    },
+    {
+      "nome": "21 Day Matured Rump Steak — Ashfields",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 1.74,
+      "protein": 0.08922413793103451,
+      "carb": 0,
+      "fats": 0.0435344827586207,
+      "detalhes": "Open Food Facts (Reino Unido) · 232 g · cód 4088600135335 · por 100 g: 174 kcal, 8.9 g prot, 0 g carb, 4.4 g gord."
+    },
+    {
+      "nome": "Sirloin Steak — Marks & Spencers",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 2.01,
+      "protein": 0.21600000000000003,
+      "carb": 0,
+      "fats": 0.127,
+      "detalhes": "Open Food Facts (Reino Unido) · cód 29396566 · por 100 g: 201 kcal, 21.6 g prot, 0 g carb, 12.7 g gord."
+    },
+    {
+      "nome": "Waitrose sardines in olive oil — Essential Waitrose",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 2.12,
+      "protein": 0.225,
+      "carb": 0,
+      "fats": 0.136,
+      "detalhes": "Open Food Facts (Reino Unido) · 2 · cód 5000169035139 · por 100 g: 212 kcal, 22.5 g prot, 0 g carb, 13.6 g gord."
+    },
+    {
+      "nome": "Cherry Tomatos — tesco",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 0.21899999999999997,
+      "protein": 0.006999999999999999,
+      "carb": 0.040999999999999995,
+      "fats": 0.003,
+      "detalhes": "Open Food Facts (Reino Unido) · cód 03265864 · por 100 g: 21.9 kcal, 0.7 g prot, 4.1 g carb, 0.3 g gord."
+    },
+    {
+      "nome": "Italian wild rocket — Tesco",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 0.22,
+      "protein": 0.035,
+      "carb": 0.006,
+      "fats": 0.001,
+      "detalhes": "Open Food Facts (Reino Unido) · cód 03280812 · por 100 g: 22 kcal, 3.5 g prot, 0.6 g carb, 0.1 g gord."
+    },
+    {
+      "nome": "Italian style salad — Sainsbury's",
+      "categoria": "Supermercado (Reino Unido)",
+      "unidade": "gramas",
+      "cal": 0.18,
+      "protein": 0.022000000476837,
+      "carb": 0.0089999997615814,
+      "fats": 0.005,
+      "detalhes": "Open Food Facts (Reino Unido) · cód 00414555 · por 100 g: 18 kcal, 2.2 g prot, 0.9 g carb, 0.5 g gord."
+    }
+  ],
+  "salvoEm": "2026-07-27T22:59:30.885Z",
+  "soma": {
+    "protein": 137.4,
+    "carb": 130.4,
+    "fats": 222.1,
+    "cal": 1904.7
+  },
+  "itens": [
+    {
+      "refeicao": "Manhã",
+      "nome": "Collagen Peptides (Dose & Co.)",
+      "unidade": "gramas",
+      "qtd": "10",
+      "cal": 37.2,
+      "fats": 0,
+      "carb": 0,
+      "protein": 9.3,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 3.72,
+        "protein": 0.93,
+        "carb": 0,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Whey Vanilla (H&B)",
+      "unidade": "Scoop (30g)",
+      "qtd": "1",
+      "cal": 113,
+      "fats": 1.8,
+      "carb": 2.6,
+      "protein": 22,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "Scoop (30g)",
+        "unidades": [],
+        "cal": 113,
+        "protein": 22,
+        "carb": 2.6,
+        "fats": 1.8
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Arroz, tipo 1, cozido",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 128.3,
+      "fats": 0.2,
+      "carb": 26.5,
+      "protein": 2.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.282584857,
+        "protein": 0.025208167,
+        "carb": 0.2649885,
+        "fats": 0.00227
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Feijão, carioca, cozido",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 114.6,
+      "fats": 0.8,
+      "carb": 20.4,
+      "protein": 7.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.764240857,
+        "protein": 0.04775,
+        "carb": 0.136,
+        "fats": 0.005423333
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Beef Skirt Cooked (Sainsbury's)",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 215,
+      "fats": 73,
+      "carb": 0,
+      "protein": 36.7,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 2.15,
+        "protein": 0.367,
+        "carb": 0,
+        "fats": 0.73
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Salad + 1 tablespoon of olive oil",
+      "unidade": "colher de sopa",
+      "qtd": "2",
+      "cal": 238,
+      "fats": 27,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Tesco Oatgran",
+      "unidade": "gramas",
+      "qtd": "15",
+      "cal": 54.6,
+      "fats": 1.1,
+      "carb": 7.9,
+      "protein": 2.4,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 3.64,
+        "protein": 0.157,
+        "carb": 0.524,
+        "fats": 0.075
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Tesco Finest - Scottish Porridge Oats",
+      "unidade": "gramas",
+      "qtd": "15",
+      "cal": 55.2,
+      "fats": 1.1,
+      "carb": 9.3,
+      "protein": 1.5,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 3.68,
+        "protein": 0.103,
+        "carb": 0.619,
+        "fats": 0.07
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Grahm's Jersey Gold Top Milk",
+      "unidade": "ml",
+      "qtd": "200",
+      "cal": 148,
+      "fats": 9.6,
+      "carb": 8.8,
+      "protein": 7.2,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "ml",
+        "unidades": [],
+        "cal": 0.74,
+        "protein": 0.036,
+        "carb": 0.044,
+        "fats": 0.048
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Walnuts",
+      "unidade": "gramas",
+      "qtd": "10",
+      "cal": 68.9,
+      "fats": 6.5,
+      "carb": 0.7,
+      "protein": 1.5,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 6.89,
+        "protein": 0.15,
+        "carb": 0.07,
+        "fats": 0.65
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Aldi Four Seasons Blueberries",
+      "unidade": "gramas",
+      "qtd": "80",
+      "cal": 36,
+      "fats": 0,
+      "carb": 7.3,
+      "protein": 0.7,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.45,
+        "protein": 0.009,
+        "carb": 0.091,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Arroz, tipo 1, cozido",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 128.3,
+      "fats": 0.2,
+      "carb": 26.5,
+      "protein": 2.5,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 1.282584857,
+        "protein": 0.025208167,
+        "carb": 0.2649885,
+        "fats": 0.00227
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Feijão, carioca, cozido",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 114.6,
+      "fats": 0.8,
+      "carb": 20.4,
+      "protein": 7.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.764240857,
+        "protein": 0.04775,
+        "carb": 0.136,
+        "fats": 0.005423333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Beef Skirt Cooked (Sainsbury's)",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 215,
+      "fats": 73,
+      "carb": 0,
+      "protein": 36.7,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 2.15,
+        "protein": 0.367,
+        "carb": 0,
+        "fats": 0.73
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Salad + 1 tablespoon of olive oil",
+      "unidade": "colher de sopa",
+      "qtd": "2",
+      "cal": 238,
+      "fats": 27,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Rico em vitamina E, fonte de godura monoinsaturada.",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "colher de sopa",
+        "unidades": [],
+        "cal": 119,
+        "protein": 0,
+        "carb": 0,
+        "fats": 13.5
+      }
+    }
+  ]
+}
