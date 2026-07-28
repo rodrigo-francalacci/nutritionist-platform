@@ -360,6 +360,77 @@ textarea {
     font-size: 13px;
 }
 .periodo-notas-btn.tem{ background-color: var(--cor2); color: #fff; border-color: var(--cor2); }
+
+/* carrossel de alternativas por período (setas + nome + contador) */
+.alt-nav-wrap{ display: inline-flex; align-items: center; gap: 4px; }
+.alt-nav{
+    cursor: pointer;
+    border: 1px solid var(--cor3);
+    background-color: rgba(255,255,255,.7);
+    color: var(--cor1);
+    border-radius: 4px;
+    padding: 0 6px;
+    line-height: 1.4;
+    font-size: 12px;
+}
+.alt-nav:disabled{ opacity: .35; cursor: default; }
+.alt-titulo{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: rgba(255,255,255,.55);
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.alt-titulo:hover{ background-color: rgba(255,255,255,.9); }
+.cab-noite .alt-titulo, .cab-noite .alt-nav{ color: var(--cor1); }
+.alt-acoes{ display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto; }
+.alt-add, .alt-del{
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--cor3);
+    background-color: rgba(255,255,255,.65);
+    color: var(--cor1);
+}
+.alt-add:hover, .alt-del:hover{ background-color: rgba(255,255,255,.95); }
+
+/* menu ao clicar no título da alternativa (renomear + pular) */
+.alt-menu{
+    position: absolute;
+    z-index: 200;
+    background-color: #fff;
+    border: 1px solid var(--cor3);
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.2);
+    padding: 6px;
+    min-width: 220px;
+    max-height: 320px;
+    overflow: auto;
+}
+.alt-menu-nome{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 7px;
+    margin-bottom: 6px;
+    border: 1px solid var(--cor3);
+    border-radius: 4px;
+    font-size: 13px;
+}
+.alt-menu-item{
+    padding: 5px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--cor1);
+}
+.alt-menu-item:hover{ background-color: var(--cor5); }
+.alt-menu-item.ativo{ font-weight: bold; background-color: var(--cor4); }
 /* cores por período (mesma paleta dos antigos dropdowns) */
 .cab-manha { background-color: var(--cor5); }
 .cab-almoco{ background-color: var(--cor4); }
@@ -1271,8 +1342,18 @@ a:active {
     <section class="periodo-lista" data-periodo="Manhã">
       <div class="periodo-cab cab-manha">
         <span class="periodo-nome">Manhã</span>
+        <span class="alt-nav-wrap">
+          <button type="button" class="alt-nav" onclick="swipeAlt('Manhã',-1)" title="Alternativa anterior">&#9664;</button>
+          <span class="alt-titulo" id="alttit-manha" onclick="abrirMenuAlt('Manhã',this)" title="Clique para renomear ou trocar de alternativa">Opção 1</span>
+          <button type="button" class="alt-nav" onclick="swipeAlt('Manhã',1)" title="Próxima alternativa">&#9654;</button>
+        </span>
         <span class="periodo-tot" id="tot-manha"></span>
-        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Manhã')" title="Notas de Manhã">&#128221; notas</button>
+        <span class="alt-acoes">
+          <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Manhã')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Manhã',false)" title="Nova alternativa vazia">+ vazia</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Manhã',true)" title="Duplicar esta alternativa">+ cópia</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Manhã')" title="Remover esta alternativa">&#128465;</button>
+        </span>
       </div>
       <div class="lista-linhas" id="lista-manha"></div>
       <button type="button" class="add-alimento" onclick="adicionarNaLista('Manhã')">+ adicionar alimento</button>
@@ -1280,8 +1361,18 @@ a:active {
     <section class="periodo-lista" data-periodo="Almoço">
       <div class="periodo-cab cab-almoco">
         <span class="periodo-nome">Almoço</span>
+        <span class="alt-nav-wrap">
+          <button type="button" class="alt-nav" onclick="swipeAlt('Almoço',-1)" title="Alternativa anterior">&#9664;</button>
+          <span class="alt-titulo" id="alttit-almoco" onclick="abrirMenuAlt('Almoço',this)" title="Clique para renomear ou trocar de alternativa">Opção 1</span>
+          <button type="button" class="alt-nav" onclick="swipeAlt('Almoço',1)" title="Próxima alternativa">&#9654;</button>
+        </span>
         <span class="periodo-tot" id="tot-almoco"></span>
-        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Almoço')" title="Notas de Almoço">&#128221; notas</button>
+        <span class="alt-acoes">
+          <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Almoço')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Almoço',false)" title="Nova alternativa vazia">+ vazia</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Almoço',true)" title="Duplicar esta alternativa">+ cópia</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Almoço')" title="Remover esta alternativa">&#128465;</button>
+        </span>
       </div>
       <div class="lista-linhas" id="lista-almoco"></div>
       <button type="button" class="add-alimento" onclick="adicionarNaLista('Almoço')">+ adicionar alimento</button>
@@ -1289,8 +1380,18 @@ a:active {
     <section class="periodo-lista" data-periodo="Tarde">
       <div class="periodo-cab cab-tarde">
         <span class="periodo-nome">Tarde</span>
+        <span class="alt-nav-wrap">
+          <button type="button" class="alt-nav" onclick="swipeAlt('Tarde',-1)" title="Alternativa anterior">&#9664;</button>
+          <span class="alt-titulo" id="alttit-tarde" onclick="abrirMenuAlt('Tarde',this)" title="Clique para renomear ou trocar de alternativa">Opção 1</span>
+          <button type="button" class="alt-nav" onclick="swipeAlt('Tarde',1)" title="Próxima alternativa">&#9654;</button>
+        </span>
         <span class="periodo-tot" id="tot-tarde"></span>
-        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Tarde')" title="Notas de Tarde">&#128221; notas</button>
+        <span class="alt-acoes">
+          <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Tarde')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Tarde',false)" title="Nova alternativa vazia">+ vazia</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Tarde',true)" title="Duplicar esta alternativa">+ cópia</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Tarde')" title="Remover esta alternativa">&#128465;</button>
+        </span>
       </div>
       <div class="lista-linhas" id="lista-tarde"></div>
       <button type="button" class="add-alimento" onclick="adicionarNaLista('Tarde')">+ adicionar alimento</button>
@@ -1298,8 +1399,18 @@ a:active {
     <section class="periodo-lista" data-periodo="Noite">
       <div class="periodo-cab cab-noite">
         <span class="periodo-nome">Noite</span>
+        <span class="alt-nav-wrap">
+          <button type="button" class="alt-nav" onclick="swipeAlt('Noite',-1)" title="Alternativa anterior">&#9664;</button>
+          <span class="alt-titulo" id="alttit-noite" onclick="abrirMenuAlt('Noite',this)" title="Clique para renomear ou trocar de alternativa">Opção 1</span>
+          <button type="button" class="alt-nav" onclick="swipeAlt('Noite',1)" title="Próxima alternativa">&#9654;</button>
+        </span>
         <span class="periodo-tot" id="tot-noite"></span>
-        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Noite')" title="Notas de Noite">&#128221; notas</button>
+        <span class="alt-acoes">
+          <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Noite')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Noite',false)" title="Nova alternativa vazia">+ vazia</button>
+          <button type="button" class="alt-add" onclick="novaAlternativa('Noite',true)" title="Duplicar esta alternativa">+ cópia</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Noite')" title="Remover esta alternativa">&#128465;</button>
+        </span>
       </div>
       <div class="lista-linhas" id="lista-noite"></div>
       <button type="button" class="add-alimento" onclick="adicionarNaLista('Noite')">+ adicionar alimento</button>

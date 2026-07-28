@@ -886,7 +886,171 @@ function novaLinhaNoContainer(cont, refEl, periodo){
 function adicionarNaLista(periodo){
     novaLinhaNoContainer(containerPeriodo(periodo), null, periodo);
 }
-    
+
+// ==== Alternativas por período (lógica horizontal / carrossel) ============
+// Cada período tem VÁRIAS alternativas; só a ATIVA é renderizada nas listas e
+// entra nos totais/LaTeX/CSV/HTML. As demais ficam guardadas aqui, dormentes.
+// Cada alternativa = { titulo, notas:[...], itens:[...] }.
+var alternativas = { "Manhã":null, "Almoço":null, "Tarde":null, "Noite":null };
+
+function novaAlt(titulo){ return { titulo: titulo || "Opção 1", notas: [], itens: [] }; }
+
+function inicializarAlternativas(){
+    PERIODOS.forEach(function(p){ alternativas[p] = { ativa: 0, lista: [ novaAlt("Opção 1") ] }; });
+}
+
+function periodoDoContainer(cont){
+    var sec = cont && cont.closest ? cont.closest(".periodo-lista") : null;
+    return sec ? sec.getAttribute("data-periodo") : null;
+}
+
+// Salva os itens/notas ATIVOS de um período (a partir da tela) na alternativa.
+function commitAtivo(p){
+    var alt = alternativas[p]; if (!alt){ return; }
+    var itens = [];
+    data.forEach(function(d){ if (d.refeicao === p){ itens.push(clonarDadoLinha(d)); } });
+    var atual = alt.lista[alt.ativa];
+    atual.itens = itens;
+    atual.notas = (notasPlano[p] || []).slice();
+}
+function commitTodas(){ PERIODOS.forEach(commitAtivo); }
+
+// Cria uma linha de alimento a partir de um item guardado, num container.
+function criarLinhaDeItem(cont, item){
+    var idx = data.length;
+    var d = clonarDadoLinha(item);
+    d.refeicao = periodoDoContainer(cont) || d.refeicao;
+    data.push(d);
+    var el = document.createElement("div"); el.className = "form-row"; el.innerHTML = rowTemplate;
+    renumeraLinha(el, 0, idx);
+    cont.appendChild(el);
+    mostrarMenuPrincipal(idx);
+    if (!findByName(foods, d.nome)){
+        var sel = document.getElementById('foods-'+idx);
+        var o = document.createElement("option"); o.value = d.nome; o.text = d.nome; sel.appendChild(o);
+        var per = derivarPorUnidade(d); if (per){ sel._lista = foods.concat([per]); }
+    }
+    pasteRowValues(idx, d);
+}
+
+// Renderiza a alternativa ATIVA de um período (recria as linhas e as notas).
+function renderAtivo(p){
+    var alt = alternativas[p]; if (!alt){ return; }
+    var cont = containerPeriodo(p);
+    cont.innerHTML = "";
+    var atual = alt.lista[alt.ativa];
+    notasPlano[p] = (atual.notas || []).slice();
+    (atual.itens || []).forEach(function(item){ criarLinhaDeItem(cont, item); });
+    atualizarCabAlternativas(p);
+    sincronizarLinhas();
+}
+
+// Atualiza o cabeçalho: título + contador + setas (some com 1 alternativa).
+function atualizarCabAlternativas(p){
+    var alt = alternativas[p]; if (!alt){ return; }
+    var slug = LISTA_ID[p].replace("lista-", "");
+    var n = alt.lista.length, i = alt.ativa;
+    var titEl = document.getElementById("alttit-" + slug);
+    if (titEl){ titEl.textContent = alt.lista[i].titulo + (n > 1 ? "  (" + (i + 1) + "/" + n + ")" : ""); }
+    var sec = document.querySelector('.periodo-lista[data-periodo="' + p + '"]');
+    if (!sec){ return; }
+    var navs = sec.querySelectorAll(".alt-nav");
+    if (navs[0]){ navs[0].style.display = n > 1 ? "" : "none"; navs[0].disabled = (i === 0); }
+    if (navs[1]){ navs[1].style.display = n > 1 ? "" : "none"; navs[1].disabled = (i === n - 1); }
+    var del = sec.querySelector(".alt-del");
+    if (del){ del.style.display = n > 1 ? "" : "none"; }
+}
+
+function swipeAlt(p, dir){
+    var alt = alternativas[p]; if (!alt){ return; }
+    var novo = alt.ativa + dir;
+    if (novo < 0 || novo >= alt.lista.length){ return; }
+    commitAtivo(p);
+    alt.ativa = novo;
+    renderAtivo(p);
+}
+
+function irParaAlt(p, i){
+    var alt = alternativas[p]; if (!alt || i < 0 || i >= alt.lista.length || i === alt.ativa){ return; }
+    commitAtivo(p);
+    alt.ativa = i;
+    renderAtivo(p);
+}
+
+function novaAlternativa(p, copiar){
+    var alt = alternativas[p]; if (!alt){ return; }
+    commitAtivo(p);
+    var nova;
+    if (copiar){
+        var base = alt.lista[alt.ativa];
+        nova = { titulo: base.titulo + " (cópia)", notas: (base.notas || []).slice(),
+                 itens: (base.itens || []).map(clonarDadoLinha) };
+    } else {
+        nova = novaAlt("Opção " + (alt.lista.length + 1));
+    }
+    alt.lista.push(nova);
+    alt.ativa = alt.lista.length - 1;
+    renderAtivo(p);
+}
+
+function removerAlternativa(p){
+    var alt = alternativas[p]; if (!alt){ return; }
+    if (alt.lista.length <= 1){ alert("Cada período precisa de ao menos uma alternativa."); return; }
+    var atual = alt.lista[alt.ativa];
+    if (!confirm('Remover a alternativa "' + (atual.titulo || "") + '" de ' + p + '?')){ return; }
+    alt.lista.splice(alt.ativa, 1);
+    if (alt.ativa >= alt.lista.length){ alt.ativa = alt.lista.length - 1; }
+    renderAtivo(p);
+}
+
+function renomearAlt(p, titulo){
+    var alt = alternativas[p]; if (!alt){ return; }
+    alt.lista[alt.ativa].titulo = String(titulo || "").trim() || ("Opção " + (alt.ativa + 1));
+    atualizarCabAlternativas(p);
+}
+
+// Menu ao clicar no título: renomear (input) + pular direto para qualquer alt.
+function fecharMenuAlt(){
+    var m = document.getElementById("alt-menu-aberto");
+    if (m){ m.parentNode.removeChild(m); }
+    document.removeEventListener("mousedown", fecharMenuAltFora);
+}
+function fecharMenuAltFora(e){
+    var m = document.getElementById("alt-menu-aberto");
+    if (m && !m.contains(e.target)){ fecharMenuAlt(); }
+}
+function abrirMenuAlt(p, anchor){
+    fecharMenuAlt();
+    var alt = alternativas[p]; if (!alt){ return; }
+
+    var menu = document.createElement("div");
+    menu.className = "alt-menu";
+    menu.id = "alt-menu-aberto";
+
+    var inp = document.createElement("input");
+    inp.type = "text"; inp.className = "alt-menu-nome";
+    inp.value = alt.lista[alt.ativa].titulo;
+    inp.placeholder = "nome desta alternativa";
+    inp.oninput = function(){ renomearAlt(p, inp.value); };
+    inp.onkeydown = function(e){ if (e.key === "Enter"){ fecharMenuAlt(); } };
+    menu.appendChild(inp);
+
+    alt.lista.forEach(function(a, i){
+        var it = document.createElement("div");
+        it.className = "alt-menu-item" + (i === alt.ativa ? " ativo" : "");
+        it.textContent = (i + 1) + ". " + a.titulo;
+        it.onclick = function(){ fecharMenuAlt(); irParaAlt(p, i); };
+        menu.appendChild(it);
+    });
+
+    document.body.appendChild(menu);
+    var b = anchor.getBoundingClientRect();
+    menu.style.left = Math.round(b.left) + "px";
+    menu.style.top = Math.round(b.bottom + 4) + "px";
+    inp.focus(); inp.select();
+    setTimeout(function(){ document.addEventListener("mousedown", fecharMenuAltFora); }, 0);
+}
+
 function popNewLine(row){
         document.getElementById('foods-'+row).value = "Ovo";
         atualizarNomeAlimento(row, "Ovo");
@@ -933,6 +1097,11 @@ data = [
 
     for (var n = 0; n < data.length; n++){ popFoods(n); }
     for (var m = 0; m < data.length; m++){ pasteRowValues(m, data[m]); }
+
+    // uma alternativa por período; a Manhã inicial já vai para a alternativa 1
+    inicializarAlternativas();
+    commitTodas();
+    PERIODOS.forEach(atualizarCabAlternativas);
 
     sumFacts();
     aplicarPrefDetalhes();
@@ -1164,22 +1333,23 @@ function baixarArquivo(conteudo, nomeArquivo, tipo){
 // Monta o objeto que representa o plano inteiro na tela.
 function estadoAtual(){
     lerNotasVivas();   // se o modal de notas estiver aberto, captura o que foi digitado
+    commitTodas();     // garante que as alternativas ativas refletem a tela
     return {
         tipo: "estado",
-        versao: 1,
+        versao: 2,
         nome: document.getElementById("nome").textContent.trim(),
         notas: document.getElementById("dia").textContent.trim(),
-        notasPlano: JSON.parse(JSON.stringify(notasPlano)),
+        notasPlano: JSON.parse(JSON.stringify(notasPlano)),           // notas ativas (compat)
         foodsSessao: JSON.parse(JSON.stringify(foodsSessao)),
+        periodos: JSON.parse(JSON.stringify(alternativas)),          // TODAS as alternativas
         salvoEm: new Date().toISOString(),
         soma: {protein: sum.protein, carb: sum.carb, fats: sum.fats, cal: sum.cal},
+        // combinação ATIVA achatada — mantém compatibilidade e a detecção do CLI
         itens: data.map(function(d){
             return {refeicao: d.refeicao, nome: d.nome, unidade: d.unidade,
                     qtd: d.qtd, cal: d.cal, fats: d.fats, carb: d.carb,
                     protein: d.protein, grupo: d.grupo, detalhes: d.detalhes,
                     semQtd: d.semQtd || false,
-                    // guarda macros por unidade principal + unidades (inclui as
-                    // criadas na hora), para reconstruir o seletor de unidade
                     base: d._base || null};
         })
     };
@@ -1196,8 +1366,42 @@ function salvarEstado(){
     baixarArquivo(JSON.stringify(estado, null, 2), nomeArquivoEstado(estado.nome), 'application/json');
 }
 
-// Reconstroi a tela inteira a partir de um estado salvo: limpa as 4 listas e
-// cria cada item na lista do seu período (item.refeicao).
+// Normaliza a estrutura de alternativas vinda de uma sessão v2.
+function normalizarAlternativas(obj){
+    var out = {};
+    PERIODOS.forEach(function(p){
+        var src = obj && obj[p];
+        var lista = (src && Array.isArray(src.lista)) ? src.lista : null;
+        if (!lista || !lista.length){
+            out[p] = { ativa: 0, lista: [ novaAlt("Opção 1") ] };
+        } else {
+            out[p] = {
+                ativa: Math.min(Math.max(0, src.ativa | 0), lista.length - 1),
+                lista: lista.map(function(a, i){
+                    return {
+                        titulo: (a && a.titulo) ? String(a.titulo) : ("Opção " + (i + 1)),
+                        notas: (a && Array.isArray(a.notas)) ? a.notas.map(String) : [],
+                        itens: (a && Array.isArray(a.itens)) ? a.itens : []
+                    };
+                })
+            };
+        }
+    });
+    return out;
+}
+
+// Item de estado ANTIGO (achatado, com "base") -> item de alternativa ("_base").
+function itemAntigoParaAlt(item){
+    var it = {};
+    ["refeicao","nome","unidade","qtd","cal","fats","carb","protein","grupo","detalhes","semQtd"]
+        .forEach(function(k){ it[k] = item[k]; });
+    if (item.base){ it._base = item.base; }
+    return it;
+}
+
+// Reconstrói a tela a partir de um estado salvo. v2 traz TODAS as alternativas
+// por período (estado.periodos). Estados antigos (só itens[]) viram 1
+// alternativa por período.
 function carregarEstado(estado){
     if (!estado || !Array.isArray(estado.itens) || estado.itens.length === 0){
         alert("Este arquivo nao parece um estado valido (sem itens).");
@@ -1206,47 +1410,26 @@ function carregarEstado(estado){
 
     document.getElementById("nome").textContent = estado.nome || "";
     document.getElementById("dia").textContent = estado.notas || "";
-    notasPlano = normalizarNotas(estado.notasPlano);   // notas gerais + por período
-    foodsSessao = Array.isArray(estado.foodsSessao) ? estado.foodsSessao : [];   // atalhos da sessão
+    foodsSessao = Array.isArray(estado.foodsSessao) ? estado.foodsSessao : [];
+    notasPlano = normalizarNotas(estado.notasPlano);   // notas gerais (+ ativas por período)
 
-    // limpa todas as listas e o modelo
-    PERIODOS.forEach(function(p){ var c = containerPeriodo(p); if (c){ c.innerHTML = ""; } });
-    data = [];
-
-    // cria uma linha por item no container do seu período
-    estado.itens.forEach(function(item, i){
-        var d = {
-            refeicao: item.refeicao || "Manhã",
-            nome: item.nome, unidade: item.unidade, qtd: item.qtd,
-            cal: item.cal, fats: item.fats, carb: item.carb, protein: item.protein,
-            grupo: item.grupo || "--", detalhes: item.detalhes || "",
-            semQtd: item.semQtd || false
-        };
-        if (item.base){ d._base = item.base; }
-        data.push(d);
-
-        var cont = containerPeriodo(d.refeicao) || containerPeriodo("Manhã");
-        var el = document.createElement("div");
-        el.className = "form-row";
-        el.innerHTML = rowTemplate;
-        renumeraLinha(el, 0, i);
-        cont.appendChild(el);
-    });
-
-    // preenche cada linha
-    for (var i = 0; i < data.length; i++){
-        var item = estado.itens[i];
-        mostrarMenuPrincipal(i);   // popula o <select> escondido (_lista = foods)
-        if (!findByName(foods, data[i].nome)){
-            var select = document.getElementById('foods-'+i);
-            var o = document.createElement("option");
-            o.value = data[i].nome; o.text = data[i].nome;
-            select.appendChild(o);
-            var perUnidade = derivarPorUnidade(item);
-            if (perUnidade){ select._lista = foods.concat([perUnidade]); }
-        }
-        pasteRowValues(i, data[i]);
+    if (estado.periodos && typeof estado.periodos === "object"){
+        alternativas = normalizarAlternativas(estado.periodos);
+    } else {
+        // formato antigo: uma alternativa por período, montada dos itens[]
+        var np = normalizarNotas(estado.notasPlano);
+        inicializarAlternativas();
+        PERIODOS.forEach(function(p){ alternativas[p].lista[0].notas = (np[p] || []).slice(); });
+        estado.itens.forEach(function(item){
+            var p = (item.refeicao && alternativas[item.refeicao]) ? item.refeicao : "Manhã";
+            alternativas[p].lista[0].itens.push(itemAntigoParaAlt(item));
+        });
     }
+
+    // limpa tudo e renderiza a alternativa ATIVA de cada período
+    data = [];
+    PERIODOS.forEach(function(p){ var c = containerPeriodo(p); if (c){ c.innerHTML = ""; } });
+    PERIODOS.forEach(function(p){ renderAtivo(p); });
 
     sincronizarLinhas();
     fecharSessoes();
