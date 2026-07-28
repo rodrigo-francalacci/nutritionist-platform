@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0B25D4">
+<title>Plano alimentar</title>
+<style>
+  :root{
+    --cor1:#0A0A0B; --cor2:#0B25D4; --cor3:#41BAA4; --cor4:#ABDAFC;
+    --cor5:#E5FCFF; --cor6:#EDEAE8; --cor7:#080824; --cor8:#E23E49;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html,body{ margin:0; padding:0; background:#f2f4f8; color:var(--cor1);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  body{ padding-bottom:84px; }        /* espaço p/ a barra fixa */
+  .topo{ background:var(--cor7); color:#fff; padding:16px 16px 14px; }
+  .topo h1{ margin:0; font-size:20px; }
+  .topo .sub{ margin-top:2px; font-size:13px; color:var(--cor4); }
+  .topo .geral{ margin-top:8px; font-size:13px; line-height:1.4; color:#dfe6ff; }
+
+  .aviso{ padding:40px 20px; text-align:center; color:#666; }
+
+  .periodo{ margin:12px 10px; background:#fff; border-radius:14px; overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .p-cab{ display:flex; align-items:center; gap:8px; padding:10px 12px; }
+  .p-nome{ font-weight:800; font-size:16px; }
+  .cab-manha{ background:var(--cor5); }
+  .cab-almoco{ background:var(--cor4); }
+  .cab-tarde{ background:var(--cor3); }
+  .cab-noite{ background:var(--cor2); color:#fff; }
+  .p-tot{ margin-left:auto; font-size:13px; font-weight:700; opacity:.9; white-space:nowrap; }
+
+  .alt-barra{ display:flex; align-items:center; gap:8px; padding:4px 12px 2px; font-size:13px; color:#333; }
+  .cab-noite ~ .alt-barra{}
+  .alt-seta{ border:none; background:rgba(0,0,0,.06); color:#333; border-radius:50%;
+    width:26px; height:26px; font-size:14px; line-height:1; cursor:pointer; flex:0 0 auto; }
+  .alt-seta:disabled{ opacity:.3; }
+  .alt-nome{ font-weight:700; flex:1 1 auto; text-align:center; overflow:hidden;
+    text-overflow:ellipsis; white-space:nowrap; }
+  .alt-cont{ color:#888; font-size:12px; }
+  .dots{ display:flex; gap:5px; justify-content:center; padding:2px 0 6px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:#cdd3dd; }
+  .dot.on{ background:var(--cor2); width:16px; border-radius:4px; }
+
+  .vp{ overflow:hidden; touch-action:pan-y; }        /* viewport do carrossel */
+  .track{ display:flex; will-change:transform; }
+  .slide{ flex:0 0 100%; min-width:100%; padding:2px 0 4px; }
+  .food{ display:flex; align-items:baseline; gap:10px; padding:9px 14px; border-top:1px solid #f0f2f6; }
+  .food:first-child{ border-top:none; }
+  .food .n{ font-size:16px; }
+  .food .q{ margin-left:auto; font-size:15px; font-weight:700; color:var(--cor2); white-space:nowrap; }
+  .food.livre .q{ color:#777; font-weight:600; font-style:italic; }
+  .slide-vazio{ padding:18px 14px; color:#999; font-size:14px; }
+  .toque{ text-align:center; font-size:12px; color:#9aa2b1; padding:4px 0 8px; }
+
+  .barra{ position:fixed; left:0; right:0; bottom:0; z-index:20; background:var(--cor7);
+    color:#fff; display:flex; justify-content:space-around; padding:10px 8px;
+    box-shadow:0 -2px 12px rgba(0,0,0,.3); }
+  .barra .m{ text-align:center; }
+  .barra .m b{ display:block; font-size:17px; }
+  .barra .m span{ font-size:11px; color:var(--cor4); text-transform:uppercase; letter-spacing:.03em; }
+
+  /* modal de instruções */
+  .modal{ position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.5); display:none; }
+  .modal.on{ display:block; }
+  .folha{ position:absolute; left:0; right:0; bottom:0; max-height:88%; overflow:auto;
+    background:#fff; border-radius:16px 16px 0 0; padding:16px 18px 28px; }
+  .folha h2{ margin:2px 0 2px; font-size:18px; }
+  .folha .sub{ color:#777; font-size:13px; margin-bottom:12px; }
+  .folha .lista{ margin:0 0 14px; }
+  .folha .li{ display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #f0f2f6; font-size:15px; }
+  .folha .li .q{ margin-left:auto; font-weight:700; color:var(--cor2); }
+  .folha .rot{ font-weight:800; font-size:13px; color:var(--cor2); text-transform:uppercase;
+    letter-spacing:.04em; margin:10px 0 6px; }
+  .folha p{ margin:0 0 10px; line-height:1.5; font-size:15px; }
+  .folha .fechar{ position:sticky; top:0; float:right; border:none; background:#eef1f6;
+    width:34px; height:34px; border-radius:50%; font-size:20px; cursor:pointer; }
+  .puxador{ width:40px; height:4px; background:#d7dbe3; border-radius:2px; margin:0 auto 12px; }
+</style>
+</head>
+<body>
+  <div id="app"><div class="aviso">Carregando o plano…</div></div>
+
+  <div class="barra" id="barra" style="display:none">
+    <div class="m"><b id="b-prot">0</b><span>Proteína</span></div>
+    <div class="m"><b id="b-carb">0</b><span>Carbo</span></div>
+    <div class="m"><b id="b-gord">0</b><span>Gordura</span></div>
+    <div class="m"><b id="b-cal">0</b><span>Calorias</span></div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="folha" id="folha"></div>
+  </div>
+
+<script>
+(function(){
+  var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
+  var SLUG = { "Manhã":"manha","Almoço":"almoco","Tarde":"tarde","Noite":"noite" };
+  var view = {};   // { periodo: {ativa, lista:[{titulo, notas, itens, totais}]} }
+
+  function num(v){ var n = parseFloat(String(v).replace(",",".")); return isNaN(n)?0:n; }
+  function rd(n){ return Math.round(n*10)/10; }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function param(k){ try { return new URLSearchParams(location.search).get(k); } catch(e){ return null; } }
+
+  function totaisDe(itens){
+    var t = {cal:0,protein:0,carb:0,fats:0};
+    (itens||[]).forEach(function(it){
+      t.cal += num(it.cal); t.protein += num(it.protein); t.carb += num(it.carb); t.fats += num(it.fats);
+    });
+    return {cal:rd(t.cal), protein:rd(t.protein), carb:rd(t.carb), fats:rd(t.fats)};
+  }
+
+  // aceita v2 (estado.periodos) e o formato antigo (itens[] achatado)
+  function normalizar(estado){
+    var out = {};
+    if (estado.periodos && typeof estado.periodos === "object"){
+      PERIODOS.forEach(function(p){
+        var src = estado.periodos[p];
+        var lista = (src && Array.isArray(src.lista) && src.lista.length) ? src.lista : [{titulo:"Opção 1", notas:[], itens:[]}];
+        out[p] = {
+          ativa: Math.min(Math.max(0, (src && src.ativa)|0), lista.length-1),
+          lista: lista.map(function(a,i){ return {
+            titulo: (a && a.titulo) ? String(a.titulo) : ("Opção "+(i+1)),
+            notas: (a && Array.isArray(a.notas)) ? a.notas : [],
+            itens: (a && Array.isArray(a.itens)) ? a.itens : [],
+            totais: totaisDe(a && a.itens)
+          };})
+        };
+      });
+    } else {
+      var np = (estado.notasPlano && typeof estado.notasPlano === "object") ? estado.notasPlano : {};
+      PERIODOS.forEach(function(p){ out[p] = {ativa:0, lista:[{titulo:"Opção 1", notas:(Array.isArray(np[p])?np[p]:[]), itens:[], totais:null}]}; });
+      (estado.itens||[]).forEach(function(it){ var p = out[it.refeicao] ? it.refeicao : "Manhã"; out[p].lista[0].itens.push(it); });
+      PERIODOS.forEach(function(p){ out[p].lista[0].totais = totaisDe(out[p].lista[0].itens); });
+    }
+    return out;
+  }
+
+  function qtdTexto(it){
+    if (it.semQtd){ return String(it.qtd||"").trim() || "à vontade"; }
+    return (String(it.qtd||"").trim() + " " + (it.unidade||"")).trim();
+  }
+
+  function slideHTML(alt){
+    if (!alt.itens.length){ return '<div class="slide"><div class="slide-vazio">Nada nesta opção.</div></div>'; }
+    var linhas = alt.itens.map(function(it){
+      return '<div class="food'+(it.semQtd?' livre':'')+'"><span class="n">'+esc(it.nome)+'</span><span class="q">'+esc(qtdTexto(it))+'</span></div>';
+    }).join("");
+    return '<div class="slide">'+linhas+'</div>';
+  }
+
+  function render(estado){
+    document.title = estado.nome || "Plano alimentar";
+    var app = document.getElementById("app");
+    app.innerHTML = "";
+
+    var topo = document.createElement("div");
+    topo.className = "topo";
+    var geral = (estado.notasPlano && Array.isArray(estado.notasPlano.geral)) ? estado.notasPlano.geral.filter(function(s){return String(s).trim();}) : [];
+    topo.innerHTML = '<h1>'+esc(estado.nome||"Plano alimentar")+'</h1>' +
+      (estado.notas ? '<div class="sub">'+esc(estado.notas)+'</div>' : "") +
+      (geral.length ? '<div class="geral">'+geral.map(esc).join("<br>")+'</div>' : "");
+    app.appendChild(topo);
+
+    PERIODOS.forEach(function(p){
+      var alts = view[p];
+      var temAlgo = alts.lista.some(function(a){ return a.itens.length || (a.notas||[]).some(function(s){return String(s).trim();}); });
+      if (!temAlgo){ return; }   // pula período totalmente vazio
+
+      var sec = document.createElement("div");
+      sec.className = "periodo";
+      sec.setAttribute("data-p", p);
+      var n = alts.lista.length;
+      sec.innerHTML =
+        '<div class="p-cab cab-'+SLUG[p]+'"><span class="p-nome">'+esc(p)+'</span><span class="p-tot" id="ptot-'+SLUG[p]+'"></span></div>' +
+        (n>1 ? '<div class="alt-barra"><button class="alt-seta" data-dir="-1">&#8249;</button>'
+             + '<span class="alt-nome"></span><button class="alt-seta" data-dir="1">&#8250;</button></div>'
+             + '<div class="dots"></div>'
+             : '<div class="alt-barra"><span class="alt-nome" style="text-align:center"></span></div>') +
+        '<div class="vp"><div class="track">'+alts.lista.map(slideHTML).join("")+'</div></div>' +
+        '<div class="toque">toque para ver as instruções</div>';
+      app.appendChild(sec);
+      montarCarrossel(p, sec);
+    });
+
+    document.getElementById("barra").style.display = "flex";
+    atualizarTotais();
+  }
+
+  function montarCarrossel(p, sec){
+    var alts = view[p];
+    var n = alts.lista.length;
+    var vp = sec.querySelector(".vp");
+    var track = sec.querySelector(".track");
+    var w = vp.clientWidth;
+
+    function setX(px, anim){ track.style.transition = anim ? "transform .28s ease-out" : "none"; track.style.transform = "translateX("+px+"px)"; }
+    function irPara(i, anim){
+      alts.ativa = Math.max(0, Math.min(n-1, i));
+      setX(-alts.ativa*w, anim);
+      atualizarCab(p, sec);
+      atualizarTotais();
+    }
+    sec._irPara = irPara;
+
+    // navegação por setas
+    sec.querySelectorAll(".alt-seta").forEach(function(b){
+      b.addEventListener("click", function(){ irPara(alts.ativa + parseInt(b.getAttribute("data-dir"),10), true); });
+    });
+
+    // arrastar (swipe estilo Instagram) — pointer events cobrem toque e mouse
+    var startX=0, startY=0, drag=false, dxTot=0, dyTot=0, base=0, decidiu=false, horiz=false;
+    vp.addEventListener("pointerdown", function(e){
+      w = vp.clientWidth; drag=true; decidiu=false; horiz=false;
+      startX=e.clientX; startY=e.clientY; dxTot=0; dyTot=0; base=-alts.ativa*w;
+      setX(base, false);
+    });
+    vp.addEventListener("pointermove", function(e){
+      if (!drag) return;
+      dxTot = e.clientX - startX; dyTot = e.clientY - startY;
+      if (!decidiu && (Math.abs(dxTot)>6 || Math.abs(dyTot)>6)){ decidiu=true; horiz = Math.abs(dxTot) > Math.abs(dyTot); }
+      if (decidiu && horiz && n>1){
+        try{ vp.setPointerCapture(e.pointerId); }catch(_){}
+        e.preventDefault();
+        var off = dxTot;
+        // resistência nas pontas
+        if ((alts.ativa===0 && off>0) || (alts.ativa===n-1 && off<0)){ off = off*0.35; }
+        setX(base + off, false);
+      }
+    });
+    function soltar(){
+      if (!drag) return;
+      drag=false;
+      if (!decidiu || (!horiz && Math.abs(dxTot)<8 && Math.abs(dyTot)<8)){
+        if (Math.abs(dxTot)<8 && Math.abs(dyTot)<8){ abrirInstrucoes(p); }   // toque
+        setX(-alts.ativa*w, true);
+        return;
+      }
+      if (horiz && n>1){
+        var lim = Math.min(70, w*0.18);
+        if (dxTot < -lim) irPara(alts.ativa+1, true);
+        else if (dxTot > lim) irPara(alts.ativa-1, true);
+        else irPara(alts.ativa, true);
+      } else {
+        setX(-alts.ativa*w, true);
+      }
+    }
+    vp.addEventListener("pointerup", soltar);
+    vp.addEventListener("pointercancel", soltar);
+
+    window.addEventListener("resize", function(){ w = vp.clientWidth; setX(-alts.ativa*w, false); });
+    atualizarCab(p, sec);   // preenche o cabeçalho já na carga
+    requestAnimationFrame(function(){ w = vp.clientWidth; setX(-alts.ativa*w, false); });
+  }
+
+  function atualizarCab(p, sec){
+    var alts = view[p]; var n = alts.lista.length; var i = alts.ativa;
+    var atual = alts.lista[i];
+    var nomeEl = sec.querySelector(".alt-nome");
+    if (nomeEl){ nomeEl.textContent = atual.titulo + (n>1 ? "  ("+(i+1)+"/"+n+")" : ""); }
+    var tot = document.getElementById("ptot-"+SLUG[p]);
+    if (tot){ tot.textContent = atual.totais.cal + " cal"; }
+    var setas = sec.querySelectorAll(".alt-seta");
+    if (setas[0]) setas[0].disabled = (i===0);
+    if (setas[1]) setas[1].disabled = (i===n-1);
+    var dots = sec.querySelector(".dots");
+    if (dots){
+      dots.innerHTML = "";
+      for (var k=0;k<n;k++){ var d=document.createElement("span"); d.className="dot"+(k===i?" on":""); dots.appendChild(d); }
+    }
+  }
+
+  function atualizarTotais(){
+    var t = {cal:0,protein:0,carb:0,fats:0};
+    PERIODOS.forEach(function(p){
+      var a = view[p]; if (!a) return;
+      var tt = a.lista[a.ativa].totais;
+      t.cal+=tt.cal; t.protein+=tt.protein; t.carb+=tt.carb; t.fats+=tt.fats;
+    });
+    document.getElementById("b-prot").textContent = rd(t.protein) + "g";
+    document.getElementById("b-carb").textContent = rd(t.carb) + "g";
+    document.getElementById("b-gord").textContent = rd(t.fats) + "g";
+    document.getElementById("b-cal").textContent = rd(t.cal);
+  }
+
+  function abrirInstrucoes(p){
+    var alts = view[p]; var atual = alts.lista[alts.ativa];
+    var foods = atual.itens.map(function(it){
+      return '<div class="li"><span>'+esc(it.nome)+'</span><span class="q">'+esc(qtdTexto(it))+'</span></div>';
+    }).join("") || '<div class="li">Sem alimentos.</div>';
+    var notas = (atual.notas||[]).filter(function(s){return String(s).trim();});
+    var instr = notas.length ? notas.map(function(s){ return "<p>"+esc(s)+"</p>"; }).join("") : '<p style="color:#999">Sem instruções para esta opção.</p>';
+
+    document.getElementById("folha").innerHTML =
+      '<button class="fechar" onclick="__fechar()">&times;</button>' +
+      '<div class="puxador"></div>' +
+      '<h2>'+esc(p)+' — '+esc(atual.titulo)+'</h2>' +
+      '<div class="sub">'+atual.totais.cal+' cal · '+atual.totais.protein+' g prot · '+atual.totais.carb+' g carb · '+atual.totais.fats+' g gord</div>' +
+      '<div class="lista">'+foods+'</div>' +
+      '<div class="rot">Instruções</div>' + instr;
+    document.getElementById("modal").classList.add("on");
+  }
+  window.__fechar = function(){ document.getElementById("modal").classList.remove("on"); };
+  document.getElementById("modal").addEventListener("click", function(e){ if (e.target === this){ window.__fechar(); } });
+
+  // ---- carregar o estado do repositório ----
+  var arquivo = param("e");
+  if (!arquivo){
+    document.getElementById("app").innerHTML = '<div class="aviso">Link inválido: falta o parâmetro do plano.</div>';
+    return;
+  }
+  // segurança: só um nome de arquivo .json dentro de estados/
+  arquivo = arquivo.replace(/^.*[\\/]/, "");
+  if (!/\.json$/i.test(arquivo)){ arquivo += ".json"; }
+
+  fetch("estados/" + encodeURIComponent(arquivo) + "?t=" + Date.now())
+    .then(function(r){ if (!r.ok){ throw new Error(r.status); } return r.json(); })
+    .then(function(estado){
+      if (!estado || (!Array.isArray(estado.itens) && !estado.periodos)){ throw new Error("formato"); }
+      view = normalizar(estado);
+      render(estado);
+    })
+    .catch(function(){
+      document.getElementById("app").innerHTML = '<div class="aviso">Não foi possível abrir este plano.<br>Confira o link ou tente de novo.</div>';
+    });
+})();
+</script>
+</body>
+</html>

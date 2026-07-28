@@ -1579,6 +1579,32 @@ function adicionarGrupoSessoes(sel, rotulo, tipo, lista, pasta){
     sel.appendChild(og);
 }
 
+// Gera o link "view" (só leitura, para o cliente) do estado selecionado.
+function copiarLinkView(){
+    var sel = document.getElementById("sessoesRepo");
+    var out = document.getElementById("viewLinkOut");
+    var v = sel && sel.value;
+    if (!v){ if (out){ out.textContent = "Escolha um estado publicado primeiro."; } return; }
+    var partes = v.split("|");   // tipo | pasta | arquivo
+    if (partes[0] !== "estado"){ if (out){ out.textContent = "O link de visualização é só para estados (planos)."; } return; }
+
+    var arquivo = partes[2];
+    var base = location.href.split("?")[0].replace(/[^\/]*$/, "");   // pasta do index.html
+    var link = base + "view.html?e=" + encodeURIComponent(arquivo);
+
+    function mostrar(copiado){
+        if (!out){ return; }
+        out.innerHTML = (copiado ? "✓ Link copiado — " : "") +
+            '<a href="' + link + '" target="_blank" rel="noopener">abrir</a> &middot; ' +
+            '<span style="word-break:break-all;">' + link + '</span>';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(link).then(function(){ mostrar(true); }, function(){ mostrar(false); });
+    } else {
+        mostrar(false);
+    }
+}
+
 function carregarSessaoDoRepo(){
     var sel = document.getElementById("sessoesRepo");
     var v = sel.value;

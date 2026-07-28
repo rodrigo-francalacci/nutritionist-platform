@@ -1253,7 +1253,9 @@ a:active {
       <h3>Carregar do repositório</h3>
       <select id="sessoesRepo"><option disabled selected>— carregando… —</option></select>
       <button onclick="carregarSessaoDoRepo()">Carregar</button>
+      <button onclick="copiarLinkView()" title="Gera um link só de leitura para enviar ao cliente">Copiar link de visualização</button>
       <p class="fraco">Estados substituem o plano inteiro; receitas entram como uma nova linha.</p>
+      <p class="fraco" id="viewLinkOut"></p>
     </div>
 
     <div class="sessao-bloco">
