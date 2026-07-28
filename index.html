@@ -224,24 +224,24 @@ textarea {
 .off-salvar:hover{ background-color: var(--cor2); }
 
 /* botão "ocultar detalhes": esconde só a faixa de detalhes das linhas */
-#row-container.esconder-detalhes .col-detalhes{ display: none; }
+#plano.esconder-detalhes .col-detalhes{ display: none; }
 
 /* modo compacto: aperta as linhas para caber mais alimentos na tela.
    O nome do alimento passa a dividir a linha com os macros (não ocupa mais
    uma faixa inteira só para ele), e todo o espaçamento vertical encolhe. */
-#row-container.compacto .form-row{
+#plano.compacto .form-row{
     margin-bottom: 4px;
     padding-top: 1px;
     padding-bottom: 1px;
     line-height: 1.15;
     row-gap: 2px;
 }
-#row-container.compacto .form-row div{ margin-left: 3px; margin-right: 3px; }
+#plano.compacto .form-row div{ margin-left: 3px; margin-right: 3px; }
 /* o nome divide o espaço livre com a quantidade (grow 3:2), em vez de
    engolir tudo. O nome trunca com "…" (o texto inteiro fica no tooltip e na
    pré-visualização); a quantidade cresce para caber unidades longas como
    "colher de sopa". */
-#row-container.compacto .col-alimentos{
+#plano.compacto .col-alimentos{
     width: auto;
     flex: 4 1 200px;
     min-width: 130px;
@@ -249,23 +249,23 @@ textarea {
     margin-bottom: 0;
     padding-left: 6px;
 }
-#row-container.compacto .alimento-chip{
+#plano.compacto .alimento-chip{
     margin-top: 1px;
     padding: 2px 22px 2px 8px;
     font-size: 13px;
 }
-#row-container.compacto .form-row label{ font-size: 10px; }
-#row-container.compacto .form-row span,
-#row-container.compacto .form-row input{ font-size: 13px; }
-#row-container.compacto .col-qtd{
+#plano.compacto .form-row label{ font-size: 10px; }
+#plano.compacto .form-row span,
+#plano.compacto .form-row input{ font-size: 13px; }
+#plano.compacto .col-qtd{
     width: auto;
     flex: 2 1 146px;
     min-width: 146px;
 }
-#row-container.compacto .col-qtd input{ width: 34px !important; }
-#row-container.compacto .col-qtd .uni-select{ max-width: 112px; }
+#plano.compacto .col-qtd input{ width: 34px !important; }
+#plano.compacto .col-qtd .uni-select{ max-width: 112px; }
 /* unidade em texto (uma só) não empurra a linha: trunca com "…" se enorme */
-#row-container.compacto .col-qtd .uni-dclick{
+#plano.compacto .col-qtd .uni-dclick{
     display: inline-block;
     max-width: 112px;
     overflow: hidden;
@@ -273,13 +273,13 @@ textarea {
     white-space: nowrap;
     vertical-align: bottom;
 }
-#row-container.compacto .col-protein,
-#row-container.compacto .col-carb,
-#row-container.compacto .col-fats,
-#row-container.compacto .col-cal{ width: 82px; }
-#row-container.compacto .col-detalhes{ margin-top: 3px; margin-bottom: 3px; }
-#row-container.compacto .col-detalhes p{ margin: 4px 10px; font-size: 12px; }
-#row-container.compacto .containerBot button{ padding: 1px 5px; }
+#plano.compacto .col-protein,
+#plano.compacto .col-carb,
+#plano.compacto .col-fats,
+#plano.compacto .col-cal{ width: 82px; }
+#plano.compacto .col-detalhes{ margin-top: 3px; margin-bottom: 3px; }
+#plano.compacto .col-detalhes p{ margin: 4px 10px; font-size: 12px; }
+#plano.compacto .containerBot button{ padding: 1px 5px; }
 
 /* linha "livre" (item sem quantidade: chá, temperos a gosto...): esconde os
    macros e a unidade; a quantidade vira um campo de texto livre (opcional). */
@@ -289,7 +289,7 @@ textarea {
 .form-row.linha-livre .col-cal{ visibility: hidden; }
 .form-row.linha-livre .col-qtd span,
 .form-row.linha-livre .col-qtd .uni-select{ display: none; }
-#row-container .form-row.linha-livre .col-qtd input{ width: 118px !important; }
+#plano .form-row.linha-livre .col-qtd input{ width: 118px !important; }
 .form-row.linha-livre .col-qtd label::after{ content: " (livre)"; color: var(--cor3); }
 
 /* modal de notas (gerais + por período), cada nota com vários parágrafos */
@@ -331,6 +331,58 @@ textarea {
     border-radius: 5px;
 }
 .nota-add:hover{ background-color: var(--cor4); }
+
+/* listas por período (Manhã, Almoço, Tarde, Noite) */
+#plano{ width: 90%; margin: 0 auto; }
+.periodo-lista{
+    margin-bottom: 14px;
+    border: 1px solid var(--cor6);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.periodo-cab{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    color: var(--cor1);
+}
+.periodo-nome{ font-weight: bold; font-size: 17px; }
+.periodo-tot{ font-size: 13px; color: var(--cor7); flex: 1 1 auto; }
+.periodo-notas-btn{
+    flex: 0 0 auto;
+    padding: 3px 10px;
+    cursor: pointer;
+    background-color: rgba(255,255,255,.65);
+    color: var(--cor1);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+    font-size: 13px;
+}
+.periodo-notas-btn.tem{ background-color: var(--cor2); color: #fff; border-color: var(--cor2); }
+/* cores por período (mesma paleta dos antigos dropdowns) */
+.cab-manha { background-color: var(--cor5); }
+.cab-almoco{ background-color: var(--cor4); }
+.cab-tarde { background-color: var(--cor3); }
+.cab-noite { background-color: var(--cor2); color: #fff; }
+.cab-noite .periodo-nome, .cab-noite .periodo-tot{ color: #fff; }
+.lista-linhas{ min-height: 14px; padding: 2px 0; }
+.lista-linhas.solta{ background-color: var(--cor5); outline: 2px dashed var(--cor3); outline-offset: -4px; }
+.add-alimento{
+    display: block;
+    width: calc(100% - 20px);
+    margin: 4px 10px 8px;
+    padding: 6px;
+    cursor: pointer;
+    background-color: #fff;
+    color: var(--cor2);
+    border: 1px dashed var(--cor3);
+    border-radius: 5px;
+    font-size: 13px;
+}
+.add-alimento:hover{ background-color: var(--cor5); }
+/* dentro das listas, a linha ocupa a largura toda da lista */
+.lista-linhas .form-row{ width: 100%; margin-left: 0; margin-right: 0; }
 
 /* alça de arrastar para reordenar as linhas */
 .drag-grip{
@@ -1025,7 +1077,7 @@ a:active {
             <li><button onclick="gerarLatex()">LaTeX</button></li>
             <li><button onclick="exportarHTML()" title="Baixa um .html para colar no Word/Excel">HTML</button></li>
             <li><button onclick="exportarCSV()" title="Baixa um .csv para abrir no Excel">CSV</button></li>
-            <li><button onclick="abrirNotas()">Notas</button></li>
+            <li><button onclick="abrirNotasGerais()">Notas gerais</button></li>
             <li><button id="btnDetalhes" onclick="alternarDetalhes()">Ocultar detalhes</button></li>
             <li><button id="btnCompacto" onclick="alternarCompacto()">Compacto</button></li>
             <li><p contenteditable="true" id="nome">Name</p>
@@ -1168,7 +1220,7 @@ a:active {
   <div class="modal-content" style="flex-direction: column;">
 
     <div class="saveHead">
-      <label class="tituloReceita">Notas do plano</label>
+      <label class="tituloReceita" id="notasTitulo">Notas gerais</label>
       <span class="close" onclick="fecharNotas()">&times;</span>
     </div>
 
@@ -1215,266 +1267,87 @@ a:active {
   </div>
 </div>
 
-    <div id="row-container">
+    <div id="plano">
+    <section class="periodo-lista" data-periodo="Manhã">
+      <div class="periodo-cab cab-manha">
+        <span class="periodo-nome">Manhã</span>
+        <span class="periodo-tot" id="tot-manha"></span>
+        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Manhã')" title="Notas de Manhã">&#128221; notas</button>
+      </div>
+      <div class="lista-linhas" id="lista-manha"></div>
+      <button type="button" class="add-alimento" onclick="adicionarNaLista('Manhã')">+ adicionar alimento</button>
+    </section>
+    <section class="periodo-lista" data-periodo="Almoço">
+      <div class="periodo-cab cab-almoco">
+        <span class="periodo-nome">Almoço</span>
+        <span class="periodo-tot" id="tot-almoco"></span>
+        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Almoço')" title="Notas de Almoço">&#128221; notas</button>
+      </div>
+      <div class="lista-linhas" id="lista-almoco"></div>
+      <button type="button" class="add-alimento" onclick="adicionarNaLista('Almoço')">+ adicionar alimento</button>
+    </section>
+    <section class="periodo-lista" data-periodo="Tarde">
+      <div class="periodo-cab cab-tarde">
+        <span class="periodo-nome">Tarde</span>
+        <span class="periodo-tot" id="tot-tarde"></span>
+        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Tarde')" title="Notas de Tarde">&#128221; notas</button>
+      </div>
+      <div class="lista-linhas" id="lista-tarde"></div>
+      <button type="button" class="add-alimento" onclick="adicionarNaLista('Tarde')">+ adicionar alimento</button>
+    </section>
+    <section class="periodo-lista" data-periodo="Noite">
+      <div class="periodo-cab cab-noite">
+        <span class="periodo-nome">Noite</span>
+        <span class="periodo-tot" id="tot-noite"></span>
+        <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Noite')" title="Notas de Noite">&#128221; notas</button>
+      </div>
+      <div class="lista-linhas" id="lista-noite"></div>
+      <button type="button" class="add-alimento" onclick="adicionarNaLista('Noite')">+ adicionar alimento</button>
+    </section>
+    </div>
 
-    <div class="form-row" id="form-row-0" name="form-row-0">
-       
-        
+    <div id="tpl-linha" class="form-row" style="display:none">
         <div class="col-alimentos">
         <label class="rotulo-dclick" title="Duplo-clique para renomear só nesta tabela" ondblclick="renomearAlimento('-0')">Alimento: </label><br>
           <button type="button" class="alimento-chip" id="chip-0" onclick="abrirPicker('-0')" title="Clique para escolher outro alimento">Ovo</button>
-          <select name="alimentos" id="foods-0" class="foods-oculto" onchange="updateFood('-0')">
+          <select name="alimentos" id="foods-0" class="foods-oculto" onchange="updateFood('-0')"></select>
+        </div>
 
-          </select>
-        </div>
-        
-        
-        <div class="col">
-         <label>Refeição: </label><br>
-          <select name="refeicao" id="refeicao-0" onchange="uptadeRefeicao('-0')" style="background-color:var(--cor5);">
-            <option value="Manhã">Manhã</option>
-            <option value="Almoço">Almoço</option>
-            <option value="Tarde">Tarde</option>
-            <option value="Noite">Noite</option>
-          </select>
-        </div>
-        
-        
         <div class="file" id="file-0" style="display: none">
             <label for="file-input-0">Abrir Receita</label>
             <input type="file" id="file-input-0" onchange="openJSONfile('-0')"/>
         </div>
-        
+
         <div class="col-qtd" id="col-qtd-0">
         <label>Quantidade: </label><br>
         <input type="text" onchange="atualizarQuantidade('-0')" id="qtd-0" style="width: 30%;";><span id="uni-0" class="uni-dclick" title="Duplo-clique para transformar a quantidade atual em uma nova unidade" ondblclick="normalizarUnidade('-0')">gramas</span>
         </div>
-        
-        <div class="col-protein">
-        <label>Proteína: </label><br>
-        <span id="qtd-protein-0">34</span><span> gramas</span>
-        </div>
-        
-        <div class="col-carb">
-        <label>Carb: </label><br>
-        <span id="qtd-carb-0">15</span><span> gramas</span>
-        </div>
-        
-        <div class="col-fats">
-        <label>Fats: </label><br>
-        <span id="qtd-fat-0">2</span><span> gramas</span>
-        </div>
-        
-        <div class="col-cal">
-        <label>Cal: </label><br>
-        <span id="qtd-cal-0">200</span> <span> cal</span>
-        </div>
-        
-        
+
+        <div class="col-protein"><label>Proteína: </label><br><span id="qtd-protein-0">0</span><span> gramas</span></div>
+        <div class="col-carb"><label>Carb: </label><br><span id="qtd-carb-0">0</span><span> gramas</span></div>
+        <div class="col-fats"><label>Fats: </label><br><span id="qtd-fat-0">0</span><span> gramas</span></div>
+        <div class="col-cal"><label>Cal: </label><br><span id="qtd-cal-0">0</span> <span> cal</span></div>
+
         <div class="col-grupo">
          <label>Receita</label><br>
          <select name="grupo" id="grupo-0" onchange="updateGrupo('-0')">
-            <option value="--">--</option>
-            <option value="R1">R1</option>
-            <option value="R2">R2</option>
-            <option value="R3">R3</option>
-            <option value="R4">R4</option>
+            <option value="--">--</option><option value="R1">R1</option><option value="R2">R2</option><option value="R3">R3</option><option value="R4">R4</option>
           </select>
-        </div> 
-        
-        
-        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use ▲▼)">&#9783;</span>
-            <button onclick="addRow('-0')" title="Adicionar linha">+</button>
-            <button onclick="delRow('-0')" title="Remover linha">-</button>
+        </div>
+
+        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use os botões)">&#9783;</span>
+            <button onclick="addRow('-0')" title="Adicionar alimento aqui">+</button>
+            <button onclick="delRow('-0')" title="Remover">-</button>
             <button onclick="subirLinha('-0')" title="Subir">&#9650;</button>
             <button onclick="descerLinha('-0')" title="Descer">&#9660;</button>
             <button onclick="duplicarLinha('-0')" title="Duplicar este alimento">&#10697;</button>
         </div>
-        
-        
-        <div class="col-detalhes"> 
-            <p id="detalhes-0">Era uma vez um lugar no meio do nada </p><br>
-        </div>
-        
 
-    
-        
-        
-    </div> <!-- CLOSE ROW  -->
-        
-    <div class="form-row" id="form-row-1" name="form-row-1">
-       
-         <div class="col-alimentos">
-        <label class="rotulo-dclick" title="Duplo-clique para renomear só nesta tabela" ondblclick="renomearAlimento('-1')">Alimento: </label><br>
-          <button type="button" class="alimento-chip" id="chip-1" onclick="abrirPicker('-1')" title="Clique para escolher outro alimento">Mozzarella</button>
-          <select name="alimentos" id="foods-1" class="foods-oculto" onchange="updateFood('-1')">
-             
-          </select>
-        </div>
-        
-        <div class="col">
-         <label>Refeição: </label><br>
-          <select name="refeicao" id="refeicao-1" onchange="uptadeRefeicao('-1')" style="background-color:var(--cor5);">
-            <option value="Manhã">Manhã</option>
-            <option value="Almoço">Almoço</option>
-            <option value="Tarde">Tarde</option>
-            <option value="Noite">Noite</option>
-          </select>
-        </div>
-        
-        
-        <div class="file" id="file-1" style="display: none">
-            <label for="file-input-1">Abrir Receita</label>
-            <input type="file" id="file-input-1" onchange="openJSONfile('-1')"/>
-        </div>
-        
-        <div class="col-qtd" id="col-qtd-1">
-        <label>Quantidade: </label><br>
-        <input type="text" onchange="atualizarQuantidade('-1')" id="qtd-1" style="width: 30%;";><span id="uni-1" class="uni-dclick" title="Duplo-clique para transformar a quantidade atual em uma nova unidade" ondblclick="normalizarUnidade('-1')">gramas</span>
-        </div>
-        
-        <div class="col-protein">
-        <label>Proteína: </label><br>
-        <span id="qtd-protein-1">34</span> <span> gramas</span>
-        </div>
-        
-        <div class="col-carb">
-        <label>Carb: </label><br>
-        <span id="qtd-carb-1">15</span> <span> gramas</span>
-        </div>
-        
-        <div class="col-fats">
-        <label>Fats: </label><br>
-        <span id="qtd-fat-1">2</span> <span> gramas</span>
-        </div>
-        
-        <div class="col-cal">
-        <label>Cal: </label><br>
-        <span id="qtd-cal-1">200</span> <span> cal</span>
-        </div>
-        
-        
-        <div class="col-grupo">
-         <label>Receita</label><br>
-         <select name="grupo" id="grupo-1" onchange="updateGrupo('-1')">
-            <option value="--">--</option>
-            <option value="R1">R1</option>
-            <option value="R2">R2</option>
-            <option value="R3">R3</option>
-            <option value="R4">R4</option>
-          </select>
-        </div>
-        
-        
-        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use ▲▼)">&#9783;</span>
-            <button onclick="addRow('-1')" title="Adicionar linha">+</button>
-            <button onclick="delRow('-1')" title="Remover linha">-</button>
-            <button onclick="subirLinha('-1')" title="Subir">&#9650;</button>
-            <button onclick="descerLinha('-1')" title="Descer">&#9660;</button>
-            <button onclick="duplicarLinha('-1')" title="Duplicar este alimento">&#10697;</button>
-        </div>
-    
-        <div class="col-detalhes">
-        <p id="detalhes-1">Era uma vez um lugar no meio do nada </p><br>
-        </div>
-    
-        
-        
-    </div> <!-- CLOSE ROW  -->
-        
-    <div class="form-row" id="form-row-2" name="form-row-2">
-       
-        <div class="col-alimentos">
-        <label class="rotulo-dclick" title="Duplo-clique para renomear só nesta tabela" ondblclick="renomearAlimento('-2')">Alimento: </label><br>
-          <button type="button" class="alimento-chip" id="chip-2" onclick="abrirPicker('-2')" title="Clique para escolher outro alimento">Carne Moída</button>
-          <select name="alimentos" id="foods-2" class="foods-oculto" onchange="updateFood('-2')">
-
-          </select>
-        </div>
-        
-        
-        <div class="col">
-         <label>Refeição: </label><br>
-          <select name="refeicao" id="refeicao-2" onchange="uptadeRefeicao('-2')" style="background-color:var(--cor5);">
-            <option value="Manhã">Manhã</option>
-            <option value="Almoço">Almoço</option>
-            <option value="Tarde">Tarde</option>
-            <option value="Noite">Noite</option>
-          </select>
-        </div>
-    
-        
-        <div class="file" id="file-2" style="display: none">
-            <label for="file-input-2">Abrir Receita</label>
-            <input type="file" id="file-input-2" onchange="openJSONfile('-2')"/>
-        </div>
-        
-        <div class="col-qtd" id="col-qtd-2">
-        <label>Quantidade: </label><br>
-        <input type="text" onchange="atualizarQuantidade('-2')" id="qtd-2" style="width: 30%;";><span id="uni-2" class="uni-dclick" title="Duplo-clique para transformar a quantidade atual em uma nova unidade" ondblclick="normalizarUnidade('-2')">gramas</span>
-        </div>
-        
-        <div class="col-protein">
-        <label>Proteína: </label><br>
-        <span id="qtd-protein-2">34</span> <span> gramas</span>
-        </div>
-        
-        <div class="col-carb">
-        <label>Carb: </label><br>
-        <span id="qtd-carb-2">15</span> <span> gramas</span>
-        </div>
-        
-        <div class="col-fats">
-        <label>Fats: </label><br>
-        <span id="qtd-fat-2">2</span> <span> gramas</span>
-        </div>
-        
-        <div class="col-cal">
-        <label>Cal: </label><br>
-        <span id="qtd-cal-2">200</span> <span> cal</span>
-        </div>
-        
-        <div class="col-grupo">
-         <label>Receita</label><br>
-         <select name="grupo" id="grupo-2" onchange="updateGrupo('-2')">
-            <option value="--">--</option>
-            <option value="R1">R1</option>
-            <option value="R2">R2</option>
-            <option value="R3">R3</option>
-            <option value="R4">R4</option>
-          </select>
-        </div>
-        
-        
-        <div class="containerBot"><span class="drag-grip" title="Arraste para reordenar (ou use ▲▼)">&#9783;</span>
-            <button onclick="addRow('-2')" title="Adicionar linha">+</button>
-            <button onclick="delRow('-2')" title="Remover linha">-</button>
-            <button onclick="subirLinha('-2')" title="Subir">&#9650;</button>
-            <button onclick="descerLinha('-2')" title="Descer">&#9660;</button>
-            <button onclick="duplicarLinha('-2')" title="Duplicar este alimento">&#10697;</button>
-        </div>
-        
-        <div class="col-detalhes">
-        <p id="detalhes-2">Era uma vez um lugar no meio do nada </p><br>
-        </div>
-    
-    
-        
-        
-    </div> <!-- CLOSE ROW  -->
-    
+        <div class="col-detalhes"><p id="detalhes-0">Sem detalhes.</p></div>
     </div>
     
         
         
-    <table class="periodos" id="periodos">
-      <thead>
-        <tr>
-          <th>Período</th><th>Proteínas</th><th>Carboidratos</th><th>Gorduras</th><th>Calorias</th>
-        </tr>
-      </thead>
-      <tbody id="periodos-body"></tbody>
-    </table>
 
     <div class="sumary" id="sumary">
 

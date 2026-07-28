@@ -4,14 +4,6 @@ var sum = {};
 var outPage = "";
 var rowTemplate = "";   //molde de uma linha vazia, capturado em initializePop()
     
-function uptadeRefeicao(rowID){
-var row = parseInt(rowID.replace("-",""));
-
-    data[row].refeicao = document.getElementById('refeicao-'+row).value;
-    pintaRefeicao(row);
-    renderBreakdown();   //o item mudou de periodo: atualiza o resumo por periodo
-}
-
 function updateGrupo(rowID){
 var row = parseInt(rowID.replace("-",""));
 
@@ -542,37 +534,33 @@ function calcPorPeriodo(){
 }
 
 // Preenche a tabela de resumo por periodo (pula periodos sem itens).
+// Mostra os totais de cada período no cabeçalho da sua lista + marca o botão
+// de notas quando o período tem alguma nota.
 function renderBreakdown(){
-
-    var body = document.getElementById('periodos-body');
-    if (!body){ return; }
-
     var res = calcPorPeriodo();
-    body.innerHTML = "";
-
     PERIODOS.forEach(function(p){
         var d = res[p];
-        if (d.itens.length === 0){ return; }
-
-        var tr = document.createElement("tr");
-        tr.innerHTML =
-            '<td class="periodo-nome">' + p + '</td>' +
-            '<td>' + d.protein + ' <span>g</span></td>' +
-            '<td>' + d.carb    + ' <span>g</span></td>' +
-            '<td>' + d.fats    + ' <span>g</span></td>' +
-            '<td>' + d.cal     + ' <span>cal</span></td>';
-        body.appendChild(tr);
+        var tot = document.getElementById(TOT_ID[p]);
+        if (tot){
+            tot.textContent = d.itens.length
+                ? "(" + d.cal + " cal · P " + d.protein + " · C " + d.carb + " · G " + d.fats + ")"
+                : "";
+        }
+        var sec = document.querySelector('.periodo-lista[data-periodo="' + p + '"]');
+        var btn = sec ? sec.querySelector('.periodo-notas-btn') : null;
+        if (btn){ btn.classList.toggle('tem', temNotas(notasPlano[p])); }
     });
 }
     
+// "+" da linha: adiciona um alimento logo depois dela, na MESMA lista/período
 function addRow(rowID){
-
    var row = parseInt(rowID.replace("-",""));
-   inserirLinha(row+1);
+   var el = document.getElementById('form-row-'+row);
+   if (!el){ return; }
+   novaLinhaNoContainer(el.parentNode, el, periodoDoElemento(el));
 }
 
 function delRow(rowID){
-
    var row = parseInt(rowID.replace("-",""));
    removerLinha(row);
 }
@@ -635,51 +623,11 @@ function novaLinha(){
             detalhes: "Sem detalhes."};
 }
 
-function inserirLinha(pos){
-
-    var total = listRows().length;
-    if(pos > total){ pos = total; }
-
-    //renumera de tras para frente, senao os ids colidem no meio do caminho
-    for (var i = total-1; i >= pos; i--){
-        renumeraLinha(document.getElementById('form-row-'+i), i, i+1);
-    }
-
-    var nova = document.createElement("div");
-    nova.className = "form-row";
-    nova.innerHTML = rowTemplate;
-    renumeraLinha(nova, 0, pos);
-
-    if (pos >= total){
-        document.getElementById('row-container').appendChild(nova);
-    } else {
-        //a linha que estava em pos agora se chama pos+1
-        document.getElementById('row-container').insertBefore(nova, document.getElementById('form-row-'+(pos+1)));
-    }
-
-    data.splice(pos, 0, novaLinha());
-    popFoods(pos);
-    popNewLine(pos);
-    sumFacts();
-}
-
 function removerLinha(pos){
-
-    var total = listRows().length;
-
-    //sempre manter pelo menos uma linha
-    if (total <= 1){ return; }
-
     var el = document.getElementById('form-row-'+pos);
+    if (!el){ return; }
     el.parentNode.removeChild(el);
-    data.splice(pos, 1);
-
-    //renumera de frente para tras
-    for (var i = pos+1; i < total; i++){
-        renumeraLinha(document.getElementById('form-row-'+i), i, i-1);
-    }
-
-    sumFacts();
+    sincronizarLinhas();   // reconstrói data[] a partir do DOM e renumera
 }
 
 function subirLinha(rowID){ moverLinha(parseInt(rowID.replace("-","")), -1); }
@@ -698,75 +646,54 @@ function clonarDadoLinha(d){
 // (ex.: o jantar começa parecido com o almoço) sem procurar de novo na base.
 function duplicarLinha(rowID){
     var row = parseInt(rowID.replace("-",""));
+    var srcEl = document.getElementById('form-row-'+row);
+    if (!srcEl){ return; }
     var copia = clonarDadoLinha(data[row]);
 
-    inserirLinha(row + 1);          // cria uma linha nova (vazia) logo abaixo
-    data[row + 1] = copia;          // substitui pelos dados copiados
+    // cria a linha nova logo depois da fonte, no MESMO container (período)
+    var idx = data.length;
+    data.push(copia);
+    var el = document.createElement("div");
+    el.className = "form-row";
+    el.innerHTML = rowTemplate;
+    renumeraLinha(el, 0, idx);
+    srcEl.parentNode.insertBefore(el, srcEl.nextSibling);
 
-    // garante que o nome exista como opção no <select> escondido da nova linha
-    var sel = document.getElementById('foods-' + (row + 1));
+    popFoods(idx);
+    var sel = document.getElementById('foods-' + idx);
     if (sel){
         var existe = false;
         for (var i = 0; i < sel.options.length; i++){
             if (sel.options[i].value === copia.nome){ existe = true; break; }
         }
-        if (!existe){
-            var o = document.createElement("option");
-            o.value = copia.nome; o.text = copia.nome;
-            sel.appendChild(o);
-        }
+        if (!existe){ var o = document.createElement("option"); o.value = copia.nome; o.text = copia.nome; sel.appendChild(o); }
     }
+    pasteRowValues(idx, copia);
 
-    pasteRowValues(row + 1, copia);  // pinta a linha nova com os dados copiados
-    sumFacts();
+    sincronizarLinhas();
 }
 
 //Troca uma linha com a vizinha. Move os NOS inteiros no DOM, entao o
 //estado dos selects (opcoes carregadas, valor escolhido e a propriedade
 //_lista) viaja junto — nao ha copia de valores, campo por campo.
+// ▲▼: move a linha dentro da SUA lista (mesmo período)
 function moverLinha(pos, dir){
-
-    var destino = pos + dir;
-    var total = listRows().length;
-    if (destino < 0 || destino >= total){ return; }   //ja esta na ponta
-
-    var a = document.getElementById('form-row-'+pos);       //linha que se move
-    var b = document.getElementById('form-row-'+destino);   //vizinha
-
-    //renumera usando um numero temporario para os ids nao colidirem
-    var TMP = 999999;
-    renumeraLinha(a, pos, TMP);
-    renumeraLinha(b, destino, pos);
-    renumeraLinha(a, TMP, destino);
-
-    //poe os nos na ordem numerica certa dentro do container
-    var container = document.getElementById('row-container');
-    if (dir > 0){ container.insertBefore(b, a); }   //a desceu: b vem antes
-    else        { container.insertBefore(a, b); }   //a subiu: a vem antes
-
-    //troca no modelo de dados
-    var t = data[pos]; data[pos] = data[destino]; data[destino] = t;
-
-    sumFacts();
+    var el = document.getElementById('form-row-'+pos);
+    if (!el){ return; }
+    var irmao = dir < 0 ? el.previousElementSibling : el.nextElementSibling;
+    if (!irmao || !irmao.classList || !irmao.classList.contains('form-row')){ return; }  // ponta da lista
+    if (dir < 0){ el.parentNode.insertBefore(el, irmao); }
+    else        { el.parentNode.insertBefore(irmao, el); }
+    sincronizarLinhas();
 }
 
-// ---- arrastar e soltar para reordenar (além dos botões ▲▼) --------------
+// ---- arrastar e soltar: reordena dentro da lista E entre listas ---------
 
 function numeroDaLinha(el){ return parseInt(String(el.id).replace("form-row-", ""), 10); }
 
-// Renumera TODAS as linhas para 0..n-1 na ordem em que estão no DOM. Faz em
-// duas passadas (com um deslocamento temporário) para os ids nunca colidirem.
-function renumerarTodas(){
-    var els = listRows().map(function(id){ return document.getElementById(id); });
-    var TEMP = 100000;
-    els.forEach(function(el, i){ renumeraLinha(el, numeroDaLinha(el), TEMP + i); });
-    els.forEach(function(el, i){ renumeraLinha(el, TEMP + i, i); });
-}
-
 var arrastando = null;   // linha sendo arrastada
 
-// Devolve a linha ANTES da qual soltar, dada a posição vertical do cursor
-// (ou null para soltar no fim).
+// Linha ANTES da qual soltar, dado o Y do cursor (ou null p/ soltar no fim).
 function linhaAlvo(container, y){
     var els = Array.prototype.slice.call(container.querySelectorAll('.form-row:not(.arrastando)'));
     var melhor = { offset: -Infinity, el: null };
@@ -778,43 +705,51 @@ function linhaAlvo(container, y){
     return melhor.el;
 }
 
-// Depois de soltar: reordena data[] para bater com a ordem do DOM e renumera.
+// Qual lista de período está sob o cursor (para soltar em outro período).
+function containerSob(x, y){
+    var conts = document.querySelectorAll('.lista-linhas');
+    for (var i = 0; i < conts.length; i++){
+        var b = conts[i].getBoundingClientRect();
+        if (x >= b.left && x <= b.right && y >= b.top - 12 && y <= b.bottom + 12){ return conts[i]; }
+    }
+    var melhor = null, dist = Infinity;
+    for (var j = 0; j < conts.length; j++){
+        var bb = conts[j].getBoundingClientRect();
+        var d = Math.abs(y - (bb.top + bb.bottom) / 2);
+        if (d < dist){ dist = d; melhor = conts[j]; }
+    }
+    return melhor;
+}
+
+// Ao soltar: reordena data[], define a refeição pela lista e renumera tudo.
 function finalizarArrasto(){
     if (!arrastando){ return; }
     arrastando.classList.remove('arrastando');
     arrastando.removeAttribute('draggable');
     arrastando = null;
-
-    var ordem = listRows().map(numeroDaLinhaDoId);
-    var novo = ordem.map(function(velho){ return data[velho]; });
-    data.length = 0;
-    Array.prototype.push.apply(data, novo);
-
-    renumerarTodas();
-    sumFacts();
+    var s = document.querySelector('.lista-linhas.solta');
+    if (s){ s.classList.remove('solta'); }
+    sincronizarLinhas();
 }
 
-function numeroDaLinhaDoId(id){ return parseInt(String(id).replace("form-row-", ""), 10); }
-
-// Liga o arrastar-e-soltar no container (uma vez só, por delegação).
 function configurarArrastar(){
-    var container = document.getElementById('row-container');
-    if (!container || container._arrastarPronto){ return; }
-    container._arrastarPronto = true;
+    var plano = document.getElementById('plano');
+    if (!plano || plano._arrastarPronto){ return; }
+    plano._arrastarPronto = true;
 
     // a linha só fica "draggable" enquanto o mouse está pressionado na alça
-    container.addEventListener('mousedown', function(e){
+    plano.addEventListener('mousedown', function(e){
         var grip = e.target.closest ? e.target.closest('.drag-grip') : null;
         if (!grip){ return; }
         var row = grip.closest('.form-row');
         if (row){ row.setAttribute('draggable', 'true'); }
     });
     document.addEventListener('mouseup', function(){
-        var pend = container.querySelectorAll('.form-row[draggable="true"]');
+        var pend = plano.querySelectorAll('.form-row[draggable="true"]');
         for (var i = 0; i < pend.length; i++){ pend[i].removeAttribute('draggable'); }
     });
 
-    container.addEventListener('dragstart', function(e){
+    plano.addEventListener('dragstart', function(e){
         var row = e.target.closest ? e.target.closest('.form-row') : null;
         if (!row || row.getAttribute('draggable') !== 'true'){ e.preventDefault(); return; }
         arrastando = row;
@@ -822,16 +757,21 @@ function configurarArrastar(){
         if (e.dataTransfer){ e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', ''); } catch(_){} }
     });
 
-    container.addEventListener('dragover', function(e){
+    plano.addEventListener('dragover', function(e){
         if (!arrastando){ return; }
         e.preventDefault();
-        var ref = linhaAlvo(container, e.clientY);
-        if (ref == null){ container.appendChild(arrastando); }
-        else if (ref !== arrastando){ container.insertBefore(arrastando, ref); }
+        var cont = containerSob(e.clientX, e.clientY);
+        if (!cont){ return; }
+        var atual = document.querySelector('.lista-linhas.solta');
+        if (atual && atual !== cont){ atual.classList.remove('solta'); }
+        cont.classList.add('solta');
+        var ref = linhaAlvo(cont, e.clientY);
+        if (ref == null){ cont.appendChild(arrastando); }
+        else if (ref !== arrastando){ cont.insertBefore(arrastando, ref); }
     });
 
-    container.addEventListener('drop', function(e){ if (arrastando){ e.preventDefault(); } finalizarArrasto(); });
-    container.addEventListener('dragend', function(){ finalizarArrasto(); });
+    plano.addEventListener('drop', function(e){ if (arrastando){ e.preventDefault(); } finalizarArrasto(); });
+    plano.addEventListener('dragend', function(){ finalizarArrasto(); });
 }
 
 function copyRowValues(row){
@@ -854,15 +794,12 @@ function copyRowValues(row){
     return values;
 }
     
+// Pinta a linha com os valores guardados. A refeição NÃO é mais um dropdown —
+// ela vem de qual lista a linha está (definida por sincronizarLinhas).
 function pasteRowValues(row, values){
-    
-    
-        document.getElementById('refeicao-'+row).value = values.refeicao;
         document.getElementById('foods-'+row).value = values.nome;
         atualizarNomeAlimento(row, values.nome);
         document.getElementById('qtd-'+row).value = values.qtd;
-        //a unidade vira texto ou <select> conforme o alimento tenha extras.
-        //(values === data[row] nas chamadas reais, então data[row].unidade já existe.)
         data[row].unidade = values.unidade;
         garantirBase(row);
         aplicarUnidadeControl(row);
@@ -872,45 +809,82 @@ function pasteRowValues(row, values){
         document.getElementById('qtd-cal-'+row).innerHTML = values.cal;
         document.getElementById('grupo-'+row).value = values.grupo || "--";
         document.getElementById('detalhes-'+row).innerHTML = values.detalhes;
-
-        //mantem a cor do seletor de refeicao em sincronia com o valor
-        pintaRefeicao(row);
         aplicarModoLivre(row);   //aplica/retira o visual de item livre
-
 }
 
-function pintaRefeicao(row){
+// ---- listas por período ---------------------------------------------------
+// Cada período (Manhã/Almoço/Tarde/Noite) tem seu container. A refeição de um
+// alimento é definida por EM QUAL lista ele está — não há mais dropdown.
 
-    var el = document.getElementById('refeicao-'+row);
+var LISTA_ID = { "Manhã":"lista-manha", "Almoço":"lista-almoco", "Tarde":"lista-tarde", "Noite":"lista-noite" };
+var TOT_ID   = { "Manhã":"tot-manha",   "Almoço":"tot-almoco",   "Tarde":"tot-tarde",   "Noite":"tot-noite" };
 
-    //fundo por periodo + cor de fonte com contraste suficiente.
-    //"Noite" tem fundo azul-escuro (corTema[2]), entao a fonte vai a branco.
-    var bg = corTema[5], fg = corTema[1];
-    switch(el.value){
-           case "Manhã": bg = corTema[5]; fg = corTema[1]; break;
-           case "Almoço": bg = corTema[4]; fg = corTema[1]; break;
-           case "Tarde":  bg = corTema[3]; fg = corTema[1]; break;
-           case "Noite":  bg = corTema[2]; fg = "#ffffff";  break;
-           }
-    el.style.backgroundColor = bg;
-    el.style.color = fg;
+function containerPeriodo(p){ return document.getElementById(LISTA_ID[p] || LISTA_ID["Manhã"]); }
+
+function periodoDoElemento(el){
+    var sec = el && el.closest ? el.closest(".periodo-lista") : null;
+    return (sec && sec.getAttribute("data-periodo")) || "Manhã";
 }
-    
+
+// ids das linhas na ordem visual (período a período, e dentro de cada lista)
 function listRows(){
-  var oInput = document.getElementById('row-container'),
-        oChild;
-  var i=0;
-  var n =0;
-  var rows=[];
+    var ids = [];
+    PERIODOS.forEach(function(p){
+        var cont = containerPeriodo(p);
+        if (!cont){ return; }
+        var rows = cont.querySelectorAll(":scope > .form-row");
+        for (var i = 0; i < rows.length; i++){ ids.push(rows[i].id); }
+    });
+    return ids;
+}
 
-  for(i = 0; i < oInput.childNodes.length; i++){
-        oChild = oInput.childNodes[i];
-        if(oChild.nodeName == 'DIV'){
-            rows[n]=oChild.id;
-            n=n+1;
-        }
-  }
-  return rows;
+// Reconstrói data[] para bater com a ordem do DOM (período a período),
+// define a refeição de cada item pela lista em que ele está, e renumera todas
+// as linhas para 0..n-1 (duas passadas p/ os ids nunca colidirem).
+function sincronizarLinhas(){
+    var itens = [];   // {el, idxAntigo, periodo}
+    PERIODOS.forEach(function(p){
+        var cont = containerPeriodo(p);
+        if (!cont){ return; }
+        var rows = cont.querySelectorAll(":scope > .form-row");
+        for (var i = 0; i < rows.length; i++){ itens.push({ el: rows[i], idx: numeroDaLinha(rows[i]), periodo: p }); }
+    });
+
+    var novo = itens.map(function(o){ var d = data[o.idx]; if (d){ d.refeicao = o.periodo; } return d; });
+    data.length = 0;
+    Array.prototype.push.apply(data, novo);
+
+    var TEMP = 100000;
+    itens.forEach(function(o, i){ renumeraLinha(o.el, numeroDaLinha(o.el), TEMP + i); });
+    itens.forEach(function(o, i){ renumeraLinha(o.el, TEMP + i, i); });
+
+    sumFacts();
+}
+
+// Cria uma linha nova (clonada do molde) já preenchida como "Ovo", no
+// container do período — opcionalmente logo depois de uma linha de referência.
+function novaLinhaNoContainer(cont, refEl, periodo){
+    var idx = data.length;
+    var d = novaLinha();
+    d.refeicao = periodo;
+    data.push(d);
+
+    var el = document.createElement("div");
+    el.className = "form-row";
+    el.innerHTML = rowTemplate;
+    renumeraLinha(el, 0, idx);
+
+    if (refEl && refEl.parentNode === cont){ cont.insertBefore(el, refEl.nextSibling); }
+    else { cont.appendChild(el); }
+
+    popFoods(idx);
+    popNewLine(idx);
+    sincronizarLinhas();
+}
+
+// botão "+ adicionar alimento" de cada lista
+function adicionarNaLista(periodo){
+    novaLinhaNoContainer(containerPeriodo(periodo), null, periodo);
 }
     
 function popNewLine(row){
@@ -929,7 +903,6 @@ function popNewLine(row){
         data[row]._base = null;
         garantirBase(row);
         aplicarUnidadeControl(row);
-        pintaRefeicao(row);
 }
 
 function popFoods(row){
@@ -939,54 +912,27 @@ function popFoods(row){
     
 function initializePop(){
 
-//Guarda o molde de uma linha vazia ANTES de qualquer alteracao.
-//As linhas novas sao clonadas daqui, e nao da linha 0 em uso,
-//que a essa altura ja pode ter a lista TACO carregada dentro dela.
-rowTemplate = document.getElementById('form-row-0').innerHTML;
+//Guarda o molde de uma linha (sem o dropdown de refeição) para clonar.
+rowTemplate = document.getElementById('tpl-linha').innerHTML;
 
-data[0] = {refeicao: "Manhã",
-           nome:"Ovo",
-           unidade: "ovos",
-           qtd: "2",
-           cal:"77",
-           fats: "5.28",
-           carb:"0.56",
-           protein:"6.26",
-           grupo: "--",
-           detalhes: "Sem detalhes."};
+data = [
+    {refeicao:"Manhã", nome:"Ovo",         unidade:"ovos",   qtd:"2", cal:"77", fats:"5.28", carb:"0.56", protein:"6.26", grupo:"--", detalhes:"Sem detalhes."},
+    {refeicao:"Manhã", nome:"Mozzarella",  unidade:"gramas", qtd:"1", cal:"3",  fats:"0.22", carb:"0.02", protein:"0.22", grupo:"--", detalhes:"Sem detalhes."},
+    {refeicao:"Manhã", nome:"Carne Moída", unidade:"gramas", qtd:"1", cal:"3",  fats:"0.19", carb:"0",    protein:"0.25", grupo:"--", detalhes:"Sem detalhes."}
+];
 
-data[1] = {refeicao: "Manhã",
-           nome:"Mozzarella",
-           unidade: "gramas",
-           qtd: "1",
-           cal:"3",
-           fats: "0.22",
-           carb:"0.02",
-           protein:"0.22",
-           grupo: "--",
-           detalhes: "Sem detalhes."};
+    // cria as 3 linhas iniciais dentro da lista da Manhã
+    var contManha = containerPeriodo("Manhã");
+    data.forEach(function(d, i){
+        var el = document.createElement("div");
+        el.className = "form-row";
+        el.innerHTML = rowTemplate;
+        renumeraLinha(el, 0, i);
+        contManha.appendChild(el);
+    });
 
-data[2] = {refeicao: "Manhã",
-           nome:"Carne Moída",
-           unidade: "gramas",
-           qtd: "1",
-           cal:"3",
-           fats: "0.19",
-           carb:"0",
-           protein:"0.25",
-           grupo: "--",
-           detalhes: "Sem detalhes."};
-
-    var linhas = listRows().length;
-    var n=0;
-
-    for (n = 0; n < linhas; n++){
-        popFoods(n);
-    }
-
-    for (n = 0; n < linhas; n++){
-        pasteRowValues(n, data[n]);
-    }
+    for (var n = 0; n < data.length; n++){ popFoods(n); }
+    for (var m = 0; m < data.length; m++){ pasteRowValues(m, data[m]); }
 
     sumFacts();
     aplicarPrefDetalhes();
@@ -998,7 +944,7 @@ data[2] = {refeicao: "Manhã",
 // observacao; os macros continuam. A preferencia fica guardada para a
 // proxima visita.
 function alternarDetalhes(){
-    var cont = document.getElementById('row-container');
+    var cont = document.getElementById('plano');
     var escondido = cont.classList.toggle('esconder-detalhes');
     var btn = document.getElementById('btnDetalhes');
     if (btn){ btn.textContent = escondido ? 'Mostrar detalhes' : 'Ocultar detalhes'; }
@@ -1009,7 +955,7 @@ function aplicarPrefDetalhes(){
     var pref = null;
     try { pref = localStorage.getItem('nutri_esconder_detalhes'); } catch(e){}
     if (pref === '1'){
-        document.getElementById('row-container').classList.add('esconder-detalhes');
+        document.getElementById('plano').classList.add('esconder-detalhes');
         var btn = document.getElementById('btnDetalhes');
         if (btn){ btn.textContent = 'Mostrar detalhes'; }
     }
@@ -1017,7 +963,7 @@ function aplicarPrefDetalhes(){
 
 // Modo compacto: aperta as linhas para caber mais alimentos sem rolar.
 function alternarCompacto(){
-    var cont = document.getElementById('row-container');
+    var cont = document.getElementById('plano');
     var compacto = cont.classList.toggle('compacto');
     var btn = document.getElementById('btnCompacto');
     if (btn){ btn.textContent = compacto ? 'Espaçoso' : 'Compacto'; }
@@ -1030,7 +976,7 @@ function aplicarPrefCompacto(){
     // padrão: compacto LIGADO (só fica espaçoso se o usuário desligar)
     var ligar = (pref !== '0');
     if (ligar){
-        document.getElementById('row-container').classList.add('compacto');
+        document.getElementById('plano').classList.add('compacto');
         var btn = document.getElementById('btnCompacto');
         if (btn){ btn.textContent = 'Espaçoso'; }
     }
@@ -1250,7 +1196,8 @@ function salvarEstado(){
     baixarArquivo(JSON.stringify(estado, null, 2), nomeArquivoEstado(estado.nome), 'application/json');
 }
 
-// Reconstroi a tela inteira a partir de um estado salvo.
+// Reconstroi a tela inteira a partir de um estado salvo: limpa as 4 listas e
+// cria cada item na lista do seu período (item.refeicao).
 function carregarEstado(estado){
     if (!estado || !Array.isArray(estado.itens) || estado.itens.length === 0){
         alert("Este arquivo nao parece um estado valido (sem itens).");
@@ -1262,51 +1209,47 @@ function carregarEstado(estado){
     notasPlano = normalizarNotas(estado.notasPlano);   // notas gerais + por período
     foodsSessao = Array.isArray(estado.foodsSessao) ? estado.foodsSessao : [];   // atalhos da sessão
 
-    // ajusta o numero de linhas para bater com o estado
-    while (listRows().length > 1){ removerLinha(listRows().length - 1); }
-    while (listRows().length < estado.itens.length){ inserirLinha(listRows().length); }
+    // limpa todas as listas e o modelo
+    PERIODOS.forEach(function(p){ var c = containerPeriodo(p); if (c){ c.innerHTML = ""; } });
+    data = [];
 
-    for (var i = 0; i < estado.itens.length; i++){
-        aplicarItemNaLinha(i, estado.itens[i]);
+    // cria uma linha por item no container do seu período
+    estado.itens.forEach(function(item, i){
+        var d = {
+            refeicao: item.refeicao || "Manhã",
+            nome: item.nome, unidade: item.unidade, qtd: item.qtd,
+            cal: item.cal, fats: item.fats, carb: item.carb, protein: item.protein,
+            grupo: item.grupo || "--", detalhes: item.detalhes || "",
+            semQtd: item.semQtd || false
+        };
+        if (item.base){ d._base = item.base; }
+        data.push(d);
+
+        var cont = containerPeriodo(d.refeicao) || containerPeriodo("Manhã");
+        var el = document.createElement("div");
+        el.className = "form-row";
+        el.innerHTML = rowTemplate;
+        renumeraLinha(el, 0, i);
+        cont.appendChild(el);
+    });
+
+    // preenche cada linha
+    for (var i = 0; i < data.length; i++){
+        var item = estado.itens[i];
+        mostrarMenuPrincipal(i);   // popula o <select> escondido (_lista = foods)
+        if (!findByName(foods, data[i].nome)){
+            var select = document.getElementById('foods-'+i);
+            var o = document.createElement("option");
+            o.value = data[i].nome; o.text = data[i].nome;
+            select.appendChild(o);
+            var perUnidade = derivarPorUnidade(item);
+            if (perUnidade){ select._lista = foods.concat([perUnidade]); }
+        }
+        pasteRowValues(i, data[i]);
     }
-    sumFacts();
+
+    sincronizarLinhas();
     fecharSessoes();
-}
-
-// Coloca um item salvo numa linha existente, exibindo os valores
-// guardados. Se o alimento nao estiver na base (veio da TACO ou de uma
-// receita), ele e adicionado como opcao e como fonte por-unidade, para
-// que mudar a quantidade depois recalcule certo.
-function aplicarItemNaLinha(row, item){
-
-    data[row] = {
-        refeicao: item.refeicao || "Manhã",
-        nome: item.nome,
-        unidade: item.unidade,
-        qtd: item.qtd,
-        cal: item.cal, fats: item.fats, carb: item.carb, protein: item.protein,
-        grupo: item.grupo || "--",
-        detalhes: item.detalhes || "",
-        semQtd: item.semQtd || false
-    };
-
-    // sessões novas guardam o "base" (macros por unidade principal + unidades,
-    // inclusive as criadas na hora): reconstrói o seletor de unidade exatamente.
-    if (item.base){ data[row]._base = item.base; }
-
-    mostrarMenuPrincipal(row);   //popula a lista principal, _lista = foods
-
-    if (!findByName(foods, item.nome)){
-        var select = document.getElementById('foods-'+row);
-        var o = document.createElement("option");
-        o.value = item.nome; o.text = item.nome;
-        select.appendChild(o);
-
-        var perUnidade = derivarPorUnidade(item);
-        if (perUnidade){ select._lista = foods.concat([perUnidade]); }
-    }
-
-    pasteRowValues(row, data[row]);
 }
 
 // Recupera os macros POR UNIDADE a partir dos totais guardados
@@ -1325,10 +1268,18 @@ function derivarPorUnidade(item){
     };
 }
 
-// Acrescenta uma receita como uma nova linha do plano.
+// Acrescenta uma receita como uma nova linha do plano (na lista da Manhã por
+// padrão; é só arrastar para outro período depois).
 function carregarReceitaComoLinha(receita){
-    inserirLinha(listRows().length);            //nova linha no fim
-    var row = listRows().length - 1;
+    var idx = data.length;
+    var d = novaLinha(); d.refeicao = "Manhã";
+    data.push(d);
+
+    var el = document.createElement("div");
+    el.className = "form-row";
+    el.innerHTML = rowTemplate;
+    renumeraLinha(el, 0, idx);
+    containerPeriodo("Manhã").appendChild(el);
 
     // uma receita e "1 porcao": os valores ja sao por unidade
     var porUnidade = {
@@ -1341,15 +1292,17 @@ function carregarReceitaComoLinha(receita){
         detalhes: String(receita.detalhes || "").replaceAll("\n", "<br>")
     };
 
-    var select = document.getElementById('foods-'+row);
+    mostrarMenuPrincipal(idx);
+    var select = document.getElementById('foods-'+idx);
     var o = document.createElement("option");
     o.value = porUnidade.nome; o.text = porUnidade.nome;
     select.appendChild(o);
     select._lista = (select._lista || foods).concat([porUnidade]);
     select.value = porUnidade.nome;
 
-    document.getElementById('qtd-'+row).value = 1;
-    updateFood('-'+row);
+    document.getElementById('qtd-'+idx).value = 1;
+    updateFood('-'+idx);
+    sincronizarLinhas();
     fecharSessoes();
 }
 
@@ -2006,7 +1959,7 @@ function coletarNotas(){
 
 // Só coleta se o modal estiver aberto/renderizado (usado antes de LaTeX/salvar).
 function lerNotasVivas(){
-    if (document.getElementById("notas-grupo-geral")){ coletarNotas(); }
+    if (document.querySelector('[id^="notas-grupo-"]')){ coletarNotas(); }
 }
 
 function paragrafoNota(chave, texto){
@@ -2032,12 +1985,15 @@ function paragrafoNota(chave, texto){
     return wrap;
 }
 
-function renderNotas(){
+// soChave (opcional): renderiza só aquele grupo (ex.: "geral" ou "Manhã").
+function renderNotas(soChave){
     var body = document.getElementById("notasBody");
     if (!body){ return; }
     body.innerHTML = "";
 
-    NOTAS_GRUPOS.forEach(function(g){
+    var grupos = soChave ? NOTAS_GRUPOS.filter(function(g){ return g.chave === soChave; }) : NOTAS_GRUPOS;
+
+    grupos.forEach(function(g){
         var bloco = document.createElement("div");
         bloco.className = "notas-bloco";
 
@@ -2070,14 +2026,29 @@ function renderNotas(){
     });
 }
 
-function abrirNotas(){
-    renderNotas();
+function definirTituloNotas(t){
+    var el = document.getElementById("notasTitulo");
+    if (el){ el.textContent = t; }
+}
+
+// botão "Notas gerais" do topo — só o grupo geral
+function abrirNotasGerais(){
+    definirTituloNotas("Notas gerais");
+    renderNotas("geral");
+    document.getElementById("notasModal").style.display = "block";
+}
+
+// botão 📝 no cabeçalho de um período — só as notas daquele período
+function abrirNotasPeriodo(p){
+    definirTituloNotas("Notas — " + p);
+    renderNotas(p);
     document.getElementById("notasModal").style.display = "block";
 }
 
 function fecharNotas(){
     coletarNotas();
     document.getElementById("notasModal").style.display = "none";
+    renderBreakdown();   // atualiza o destaque do botão 📝 dos períodos
 }
 
 window.addEventListener('click', function(event){
@@ -2780,7 +2751,7 @@ carregarDados()
     .then(initializePop)
     .catch(function(erro){
         console.error(erro);
-        document.getElementById('row-container').innerHTML =
+        document.getElementById('plano').innerHTML =
             '<p style="color:var(--cor8);">Não foi possível carregar a base de alimentos (foods.json): '
             + erro.message + '</p>';
     });
