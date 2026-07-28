@@ -398,7 +398,10 @@ textarea {
     background-color: rgba(255,255,255,.65);
     color: var(--cor1);
 }
-.alt-add:hover, .alt-del:hover{ background-color: rgba(255,255,255,.95); }
+.alt-add:hover{ background-color: rgba(255,255,255,.95); }
+.alt-del{ color: var(--cor8); border-color: var(--cor8); }
+.alt-del:hover:not(:disabled){ background-color: var(--cor8); color: #fff; }
+.alt-del:disabled{ opacity: .4; cursor: default; }
 
 /* menu ao clicar no título da alternativa (renomear + pular) */
 .alt-menu{
@@ -431,6 +434,8 @@ textarea {
 }
 .alt-menu-item:hover{ background-color: var(--cor5); }
 .alt-menu-item.ativo{ font-weight: bold; background-color: var(--cor4); }
+.alt-menu-remover{ color: var(--cor8); border-top: 1px solid var(--cor6); margin-top: 4px; }
+.alt-menu-remover:hover{ background-color: #fdecee; }
 /* cores por período (mesma paleta dos antigos dropdowns) */
 .cab-manha { background-color: var(--cor5); }
 .cab-almoco{ background-color: var(--cor4); }
@@ -1352,7 +1357,7 @@ a:active {
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Manhã')" title="Notas desta alternativa">&#128221;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Manhã',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Manhã',true)" title="Duplicar esta alternativa">+ cópia</button>
-          <button type="button" class="alt-del" onclick="removerAlternativa('Manhã')" title="Remover esta alternativa">&#128465;</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Manhã')" title="Remover esta alternativa">remover</button>
         </span>
       </div>
       <div class="lista-linhas" id="lista-manha"></div>
@@ -1371,7 +1376,7 @@ a:active {
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Almoço')" title="Notas desta alternativa">&#128221;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Almoço',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Almoço',true)" title="Duplicar esta alternativa">+ cópia</button>
-          <button type="button" class="alt-del" onclick="removerAlternativa('Almoço')" title="Remover esta alternativa">&#128465;</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Almoço')" title="Remover esta alternativa">remover</button>
         </span>
       </div>
       <div class="lista-linhas" id="lista-almoco"></div>
@@ -1390,7 +1395,7 @@ a:active {
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Tarde')" title="Notas desta alternativa">&#128221;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Tarde',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Tarde',true)" title="Duplicar esta alternativa">+ cópia</button>
-          <button type="button" class="alt-del" onclick="removerAlternativa('Tarde')" title="Remover esta alternativa">&#128465;</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Tarde')" title="Remover esta alternativa">remover</button>
         </span>
       </div>
       <div class="lista-linhas" id="lista-tarde"></div>
@@ -1409,7 +1414,7 @@ a:active {
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Noite')" title="Notas desta alternativa">&#128221;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Noite',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Noite',true)" title="Duplicar esta alternativa">+ cópia</button>
-          <button type="button" class="alt-del" onclick="removerAlternativa('Noite')" title="Remover esta alternativa">&#128465;</button>
+          <button type="button" class="alt-del" onclick="removerAlternativa('Noite')" title="Remover esta alternativa">remover</button>
         </span>
       </div>
       <div class="lista-linhas" id="lista-noite"></div>

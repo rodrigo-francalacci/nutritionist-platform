@@ -957,8 +957,12 @@ function atualizarCabAlternativas(p){
     var navs = sec.querySelectorAll(".alt-nav");
     if (navs[0]){ navs[0].style.display = n > 1 ? "" : "none"; navs[0].disabled = (i === 0); }
     if (navs[1]){ navs[1].style.display = n > 1 ? "" : "none"; navs[1].disabled = (i === n - 1); }
+    // "remover" fica sempre visível, mas desabilitado quando só há 1 alternativa
     var del = sec.querySelector(".alt-del");
-    if (del){ del.style.display = n > 1 ? "" : "none"; }
+    if (del){
+        del.disabled = (n <= 1);
+        del.title = (n <= 1) ? "Não dá para remover a única alternativa deste período" : "Remover esta alternativa";
+    }
 }
 
 function swipeAlt(p, dir){
@@ -1042,6 +1046,14 @@ function abrirMenuAlt(p, anchor){
         it.onclick = function(){ fecharMenuAlt(); irParaAlt(p, i); };
         menu.appendChild(it);
     });
+
+    if (alt.lista.length > 1){
+        var rem = document.createElement("div");
+        rem.className = "alt-menu-item alt-menu-remover";
+        rem.textContent = "✕ remover esta alternativa";
+        rem.onclick = function(){ fecharMenuAlt(); removerAlternativa(p); };
+        menu.appendChild(rem);
+    }
 
     document.body.appendChild(menu);
     var b = anchor.getBoundingClientRect();
