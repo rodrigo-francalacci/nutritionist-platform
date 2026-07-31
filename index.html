@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Plataforma Nutricional</title>
-    <script src="data-loader.js"></script>
+    <!-- O GitHub Pages guarda CADA arquivo por 10 min, cada um no seu tempo.
+         Sem o "?v=", dava para receber o index.html novo com o main-script.js
+         velho (botão na tela, função inexistente). Ao mexer nos .js, troque o
+         "v=" abaixo: o HTML novo passa a pedir um endereço que ninguém tem em
+         cache, e os dois voltam a andar juntos. -->
+    <script src="data-loader.js?v=2026-07-31"></script>
     
     
    
@@ -342,6 +347,9 @@ textarea {
 }
 .periodo-cab{
     display: flex;
+    /* com 5 botões a barra fica longa: em tela estreita ela QUEBRA em vez de
+       empurrar os últimos botões ("importar", "remover") para fora da vista */
+    flex-wrap: wrap;
     align-items: center;
     gap: 12px;
     padding: 6px 12px;
@@ -1603,11 +1611,11 @@ a:active {
     
     
     
-    <script src="modal-window.js" type="text/javascript"></script> <!-- modal script end -->
+    <script src="modal-window.js?v=2026-07-31" type="text/javascript"></script> <!-- modal script end -->
 
-    <script src="off-adapter.js" type="text/javascript"></script>
+    <script src="off-adapter.js?v=2026-07-31" type="text/javascript"></script>
 
-    <script src="main-script.js" type="text/javascript"></script>
+    <script src="main-script.js?v=2026-07-31" type="text/javascript"></script>
     
     
 </html>
