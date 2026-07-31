@@ -10,7 +10,7 @@
          velho (botão na tela, função inexistente). Ao mexer nos .js, troque o
          "v=" abaixo: o HTML novo passa a pedir um endereço que ninguém tem em
          cache, e os dois voltam a andar juntos. -->
-    <script src="data-loader.js?v=2026-07-31b"></script>
+    <script src="data-loader.js?v=2026-08-01"></script>
     
     
    
@@ -496,6 +496,32 @@ textarea {
 }
 .import-btn:hover:not(:disabled){ background-color: var(--cor4); }
 .import-btn:disabled{ opacity: .5; cursor: default; }
+
+/* pool de substitutos de uma alternativa */
+#subsModal .modal-content{ flex-direction: column; width: 85%; max-width: 820px; }
+.sub-linha{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    border: 1px solid var(--cor4);
+    border-radius: 6px;
+    padding: 7px 10px;
+    margin-bottom: 7px;
+}
+.sub-nome{ font-weight: bold; font-size: 14px; color: var(--cor1); flex: 1 1 auto; }
+.sub-macros{ font-size: 12px; color: #666; flex: 0 0 auto; }
+.sub-del{
+    flex: 0 0 auto;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--cor8);
+    background-color: #fff;
+    color: var(--cor8);
+}
+.sub-del:hover{ background-color: var(--cor8); color: #fff; }
 /* cores por período (mesma paleta dos antigos dropdowns) */
 .cab-manha { background-color: var(--cor5); }
 .cab-almoco{ background-color: var(--cor4); }
@@ -1355,6 +1381,28 @@ a:active {
   </div>
 </div>
 
+<!-- Modal: substitutos que o cliente pode usar no modo de visualização -->
+<div id="subsModal" class="modal">
+  <div class="modal-content" style="flex-direction: column;">
+
+    <div class="saveHead">
+      <label class="tituloReceita">Substitutos</label>
+      <span class="close" onclick="fecharSubs()">&times;</span>
+    </div>
+
+    <div class="sessao-bloco" style="border-bottom: none;">
+      <h3 id="subsTitulo"></h3>
+      <p class="fraco">Alimentos que o cliente pode usar <b>no lugar</b> dos desta lista, no link de
+        visualização. No celular ele toca num alimento, troca por um destes e ajusta a quantidade —
+        os macros são recalculados na hora. Vale a pena listar poucos e óbvios (o leite que ele tem
+        em casa, a fruta da estação), porque a graça é ser rápido.</p>
+      <div id="subsLista"></div>
+      <button onclick="adicionarSubstituto()">+ adicionar alimento</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- Modal do gerador de LaTeX -->
 <div id="latexModal" class="modal">
   <div class="modal-content" style="flex-direction: column;">
@@ -1445,6 +1493,7 @@ a:active {
         <span class="periodo-tot" id="tot-manha"></span>
         <span class="alt-acoes">
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Manhã')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="periodo-notas-btn periodo-subs-btn" onclick="abrirSubs('Manhã')" title="Substitutos desta alternativa">&#8646;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Manhã',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Manhã',true)" title="Duplicar esta alternativa">+ cópia</button>
           <button type="button" class="alt-add" onclick="abrirImportar('Manhã')" title="Trazer uma lista de outro plano">importar</button>
@@ -1465,6 +1514,7 @@ a:active {
         <span class="periodo-tot" id="tot-almoco"></span>
         <span class="alt-acoes">
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Almoço')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="periodo-notas-btn periodo-subs-btn" onclick="abrirSubs('Almoço')" title="Substitutos desta alternativa">&#8646;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Almoço',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Almoço',true)" title="Duplicar esta alternativa">+ cópia</button>
           <button type="button" class="alt-add" onclick="abrirImportar('Almoço')" title="Trazer uma lista de outro plano">importar</button>
@@ -1485,6 +1535,7 @@ a:active {
         <span class="periodo-tot" id="tot-tarde"></span>
         <span class="alt-acoes">
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Tarde')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="periodo-notas-btn periodo-subs-btn" onclick="abrirSubs('Tarde')" title="Substitutos desta alternativa">&#8646;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Tarde',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Tarde',true)" title="Duplicar esta alternativa">+ cópia</button>
           <button type="button" class="alt-add" onclick="abrirImportar('Tarde')" title="Trazer uma lista de outro plano">importar</button>
@@ -1505,6 +1556,7 @@ a:active {
         <span class="periodo-tot" id="tot-noite"></span>
         <span class="alt-acoes">
           <button type="button" class="periodo-notas-btn" onclick="abrirNotasPeriodo('Noite')" title="Notas desta alternativa">&#128221;</button>
+          <button type="button" class="periodo-notas-btn periodo-subs-btn" onclick="abrirSubs('Noite')" title="Substitutos desta alternativa">&#8646;</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Noite',false)" title="Nova alternativa vazia">+ vazia</button>
           <button type="button" class="alt-add" onclick="novaAlternativa('Noite',true)" title="Duplicar esta alternativa">+ cópia</button>
           <button type="button" class="alt-add" onclick="abrirImportar('Noite')" title="Trazer uma lista de outro plano">importar</button>
@@ -1618,11 +1670,11 @@ a:active {
     
     
     
-    <script src="modal-window.js?v=2026-07-31b" type="text/javascript"></script> <!-- modal script end -->
+    <script src="modal-window.js?v=2026-08-01" type="text/javascript"></script> <!-- modal script end -->
 
-    <script src="off-adapter.js?v=2026-07-31b" type="text/javascript"></script>
+    <script src="off-adapter.js?v=2026-08-01" type="text/javascript"></script>
 
-    <script src="main-script.js?v=2026-07-31b" type="text/javascript"></script>
+    <script src="main-script.js?v=2026-08-01" type="text/javascript"></script>
     
     
 </html>

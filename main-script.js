@@ -549,6 +549,13 @@ function renderBreakdown(){
         var sec = document.querySelector('.periodo-lista[data-periodo="' + p + '"]');
         var btn = sec ? sec.querySelector('.periodo-notas-btn') : null;
         if (btn){ btn.classList.toggle('tem', temNotas(notasPlano[p])); }
+        var bsub = sec ? sec.querySelector('.periodo-subs-btn') : null;
+        if (bsub){
+            var a = alternativas[p] ? alternativas[p].lista[alternativas[p].ativa] : null;
+            var n = (a && Array.isArray(a.substitutos)) ? a.substitutos.length : 0;
+            bsub.classList.toggle('tem', n > 0);
+            bsub.title = n ? (n + " substituto(s) nesta alternativa") : "Substitutos desta alternativa";
+        }
     });
 }
     
@@ -893,7 +900,37 @@ function adicionarNaLista(periodo){
 // Cada alternativa = { titulo, notas:[...], itens:[...] }.
 var alternativas = { "Manhã":null, "Almoço":null, "Tarde":null, "Noite":null };
 
-function novaAlt(titulo){ return { titulo: titulo || "Opção 1", notas: [], itens: [] }; }
+// "substitutos" = alimentos pre-escolhidos que o cliente pode usar no lugar dos
+// desta lista, no modo de visualização. Guardam macros POR UNIDADE (mesma forma
+// do foods.json), porque no celular a quantidade muda e os macros são
+// recalculados na hora.
+function novaAlt(titulo){ return { titulo: titulo || "Opção 1", notas: [], itens: [], substitutos: [] }; }
+
+var CAMPOS_SUB = ["nome","unidade","cal","protein","carb","fats","detalhes"];
+
+function normalizarSubstitutos(v){
+    if (!Array.isArray(v)){ return []; }
+    return v.filter(function(f){ return f && String(f.nome || "").trim(); })
+            .map(function(f){
+                var s = {};
+                CAMPOS_SUB.forEach(function(k){ s[k] = f[k]; });
+                s.nome = String(s.nome);
+                s.unidade = String(s.unidade || "");
+                s.detalhes = String(s.detalhes || "");
+                ["cal","protein","carb","fats"].forEach(function(k){ s[k] = parseNum(s[k]); });
+                return s;
+            });
+}
+
+function substitutoDeAlimento(item){
+    var s = {};
+    CAMPOS_SUB.forEach(function(k){ s[k] = item[k]; });
+    s.nome = String(s.nome || "");
+    s.unidade = String(s.unidade || "");
+    s.detalhes = String(s.detalhes || "");
+    ["cal","protein","carb","fats"].forEach(function(k){ s[k] = parseNum(s[k]); });
+    return s;
+}
 
 function inicializarAlternativas(){
     PERIODOS.forEach(function(p){ alternativas[p] = { ativa: 0, lista: [ novaAlt("Opção 1") ] }; });
@@ -988,7 +1025,8 @@ function novaAlternativa(p, copiar){
     if (copiar){
         var base = alt.lista[alt.ativa];
         nova = { titulo: base.titulo + " (cópia)", notas: (base.notas || []).slice(),
-                 itens: (base.itens || []).map(clonarDadoLinha) };
+                 itens: (base.itens || []).map(clonarDadoLinha),
+                 substitutos: normalizarSubstitutos(base.substitutos) };
     } else {
         nova = novaAlt("Opção " + (alt.lista.length + 1));
     }
@@ -1513,7 +1551,8 @@ function normalizarAlternativas(obj){
                     return {
                         titulo: (a && a.titulo) ? String(a.titulo) : ("Opção " + (i + 1)),
                         notas: (a && Array.isArray(a.notas)) ? a.notas.map(String) : [],
-                        itens: (a && Array.isArray(a.itens)) ? a.itens : []
+                        itens: (a && Array.isArray(a.itens)) ? a.itens : [],
+                        substitutos: normalizarSubstitutos(a && a.substitutos)
                     };
                 })
             };
@@ -1843,7 +1882,8 @@ function listasDeEstado(estado){
         var alts = normalizarAlternativas(estado.periodos);
         PERIODOS.forEach(function(p){
             alts[p].lista.forEach(function(a){
-                out.push({ periodo: p, titulo: a.titulo, notas: a.notas || [], itens: a.itens || [] });
+                out.push({ periodo: p, titulo: a.titulo, notas: a.notas || [],
+                           itens: a.itens || [], substitutos: a.substitutos || [] });
             });
         });
     } else if (estado && Array.isArray(estado.itens)){
@@ -1855,7 +1895,8 @@ function listasDeEstado(estado){
                 periodo: p,
                 titulo: rotulo,
                 notas: (np[p] || []).slice(),
-                itens: estado.itens.filter(function(it){ return it.refeicao === p; }).map(itemAntigoParaAlt)
+                itens: estado.itens.filter(function(it){ return it.refeicao === p; }).map(itemAntigoParaAlt),
+                substitutos: []
             });
         });
     }
@@ -1953,6 +1994,7 @@ function importarLista(idx, botao){
     alt.lista.push({
         titulo: tituloImportado(l.titulo, importOrigem.nome),
         notas: (l.notas || []).slice(),
+        substitutos: normalizarSubstitutos(l.substitutos),
         // a refeição de um item é a lista onde ele está: reetiqueta ao mudar de período
         itens: (l.itens || []).map(function(it){
             var c = clonarDadoLinha(it);
@@ -2009,6 +2051,105 @@ function verListasDeArquivo(input){
 
 window.addEventListener('click', function(event){
     if (event.target === document.getElementById('importarModal')){ fecharImportar(); }
+});
+
+// ==== Substitutos de uma alternativa ======================================
+// Pool curado de alimentos que o CLIENTE pode usar no lugar dos desta lista,
+// lá no modo de visualização. Guardamos os macros POR UNIDADE (igual ao
+// foods.json): no celular a quantidade muda e o cálculo é refeito na hora.
+
+var subsPeriodo = null;
+
+function altAtual(p){
+    var alt = alternativas[p];
+    return alt ? alt.lista[alt.ativa] : null;
+}
+
+function abrirSubs(p){
+    if (!alternativas[p]){ return; }
+    subsPeriodo = p;
+    commitAtivo(p);
+    renderSubs();
+    document.getElementById("subsModal").style.display = "block";
+}
+
+function fecharSubs(){
+    var m = document.getElementById("subsModal");
+    if (m){ m.style.display = "none"; }
+    subsPeriodo = null;
+    renderBreakdown();   // atualiza o destaque do botão ⇄
+}
+
+function renderSubs(){
+    var p = subsPeriodo;
+    var a = altAtual(p);
+    var tit = document.getElementById("subsTitulo");
+    var out = document.getElementById("subsLista");
+    if (!a || !out){ return; }
+
+    if (tit){ tit.textContent = p + " — " + a.titulo; }
+    if (!Array.isArray(a.substitutos)){ a.substitutos = []; }
+    out.innerHTML = "";
+
+    if (!a.substitutos.length){
+        var vazio = document.createElement("p");
+        vazio.className = "fraco";
+        vazio.textContent = "Nenhum substituto ainda. Sem eles, no celular o cliente só consegue mudar a quantidade.";
+        out.appendChild(vazio);
+        return;
+    }
+
+    a.substitutos.forEach(function(s, i){
+        var lin = document.createElement("div");
+        lin.className = "sub-linha";
+
+        var nome = document.createElement("span");
+        nome.className = "sub-nome";
+        nome.textContent = s.nome;
+        lin.appendChild(nome);
+
+        var macros = document.createElement("span");
+        macros.className = "sub-macros";
+        macros.textContent = "por " + (s.unidade || "unidade") + ": " +
+            arred1(s.cal) + " cal · P " + arred1(s.protein) + " · C " + arred1(s.carb) + " · G " + arred1(s.fats);
+        lin.appendChild(macros);
+
+        var del = document.createElement("button");
+        del.type = "button";
+        del.className = "sub-del";
+        del.textContent = "remover";
+        del.onclick = function(){ removerSubstituto(i); };
+        lin.appendChild(del);
+
+        out.appendChild(lin);
+    });
+}
+
+function adicionarSubstituto(){
+    var p = subsPeriodo;
+    abrirPickerPara(function(item){
+        var a = altAtual(p);
+        if (!a){ return; }
+        if (!Array.isArray(a.substitutos)){ a.substitutos = []; }
+        var novo = substitutoDeAlimento(item);
+        if (!novo.nome){ return; }
+        var repetido = a.substitutos.some(function(s){ return s.nome === novo.nome; });
+        if (!repetido){ a.substitutos.push(novo); }
+        subsPeriodo = p;
+        renderSubs();
+        document.getElementById("subsModal").style.display = "block";
+    });
+}
+
+function removerSubstituto(i){
+    var a = altAtual(subsPeriodo);
+    if (!a || !Array.isArray(a.substitutos)){ return; }
+    a.substitutos.splice(i, 1);
+    renderSubs();
+}
+
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('subsModal')){ fecharSubs(); }
 });
 
 //----------------------------
@@ -2659,6 +2800,7 @@ window.addEventListener('click', function(event){
 //====================================================================
 
 var pickerRow     = null;   // linha que abriu o seletor
+var pickerRetorno = null;   // se definido, o alimento escolhido vai para cá (e não para uma linha)
 var pickerPath    = [];     // pastas escolhidas, uma por coluna
 var pickerPreview = null;   // alimento (folha) em pré-visualização
 
@@ -2719,24 +2861,47 @@ function abrirPicker(rowID){
     busca.focus();
 }
 
+// Abre o seletor SEM linha de destino: o alimento escolhido vai para o callback.
+// É assim que o pool de substitutos reaproveita o mesmo navegador de alimentos.
+function abrirPickerPara(cb){
+    pickerRetorno = cb;
+    pickerRow = null;
+    var busca = document.getElementById("pickerBusca");
+    busca.value = "";
+    document.getElementById("pickerResultados").style.display = "none";
+    document.getElementById("pickerOFF").style.display = "none";
+    document.getElementById("pickerColunas").style.display = "flex";
+    pickerPath = [];
+    pickerPreview = null;
+    renderPickerColunas();
+    document.getElementById("pickerModal").style.display = "block";
+    busca.focus();
+}
+
 function fecharPicker(){
     document.getElementById("pickerModal").style.display = "none";
     pickerRow = null;
+    pickerRetorno = null;
 }
 
 //Filhos de uma "pasta". entry === null significa a raiz.
 function pickerFilhos(entry){
 
     if (!entry){
-        return [
+        var raiz = [
             {tipo:"grupo", rotulo:"★ Atalhos da sessão (" + foodsSessao.length + ")", fonte:"sessao"},
             {tipo:"grupo", rotulo:"Minha base",  fonte:"base"},
             {tipo:"grupo", rotulo:"Tabela TACO", fonte:"taco"},
             {tipo:"acao",  rotulo:"Supermercado Brasil (Open Food Facts)", fonte:"off", regiao:"br"},
-            {tipo:"acao",  rotulo:"Supermercado Reino Unido (Open Food Facts)", fonte:"off", regiao:"uk"},
-            {tipo:"acao",  rotulo:"Item livre / sem quantidade…", fonte:"livre"},
-            {tipo:"acao",  rotulo:"Carregar receita (arquivo)…", fonte:"receita"}
+            {tipo:"acao",  rotulo:"Supermercado Reino Unido (Open Food Facts)", fonte:"off", regiao:"uk"}
         ];
+        // "item livre" e "receita" agem sobre uma LINHA do plano: não fazem
+        // sentido quando o seletor foi aberto para escolher um substituto
+        if (!pickerRetorno){
+            raiz.push({tipo:"acao", rotulo:"Item livre / sem quantidade…", fonte:"livre"});
+            raiz.push({tipo:"acao", rotulo:"Carregar receita (arquivo)…", fonte:"receita"});
+        }
+        return raiz;
     }
 
     if (entry.fonte === "sessao"){
@@ -3204,6 +3369,15 @@ function abrirReceitaArquivo(row){
 }
 
 function escolherAlimentoDoPicker(item){
+
+    // modo "entrega ao callback" (pool de substitutos): não há linha para aplicar
+    if (pickerRetorno){
+        var cb = pickerRetorno;
+        pickerRetorno = null;
+        cb(item);
+        fecharPicker();
+        return;
+    }
 
     if (pickerRow === null){ return; }
 

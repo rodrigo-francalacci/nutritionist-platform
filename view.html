@@ -46,11 +46,36 @@
   .vp{ overflow:hidden; touch-action:pan-y; }        /* viewport do carrossel */
   .track{ display:flex; will-change:transform; }
   .slide{ flex:0 0 100%; min-width:100%; padding:2px 0 4px; }
-  .food{ display:flex; align-items:baseline; gap:10px; padding:9px 14px; border-top:1px solid #f0f2f6; }
+  .food{ display:flex; align-items:baseline; gap:10px; padding:9px 14px; border-top:1px solid #f0f2f6;
+    cursor:pointer; }
   .food:first-child{ border-top:none; }
   .food .n{ font-size:16px; }
   .food .q{ margin-left:auto; font-size:15px; font-weight:700; color:var(--cor2); white-space:nowrap; }
   .food.livre .q{ color:#777; font-weight:600; font-style:italic; }
+  .food .ed{ color:#c3c9d4; font-size:15px; flex:0 0 auto; }
+  /* alimento que o cliente trocou ou mediu diferente */
+  .food.mudou{ background:#fffdf3; }
+  .food.mudou .n::after{ content:"ajustado"; margin-left:8px; font-size:10px; font-weight:700;
+    color:#a07800; background:#ffefc2; padding:1px 6px; border-radius:8px; vertical-align:middle;
+    text-transform:uppercase; letter-spacing:.04em; }
+
+  /* folha de ajuste (trocar alimento / mudar quantidade) */
+  .aj-macros{ color:#666; font-size:13px; margin:2px 0 4px; }
+  .aj-qtd{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .aj-b{ width:44px; height:44px; flex:0 0 auto; border:1px solid var(--cor4); background:var(--cor5);
+    color:var(--cor2); font-size:22px; line-height:1; border-radius:10px; cursor:pointer; }
+  .aj-b:active{ background:var(--cor4); }
+  .aj-i{ width:96px; padding:10px; font-size:17px; text-align:center; border:1px solid var(--cor4);
+    border-radius:10px; }
+  .aj-u{ font-size:15px; color:#555; }
+  .aj-subs{ display:flex; flex-direction:column; gap:6px; }
+  .aj-sub{ display:flex; align-items:baseline; gap:10px; text-align:left; width:100%;
+    padding:11px 12px; border:1px solid var(--cor4); background:#fff; border-radius:10px;
+    font-size:15px; cursor:pointer; }
+  .aj-sub small{ margin-left:auto; color:#777; font-size:12px; white-space:nowrap; }
+  .aj-sub.on{ border-color:var(--cor2); background:var(--cor5); font-weight:700; }
+  .aj-reset{ margin-top:14px; width:100%; padding:11px; border:1px solid var(--cor8);
+    background:#fff; color:var(--cor8); border-radius:10px; font-size:15px; cursor:pointer; }
   .slide-vazio{ padding:18px 14px; color:#999; font-size:14px; }
   .toque{ text-align:center; font-size:12px; color:#9aa2b1; padding:4px 0 8px; }
 
@@ -125,13 +150,14 @@
             titulo: (a && a.titulo) ? String(a.titulo) : ("Opção "+(i+1)),
             notas: (a && Array.isArray(a.notas)) ? a.notas : [],
             itens: (a && Array.isArray(a.itens)) ? a.itens : [],
+            substitutos: (a && Array.isArray(a.substitutos)) ? a.substitutos : [],
             totais: totaisDe(a && a.itens)
           };})
         };
       });
     } else {
       var np = (estado.notasPlano && typeof estado.notasPlano === "object") ? estado.notasPlano : {};
-      PERIODOS.forEach(function(p){ out[p] = {ativa:0, lista:[{titulo:"Opção 1", notas:(Array.isArray(np[p])?np[p]:[]), itens:[], totais:null}]}; });
+      PERIODOS.forEach(function(p){ out[p] = {ativa:0, lista:[{titulo:"Opção 1", notas:(Array.isArray(np[p])?np[p]:[]), itens:[], substitutos:[], totais:null}]}; });
       (estado.itens||[]).forEach(function(it){ var p = out[it.refeicao] ? it.refeicao : "Manhã"; out[p].lista[0].itens.push(it); });
       PERIODOS.forEach(function(p){ out[p].lista[0].totais = totaisDe(out[p].lista[0].itens); });
     }
@@ -143,12 +169,97 @@
     return (String(it.qtd||"").trim() + " " + (it.unidade||"")).trim();
   }
 
-  function slideHTML(alt){
-    if (!alt.itens.length){ return '<div class="slide"><div class="slide-vazio">Nada nesta opção.</div></div>'; }
-    var linhas = alt.itens.map(function(it){
-      return '<div class="food'+(it.semQtd?' livre':'')+'"><span class="n">'+esc(it.nome)+'</span><span class="q">'+esc(qtdTexto(it))+'</span></div>';
+  function linhasHTML(alt){
+    if (!alt.itens.length){ return '<div class="slide-vazio">Nada nesta opção.</div>'; }
+    return alt.itens.map(function(it, k){
+      return '<div class="food'+(it.semQtd?' livre':'')+(it._mudou?' mudou':'')+'" data-k="'+k+'">'
+           + '<span class="n">'+esc(it.nome)+'</span>'
+           + '<span class="q">'+esc(qtdTexto(it))+'</span>'
+           + '<span class="ed">&#8250;</span></div>';
     }).join("");
-    return '<div class="slide">'+linhas+'</div>';
+  }
+
+  function slideHTML(alt){ return '<div class="slide">'+linhasHTML(alt)+'</div>'; }
+
+  // ---- ajustar um alimento (trocar / mudar a quantidade) ----
+
+  // Macros POR UNIDADE. O plano guarda o total (qtd x unidade) e, quase sempre,
+  // o _base com o valor unitário; sem ele, dá para derivar do total/qtd. Fica
+  // guardado em _pu na primeira vez: depois do primeiro ajuste o total já mudou
+  // e dividir de novo daria outro número.
+  function porUnidade(it){
+    if (it._pu){ return it._pu; }
+    var b = it._base;
+    if (b && b.cal != null){
+      it._pu = {cal:num(b.cal), protein:num(b.protein), carb:num(b.carb), fats:num(b.fats)};
+      return it._pu;
+    }
+    var q = num(it.qtd);
+    if (q > 0){
+      it._pu = {cal:num(it.cal)/q, protein:num(it.protein)/q, carb:num(it.carb)/q, fats:num(it.fats)/q};
+      return it._pu;
+    }
+    return null;
+  }
+
+  function guardarOriginal(it){
+    if (it._orig){ return; }
+    it._orig = {nome:it.nome, unidade:it.unidade, qtd:it.qtd, cal:it.cal, protein:it.protein,
+                carb:it.carb, fats:it.fats, semQtd:it.semQtd, pu:porUnidade(it)};
+  }
+
+  function aplicarQtd(it, q){
+    var pu = porUnidade(it);
+    if (!pu){ return false; }
+    q = Math.max(0, Math.round(q*100)/100);
+    it.qtd = String(q);
+    it.cal = rd(pu.cal*q); it.protein = rd(pu.protein*q);
+    it.carb = rd(pu.carb*q); it.fats = rd(pu.fats*q);
+    return true;
+  }
+
+  // passo do +/- conforme a ordem de grandeza: 200 g anda de 25 em 25, 2 ovos de meio em meio
+  function passo(q){
+    if (q >= 100){ return 25; }
+    if (q >= 50){ return 10; }
+    if (q >= 20){ return 5; }
+    if (q >= 5){ return 1; }
+    return 0.5;
+  }
+
+  function trocar(it, sub){
+    if (!sub){ return; }
+    guardarOriginal(it);
+    var mesmaUnidade = String(sub.unidade||"") === String(it.unidade||"");
+    var q = mesmaUnidade ? num(it.qtd) : 1;     // unidade diferente: 200 g -> 200 colheres não faz sentido
+    if (!(q > 0)){ q = 1; }
+    it.nome = sub.nome;
+    it.unidade = sub.unidade || "";
+    it.semQtd = false;
+    it._pu = {cal:num(sub.cal), protein:num(sub.protein), carb:num(sub.carb), fats:num(sub.fats)};
+    aplicarQtd(it, q);
+    it._mudou = true;
+  }
+
+  function restaurar(it){
+    var o = it._orig;
+    if (!o){ return; }
+    it.nome=o.nome; it.unidade=o.unidade; it.qtd=o.qtd; it.cal=o.cal;
+    it.protein=o.protein; it.carb=o.carb; it.fats=o.fats; it.semQtd=o.semQtd;
+    it._pu = o.pu;
+    it._mudou = false;
+    delete it._orig;
+  }
+
+  // Redesenha a opção ativa de um período e refaz os totais (do período e do dia).
+  function atualizarAlt(p){
+    var alts = view[p]; if (!alts || !alts._sec){ return; }
+    var i = alts.ativa, alt = alts.lista[i];
+    alt.totais = totaisDe(alt.itens);
+    var slides = alts._sec.querySelectorAll(".slide");
+    if (slides[i]){ slides[i].innerHTML = linhasHTML(alt); }
+    atualizarCab(p, alts._sec);
+    atualizarTotais();
   }
 
   function render(estado){
@@ -180,8 +291,9 @@
              + '<div class="dots"></div>'
              : '<div class="alt-barra"><span class="alt-nome" style="text-align:center"></span></div>') +
         '<div class="vp"><div class="track">'+alts.lista.map(slideHTML).join("")+'</div></div>' +
-        '<div class="toque">toque para ver as instruções</div>';
+        '<div class="toque">toque num alimento para trocar ou mudar a quantidade &middot; toque aqui para as instruções</div>';
       app.appendChild(sec);
+      alts._sec = sec;
       montarCarrossel(p, sec);
     });
 
@@ -211,10 +323,11 @@
     });
 
     // arrastar (swipe estilo Instagram) — pointer events cobrem toque e mouse
-    var startX=0, startY=0, drag=false, dxTot=0, dyTot=0, base=0, decidiu=false, horiz=false;
+    var startX=0, startY=0, drag=false, dxTot=0, dyTot=0, base=0, decidiu=false, horiz=false, alvoTap=null;
     vp.addEventListener("pointerdown", function(e){
       w = vp.clientWidth; drag=true; decidiu=false; horiz=false;
       startX=e.clientX; startY=e.clientY; dxTot=0; dyTot=0; base=-alts.ativa*w;
+      alvoTap = e.target;      // um toque no alimento ajusta; fora dele, abre as instruções
       setX(base, false);
     });
     vp.addEventListener("pointermove", function(e){
@@ -234,7 +347,11 @@
       if (!drag) return;
       drag=false;
       if (!decidiu || (!horiz && Math.abs(dxTot)<8 && Math.abs(dyTot)<8)){
-        if (Math.abs(dxTot)<8 && Math.abs(dyTot)<8){ abrirInstrucoes(p); }   // toque
+        if (Math.abs(dxTot)<8 && Math.abs(dyTot)<8){                          // toque
+          var f = (alvoTap && alvoTap.closest) ? alvoTap.closest(".food") : null;
+          if (f){ abrirAjuste(p, parseInt(f.getAttribute("data-k"), 10)); }
+          else { abrirInstrucoes(p); }
+        }
         setX(-alts.ativa*w, true);
         return;
       }
@@ -249,6 +366,10 @@
     }
     vp.addEventListener("pointerup", soltar);
     vp.addEventListener("pointercancel", soltar);
+
+    // a dica fica FORA do .vp, então não passa pelos handlers de toque acima
+    var dica = sec.querySelector(".toque");
+    if (dica){ dica.addEventListener("click", function(){ abrirInstrucoes(p); }); }
 
     window.addEventListener("resize", function(){ w = vp.clientWidth; setX(-alts.ativa*w, false); });
     atualizarCab(p, sec);   // preenche o cabeçalho já na carga
@@ -302,7 +423,104 @@
       '<div class="rot">Instruções</div>' + instr;
     document.getElementById("modal").classList.add("on");
   }
-  window.__fechar = function(){ document.getElementById("modal").classList.remove("on"); };
+  // ---- folha de ajuste de um alimento ----
+
+  var ajuste = null;   // { p, k } — qual alimento está aberto
+
+  function abrirAjuste(p, k){
+    var alts = view[p]; if (!alts){ return; }
+    var alt = alts.lista[alts.ativa];
+    if (!alt.itens[k]){ return; }
+    ajuste = { p:p, k:k };
+    renderAjuste();
+    document.getElementById("modal").classList.add("on");
+  }
+
+  function renderAjuste(){
+    if (!ajuste){ return; }
+    var alts = view[ajuste.p];
+    var alt = alts.lista[alts.ativa];
+    var it = alt.itens[ajuste.k];
+    if (!it){ return; }
+
+    var subs = alt.substitutos || [];
+    var pu = porUnidade(it);
+
+    var html = '<button class="fechar" onclick="__fechar()">&times;</button>'
+      + '<div class="puxador"></div>'
+      + '<h2>'+esc(it.nome)+'</h2>'
+      + '<div class="sub">'+esc(ajuste.p)+' — '+esc(alt.titulo)+'</div>'
+      + '<div class="aj-macros">'+rd(num(it.cal))+' cal · '+rd(num(it.protein))+' g prot · '
+      + rd(num(it.carb))+' g carb · '+rd(num(it.fats))+' g gord</div>';
+
+    if (!it.semQtd && pu){
+      html += '<div class="rot">Quantidade</div>'
+        + '<div class="aj-qtd">'
+        + '<button class="aj-b" data-d="-1">&minus;</button>'
+        + '<input class="aj-i" type="number" inputmode="decimal" step="any" value="'+esc(String(num(it.qtd)))+'">'
+        + '<span class="aj-u">'+esc(it.unidade||"")+'</span>'
+        + '<button class="aj-b" data-d="1">+</button>'
+        + '</div>';
+    }
+
+    html += '<div class="rot">Trocar por</div>';
+    if (subs.length){
+      html += '<div class="aj-subs">' + subs.map(function(s, i){
+        return '<button class="aj-sub'+(s.nome === it.nome ? ' on' : '')+'" data-s="'+i+'">'
+             + '<span>'+esc(s.nome)+'</span>'
+             + '<small>'+rd(num(s.cal))+' cal / '+esc(s.unidade||"unidade")+'</small></button>';
+      }).join("") + '</div>';
+    } else {
+      html += '<p style="color:#999">Sem substitutos definidos para esta opção.</p>';
+    }
+
+    if (it._orig){ html += '<button class="aj-reset">voltar ao original</button>'; }
+
+    document.getElementById("folha").innerHTML = html;
+    ligarAjuste(it);
+  }
+
+  function ligarAjuste(it){
+    var folha = document.getElementById("folha");
+
+    folha.querySelectorAll(".aj-b").forEach(function(b){
+      b.onclick = function(){
+        var q = num(it.qtd), d = parseInt(b.getAttribute("data-d"), 10);
+        guardarOriginal(it);
+        aplicarQtd(it, q + d*passo(q));
+        it._mudou = true;
+        depoisDeAjustar();
+      };
+    });
+
+    var inp = folha.querySelector(".aj-i");
+    if (inp){
+      inp.onchange = function(){
+        guardarOriginal(it);
+        aplicarQtd(it, num(inp.value));
+        it._mudou = true;
+        depoisDeAjustar();
+      };
+    }
+
+    folha.querySelectorAll(".aj-sub").forEach(function(b){
+      b.onclick = function(){
+        var alt = view[ajuste.p].lista[view[ajuste.p].ativa];
+        trocar(it, (alt.substitutos || [])[parseInt(b.getAttribute("data-s"), 10)]);
+        depoisDeAjustar();
+      };
+    });
+
+    var rst = folha.querySelector(".aj-reset");
+    if (rst){ rst.onclick = function(){ restaurar(it); depoisDeAjustar(); }; }
+  }
+
+  function depoisDeAjustar(){
+    atualizarAlt(ajuste.p);
+    renderAjuste();
+  }
+
+  window.__fechar = function(){ ajuste = null; document.getElementById("modal").classList.remove("on"); };
   document.getElementById("modal").addEventListener("click", function(e){ if (e.target === this){ window.__fechar(); } });
 
   // ---- carregar o estado do repositório ----
