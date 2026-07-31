@@ -18,6 +18,38 @@
   .topo h1{ margin:0; font-size:20px; }
   .topo .sub{ margin-top:2px; font-size:13px; color:var(--cor4); }
   .topo .geral{ margin-top:8px; font-size:13px; line-height:1.4; color:#dfe6ff; }
+  .topo-linha{ display:flex; align-items:flex-start; gap:10px; }
+  .topo-linha .tit{ flex:1 1 auto; min-width:0; }
+  .btn-dias{ flex:0 0 auto; border:1px solid rgba(255,255,255,.35); background:transparent;
+    color:#fff; border-radius:9px; padding:8px 11px; font-size:13px; cursor:pointer; white-space:nowrap; }
+  .btn-dias:active{ background:rgba(255,255,255,.12); }
+  .sync{ margin-top:8px; font-size:11px; color:#9fb0e8; min-height:14px; }
+  .sync.erro{ color:#ffb4ba; }
+
+  /* pé de cada período: dica + "já comi" */
+  .p-pe{ display:flex; align-items:center; gap:10px; padding:2px 12px 10px; }
+  .p-pe .toque{ flex:1 1 auto; text-align:left; padding:0; }
+  .comi{ flex:0 0 auto; border:1px solid var(--cor4); background:#fff; color:var(--cor2);
+    border-radius:20px; padding:7px 14px; font-size:13px; font-weight:700; cursor:pointer;
+    white-space:nowrap; }
+  .comi.on{ background:var(--cor2); border-color:var(--cor2); color:#fff; }
+  .periodo.comido{ box-shadow:0 1px 4px rgba(0,0,0,.08), 0 0 0 2px var(--cor3); }
+
+  /* folha "meus dias" */
+  .dia-l{ display:flex; align-items:baseline; gap:10px; padding:11px 2px;
+    border-bottom:1px solid #f0f2f6; cursor:pointer; }
+  .dia-l .d{ font-weight:700; font-size:15px; }
+  .dia-l .hoje{ font-size:10px; background:var(--cor4); color:var(--cor2); padding:1px 6px;
+    border-radius:8px; text-transform:uppercase; letter-spacing:.04em; font-weight:800; }
+  .dia-l .c{ margin-left:auto; font-weight:700; color:var(--cor2); white-space:nowrap; }
+  .dia-l .mm{ font-size:12px; color:#777; white-space:nowrap; }
+  .dia-det{ background:#f7f9fc; border-radius:10px; padding:8px 12px; margin:2px 0 8px; font-size:13px; }
+  .dia-det .pp{ font-weight:700; color:var(--cor2); margin-top:8px; }
+  .dia-det .pp:first-child{ margin-top:2px; }
+  .dia-det .ii{ display:flex; gap:8px; padding:2px 0; color:#333; }
+  .dia-det .ii span:last-child{ margin-left:auto; color:#666; white-space:nowrap; }
+  .dia-det .nao{ color:#999; font-style:italic; }
+  .vazio-dias{ color:#999; padding:14px 2px; }
 
   .aviso{ padding:40px 20px; text-align:center; color:#666; }
 
@@ -118,6 +150,8 @@
     <div class="folha" id="folha"></div>
   </div>
 
+<script src="diario-config.js?v=2026-08-01"></script>
+<script src="diario.js?v=2026-08-01"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -270,10 +304,14 @@
     var topo = document.createElement("div");
     topo.className = "topo";
     var geral = (estado.notasPlano && Array.isArray(estado.notasPlano.geral)) ? estado.notasPlano.geral.filter(function(s){return String(s).trim();}) : [];
-    topo.innerHTML = '<h1>'+esc(estado.nome||"Plano alimentar")+'</h1>' +
+    topo.innerHTML = '<div class="topo-linha"><div class="tit">' +
+      '<h1>'+esc(estado.nome||"Plano alimentar")+'</h1>' +
       (estado.notas ? '<div class="sub">'+esc(estado.notas)+'</div>' : "") +
-      (geral.length ? '<div class="geral">'+geral.map(esc).join("<br>")+'</div>' : "");
+      '</div><button class="btn-dias">&#128197; meus dias</button></div>' +
+      (geral.length ? '<div class="geral">'+geral.map(esc).join("<br>")+'</div>' : "") +
+      '<div class="sync" id="sync"></div>';
     app.appendChild(topo);
+    topo.querySelector(".btn-dias").addEventListener("click", abrirDias);
 
     PERIODOS.forEach(function(p){
       var alts = view[p];
@@ -291,7 +329,8 @@
              + '<div class="dots"></div>'
              : '<div class="alt-barra"><span class="alt-nome" style="text-align:center"></span></div>') +
         '<div class="vp"><div class="track">'+alts.lista.map(slideHTML).join("")+'</div></div>' +
-        '<div class="toque">toque num alimento para trocar ou mudar a quantidade &middot; toque aqui para as instruções</div>';
+        '<div class="p-pe"><span class="toque">toque num alimento para ajustar &middot; aqui para as instruções</span>' +
+        '<button class="comi">já comi</button></div>';
       app.appendChild(sec);
       alts._sec = sec;
       montarCarrossel(p, sec);
@@ -310,10 +349,12 @@
 
     function setX(px, anim){ track.style.transition = anim ? "transform .28s ease-out" : "none"; track.style.transform = "translateX("+px+"px)"; }
     function irPara(i, anim){
+      var antes = alts.ativa;
       alts.ativa = Math.max(0, Math.min(n-1, i));
       setX(-alts.ativa*w, anim);
       atualizarCab(p, sec);
       atualizarTotais();
+      if (alts.ativa !== antes){ salvarDia(); }   // a opção escolhida faz parte do dia
     }
     sec._irPara = irPara;
 
@@ -367,9 +408,19 @@
     vp.addEventListener("pointerup", soltar);
     vp.addEventListener("pointercancel", soltar);
 
-    // a dica fica FORA do .vp, então não passa pelos handlers de toque acima
+    // o pé fica FORA do .vp, então não passa pelos handlers de toque acima
     var dica = sec.querySelector(".toque");
     if (dica){ dica.addEventListener("click", function(){ abrirInstrucoes(p); }); }
+
+    var bcomi = sec.querySelector(".comi");
+    if (bcomi){
+      bcomi.addEventListener("click", function(){
+        alts.comi = !alts.comi;
+        atualizarComi(p);
+        salvarDia();
+      });
+    }
+    atualizarComi(p);
 
     window.addEventListener("resize", function(){ w = vp.clientWidth; setX(-alts.ativa*w, false); });
     atualizarCab(p, sec);   // preenche o cabeçalho já na carga
@@ -518,6 +569,175 @@
   function depoisDeAjustar(){
     atualizarAlt(ajuste.p);
     renderAjuste();
+    salvarDia();
+  }
+
+  // ---- diário: o que foi comido em cada dia -------------------------------
+
+  var diario = null;        // { v, plano, dias:{ "AAAA-MM-DD": registro } }
+  var hoje = dataLocal(new Date());
+  var salvarTimer = null;
+
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function dataLocal(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function dataBonita(iso){
+    var p = String(iso).split("-");
+    return p.length === 3 ? (p[2]+"/"+p[1]) : iso;
+  }
+
+  function sync(txt, erro){
+    var el = document.getElementById("sync");
+    if (!el){ return; }
+    el.textContent = txt || "";
+    el.classList.toggle("erro", !!erro);
+  }
+
+  function atualizarComi(p){
+    var alts = view[p]; if (!alts || !alts._sec){ return; }
+    var b = alts._sec.querySelector(".comi");
+    if (b){
+      b.classList.toggle("on", !!alts.comi);
+      b.textContent = alts.comi ? "✓ comi" : "já comi";
+    }
+    alts._sec.classList.toggle("comido", !!alts.comi);
+  }
+
+  // Guardamos o RESULTADO do dia, não a diferença em relação ao plano: o plano
+  // pode ser reescrito depois, e o diário tem de continuar dizendo o que a
+  // pessoa comeu naquele dia.
+  function registroDeHoje(){
+    var reg = { em: new Date().toISOString(), periodos: {},
+                totais: {cal:0, protein:0, carb:0, fats:0} };
+
+    PERIODOS.forEach(function(p){
+      var alts = view[p]; if (!alts){ return; }
+      var alt = alts.lista[alts.ativa];
+      var t = totaisDe(alt.itens);
+
+      reg.periodos[p] = {
+        alt: alts.ativa,
+        titulo: alt.titulo,
+        comi: !!alts.comi,
+        totais: t,
+        itens: alt.itens.map(function(it){
+          var o = { nome: it.nome, qtd: it.qtd, unidade: it.unidade, semQtd: !!it.semQtd,
+                    cal: num(it.cal), protein: num(it.protein), carb: num(it.carb), fats: num(it.fats) };
+          if (it._mudou){
+            o.mudou = true;
+            o.pu = porUnidade(it);   // sem isto, remontar um alimento trocado usaria o _base errado
+          }
+          return o;
+        })
+      };
+
+      if (alts.comi){
+        reg.totais.cal += t.cal; reg.totais.protein += t.protein;
+        reg.totais.carb += t.carb; reg.totais.fats += t.fats;
+      }
+    });
+
+    ["cal","protein","carb","fats"].forEach(function(k){ reg.totais[k] = rd(reg.totais[k]); });
+    return reg;
+  }
+
+  function salvarDia(){
+    if (!diario){ return; }
+    diario.dias[hoje] = registroDeHoje();
+
+    clearTimeout(salvarTimer);
+    sync("salvando…");
+    salvarTimer = setTimeout(function(){
+      Diario.salvar(arquivo, diario).then(
+        function(){ sync(Diario.remoto ? "salvo" : "salvo só neste aparelho"); },
+        function(e){ sync("não consegui salvar (" + e.message + ")", true); }
+      );
+    }, 700);
+  }
+
+  // Devolve à tela o que já estava registrado hoje.
+  function aplicarRegistro(reg){
+    if (!reg || !reg.periodos){ return; }
+    PERIODOS.forEach(function(p){
+      var r = reg.periodos[p], alts = view[p];
+      if (!r || !alts){ return; }
+
+      alts.ativa = Math.min(Math.max(0, r.alt|0), alts.lista.length - 1);
+      alts.comi = !!r.comi;
+
+      var alt = alts.lista[alts.ativa];
+      // o plano pode ter mudado desde o registro; só devolve se a lista bate
+      if (Array.isArray(r.itens) && r.itens.length === alt.itens.length){
+        r.itens.forEach(function(s, k){
+          if (!s || !s.mudou){ return; }
+          var it = alt.itens[k];
+          if (!it){ return; }
+          guardarOriginal(it);
+          it.nome = s.nome; it.unidade = s.unidade; it.qtd = s.qtd; it.semQtd = !!s.semQtd;
+          it.cal = num(s.cal); it.protein = num(s.protein);
+          it.carb = num(s.carb); it.fats = num(s.fats);
+          it._pu = s.pu || null;
+          it._mudou = true;
+        });
+      }
+      alt.totais = totaisDe(alt.itens);
+    });
+  }
+
+  function abrirDias(){
+    var dias = diario ? Object.keys(diario.dias || {}).sort().reverse() : [];
+
+    var corpo;
+    if (!dias.length){
+      corpo = '<div class="vazio-dias">Ainda não há nada registrado. Ajuste o que comeu e marque '
+            + '<b>já comi</b> em cada refeição — os dias aparecem aqui.</div>';
+    } else {
+      corpo = dias.map(function(d){
+        var reg = diario.dias[d], t = reg.totais || {cal:0,protein:0,carb:0,fats:0};
+        return '<div class="dia-l" data-d="'+esc(d)+'">'
+             + '<span class="d">'+esc(dataBonita(d))+'</span>'
+             + (d === hoje ? '<span class="hoje">hoje</span>' : '')
+             + '<span class="mm">P '+rd(t.protein)+' · C '+rd(t.carb)+' · G '+rd(t.fats)+'</span>'
+             + '<span class="c">'+rd(t.cal)+' cal</span></div>'
+             + '<div class="dia-det" data-det="'+esc(d)+'" style="display:none"></div>';
+      }).join("");
+    }
+
+    document.getElementById("folha").innerHTML =
+      '<button class="fechar" onclick="__fechar()">&times;</button>' +
+      '<div class="puxador"></div>' +
+      '<h2>Meus dias</h2>' +
+      '<div class="sub">' + (Diario.remoto
+          ? 'Salvo na sua conta — abre igual em qualquer aparelho.'
+          : 'Salvo só neste aparelho por enquanto.') + '</div>' +
+      corpo;
+
+    document.getElementById("folha").querySelectorAll(".dia-l").forEach(function(l){
+      l.onclick = function(){ alternarDetalheDia(l.getAttribute("data-d")); };
+    });
+    document.getElementById("modal").classList.add("on");
+  }
+
+  function alternarDetalheDia(d){
+    var box = document.querySelector('.dia-det[data-det="'+d+'"]');
+    if (!box){ return; }
+    if (box.style.display !== "none"){ box.style.display = "none"; return; }
+
+    var reg = diario.dias[d];
+    var html = PERIODOS.map(function(p){
+      var r = reg.periodos && reg.periodos[p];
+      if (!r || !r.itens || !r.itens.length){ return ""; }
+      var itens = r.itens.map(function(it){
+        var q = it.semQtd ? (String(it.qtd||"").trim() || "à vontade")
+                          : ((String(it.qtd||"").trim()+" "+(it.unidade||"")).trim());
+        return '<div class="ii"><span>'+esc(it.nome)+(it.mudou?' *':'')+'</span><span>'+esc(q)+'</span></div>';
+      }).join("");
+      return '<div class="pp">'+esc(p)+' — '+esc(r.titulo||"")
+           + (r.comi ? ' · '+rd((r.totais||{}).cal||0)+' cal' : ' · <span class="nao">não comeu</span>')
+           + '</div>' + itens;
+    }).join("");
+
+    box.innerHTML = html || '<div class="nao">Nada registrado.</div>';
+    box.style.display = "block";
   }
 
   window.__fechar = function(){ ajuste = null; document.getElementById("modal").classList.remove("on"); };
@@ -539,6 +759,30 @@
       if (!estado || (!Array.isArray(estado.itens) && !estado.periodos)){ throw new Error("formato"); }
       view = normalizar(estado);
       render(estado);
+
+      // o diário chega depois: a tela já está de pé e só é corrigida se houver
+      // algo registrado hoje
+      sync("carregando o diário…");
+      return Diario.carregar(arquivo).then(function(doc){
+        diario = (doc && doc.dias) ? doc : { v:1, plano:arquivo, dias:{} };
+        var reg = diario.dias[hoje];
+        if (reg){
+          aplicarRegistro(reg);
+          PERIODOS.forEach(function(p){
+            if (!view[p] || !view[p]._sec){ return; }
+            atualizarAlt(p);
+            atualizarComi(p);
+            view[p]._sec.querySelector(".track").style.transform =
+              "translateX(" + (-view[p].ativa * view[p]._sec.querySelector(".vp").clientWidth) + "px)";
+          });
+          sync("dia de hoje restaurado");
+        } else {
+          sync(Diario.remoto ? "" : "diário só neste aparelho");
+        }
+      }, function(e){
+        diario = { v:1, plano:arquivo, dias:{} };
+        sync("diário indisponível (" + e.message + ")", true);
+      });
     })
     .catch(function(){
       document.getElementById("app").innerHTML = '<div class="aviso">Não foi possível abrir este plano.<br>Confira o link ou tente de novo.</div>';
