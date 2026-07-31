@@ -1638,6 +1638,259 @@ window.addEventListener('click', function(event){
     if (event.target === document.getElementById('sessoesModal')){ fecharSessoes(); }
 });
 
+// ==== Importar uma lista de OUTRO plano ===================================
+// O botão "importar" de cada período abre este modal: escolhe-se um plano
+// (publicado ou de arquivo), veem-se as listas dele agrupadas por período, e
+// um clique traz a escolhida como uma NOVA alternativa do período de destino.
+// O modal continua aberto depois de importar — dá para trazer várias de uma
+// vez (os 4 dias de um plano para o mesmo período, por exemplo).
+
+var importAlvo = null;     // período que recebe as listas
+var importOrigem = null;   // { nome, listas: [...] } do plano escolhido
+
+function abrirImportar(p){
+    if (!alternativas[p]){ return; }
+    importAlvo = p;
+    importOrigem = null;
+
+    var dest = document.getElementById("importDestino");
+    if (dest){ dest.textContent = p; }
+    mensagemImport("Escolha um plano acima para ver as listas dele.");
+    montarSelectImport();
+
+    document.getElementById("importarModal").style.display = "block";
+}
+
+function fecharImportar(){
+    var m = document.getElementById("importarModal");
+    if (m){ m.style.display = "none"; }
+    importAlvo = null;
+    importOrigem = null;
+}
+
+function mensagemImport(txt){
+    var out = document.getElementById("importListas");
+    if (!out){ return; }
+    out.innerHTML = "";
+    var p = document.createElement("p");
+    p.className = "fraco";
+    p.textContent = txt;
+    out.appendChild(p);
+}
+
+// Só estados entram aqui (receita não é uma lista). Reaproveita o índice já
+// buscado pelo modal de Sessões; busca de novo se ainda não veio.
+function montarSelectImport(){
+    var sel = document.getElementById("importRepo");
+    if (!sel){ return; }
+
+    function preencher(){
+        sel.innerHTML = "";
+        var vazio = document.createElement("option");
+        vazio.value = ""; vazio.disabled = true; vazio.selected = true;
+        vazio.text = indiceSessoes.estados.length ? "— escolha um plano —" : "— nenhum plano publicado —";
+        sel.appendChild(vazio);
+
+        indiceSessoes.estados.slice()
+            .sort(function(a,b){ return String(a.nome).localeCompare(String(b.nome), "pt-BR"); })
+            .forEach(function(item){
+                var o = document.createElement("option");
+                o.value = item.arquivo;
+                o.text = item.nome + (item.salvoEm ? "  (" + String(item.salvoEm).slice(0,10) + ")" : "");
+                sel.appendChild(o);
+            });
+    }
+
+    if (indiceSessoes.estados.length){ preencher(); return; }
+
+    sel.innerHTML = "";
+    var carregando = document.createElement("option");
+    carregando.disabled = true; carregando.selected = true; carregando.text = "— carregando… —";
+    sel.appendChild(carregando);
+
+    pegarJSON("estados/index.json?t=" + Date.now())
+        .then(function(idx){ indiceSessoes.estados = Array.isArray(idx) ? idx : []; })
+        .catch(function(){ indiceSessoes.estados = []; })
+        .then(preencher);
+}
+
+// Todas as listas de um estado, na ordem dos períodos. Estados ANTIGOS (v1, só
+// itens[]) viram uma lista por período, como em carregarEstado().
+function listasDeEstado(estado){
+    var out = [];
+
+    if (estado && estado.periodos && typeof estado.periodos === "object"){
+        var alts = normalizarAlternativas(estado.periodos);
+        PERIODOS.forEach(function(p){
+            alts[p].lista.forEach(function(a){
+                out.push({ periodo: p, titulo: a.titulo, notas: a.notas || [], itens: a.itens || [] });
+            });
+        });
+    } else if (estado && Array.isArray(estado.itens)){
+        var np = normalizarNotas(estado.notasPlano);
+        // no formato antigo o rótulo do dia ficava no campo "notas" do plano
+        var rotulo = String(estado.notas || "").trim() || "Opção 1";
+        PERIODOS.forEach(function(p){
+            out.push({
+                periodo: p,
+                titulo: rotulo,
+                notas: (np[p] || []).slice(),
+                itens: estado.itens.filter(function(it){ return it.refeicao === p; }).map(itemAntigoParaAlt)
+            });
+        });
+    }
+
+    return out;
+}
+
+function somaDaLista(itens){
+    var s = { protein: 0, carb: 0, fats: 0, cal: 0 };
+    (itens || []).forEach(function(it){
+        s.protein += parseNum(it.protein); s.carb += parseNum(it.carb);
+        s.fats    += parseNum(it.fats);    s.cal  += parseNum(it.cal);
+    });
+    return s;
+}
+
+function mostrarListasImportaveis(estado, origem){
+    var out = document.getElementById("importListas");
+    if (!out){ return; }
+
+    if (!estado || !Array.isArray(estado.itens)){
+        mensagemImport("Este arquivo não parece um plano (estado).");
+        return;
+    }
+
+    // lista vazia não vale a pena importar — para isso já existe o "+ vazia"
+    var listas = listasDeEstado(estado).filter(function(l){
+        return l.itens.length || l.notas.length;
+    });
+    importOrigem = { nome: origem, listas: listas };
+
+    if (!listas.length){
+        mensagemImport("Este plano não tem nenhuma lista com conteúdo.");
+        return;
+    }
+
+    out.innerHTML = "";
+    PERIODOS.forEach(function(p){
+        var doPeriodo = [];
+        listas.forEach(function(l, i){ if (l.periodo === p){ doPeriodo.push(i); } });
+        if (!doPeriodo.length){ return; }
+
+        var h = document.createElement("h4");
+        h.className = "import-periodo";
+        h.textContent = p + (p === importAlvo ? "  (o período de destino)" : "");
+        out.appendChild(h);
+
+        doPeriodo.forEach(function(i){ out.appendChild(cartaoImport(listas[i], i)); });
+    });
+}
+
+function cartaoImport(l, idx){
+    var card = document.createElement("div");
+    card.className = "import-lista";
+
+    var tit = document.createElement("div");
+    tit.className = "import-lista-tit";
+    tit.textContent = l.titulo;
+    card.appendChild(tit);
+
+    var s = somaDaLista(l.itens);
+    var meta = document.createElement("div");
+    meta.className = "import-lista-meta";
+    meta.textContent = l.itens.length + " item(ns)" +
+        (l.notas.length ? " · " + l.notas.length + " nota(s)" : "") +
+        " · " + arred1(s.cal) + " cal · P " + arred1(s.protein) + " · C " + arred1(s.carb) + " · G " + arred1(s.fats);
+    card.appendChild(meta);
+
+    var bt = document.createElement("button");
+    bt.type = "button";
+    bt.className = "import-btn";
+    bt.textContent = "importar";
+    bt.title = "Trazer esta lista como nova alternativa de " + importAlvo;
+    bt.onclick = function(){ importarLista(idx, bt); };
+    card.appendChild(bt);
+
+    if (l.itens.length){
+        var pre = document.createElement("div");
+        pre.className = "import-lista-itens";
+        pre.textContent = l.itens.map(function(it){ return it.nome; }).join(" · ");
+        card.appendChild(pre);
+    }
+
+    return card;
+}
+
+function importarLista(idx, botao){
+    var p = importAlvo;
+    var l = importOrigem && importOrigem.listas[idx];
+    var alt = p && alternativas[p];
+    if (!l || !alt){ return; }
+
+    commitAtivo(p);   // guarda o que está na tela antes de trocar de alternativa
+
+    alt.lista.push({
+        titulo: tituloImportado(l.titulo, importOrigem.nome),
+        notas: (l.notas || []).slice(),
+        // a refeição de um item é a lista onde ele está: reetiqueta ao mudar de período
+        itens: (l.itens || []).map(function(it){
+            var c = clonarDadoLinha(it);
+            c.refeicao = p;
+            return c;
+        })
+    });
+    alt.ativa = alt.lista.length - 1;
+    renderAtivo(p);
+
+    if (botao){
+        botao.textContent = "✓ importado";
+        botao.disabled = true;
+    }
+}
+
+// De qual plano veio — senão duas listas "Opção 1" ficam indistinguíveis.
+function tituloImportado(titulo, origem){
+    var t = String(titulo || "").trim() || "Opção";
+    var o = String(origem || "").trim();
+    return o ? (t + " (" + o + ")") : t;
+}
+
+function nomeDoPlano(estado, arquivo){
+    var n = estado && String(estado.nome || "").trim();
+    return n || String(arquivo || "").replace(/\.json$/i, "");
+}
+
+function verListasDoRepo(){
+    var sel = document.getElementById("importRepo");
+    var arquivo = sel && sel.value;
+    if (!arquivo){ mensagemImport("Escolha um plano na lista acima."); return; }
+
+    mensagemImport("Carregando…");
+    pegarJSON("estados/" + encodeURIComponent(arquivo) + "?t=" + Date.now())
+        .then(function(obj){ mostrarListasImportaveis(obj, nomeDoPlano(obj, arquivo)); })
+        .catch(function(err){ mensagemImport("Não consegui carregar: " + err.message); });
+}
+
+function verListasDeArquivo(input){
+    var file = input.files[0];
+    if (!file){ return; }
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+        var obj;
+        try { obj = JSON.parse(e.target.result); }
+        catch(err){ mensagemImport("Arquivo JSON inválido: " + err.message); return; }
+        mostrarListasImportaveis(obj, nomeDoPlano(obj, file.name));
+    };
+    reader.readAsText(file);
+    input.value = "";   // permite reabrir o mesmo arquivo depois
+}
+
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('importarModal')){ fecharImportar(); }
+});
+
 //----------------------------
 
 function openJSONfile(rowID) {
