@@ -1039,15 +1039,18 @@ function abrirMenuAlt(p, anchor){
     inp.onkeydown = function(e){ if (e.key === "Enter"){ fecharMenuAlt(); } };
     menu.appendChild(inp);
 
-    alt.lista.forEach(function(a, i){
-        var it = document.createElement("div");
-        it.className = "alt-menu-item" + (i === alt.ativa ? " ativo" : "");
-        it.textContent = (i + 1) + ". " + a.titulo;
-        it.onclick = function(){ fecharMenuAlt(); irParaAlt(p, i); };
-        menu.appendChild(it);
-    });
+    var lista = document.createElement("div");
+    lista.className = "alt-menu-lista";
+    preencherMenuAlt(p, lista);
+    configurarArrastarAlt(p, lista);
+    menu.appendChild(lista);
 
     if (alt.lista.length > 1){
+        var dica = document.createElement("div");
+        dica.className = "alt-menu-dica";
+        dica.textContent = "Arraste pelo ☰ para mudar a ordem.";
+        menu.appendChild(dica);
+
         var rem = document.createElement("div");
         rem.className = "alt-menu-item alt-menu-remover";
         rem.textContent = "✕ remover esta alternativa";
@@ -1061,6 +1064,123 @@ function abrirMenuAlt(p, anchor){
     menu.style.top = Math.round(b.bottom + 4) + "px";
     inp.focus(); inp.select();
     setTimeout(function(){ document.addEventListener("mousedown", fecharMenuAltFora); }, 0);
+}
+
+// Um item por alternativa, na ordem atual. O objeto da alternativa fica preso
+// ao elemento (_alt): é ele que diz a nova ordem depois de arrastar — índice
+// guardado aqui viraria mentira assim que o DOM muda de ordem.
+function preencherMenuAlt(p, lista){
+    var alt = alternativas[p]; if (!alt){ return; }
+    lista.innerHTML = "";
+
+    alt.lista.forEach(function(a, i){
+        var it = document.createElement("div");
+        it.className = "alt-menu-item" + (i === alt.ativa ? " ativo" : "");
+        it._alt = a;
+
+        var grip = document.createElement("span");
+        grip.className = "drag-grip alt-grip";
+        grip.innerHTML = "&#9776;";
+        grip.title = "Arraste para reordenar";
+        it.appendChild(grip);
+
+        var txt = document.createElement("span");
+        txt.className = "alt-menu-txt";
+        txt.textContent = (i + 1) + ". " + a.titulo;
+        it.appendChild(txt);
+
+        it.onclick = function(){
+            if (lista._arrastou){ return; }   // acabou de arrastar: não troca de alternativa
+            fecharMenuAlt();
+            irParaAlt(p, alt.lista.indexOf(a));
+        };
+
+        lista.appendChild(it);
+    });
+}
+
+// ---- arrastar e soltar as alternativas (mesma ideia das linhas do plano) ---
+
+var arrastandoAlt = null;
+
+function alvoMenuAlt(lista, y){
+    var els = Array.prototype.slice.call(lista.querySelectorAll('.alt-menu-item:not(.arrastando)'));
+    var melhor = { offset: -Infinity, el: null };
+    els.forEach(function(child){
+        var box = child.getBoundingClientRect();
+        var offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > melhor.offset){ melhor = { offset: offset, el: child }; }
+    });
+    return melhor.el;
+}
+
+function configurarArrastarAlt(p, lista){
+    // o item só fica "draggable" enquanto o mouse está pressionado na alça —
+    // assim clicar no texto continua trocando de alternativa
+    lista.addEventListener("mousedown", function(e){
+        var grip = e.target.closest ? e.target.closest(".alt-grip") : null;
+        if (!grip){ return; }
+        var it = grip.closest(".alt-menu-item");
+        if (it){ it.setAttribute("draggable", "true"); }
+    });
+
+    lista.addEventListener("dragstart", function(e){
+        var it = e.target.closest ? e.target.closest(".alt-menu-item") : null;
+        if (!it || it.getAttribute("draggable") !== "true"){ e.preventDefault(); return; }
+        arrastandoAlt = it;
+        lista._arrastou = false;
+        it.classList.add("arrastando");
+        if (e.dataTransfer){
+            e.dataTransfer.effectAllowed = "move";
+            try { e.dataTransfer.setData("text/plain", ""); } catch(_){}
+        }
+    });
+
+    lista.addEventListener("dragover", function(e){
+        if (!arrastandoAlt){ return; }
+        e.preventDefault();
+        lista._arrastou = true;
+        var ref = alvoMenuAlt(lista, e.clientY);
+        if (ref == null){ lista.appendChild(arrastandoAlt); }
+        else if (ref !== arrastandoAlt){ lista.insertBefore(arrastandoAlt, ref); }
+    });
+
+    lista.addEventListener("drop", function(e){
+        if (!arrastandoAlt){ return; }
+        e.preventDefault();
+        finalizarArrastoAlt(p, lista);
+    });
+    lista.addEventListener("dragend", function(){ finalizarArrastoAlt(p, lista); });
+}
+
+function finalizarArrastoAlt(p, lista){
+    if (!arrastandoAlt){ return; }
+    arrastandoAlt.classList.remove("arrastando");
+    arrastandoAlt.removeAttribute("draggable");
+    arrastandoAlt = null;
+    reordenarAlternativas(p, lista);
+    // o clique sintético que vem logo depois do drop não deve trocar de alternativa
+    setTimeout(function(){ lista._arrastou = false; }, 0);
+}
+
+// A ordem do DOM vira a ordem de alt.lista. A ATIVA é seguida pelo objeto, não
+// pelo índice: quem estava na tela continua na tela, com o contador certo.
+function reordenarAlternativas(p, lista){
+    var alt = alternativas[p]; if (!alt){ return; }
+
+    var ativa = alt.lista[alt.ativa];
+    var nova = [];
+    var kids = lista.querySelectorAll(".alt-menu-item");
+    for (var i = 0; i < kids.length; i++){
+        if (kids[i]._alt){ nova.push(kids[i]._alt); }
+    }
+    if (nova.length !== alt.lista.length){ return; }   // algo fora do lugar: não mexe
+
+    alt.lista = nova;
+    alt.ativa = Math.max(0, nova.indexOf(ativa));
+
+    atualizarCabAlternativas(p);
+    preencherMenuAlt(p, lista);   // renumera 1., 2., 3. e refaz os cliques
 }
 
 function popNewLine(row){

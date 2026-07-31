@@ -10,7 +10,7 @@
          velho (botão na tela, função inexistente). Ao mexer nos .js, troque o
          "v=" abaixo: o HTML novo passa a pedir um endereço que ninguém tem em
          cache, e os dois voltam a andar juntos. -->
-    <script src="data-loader.js?v=2026-07-31"></script>
+    <script src="data-loader.js?v=2026-07-31b"></script>
     
     
    
@@ -439,9 +439,16 @@ textarea {
     cursor: pointer;
     border-radius: 4px;
     color: var(--cor1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 .alt-menu-item:hover{ background-color: var(--cor5); }
 .alt-menu-item.ativo{ font-weight: bold; background-color: var(--cor4); }
+.alt-menu-item.arrastando{ opacity: .45; }
+.alt-menu-txt{ flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alt-grip{ font-size: 13px; padding: 0 2px; color: var(--cor3); flex: 0 0 auto; }
+.alt-menu-dica{ font-size: 11px; color: #777; padding: 4px 8px 0; }
 .alt-menu-remover{ color: var(--cor8); border-top: 1px solid var(--cor6); margin-top: 4px; }
 .alt-menu-remover:hover{ background-color: #fdecee; }
 
@@ -1611,11 +1618,11 @@ a:active {
     
     
     
-    <script src="modal-window.js?v=2026-07-31" type="text/javascript"></script> <!-- modal script end -->
+    <script src="modal-window.js?v=2026-07-31b" type="text/javascript"></script> <!-- modal script end -->
 
-    <script src="off-adapter.js?v=2026-07-31" type="text/javascript"></script>
+    <script src="off-adapter.js?v=2026-07-31b" type="text/javascript"></script>
 
-    <script src="main-script.js?v=2026-07-31" type="text/javascript"></script>
+    <script src="main-script.js?v=2026-07-31b" type="text/javascript"></script>
     
     
 </html>
