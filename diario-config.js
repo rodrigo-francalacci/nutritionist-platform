@@ -28,5 +28,5 @@
 // diario.js, o resto do app não muda.
 
 window.DIARIO_CONFIG = {
-  firebaseURL: ""
+  firebaseURL: "https://nutri-platform-58580-default-rtdb.europe-west1.firebasedatabase.app"
 };
