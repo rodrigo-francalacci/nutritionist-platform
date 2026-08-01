@@ -33,14 +33,16 @@
   .sync{ margin-top:8px; font-size:11px; color:#9fb0e8; min-height:14px; }
   .sync.erro{ color:#ffb4ba; }
 
-  /* pé de cada período: dica + "já comi" */
+  /* pé de cada período: dica + "não comi" */
   .p-pe{ display:flex; align-items:center; gap:10px; padding:2px 12px 10px; }
   .p-pe .toque{ flex:1 1 auto; text-align:left; padding:0; }
-  .comi{ flex:0 0 auto; border:1px solid var(--cor4); background:#fff; color:var(--cor2);
-    border-radius:20px; padding:7px 14px; font-size:13px; font-weight:700; cursor:pointer;
-    white-space:nowrap; }
-  .comi.on{ background:var(--cor2); border-color:var(--cor2); color:#fff; }
-  .periodo.comido{ box-shadow:0 1px 4px rgba(0,0,0,.08), 0 0 0 2px var(--cor3); }
+  .nao-comi{ flex:0 0 auto; display:flex; align-items:center; gap:7px; cursor:pointer;
+    font-size:13px; color:#7a828f; padding:6px 2px; white-space:nowrap; }
+  .nao-comi input{ width:20px; height:20px; margin:0; accent-color:var(--cor8); }
+  .nao-comi.on{ color:var(--cor8); font-weight:700; }
+  /* refeição que a pessoa não comeu: sai da conta e fica apagada */
+  .periodo.pulado .slide, .periodo.pulado .p-tot{ opacity:.4; }
+  .periodo.pulado .p-tot{ text-decoration:line-through; }
 
   /* folha "meus dias" */
   .dia-l{ display:flex; align-items:baseline; gap:10px; padding:11px 2px;
@@ -191,10 +193,10 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-01d"></script>
-<script src="diario.js?v=2026-08-01d"></script>
-<script src="ia-config.js?v=2026-08-01d"></script>
-<script src="ia.js?v=2026-08-01d"></script>
+<script src="diario-config.js?v=2026-08-01e"></script>
+<script src="diario.js?v=2026-08-01e"></script>
+<script src="ia-config.js?v=2026-08-01e"></script>
+<script src="ia.js?v=2026-08-01e"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -375,7 +377,7 @@
              : '<div class="alt-barra"><span class="alt-nome" style="text-align:center"></span></div>') +
         '<div class="vp"><div class="track">'+alts.lista.map(slideHTML).join("")+'</div></div>' +
         '<div class="p-pe"><span class="toque">toque num alimento para ajustar &middot; aqui para as instruções</span>' +
-        '<button class="comi">já comi</button></div>';
+        '<label class="nao-comi"><input type="checkbox"><span>não comi</span></label></div>';
       app.appendChild(sec);
       alts._sec = sec;
       montarCarrossel(p, sec);
@@ -733,15 +735,16 @@
     var dica = sec.querySelector(".toque");
     if (dica){ dica.addEventListener("click", function(){ abrirInstrucoes(p); }); }
 
-    var bcomi = sec.querySelector(".comi");
-    if (bcomi){
-      bcomi.addEventListener("click", function(){
-        alts.comi = !alts.comi;
-        atualizarComi(p);
+    var cx = sec.querySelector(".nao-comi input");
+    if (cx){
+      cx.addEventListener("change", function(){
+        alts.naoComi = cx.checked;
+        atualizarNaoComi(p);
+        atualizarTotais();      // pulou a refeição: sai da conta do dia
         salvarDia();
       });
     }
-    atualizarComi(p);
+    atualizarNaoComi(p);
 
     window.addEventListener("resize", function(){ w = vp.clientWidth; setX(-alts.ativa*w, false); });
     atualizarCab(p, sec);   // preenche o cabeçalho já na carga
@@ -766,12 +769,7 @@
   }
 
   function atualizarTotais(){
-    var t = {cal:0,protein:0,carb:0,fats:0};
-    PERIODOS.concat([EXTRA]).forEach(function(p){
-      var a = view[p]; if (!a) return;
-      var tt = a.lista[a.ativa].totais;
-      t.cal+=tt.cal; t.protein+=tt.protein; t.carb+=tt.carb; t.fats+=tt.fats;
-    });
+    var t = totaisDoDia();
     document.getElementById("b-prot").textContent = rd(t.protein) + "g";
     document.getElementById("b-carb").textContent = rd(t.carb) + "g";
     document.getElementById("b-gord").textContent = rd(t.fats) + "g";
@@ -931,14 +929,13 @@
     el.classList.toggle("erro", !!erro);
   }
 
-  function atualizarComi(p){
+  function atualizarNaoComi(p){
     var alts = view[p]; if (!alts || !alts._sec){ return; }
-    var b = alts._sec.querySelector(".comi");
-    if (b){
-      b.classList.toggle("on", !!alts.comi);
-      b.textContent = alts.comi ? "✓ comi" : "já comi";
-    }
-    alts._sec.classList.toggle("comido", !!alts.comi);
+    var rot = alts._sec.querySelector(".nao-comi");
+    var cx = alts._sec.querySelector(".nao-comi input");
+    if (cx){ cx.checked = !!alts.naoComi; }
+    if (rot){ rot.classList.toggle("on", !!alts.naoComi); }
+    alts._sec.classList.toggle("pulado", !!alts.naoComi);
   }
 
   // A v1 guardava cada dia inteiro. Agora o histórico é só o total, então os
@@ -971,7 +968,7 @@
       var alt = alts.lista[alts.ativa];
       est.periodos[p] = {
         alt: alts.ativa,
-        comi: !!alts.comi,
+        naoComi: !!alts.naoComi,
         itens: alt.itens.map(function(it){
           var o = { nome: it.nome, qtd: it.qtd, unidade: it.unidade, semQtd: !!it.semQtd,
                     cal: num(it.cal), protein: num(it.protein), carb: num(it.carb), fats: num(it.fats) };
@@ -995,21 +992,25 @@
     return est;
   }
 
-  // O que conta como comido: as refeições marcadas + tudo do Extra (ninguém
-  // escreve no Extra o que não comeu).
-  function totaisComidos(){
+  // Um número só para o dia: o que a barra de baixo mostra é exatamente o que
+  // vai para o histórico. Conta tudo, menos as refeições marcadas "não comi";
+  // o Extra sempre entra (ninguém anota ali o que não comeu).
+  function totaisDoDia(){
     var t = {cal:0, protein:0, carb:0, fats:0};
+
     PERIODOS.forEach(function(p){
       var alts = view[p];
-      if (!alts || !alts.comi){ return; }
+      if (!alts || alts.naoComi){ return; }
       var tt = alts.lista[alts.ativa].totais;
       t.cal+=tt.cal; t.protein+=tt.protein; t.carb+=tt.carb; t.fats+=tt.fats;
     });
+
     var ex = view[EXTRA];
     if (ex){
       var te = ex.lista[0].totais;
       t.cal+=te.cal; t.protein+=te.protein; t.carb+=te.carb; t.fats+=te.fats;
     }
+
     ["cal","protein","carb","fats"].forEach(function(k){ t[k] = rd(t[k]); });
     return t;
   }
@@ -1037,7 +1038,7 @@
       if (!r || !alts){ return; }
 
       alts.ativa = Math.min(Math.max(0, r.alt|0), alts.lista.length - 1);
-      alts.comi = !!r.comi;
+      alts.naoComi = r.naoComi !== undefined ? !!r.naoComi : !r.comi;
 
       var alt = alts.lista[alts.ativa];
       // o plano pode ter mudado desde então; só devolve se a lista bate
@@ -1069,10 +1070,10 @@
   function encerrarDia(){
     if (!diario){ return; }
     var data = (diario.aberto && diario.aberto.data) || hoje;
-    var t = totaisComidos();
+    var t = totaisDoDia();
 
     if (!t.cal){
-      alert("Nada marcado como comido ainda. Marque as refeições (ou anote no Extra) antes de encerrar.");
+      alert("O dia está zerado — todas as refeições estão marcadas como \"não comi\" e não há nada no Extra.");
       return;
     }
     if (!confirm("Encerrar o dia " + dataBonita(data) + " com " + t.cal + " cal?\n\n" +
@@ -1086,13 +1087,13 @@
     // devolve a tela ao plano, limpa
     PERIODOS.forEach(function(p){
       var alts = view[p]; if (!alts){ return; }
-      alts.comi = false;
+      alts.naoComi = false;
       alts.lista.forEach(function(alt){
         alt.itens.forEach(function(it){ if (it._orig){ restaurar(it); } });
         alt.totais = totaisDe(alt.itens);
       });
       atualizarAlt(p);
-      atualizarComi(p);
+      atualizarNaoComi(p);
     });
     if (view[EXTRA]){ view[EXTRA].lista[0].itens = []; renderExtra(); }
 
@@ -1112,7 +1113,7 @@
 
     var corpo = "";
     if (aberto){
-      var ta = totaisComidos();
+      var ta = totaisDoDia();
       corpo += '<div class="dia-l">'
              + '<span class="d">'+esc(dataBonita(aberto.data))+'</span>'
              + '<span class="hoje">aberto</span>'
@@ -1121,8 +1122,8 @@
     }
 
     if (!dias.length && !aberto){
-      corpo = '<div class="vazio-dias">Ainda não há nada aqui. Marque as refeições que você comeu, '
-            + 'anote os extras e toque em <b>encerrar o dia</b> — o total fica registrado.</div>';
+      corpo = '<div class="vazio-dias">Ainda não há nada aqui. Ajuste o que comeu, marque '
+            + '<b>não comi</b> no que pulou, e toque em <b>encerrar o dia</b> — o total fica registrado.</div>';
     } else {
       corpo += dias.map(function(d){
         var t = diario.dias[d] || {};
@@ -1175,7 +1176,7 @@
           PERIODOS.forEach(function(p){
             if (!view[p] || !view[p]._sec){ return; }
             atualizarAlt(p);
-            atualizarComi(p);
+            atualizarNaoComi(p);
             view[p]._sec.querySelector(".track").style.transform =
               "translateX(" + (-view[p].ativa * view[p]._sec.querySelector(".vp").clientWidth) + "px)";
           });
