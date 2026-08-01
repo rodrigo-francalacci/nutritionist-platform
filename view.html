@@ -10,7 +10,14 @@
     --cor1:#0A0A0B; --cor2:#0B25D4; --cor3:#41BAA4; --cor4:#ABDAFC;
     --cor5:#E5FCFF; --cor6:#EDEAE8; --cor7:#080824; --cor8:#E23E49;
   }
-  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  /* No celular, um toque um pouco mais demorado virava seleção de texto, ou
+     abria o "Look Up"/dicionário por cima do app. Aqui nada é para copiar —
+     é tudo botão, lista e gesto —, então a seleção sai do caminho. O campo de
+     quantidade é a exceção, logo abaixo. */
+  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent;
+     -webkit-user-select:none; -moz-user-select:none; user-select:none;
+     -webkit-touch-callout:none; }
+  input{ -webkit-user-select:text; user-select:text; }
   html,body{ margin:0; padding:0; background:#f2f4f8; color:var(--cor1);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
   body{ padding-bottom:84px; }        /* espaço p/ a barra fixa */
@@ -150,8 +157,8 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-01b"></script>
-<script src="diario.js?v=2026-08-01b"></script>
+<script src="diario-config.js?v=2026-08-01c"></script>
+<script src="diario.js?v=2026-08-01c"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
