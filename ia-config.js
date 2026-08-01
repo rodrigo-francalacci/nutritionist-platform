@@ -5,8 +5,12 @@
 // pessoa lê. Chave em página pública é conta aberta para quem achar — e há
 // robôs varrendo a web atrás exatamente disso.
 //
-// A chave mora no worker (worker/openai-proxy.js), como "Secret" do Cloudflare.
-// Aqui fica só o endereço dele, que pode ser público.
+// A chave mora no servidor que fica na frente da OpenAI — escolha UM:
+//   api/ia.js                 -> Vercel (variável de ambiente OPENAI_API_KEY)
+//   worker/openai-proxy.js    -> Cloudflare Workers (Secret OPENAI_API_KEY)
+// Aqui fica só o endereço dele, que pode ser público:
+//   https://SEU-PROJETO.vercel.app/api/ia
+//   https://nutri-ia.SEU-NOME.workers.dev
 //
 // Enquanto estiver vazio, a seção "Extra" continua funcionando, mas pedindo os
 // macros na mão em vez de adivinhar pela frase.
