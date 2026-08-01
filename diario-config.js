@@ -11,13 +11,13 @@
 //        https://SEU-PROJETO-default-rtdb.europe-west1.firebasedatabase.app
 //   4. cole abaixo e troque o "?v=" das tags <script> do view.html
 //
-// Regras sugeridas (aba "Rules" do Realtime Database). Elas liberam SÓ a pasta
-// dos diários, e nada mais do banco:
+// Regras sugeridas (aba "Rules" do Realtime Database). A raiz já nega tudo por
+// padrão, então basta abrir a pasta dos diários — o resto do banco continua
+// fechado:
 //
 //   {
 //     "rules": {
-//       "diarios": { ".read": true, ".write": true },
-//       "$outros": { ".read": false, ".write": false }
+//       "diarios": { ".read": true, ".write": true }
 //     }
 //   }
 //
