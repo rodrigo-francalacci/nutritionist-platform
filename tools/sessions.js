@@ -75,6 +75,12 @@ function reindexar(tipo) {
 
   entradas.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
   fs.writeFileSync(path.join(pasta, 'index.json'), JSON.stringify(entradas, null, 2) + '\n', 'utf8');
+
+  // Os manifests saem daqui, e nao de quem chama: e o unico jeito de nenhum
+  // caminho esquecer. Ja aconteceu -- "add" e "rm" reindexavam sem gerar
+  // manifest, entao o plano subia e simplesmente nao dava para instalar.
+  if (tipo === 'estado') gerarManifests(entradas);
+
   return entradas;
 }
 
@@ -130,10 +136,7 @@ function gerarManifests(estados) {
 }
 
 function reindexarTudo() {
-  const estados = reindexar('estado');
-  const receitas = reindexar('receita');
-  gerarManifests(estados);
-  return { estados, receitas };
+  return { estados: reindexar('estado'), receitas: reindexar('receita') };
 }
 
 // ---------- comandos ----------

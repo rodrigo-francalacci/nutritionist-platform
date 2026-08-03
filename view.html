@@ -33,9 +33,20 @@
   .sync{ margin-top:8px; font-size:11px; color:#9fb0e8; min-height:14px; }
   .sync.erro{ color:#ffb4ba; }
 
-  /* pé de cada período: instruções + "não comi" */
-  .p-pe{ display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:4px 12px 6px; }
+  /* pé de cada período: instruções + acrescentar + "não comi" */
+  .p-pe{ display:flex; align-items:center; justify-content:space-between; gap:8px;
+    flex-wrap:wrap; padding:4px 12px 6px; }
+  .add-item{ flex:0 0 auto; border:1px solid var(--cor3); background:#fff; color:var(--cor3);
+    border-radius:20px; padding:8px 14px; font-size:13px; font-weight:700; cursor:pointer;
+    white-space:nowrap; }
+  .add-item:active{ background:#eefaf7; }
+  .busca-folha{ width:100%; padding:11px 12px; font-size:15px; border:1px solid var(--cor4);
+    border-radius:10px; margin-bottom:8px; }
+  /* alimento que a pessoa acrescentou hoje, fora do previsto */
+  .food.acrescentado{ background:#f2fbf8; }
+  .food.acrescentado .n::after{ content:"acrescentado"; margin-left:8px; font-size:10px;
+    font-weight:700; color:#0d7a63; background:#cdf0e6; padding:1px 6px; border-radius:8px;
+    vertical-align:middle; text-transform:uppercase; letter-spacing:.04em; }
   .instr{ flex:0 0 auto; border:1px solid var(--cor4); background:#fff; color:var(--cor2);
     border-radius:20px; padding:8px 14px; font-size:13px; font-weight:700; cursor:pointer;
     white-space:nowrap; }
@@ -197,10 +208,10 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-03c"></script>
-<script src="diario.js?v=2026-08-03c"></script>
-<script src="ia-config.js?v=2026-08-03c"></script>
-<script src="ia.js?v=2026-08-03c"></script>
+<script src="diario-config.js?v=2026-08-03d"></script>
+<script src="diario.js?v=2026-08-03d"></script>
+<script src="ia-config.js?v=2026-08-03d"></script>
+<script src="ia.js?v=2026-08-03d"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -256,7 +267,7 @@
   function linhasHTML(alt){
     if (!alt.itens.length){ return '<div class="slide-vazio">Nada nesta opção.</div>'; }
     return alt.itens.map(function(it, k){
-      return '<div class="food'+(it.semQtd?' livre':'')+(it._mudou?' mudou':'')+'" data-k="'+k+'">'
+      return '<div class="food'+(it.semQtd?' livre':'')+(it._mudou?' mudou':'')+(it._add?' acrescentado':'')+'" data-k="'+k+'">'
            + '<span class="n">'+esc(it.nome)+'</span>'
            + '<span class="q">'+esc(qtdTexto(it))+'</span>'
            + '<span class="ed">&#8250;</span></div>';
@@ -382,6 +393,7 @@
         '<div class="vp"><div class="track">'+alts.lista.map(slideHTML).join("")+'</div></div>' +
         '<div class="p-pe">' +
         '<button class="instr">&#128214; instruções</button>' +
+        '<button class="add-item">+ alimento</button>' +
         '<label class="nao-comi"><input type="checkbox"><span>não comi</span></label></div>' +
         '<div class="toque">toque num alimento para ajustar a quantidade</div>';
       app.appendChild(sec);
@@ -481,6 +493,100 @@
     return (u.indexOf("grama") >= 0 || u === "ml" || u.indexOf("mililitro") >= 0) ? 100 : 1;
   }
 
+  // Liga um campo de texto + uma caixa de resultados à busca na base. É a mesma
+  // busca no Extra (embutida no cartão) e no "+ alimento" de cada refeição
+  // (numa folha) — muda só quem recebe o alimento escolhido.
+  function ligarBusca(campo, res, aoEscolher){
+    var espera = null;
+
+    function mostrar(){
+      var termo = campo.value.trim();
+      if (termo.length < 2){ res.innerHTML = ""; return; }
+
+      carregarBase().then(function(){
+        if (campo.value.trim() !== termo){ return; }   // já digitou outra coisa
+        var achados = buscarAlimento(termo);
+        if (!achados.length){
+          res.innerHTML = '<div class="extra-vazio">Nada encontrado. ' +
+            (IA.ligada() ? 'Toque no “?” para eu tentar adivinhar.'
+                         : 'Vale a pena acrescentar este alimento à sua base, no editor.') + '</div>';
+          return;
+        }
+        res.innerHTML = achados.map(function(f, i){
+          return '<button class="res-b" data-i="'+i+'"><b>'+esc(f.nome)+'</b>' +
+                 '<small>'+rd(f.cal)+' cal por '+esc(f.unidade)+' · '+esc(f.origem)+'</small></button>';
+        }).join("");
+        res.querySelectorAll(".res-b").forEach(function(b){
+          b.onclick = function(){
+            var f = achados[parseInt(b.getAttribute("data-i"), 10)];
+            campo.value = ""; res.innerHTML = "";
+            aoEscolher(f);
+          };
+        });
+      }, function(){
+        res.innerHTML = '<div class="extra-vazio">Não consegui carregar a base de alimentos.</div>';
+      });
+    }
+
+    campo.addEventListener("input", function(){
+      clearTimeout(espera);
+      espera = setTimeout(mostrar, 180);
+    });
+    campo.addEventListener("focus", carregarBase);   // adianta o download
+  }
+
+  // "+ alimento": o que a pessoa comeu ALÉM do previsto naquela refeição —
+  // o azeite que ela pôs na salada, o pão que veio junto. Vale só para hoje.
+  function abrirBuscaPara(p){
+    var alts = view[p]; if (!alts){ return; }
+    var alt = alts.lista[alts.ativa];
+
+    document.getElementById("folha").innerHTML =
+      '<button class="fechar" onclick="__fechar()">&times;</button>' +
+      '<div class="puxador"></div>' +
+      '<h2>Acrescentar em ' + esc(p) + '</h2>' +
+      '<div class="sub">' + esc(alt.titulo) + ' — entra só no dia de hoje; o seu plano não muda.</div>' +
+      '<input class="busca-folha" type="text" placeholder="procurar: azeite, pão, queijo…">' +
+      '<div class="extra-res"></div>';
+
+    var f = document.getElementById("folha");
+    ligarBusca(f.querySelector(".busca-folha"), f.querySelector(".extra-res"), function(alimento){
+      window.__fechar();
+      adicionarItem(p, alimento);
+    });
+    document.getElementById("modal").classList.add("on");
+    f.querySelector(".busca-folha").focus();
+  }
+
+  // Acrescenta um alimento à lista ATIVA de um período (ou ao Extra). O item
+  // fica marcado com _add: é o que permite devolvê-lo ao recarregar e tirá-lo
+  // quando o dia acaba, sem nunca encostar no plano.
+  function adicionarItem(p, f, qtd){
+    var alts = view[p]; if (!alts){ return; }
+    var alt = alts.lista[alts.ativa];
+    var q = (qtd === undefined) ? qtdPadrao(f.unidade) : qtd;
+
+    var it = {
+      nome: f.nome, unidade: f.unidade, semQtd: false, detalhes: f.detalhes || "",
+      _pu: { cal:num(f.cal), protein:num(f.protein), carb:num(f.carb), fats:num(f.fats) },
+      _add: true
+    };
+    aplicarQtd(it, q > 0 ? q : 1);
+    alt.itens.push(it);
+
+    atualizarAlt(p);
+    salvarDia();
+    // a porção quase nunca é a padrão: já abre para acertar
+    abrirAjuste(p, alt.itens.length - 1);
+  }
+
+  function removerItem(p, k){
+    var alts = view[p]; if (!alts){ return; }
+    alts.lista[alts.ativa].itens.splice(k, 1);
+    atualizarAlt(p);
+    salvarDia();
+  }
+
   // ---- seção "Extra" ------------------------------------------------------
   // Uma lista à parte, que não vem do plano: a pessoa procura o que comeu nas
   // bases que já vêm com o app e acerta a quantidade. Cai na mesma estrutura
@@ -511,46 +617,8 @@
 
     var campo = sec.querySelector(".extra-txt");
     var res = sec.querySelector(".extra-res");
-    var espera = null;
 
-    function mostrarResultados(){
-      var termo = campo.value.trim();
-      if (termo.length < 2){ res.innerHTML = ""; return; }
-
-      carregarBase().then(function(){
-        if (campo.value.trim() !== termo){ return; }   // já digitou outra coisa
-        var achados = buscarAlimento(termo);
-        if (!achados.length){
-          res.innerHTML = '<div class="extra-vazio">Nada encontrado. ' +
-            (IA.ligada() ? 'Toque no “?” para eu tentar adivinhar.'
-                         : 'Vale a pena acrescentar este alimento à sua base, no editor.') + '</div>';
-          return;
-        }
-        res.innerHTML = achados.map(function(f, i){
-          return '<button class="res-b" data-i="'+i+'"><b>'+esc(f.nome)+'</b>' +
-                 '<small>'+rd(f.cal)+' cal por '+esc(f.unidade)+' · '+esc(f.origem)+'</small></button>';
-        }).join("");
-        res.querySelectorAll(".res-b").forEach(function(b){
-          b.onclick = function(){
-            var f = achados[parseInt(b.getAttribute("data-i"), 10)];
-            campo.value = ""; res.innerHTML = "";
-            var q = qtdPadrao(f.unidade);
-            adicionarExtra({ nome:f.nome, unidade:f.unidade, qtd:q, cal:f.cal,
-                             protein:f.protein, carb:f.carb, fats:f.fats, detalhes:f.detalhes });
-            // quase sempre a quantidade não é a padrão: já abre para acertar
-            abrirAjuste(EXTRA, view[EXTRA].lista[0].itens.length - 1);
-          };
-        });
-      }, function(){
-        res.innerHTML = '<div class="extra-vazio">Não consegui carregar a base de alimentos.</div>';
-      });
-    }
-
-    campo.addEventListener("input", function(){
-      clearTimeout(espera);
-      espera = setTimeout(mostrarResultados, 180);
-    });
-    campo.addEventListener("focus", carregarBase);   // adianta o download
+    ligarBusca(campo, res, function(f){ adicionarItem(EXTRA, f); });
 
     var botao = sec.querySelector(".extra-b");
     if (botao){
@@ -601,7 +669,7 @@
 
   // A IA devolve até 3 leituras da mesma frase; quem decide é quem comeu.
   function escolherPalpite(opcoes){
-    if (opcoes.length === 1){ adicionarExtra(opcoes[0]); return; }
+    if (opcoes.length === 1){ adicionarItem(EXTRA, opcoes[0], opcoes[0].qtd); return; }
 
     document.getElementById("folha").innerHTML =
       '<button class="fechar" onclick="__fechar()">&times;</button>' +
@@ -617,34 +685,12 @@
     document.getElementById("folha").querySelectorAll(".pal-b").forEach(function(b){
       b.onclick = function(){
         window.__fechar();
-        adicionarExtra(opcoes[parseInt(b.getAttribute("data-o"), 10)]);
+        (function(o){ adicionarItem(EXTRA, o, o.qtd); })(opcoes[parseInt(b.getAttribute("data-o"), 10)]);
       };
     });
     document.getElementById("modal").classList.add("on");
   }
 
-  function adicionarExtra(o){
-    var alt = view[EXTRA].lista[0];
-    var it = {
-      nome: o.nome, unidade: o.unidade, qtd: String(o.qtd), semQtd: false,
-      detalhes: o.detalhes || "",
-      _pu: { cal:o.cal, protein:o.protein, carb:o.carb, fats:o.fats },
-      _extra: true
-    };
-    aplicarQtd(it, o.qtd);
-    alt.itens.push(it);
-    renderExtra();
-    atualizarTotais();
-    salvarDia();
-  }
-
-  function removerExtra(k){
-    var alt = view[EXTRA].lista[0];
-    alt.itens.splice(k, 1);
-    renderExtra();
-    atualizarTotais();
-    salvarDia();
-  }
 
   // ---- encerrar o dia -----------------------------------------------------
 
@@ -749,6 +795,9 @@
     var binstr = sec.querySelector(".instr");
     if (binstr){ binstr.addEventListener("click", function(){ abrirInstrucoes(p); }); }
 
+    var badd = sec.querySelector(".add-item");
+    if (badd){ badd.addEventListener("click", function(){ abrirBuscaPara(p); }); }
+
     var cx = sec.querySelector(".nao-comi input");
     if (cx){
       cx.addEventListener("change", function(){
@@ -847,7 +896,7 @@
         + '</div>';
     }
 
-    if (it._extra){
+    if (it._add){
       // item do Extra: não substitui nada do plano, mas dá para tirar da lista
       html += '<button class="aj-remover">tirar da lista</button>';
       document.getElementById("folha").innerHTML = html;
@@ -909,9 +958,9 @@
     var rem = folha.querySelector(".aj-remover");
     if (rem){
       rem.onclick = function(){
-        var k = ajuste.k;
+        var p = ajuste.p, k = ajuste.k;
         window.__fechar();
-        removerExtra(k);
+        removerItem(p, k);
       };
     }
   }
@@ -1006,6 +1055,11 @@
         itens: alt.itens.map(function(it){
           var o = { nome: it.nome, qtd: it.qtd, unidade: it.unidade, semQtd: !!it.semQtd,
                     cal: num(it.cal), protein: num(it.protein), carb: num(it.carb), fats: num(it.fats) };
+          if (it._add){
+            o.add = true;
+            o.detalhes = it.detalhes || "";
+            o.pu = porUnidade(it);   // acrescentado não existe no plano: os macros vêm daqui
+          }
           if (it._mudou){
             o.mudou = true;
             o.pu = porUnidade(it);   // sem isto, remontar um alimento trocado usaria o _base errado
@@ -1076,9 +1130,16 @@
 
       var alt = alts.lista[alts.ativa];
       // o plano pode ter mudado desde então; só devolve se a lista bate
-      if (Array.isArray(r.itens) && r.itens.length === alt.itens.length){
-        r.itens.forEach(function(s, k){
-          if (!s || !s.mudou){ return; }
+      // o que veio do plano é devolvido por posição; o que foi ACRESCENTADO
+      // não tem posição no plano e é recolocado no fim
+      var salvos = Array.isArray(r.itens) ? r.itens : [];
+      var doPlano = salvos.filter(function(s){ return s && !s.add; });
+      var extras  = salvos.filter(function(s){ return s && s.add; });
+
+      // o plano pode ter mudado desde então; só devolve se a lista bate
+      if (doPlano.length === alt.itens.length){
+        doPlano.forEach(function(s, k){
+          if (!s.mudou){ return; }
           var it = alt.itens[k];
           if (!it){ return; }
           guardarOriginal(it);
@@ -1089,6 +1150,14 @@
           it._mudou = true;
         });
       }
+
+      alt.itens = alt.itens.filter(function(it){ return !it._add; });   // não duplica ao reaplicar
+      extras.forEach(function(s){
+        alt.itens.push({ nome:s.nome, qtd:s.qtd, unidade:s.unidade, semQtd:!!s.semQtd,
+                         detalhes:s.detalhes||"", cal:num(s.cal), protein:num(s.protein),
+                         carb:num(s.carb), fats:num(s.fats), _pu:s.pu||null, _add:true });
+      });
+
       alt.totais = totaisDe(alt.itens);
     });
 
@@ -1096,7 +1165,7 @@
       view[EXTRA].lista[0].itens = est.extra.map(function(s){
         return { nome:s.nome, qtd:s.qtd, unidade:s.unidade, semQtd:false, detalhes:s.detalhes||"",
                  cal:num(s.cal), protein:num(s.protein), carb:num(s.carb), fats:num(s.fats),
-                 _pu: s.pu || null, _extra:true };
+                 _pu: s.pu || null, _add:true };
       });
     }
   }
@@ -1169,6 +1238,8 @@
       var alts = view[p]; if (!alts){ return; }
       alts.naoComi = false;
       alts.lista.forEach(function(alt){
+        // o que foi acrescentado era só daquele dia: some junto com ele
+        alt.itens = alt.itens.filter(function(it){ return !it._add; });
         alt.itens.forEach(function(it){ if (it._orig){ restaurar(it); } });
         alt.totais = totaisDe(alt.itens);
       });
