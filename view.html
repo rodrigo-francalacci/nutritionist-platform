@@ -33,9 +33,13 @@
   .sync{ margin-top:8px; font-size:11px; color:#9fb0e8; min-height:14px; }
   .sync.erro{ color:#ffb4ba; }
 
-  /* pé de cada período: dica + "não comi" */
-  .p-pe{ display:flex; align-items:center; gap:10px; padding:2px 12px 10px; }
-  .p-pe .toque{ flex:1 1 auto; text-align:left; padding:0; }
+  /* pé de cada período: instruções + "não comi" */
+  .p-pe{ display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:4px 12px 6px; }
+  .instr{ flex:0 0 auto; border:1px solid var(--cor4); background:#fff; color:var(--cor2);
+    border-radius:20px; padding:8px 14px; font-size:13px; font-weight:700; cursor:pointer;
+    white-space:nowrap; }
+  .instr:active{ background:var(--cor5); }
   .nao-comi{ flex:0 0 auto; display:flex; align-items:center; gap:7px; cursor:pointer;
     font-size:13px; color:#7a828f; padding:6px 2px; white-space:nowrap; }
   .nao-comi input{ width:20px; height:20px; margin:0; accent-color:var(--cor8); }
@@ -193,10 +197,10 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-01e"></script>
-<script src="diario.js?v=2026-08-01e"></script>
-<script src="ia-config.js?v=2026-08-01e"></script>
-<script src="ia.js?v=2026-08-01e"></script>
+<script src="diario-config.js?v=2026-08-03"></script>
+<script src="diario.js?v=2026-08-03"></script>
+<script src="ia-config.js?v=2026-08-03"></script>
+<script src="ia.js?v=2026-08-03"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -376,8 +380,10 @@
              + '<div class="dots"></div>'
              : '<div class="alt-barra"><span class="alt-nome" style="text-align:center"></span></div>') +
         '<div class="vp"><div class="track">'+alts.lista.map(slideHTML).join("")+'</div></div>' +
-        '<div class="p-pe"><span class="toque">toque num alimento para ajustar &middot; aqui para as instruções</span>' +
-        '<label class="nao-comi"><input type="checkbox"><span>não comi</span></label></div>';
+        '<div class="p-pe">' +
+        '<button class="instr">&#128214; instruções</button>' +
+        '<label class="nao-comi"><input type="checkbox"><span>não comi</span></label></div>' +
+        '<div class="toque">toque num alimento para ajustar a quantidade</div>';
       app.appendChild(sec);
       alts._sec = sec;
       montarCarrossel(p, sec);
@@ -712,9 +718,9 @@
       drag=false;
       if (!decidiu || (!horiz && Math.abs(dxTot)<8 && Math.abs(dyTot)<8)){
         if (Math.abs(dxTot)<8 && Math.abs(dyTot)<8){                          // toque
+          // só o alimento reage ao toque; as instruções têm botão próprio
           var f = (alvoTap && alvoTap.closest) ? alvoTap.closest(".food") : null;
           if (f){ abrirAjuste(p, parseInt(f.getAttribute("data-k"), 10)); }
-          else { abrirInstrucoes(p); }
         }
         setX(-alts.ativa*w, true);
         return;
@@ -729,11 +735,20 @@
       }
     }
     vp.addEventListener("pointerup", soltar);
-    vp.addEventListener("pointercancel", soltar);
+
+    // Um pointercancel NÃO é um toque. Ao rolar a página, o navegador assume o
+    // gesto e cancela o ponteiro — muitas vezes antes de qualquer pointermove,
+    // então dxTot/dyTot ainda são 0 e isto passava por "toque". Era essa a
+    // origem das instruções abrindo sozinhas durante a rolagem.
+    vp.addEventListener("pointercancel", function(){
+      if (!drag){ return; }
+      drag = false;
+      setX(-alts.ativa*w, true);
+    });
 
     // o pé fica FORA do .vp, então não passa pelos handlers de toque acima
-    var dica = sec.querySelector(".toque");
-    if (dica){ dica.addEventListener("click", function(){ abrirInstrucoes(p); }); }
+    var binstr = sec.querySelector(".instr");
+    if (binstr){ binstr.addEventListener("click", function(){ abrirInstrucoes(p); }); }
 
     var cx = sec.querySelector(".nao-comi input");
     if (cx){
