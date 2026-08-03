@@ -197,10 +197,10 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-03b"></script>
-<script src="diario.js?v=2026-08-03b"></script>
-<script src="ia-config.js?v=2026-08-03b"></script>
-<script src="ia.js?v=2026-08-03b"></script>
+<script src="diario-config.js?v=2026-08-03c"></script>
+<script src="diario.js?v=2026-08-03c"></script>
+<script src="ia-config.js?v=2026-08-03c"></script>
+<script src="ia.js?v=2026-08-03c"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -1235,6 +1235,25 @@
   window.__fechar = function(){ ajuste = null; document.getElementById("modal").classList.remove("on"); };
   document.getElementById("modal").addEventListener("click", function(e){ if (e.target === this){ window.__fechar(); } });
 
+  // ---- instalar como app ----------------------------------------------
+  // Cada plano tem o SEU manifest (manifests/<plano>.webmanifest), gerado pelo
+  // tools/sessions.js. Tem de ser um por plano: o manifest só carrega um
+  // "start_url", e os links dos clientes diferem justamente no "?e=" — com um
+  // manifest só, o ícone instalado por todo mundo abriria o mesmo plano.
+  function prepararInstalacao(arquivo){
+    var link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = "manifests/" + encodeURIComponent(arquivo.replace(/\.json$/i, "")) + ".webmanifest";
+    document.head.appendChild(link);
+
+    if (!navigator.serviceWorker){ return; }
+    // sem service worker o Chrome não oferece "instalar"; e é ele que faz o
+    // plano abrir sem sinal
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    });
+  }
+
   // ---- carregar o estado do repositório ----
   var arquivo = param("e");
   if (!arquivo){
@@ -1244,6 +1263,8 @@
   // segurança: só um nome de arquivo .json dentro de estados/
   arquivo = arquivo.replace(/^.*[\\/]/, "");
   if (!/\.json$/i.test(arquivo)){ arquivo += ".json"; }
+
+  prepararInstalacao(arquivo);
 
   fetch("estados/" + encodeURIComponent(arquivo) + "?t=" + Date.now())
     .then(function(r){ if (!r.ok){ throw new Error(r.status); } return r.json(); })

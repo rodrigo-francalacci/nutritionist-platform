@@ -78,8 +78,62 @@ function reindexar(tipo) {
   return entradas;
 }
 
+// ---------- manifests (instalar o plano como app) ----------
+
+// Um manifest POR PLANO. O manifest so tem um "start_url", e os links dos
+// clientes diferem justamente no "?e=": com um manifest unico, o icone
+// instalado por todo mundo abriria o mesmo plano. Entao cada plano ganha o
+// seu, apontando para o proprio link.
+function gerarManifests(estados) {
+  const pasta = path.join(REPO, 'manifests');
+  if (!fs.existsSync(pasta)) fs.mkdirSync(pasta, { recursive: true });
+
+  const atuais = new Set();
+
+  for (const e of estados) {
+    const semExt = e.arquivo.replace(/\.json$/i, '');
+    const obj = lerJSON(path.join(PASTAS.estado, e.arquivo)) || {};
+    const titulo = String(obj.nome || '').trim() || semExt;
+    const arquivo = semExt + '.webmanifest';
+    atuais.add(arquivo);
+
+    const manifest = {
+      name: titulo,
+      short_name: titulo.length > 12 ? titulo.slice(0, 12) : titulo,
+      description: 'Plano alimentar',
+      // relativo a pasta manifests/, entao sobe um nivel
+      start_url: '../view.html?e=' + encodeURIComponent(e.arquivo),
+      scope: '../',
+      display: 'standalone',
+      orientation: 'portrait',
+      background_color: '#f2f4f8',
+      theme_color: '#0B25D4',
+      icons: [
+        { src: '../icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: '../icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: '../icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+        { src: '../icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+      ]
+    };
+
+    fs.writeFileSync(path.join(pasta, arquivo), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
+  }
+
+  // plano apagado nao deixa manifest orfao para tras
+  for (const f of fs.readdirSync(pasta)) {
+    if (f.endsWith('.webmanifest') && !atuais.has(f)) {
+      fs.unlinkSync(path.join(pasta, f));
+    }
+  }
+
+  return atuais.size;
+}
+
 function reindexarTudo() {
-  return { estados: reindexar('estado'), receitas: reindexar('receita') };
+  const estados = reindexar('estado');
+  const receitas = reindexar('receita');
+  gerarManifests(estados);
+  return { estados, receitas };
 }
 
 // ---------- comandos ----------
