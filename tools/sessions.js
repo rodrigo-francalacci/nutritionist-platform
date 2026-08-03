@@ -253,10 +253,15 @@ function cmdRm(alvo) {
 
 const git = (...args) => execFileSync('git', args, { cwd: REPO, encoding: 'utf8' }).trim();
 
+// "manifests" entra junto: sem o manifest do plano publicado, o Chrome nao
+// oferece "instalar" para ele. Ficar de fora era o bastante para o plano
+// aparecer no ar e nao dar para instalar -- sem erro nenhum na tela.
+const PUBLICADAS = ['estados', 'receitas', 'manifests'];
+
 function publicar(mensagem) {
   try {
-    git('add', 'estados', 'receitas');
-    if (!git('status', '--porcelain', 'estados', 'receitas')) {
+    git('add', ...PUBLICADAS);
+    if (!git('status', '--porcelain', ...PUBLICADAS)) {
       console.log(c('fraco', 'nada para publicar.'));
       return;
     }
