@@ -1,0 +1,2283 @@
+{
+  "tipo": "estado",
+  "versao": 2,
+  "nome": "Sucos",
+  "notas": "Repertório de sucos — vitaminas e minerais, pouco açúcar",
+  "notasPlano": {
+    "geral": [
+      "Um suco por período — escolha o que combina com a hora e com o que você já comeu no dia.",
+      "A regra que vale para todos: beba nos primeiros 15 minutos. Depois disso o suco perde vitamina C e escurece.",
+      "Não coe mais do que o necessário. A fibra que sobra é o que impede o açúcar da fruta de subir de uma vez.",
+      "Fruta aqui é tempero, não base. Quando um suco leva maçã ou laranja, é para tornar o verde bebível — por isso a quantidade é pequena e não deve ser aumentada.",
+      "Lave tudo bem e prefira usar com casca o que for orgânico: é na casca que está boa parte dos minerais."
+    ],
+    "Manhã": [
+      "O suco de começar o dia: o nitrato da beterraba ajuda o sangue a circular, e o gengibre desperta sem cafeína.",
+      "1) Lave bem tudo. A beterraba e a cenoura não precisam ser descascadas — é na casca que está boa parte dos minerais; basta esfregar com uma escovinha.",
+      "2) Corte em pedaços que caibam na centrífuga. Passe primeiro a beterraba, depois a cenoura, e o gengibre por último (assim ele arrasta o que ficou).",
+      "3) Esprema o limão por cima só no fim: o ácido segura a cor e as vitaminas por mais tempo.",
+      "4) Beba nos primeiros 15 minutos. Suco não espera — a partir daí começa a perder vitamina C e a oxidar."
+    ],
+    "Almoço": [
+      "Feito para acompanhar comida: a bromelina do abacaxi ajuda a digerir proteína, e o gengibre assenta o estômago.",
+      "1) Use o miolo do abacaxi também — é a parte com mais bromelina, mesmo sendo a mais dura.",
+      "2) Passe tudo na centrífuga; o pepino vai por último.",
+      "3) Beba junto com a refeição ou logo depois, não antes: aqui ele é acompanhamento, não substituto.",
+      "4) Meio copo basta. Suco no almoço é para ajudar a digestão, não para somar volume."
+    ],
+    "Tarde": [
+      "O verde sério: pouquíssimo açúcar, muita clorofila, para a queda das quatro da tarde sem cair depois.",
+      "1) Agrião é picante — comece com pouco. Trinta gramas já dão o tom.",
+      "2) Amasse a couve, intercale com o aipo, deixe o pepino por último.",
+      "3) Sem fruta nenhuma, de propósito: este é o suco para quando o resto do dia já teve doce demais.",
+      "4) Se estiver difícil de beber, acrescente meia maçã — melhor beber com maçã do que não beber."
+    ],
+    "Noite": [
+      "Para a noite: magnésio do espinafre, quase nenhum açúcar, nada que atrapalhe o sono.",
+      "1) Espinafre cru e bem lavado, folha por folha — é a verdura que mais esconde terra.",
+      "2) Bata no liquidificador com o pepino; folha macia não rende em centrífuga.",
+      "3) Nada de gengibre aqui. Ele desperta, e a esta hora isso é o contrário do que se quer.",
+      "4) Se der fome à noite, este suco tira a vontade sem virar refeição."
+    ]
+  },
+  "foodsSessao": [],
+  "periodos": {
+    "Manhã": {
+      "ativa": 0,
+      "lista": [
+        {
+          "titulo": "Terra e Fogo — beterraba, cenoura e gengibre",
+          "notas": [
+            "O suco de começar o dia: o nitrato da beterraba ajuda o sangue a circular, e o gengibre desperta sem cafeína.",
+            "1) Lave bem tudo. A beterraba e a cenoura não precisam ser descascadas — é na casca que está boa parte dos minerais; basta esfregar com uma escovinha.",
+            "2) Corte em pedaços que caibam na centrífuga. Passe primeiro a beterraba, depois a cenoura, e o gengibre por último (assim ele arrasta o que ficou).",
+            "3) Esprema o limão por cima só no fim: o ácido segura a cor e as vitaminas por mais tempo.",
+            "4) Beba nos primeiros 15 minutos. Suco não espera — a partir daí começa a perder vitamina C e a oxidar."
+          ],
+          "itens": [
+            {
+              "refeicao": "Manhã",
+              "nome": "Beterraba, crua",
+              "unidade": "gramas",
+              "qtd": "100",
+              "cal": 48.8,
+              "fats": 0.1,
+              "carb": 7.7,
+              "protein": 1.9,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.488285087,
+                "protein": 0.019456522,
+                "carb": 0.077376812,
+                "fats": 0.0009
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "qtd": "150",
+              "cal": 51.2,
+              "fats": 0.3,
+              "carb": 6.7,
+              "protein": 2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.341353884,
+                "protein": 0.013224638,
+                "carb": 0.044766667,
+                "fats": 0.001733333
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "qtd": "8",
+              "cal": 6.4,
+              "fats": 0.1,
+              "carb": 1.4,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: USDA (gengibre cru)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.8,
+                "protein": 0.0182,
+                "carb": 0.1777,
+                "fats": 0.0075
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "20",
+              "cal": 6.4,
+              "fats": 0,
+              "carb": 2,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Gelo a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Laranja, baía, suco",
+              "unidade": "gramas",
+              "cal": 0.366494826,
+              "protein": 0.006521739,
+              "carb": 0.086978261,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "cal": 0.8,
+              "protein": 0.0182,
+              "carb": 0.1777,
+              "fats": 0.0075,
+              "detalhes": "FONTE: USDA (gengibre cru)"
+            },
+            {
+              "nome": "Melancia, crua",
+              "unidade": "gramas",
+              "cal": 0.326066261,
+              "protein": 0.00884058,
+              "carb": 0.08015942,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Verde da Manhã — couve, maçã e limão",
+          "notas": [
+            "Verde de entrada: a maçã existe só para tornar a couve agradável, não para adoçar.",
+            "1) Amasse as folhas de couve com as mãos antes de passar — elas rendem bem mais suco assim.",
+            "2) Intercale: uma folha de couve, um pedaço de maçã, outra folha. Folha sozinha entope a centrífuga.",
+            "3) O pepino entra por último e serve de \"empurrador\" — é ele que dá volume e deixa o suco leve.",
+            "4) Se ficar amargo demais, é sinal de couve a mais, não de açúcar a menos. Tire uma folha da próxima vez."
+          ],
+          "itens": [
+            {
+              "refeicao": "Manhã",
+              "nome": "Couve, manteiga, crua",
+              "unidade": "gramas",
+              "qtd": "50",
+              "cal": 13.5,
+              "fats": 0.3,
+              "carb": 0.6,
+              "protein": 1.4,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.270566971,
+                "protein": 0.028731884,
+                "carb": 0.012134783,
+                "fats": 0.005466667
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "qtd": "130",
+              "cal": 72.2,
+              "fats": 0,
+              "carb": 17.9,
+              "protein": 0.4,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.555152,
+                "protein": 0.002866667,
+                "carb": 0.138066667,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "150",
+              "cal": 14.3,
+              "fats": 0,
+              "carb": 1.4,
+              "protein": 1.3,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "20",
+              "cal": 6.4,
+              "fats": 0,
+              "carb": 2,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "qtd": "6",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.1,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: USDA (gengibre cru)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.8,
+                "protein": 0.0182,
+                "carb": 0.1777,
+                "fats": 0.0075
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Folhas de hortelã fresca a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Laranja, baía, suco",
+              "unidade": "gramas",
+              "cal": 0.366494826,
+              "protein": 0.006521739,
+              "carb": 0.086978261,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "cal": 0.8,
+              "protein": 0.0182,
+              "carb": 0.1777,
+              "fats": 0.0075,
+              "detalhes": "FONTE: USDA (gengibre cru)"
+            },
+            {
+              "nome": "Melancia, crua",
+              "unidade": "gramas",
+              "cal": 0.326066261,
+              "protein": 0.00884058,
+              "carb": 0.08015942,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Cítrico Dourado — laranja, cenoura e gengibre",
+          "notas": [
+            "Este é o mais doce da casa, e é de propósito: laranja com cenoura é a dupla clássica de vitamina A e C.",
+            "1) Esprema as laranjas na hora — suco de laranja parado perde vitamina C rápido, mais do que qualquer outro.",
+            "2) Passe a cenoura e o gengibre na centrífuga e misture ao suco de laranja.",
+            "3) A cúrcuma vai bem aqui, e pede uma pitada de pimenta-do-reino junto: é a pimenta que faz a curcumina ser absorvida.",
+            "4) Guarde para os dias de treino ou de manhã fria. Nos outros, prefira um dos verdes."
+          ],
+          "itens": [
+            {
+              "refeicao": "Manhã",
+              "nome": "Laranja, baía, suco",
+              "unidade": "gramas",
+              "qtd": "180",
+              "cal": 66,
+              "fats": 0,
+              "carb": 15.7,
+              "protein": 1.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.366494826,
+                "protein": 0.006521739,
+                "carb": 0.086978261,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "qtd": "120",
+              "cal": 41,
+              "fats": 0.2,
+              "carb": 5.4,
+              "protein": 1.6,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.341353884,
+                "protein": 0.013224638,
+                "carb": 0.044766667,
+                "fats": 0.001733333
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "qtd": "8",
+              "cal": 6.4,
+              "fats": 0.1,
+              "carb": 1.4,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: USDA (gengibre cru)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.8,
+                "protein": 0.0182,
+                "carb": 0.1777,
+                "fats": 0.0075
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Cúrcuma fresca ralada ou em pó, a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Laranja, baía, suco",
+              "unidade": "gramas",
+              "cal": 0.366494826,
+              "protein": 0.006521739,
+              "carb": 0.086978261,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "cal": 0.8,
+              "protein": 0.0182,
+              "carb": 0.1777,
+              "fats": 0.0075,
+              "detalhes": "FONTE: USDA (gengibre cru)"
+            },
+            {
+              "nome": "Melancia, crua",
+              "unidade": "gramas",
+              "cal": 0.326066261,
+              "protein": 0.00884058,
+              "carb": 0.08015942,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Melancia com Limão e Hortelã",
+          "notas": [
+            "O mais leve da manhã: quase só água, e ainda assim cheio de licopeno.",
+            "1) Bata a melancia no liquidificador — ela é aguada demais para centrífuga, você perderia metade.",
+            "2) Não coe. A pouca fibra que existe aqui é justamente o que segura o açúcar da fruta.",
+            "3) Limão e hortelã por último, sem bater de novo: só mexer.",
+            "4) Bom para manhã de calor, ou para quem acorda sem fome e não consegue encarar um verde."
+          ],
+          "itens": [
+            {
+              "refeicao": "Manhã",
+              "nome": "Melancia, crua",
+              "unidade": "gramas",
+              "qtd": "350",
+              "cal": 114.1,
+              "fats": 0,
+              "carb": 28.1,
+              "protein": 3.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.326066261,
+                "protein": 0.00884058,
+                "carb": 0.08015942,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "15",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.5,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Hortelã fresca a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Laranja, baía, suco",
+              "unidade": "gramas",
+              "cal": 0.366494826,
+              "protein": 0.006521739,
+              "carb": 0.086978261,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "cal": 0.8,
+              "protein": 0.0182,
+              "carb": 0.1777,
+              "fats": 0.0075,
+              "detalhes": "FONTE: USDA (gengibre cru)"
+            },
+            {
+              "nome": "Melancia, crua",
+              "unidade": "gramas",
+              "cal": 0.326066261,
+              "protein": 0.00884058,
+              "carb": 0.08015942,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        }
+      ]
+    },
+    "Almoço": {
+      "ativa": 0,
+      "lista": [
+        {
+          "titulo": "Digestivo — abacaxi, pepino e gengibre",
+          "notas": [
+            "Feito para acompanhar comida: a bromelina do abacaxi ajuda a digerir proteína, e o gengibre assenta o estômago.",
+            "1) Use o miolo do abacaxi também — é a parte com mais bromelina, mesmo sendo a mais dura.",
+            "2) Passe tudo na centrífuga; o pepino vai por último.",
+            "3) Beba junto com a refeição ou logo depois, não antes: aqui ele é acompanhamento, não substituto.",
+            "4) Meio copo basta. Suco no almoço é para ajudar a digestão, não para somar volume."
+          ],
+          "itens": [
+            {
+              "refeicao": "Almoço",
+              "nome": "Abacaxi, cru",
+              "unidade": "gramas",
+              "qtd": "150",
+              "cal": 72.5,
+              "fats": 0.2,
+              "carb": 17,
+              "protein": 1.3,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.48322213,
+                "protein": 0.008586957,
+                "carb": 0.11347971,
+                "fats": 0.001233333
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "200",
+              "cal": 19.1,
+              "fats": 0,
+              "carb": 1.8,
+              "protein": 1.7,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "qtd": "6",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.1,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: USDA (gengibre cru)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.8,
+                "protein": 0.0182,
+                "carb": 0.1777,
+                "fats": 0.0075
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "15",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.5,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Hortelã fresca a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Abacaxi, cru",
+              "unidade": "gramas",
+              "cal": 0.48322213,
+              "protein": 0.008586957,
+              "carb": 0.11347971,
+              "fats": 0.001233333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Tomate, com semente, cru",
+              "unidade": "gramas",
+              "cal": 0.153351565,
+              "protein": 0.010978261,
+              "carb": 0.019655072,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "cal": 0.318181534,
+              "protein": 0.009395833,
+              "carb": 0.0990275,
+              "fats": 0.0014,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Pepino, Limão e Salsa",
+          "notas": [
+            "O de menos açúcar de todo o repertório — praticamente água com clorofila.",
+            "1) Pepino com casca, se for orgânico; sem casca, se não for (é onde fica o agrotóxico).",
+            "2) A salsa é diurética de verdade e tem mais vitamina C que laranja, grama por grama. Não tenha medo do maço.",
+            "3) Uma pitada de sal transforma isto de \"água verde\" em bebida: sem ela fica sem graça.",
+            "4) Este é o suco para os dias de comer bem. Não compete com a refeição."
+          ],
+          "itens": [
+            {
+              "refeicao": "Almoço",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "300",
+              "cal": 28.6,
+              "fats": 0,
+              "carb": 2.8,
+              "protein": 2.6,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "25",
+              "cal": 8,
+              "fats": 0,
+              "carb": 2.5,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Salsa, crua",
+              "unidade": "gramas",
+              "qtd": "15",
+              "cal": 5,
+              "fats": 0.1,
+              "carb": 0.6,
+              "protein": 0.5,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.334241116,
+                "protein": 0.032572464,
+                "carb": 0.03856087,
+                "fats": 0.0061
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Gelo e uma pitada de sal, a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Abacaxi, cru",
+              "unidade": "gramas",
+              "cal": 0.48322213,
+              "protein": 0.008586957,
+              "carb": 0.11347971,
+              "fats": 0.001233333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Tomate, com semente, cru",
+              "unidade": "gramas",
+              "cal": 0.153351565,
+              "protein": 0.010978261,
+              "carb": 0.019655072,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "cal": 0.318181534,
+              "protein": 0.009395833,
+              "carb": 0.0990275,
+              "fats": 0.0014,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Tomate Temperado — tomate, aipo e limão",
+          "notas": [
+            "Um suco salgado, quase um gaspacho ralo — para quem não quer nada doce no almoço.",
+            "1) Tomate bem maduro, senão fica ácido demais. Com semente mesmo.",
+            "2) Bata no liquidificador em vez de centrifugar, e passe numa peneira grossa — o licopeno está na polpa.",
+            "3) O fio de azeite não é enfeite: o licopeno é lipossolúvel e sem gordura você absorve muito pouco dele.",
+            "4) Sirva bem gelado. Morno, este aqui não desce."
+          ],
+          "itens": [
+            {
+              "refeicao": "Almoço",
+              "nome": "Tomate, com semente, cru",
+              "unidade": "gramas",
+              "qtd": "250",
+              "cal": 38.3,
+              "fats": 0.4,
+              "carb": 4.9,
+              "protein": 2.7,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.153351565,
+                "protein": 0.010978261,
+                "carb": 0.019655072,
+                "fats": 0.001733333
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Aipo, cru",
+              "unidade": "gramas",
+              "qtd": "80",
+              "cal": 15.3,
+              "fats": 0.1,
+              "carb": 2.7,
+              "protein": 0.6,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.190914566,
+                "protein": 0.007583333,
+                "carb": 0.033153333,
+                "fats": 0.00069
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "15",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.5,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Salsa, crua",
+              "unidade": "gramas",
+              "qtd": "10",
+              "cal": 3.3,
+              "fats": 0.1,
+              "carb": 0.4,
+              "protein": 0.3,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.334241116,
+                "protein": 0.032572464,
+                "carb": 0.03856087,
+                "fats": 0.0061
+              }
+            },
+            {
+              "refeicao": "Almoço",
+              "nome": "Sal, pimenta-do-reino e um fio de azeite, a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Abacaxi, cru",
+              "unidade": "gramas",
+              "cal": 0.48322213,
+              "protein": 0.008586957,
+              "carb": 0.11347971,
+              "fats": 0.001233333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Tomate, com semente, cru",
+              "unidade": "gramas",
+              "cal": 0.153351565,
+              "protein": 0.010978261,
+              "carb": 0.019655072,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "cal": 0.318181534,
+              "protein": 0.009395833,
+              "carb": 0.0990275,
+              "fats": 0.0014,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        }
+      ]
+    },
+    "Tarde": {
+      "ativa": 0,
+      "lista": [
+        {
+          "titulo": "Verde Forte — couve, aipo, pepino e agrião",
+          "notas": [
+            "O verde sério: pouquíssimo açúcar, muita clorofila, para a queda das quatro da tarde sem cair depois.",
+            "1) Agrião é picante — comece com pouco. Trinta gramas já dão o tom.",
+            "2) Amasse a couve, intercale com o aipo, deixe o pepino por último.",
+            "3) Sem fruta nenhuma, de propósito: este é o suco para quando o resto do dia já teve doce demais.",
+            "4) Se estiver difícil de beber, acrescente meia maçã — melhor beber com maçã do que não beber."
+          ],
+          "itens": [
+            {
+              "refeicao": "Tarde",
+              "nome": "Couve, manteiga, crua",
+              "unidade": "gramas",
+              "qtd": "40",
+              "cal": 10.8,
+              "fats": 0.2,
+              "carb": 0.5,
+              "protein": 1.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.270566971,
+                "protein": 0.028731884,
+                "carb": 0.012134783,
+                "fats": 0.005466667
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Aipo, cru",
+              "unidade": "gramas",
+              "qtd": "80",
+              "cal": 15.3,
+              "fats": 0.1,
+              "carb": 2.7,
+              "protein": 0.6,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.190914566,
+                "protein": 0.007583333,
+                "carb": 0.033153333,
+                "fats": 0.00069
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "200",
+              "cal": 19.1,
+              "fats": 0,
+              "carb": 1.8,
+              "protein": 1.7,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Agrião, cru",
+              "unidade": "gramas",
+              "qtd": "30",
+              "cal": 5,
+              "fats": 0.1,
+              "carb": 0,
+              "protein": 0.8,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.165788014,
+                "protein": 0.026884058,
+                "carb": 0.001149275,
+                "fats": 0.002366667
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "20",
+              "cal": 6.4,
+              "fats": 0,
+              "carb": 2,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Gelo a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Morango, cru",
+              "unidade": "gramas",
+              "cal": 0.301479174,
+              "protein": 0.008949275,
+              "carb": 0.050950725,
+              "fats": 0.0031,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Cenoura, Maçã e Gengibre",
+          "notas": [
+            "O mais fácil de gostar, e o que melhor engana vontade de doce à tarde.",
+            "1) Cenoura e maçã com casca, bem lavadas.",
+            "2) Dez gramas de gengibre é bastante — corta a doçura e deixa o suco adulto.",
+            "3) Beba devagar. Como tem mais açúcar de fruta que os verdes, tomar de uma vez dá pico e queda.",
+            "4) Bom antes de treinar, à tarde. Ruim como último suco do dia."
+          ],
+          "itens": [
+            {
+              "refeicao": "Tarde",
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "qtd": "180",
+              "cal": 61.4,
+              "fats": 0.3,
+              "carb": 8.1,
+              "protein": 2.4,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.341353884,
+                "protein": 0.013224638,
+                "carb": 0.044766667,
+                "fats": 0.001733333
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "qtd": "150",
+              "cal": 83.3,
+              "fats": 0,
+              "carb": 20.7,
+              "protein": 0.4,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.555152,
+                "protein": 0.002866667,
+                "carb": 0.138066667,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Gengibre fresco",
+              "unidade": "gramas",
+              "qtd": "10",
+              "cal": 8,
+              "fats": 0.1,
+              "carb": 1.8,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: USDA (gengibre cru)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.8,
+                "protein": 0.0182,
+                "carb": 0.1777,
+                "fats": 0.0075
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "15",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.5,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Morango, cru",
+              "unidade": "gramas",
+              "cal": 0.301479174,
+              "protein": 0.008949275,
+              "carb": 0.050950725,
+              "fats": 0.0031,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Morango e Pepino",
+          "notas": [
+            "Doce sem ser açucarado: morango tem menos açúcar que quase toda fruta e vitamina C de sobra.",
+            "1) Bata no liquidificador — morango na centrífuga vira pasta e fica no filtro.",
+            "2) O pepino é o que dá líquido: sem ele isto vira vitamina, não suco.",
+            "3) Não coe, ou você joga fora a fibra que segura o açúcar.",
+            "4) Na época do morango este é o melhor suco do repertório. Fora dela, congelado serve."
+          ],
+          "itens": [
+            {
+              "refeicao": "Tarde",
+              "nome": "Morango, cru",
+              "unidade": "gramas",
+              "qtd": "200",
+              "cal": 60.3,
+              "fats": 0.6,
+              "carb": 10.2,
+              "protein": 1.8,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.301479174,
+                "protein": 0.008949275,
+                "carb": 0.050950725,
+                "fats": 0.0031
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "150",
+              "cal": 14.3,
+              "fats": 0,
+              "carb": 1.4,
+              "protein": 1.3,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "15",
+              "cal": 4.8,
+              "fats": 0,
+              "carb": 1.5,
+              "protein": 0.1,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Hortelã fresca a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Maçã, Fuji, com casca, crua",
+              "unidade": "gramas",
+              "cal": 0.555152,
+              "protein": 0.002866667,
+              "carb": 0.138066667,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Morango, cru",
+              "unidade": "gramas",
+              "cal": 0.301479174,
+              "protein": 0.008949275,
+              "carb": 0.050950725,
+              "fats": 0.0031,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Cenoura, crua",
+              "unidade": "gramas",
+              "cal": 0.341353884,
+              "protein": 0.013224638,
+              "carb": 0.044766667,
+              "fats": 0.001733333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        }
+      ]
+    },
+    "Noite": {
+      "ativa": 0,
+      "lista": [
+        {
+          "titulo": "Verde Suave — espinafre, pepino e limão",
+          "notas": [
+            "Para a noite: magnésio do espinafre, quase nenhum açúcar, nada que atrapalhe o sono.",
+            "1) Espinafre cru e bem lavado, folha por folha — é a verdura que mais esconde terra.",
+            "2) Bata no liquidificador com o pepino; folha macia não rende em centrífuga.",
+            "3) Nada de gengibre aqui. Ele desperta, e a esta hora isso é o contrário do que se quer.",
+            "4) Se der fome à noite, este suco tira a vontade sem virar refeição."
+          ],
+          "itens": [
+            {
+              "refeicao": "Noite",
+              "nome": "Espinafre, Nova Zelândia, cru",
+              "unidade": "gramas",
+              "qtd": "60",
+              "cal": 9.7,
+              "fats": 0.1,
+              "carb": 0.3,
+              "protein": 1.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.160956942,
+                "protein": 0.019963768,
+                "carb": 0.004736232,
+                "fats": 0.002433333
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "250",
+              "cal": 23.8,
+              "fats": 0,
+              "carb": 2.3,
+              "protein": 2.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "20",
+              "cal": 6.4,
+              "fats": 0,
+              "carb": 2,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Hortelã fresca a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Aipo, cru",
+              "unidade": "gramas",
+              "cal": 0.190914566,
+              "protein": 0.007583333,
+              "carb": 0.033153333,
+              "fats": 0.00069,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Espinafre, Nova Zelândia, cru",
+              "unidade": "gramas",
+              "cal": 0.160956942,
+              "protein": 0.019963768,
+              "carb": 0.004736232,
+              "fats": 0.002433333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Couve, manteiga, crua",
+              "unidade": "gramas",
+              "cal": 0.270566971,
+              "protein": 0.028731884,
+              "carb": 0.012134783,
+              "fats": 0.005466667,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Aipo e Pepino — o mais leve",
+          "notas": [
+            "O suco mais leve de todos: quase só água, mineral e clorofila.",
+            "1) Aipo com as folhas — é nelas que está a maior parte dos minerais.",
+            "2) Passe tudo na centrífuga e beba na hora.",
+            "3) Serve como último líquido do dia, sem peso e sem açúcar.",
+            "4) Não beba tarde demais: é diurético, e você não quer acordar de madrugada."
+          ],
+          "itens": [
+            {
+              "refeicao": "Noite",
+              "nome": "Aipo, cru",
+              "unidade": "gramas",
+              "qtd": "120",
+              "cal": 22.9,
+              "fats": 0.1,
+              "carb": 4,
+              "protein": 0.9,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.190914566,
+                "protein": 0.007583333,
+                "carb": 0.033153333,
+                "fats": 0.00069
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "300",
+              "cal": 28.6,
+              "fats": 0,
+              "carb": 2.8,
+              "protein": 2.6,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "20",
+              "cal": 6.4,
+              "fats": 0,
+              "carb": 2,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Uma pitada de sal, a gosto.",
+              "unidade": "",
+              "qtd": "",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "",
+              "semQtd": true
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Aipo, cru",
+              "unidade": "gramas",
+              "cal": 0.190914566,
+              "protein": 0.007583333,
+              "carb": 0.033153333,
+              "fats": 0.00069,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Espinafre, Nova Zelândia, cru",
+              "unidade": "gramas",
+              "cal": 0.160956942,
+              "protein": 0.019963768,
+              "carb": 0.004736232,
+              "fats": 0.002433333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Couve, manteiga, crua",
+              "unidade": "gramas",
+              "cal": 0.270566971,
+              "protein": 0.028731884,
+              "carb": 0.012134783,
+              "fats": 0.005466667,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        },
+        {
+          "titulo": "Beterraba Leve — beterraba, limão e um toque de laranja",
+          "notas": [
+            "Beterraba à noite tem uma razão: o nitrato age durante o sono e melhora a recuperação de quem treinou.",
+            "1) A laranja aqui é pouca, só para tirar o gosto de terra da beterraba. Não aumente.",
+            "2) Beterraba e pepino na centrífuga; a laranja espremida por fora, misturada no fim.",
+            "3) Não estranhe a cor da urina no dia seguinte — beterraba faz isso, e é inofensivo.",
+            "4) Deixe para os dias de treino. Nos outros, prefira o verde suave."
+          ],
+          "itens": [
+            {
+              "refeicao": "Noite",
+              "nome": "Beterraba, crua",
+              "unidade": "gramas",
+              "qtd": "120",
+              "cal": 58.6,
+              "fats": 0.1,
+              "carb": 9.3,
+              "protein": 2.3,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.488285087,
+                "protein": 0.019456522,
+                "carb": 0.077376812,
+                "fats": 0.0009
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "qtd": "200",
+              "cal": 19.1,
+              "fats": 0,
+              "carb": 1.8,
+              "protein": 1.7,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.095336913,
+                "protein": 0.008695652,
+                "carb": 0.009171014,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Laranja, baía, suco",
+              "unidade": "gramas",
+              "qtd": "80",
+              "cal": 29.3,
+              "fats": 0,
+              "carb": 7,
+              "protein": 0.5,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.366494826,
+                "protein": 0.006521739,
+                "carb": 0.086978261,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Limão, tahiti, cru",
+              "unidade": "gramas",
+              "qtd": "20",
+              "cal": 6.4,
+              "fats": 0,
+              "carb": 2,
+              "protein": 0.2,
+              "grupo": "--",
+              "detalhes": "FONTE: Tabela taco (UNICAMP)",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "gramas",
+                "unidades": [],
+                "cal": 0.318181534,
+                "protein": 0.009395833,
+                "carb": 0.0990275,
+                "fats": 0.0014
+              }
+            }
+          ],
+          "substitutos": [
+            {
+              "nome": "Pepino, cru",
+              "unidade": "gramas",
+              "cal": 0.095336913,
+              "protein": 0.008695652,
+              "carb": 0.009171014,
+              "fats": 0,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Aipo, cru",
+              "unidade": "gramas",
+              "cal": 0.190914566,
+              "protein": 0.007583333,
+              "carb": 0.033153333,
+              "fats": 0.00069,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Espinafre, Nova Zelândia, cru",
+              "unidade": "gramas",
+              "cal": 0.160956942,
+              "protein": 0.019963768,
+              "carb": 0.004736232,
+              "fats": 0.002433333,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            },
+            {
+              "nome": "Couve, manteiga, crua",
+              "unidade": "gramas",
+              "cal": 0.270566971,
+              "protein": 0.028731884,
+              "carb": 0.012134783,
+              "fats": 0.005466667,
+              "detalhes": "FONTE: Tabela taco (UNICAMP)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "salvoEm": "2026-08-03T21:04:21.425Z",
+  "soma": {
+    "protein": 15.4,
+    "carb": 50.8,
+    "fats": 1.2,
+    "cal": 310.5
+  },
+  "itens": [
+    {
+      "refeicao": "Manhã",
+      "nome": "Beterraba, crua",
+      "unidade": "gramas",
+      "qtd": "100",
+      "cal": 48.8,
+      "fats": 0.1,
+      "carb": 7.7,
+      "protein": 1.9,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.488285087,
+        "protein": 0.019456522,
+        "carb": 0.077376812,
+        "fats": 0.0009
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Cenoura, crua",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 51.2,
+      "fats": 0.3,
+      "carb": 6.7,
+      "protein": 2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.341353884,
+        "protein": 0.013224638,
+        "carb": 0.044766667,
+        "fats": 0.001733333
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Gengibre fresco",
+      "unidade": "gramas",
+      "qtd": "8",
+      "cal": 6.4,
+      "fats": 0.1,
+      "carb": 1.4,
+      "protein": 0.1,
+      "grupo": "--",
+      "detalhes": "FONTE: USDA (gengibre cru)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.8,
+        "protein": 0.0182,
+        "carb": 0.1777,
+        "fats": 0.0075
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Limão, tahiti, cru",
+      "unidade": "gramas",
+      "qtd": "20",
+      "cal": 6.4,
+      "fats": 0,
+      "carb": 2,
+      "protein": 0.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.318181534,
+        "protein": 0.009395833,
+        "carb": 0.0990275,
+        "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Gelo a gosto.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Abacaxi, cru",
+      "unidade": "gramas",
+      "qtd": "150",
+      "cal": 72.5,
+      "fats": 0.2,
+      "carb": 17,
+      "protein": 1.3,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.48322213,
+        "protein": 0.008586957,
+        "carb": 0.11347971,
+        "fats": 0.001233333
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Pepino, cru",
+      "unidade": "gramas",
+      "qtd": "200",
+      "cal": 19.1,
+      "fats": 0,
+      "carb": 1.8,
+      "protein": 1.7,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.095336913,
+        "protein": 0.008695652,
+        "carb": 0.009171014,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Gengibre fresco",
+      "unidade": "gramas",
+      "qtd": "6",
+      "cal": 4.8,
+      "fats": 0,
+      "carb": 1.1,
+      "protein": 0.1,
+      "grupo": "--",
+      "detalhes": "FONTE: USDA (gengibre cru)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.8,
+        "protein": 0.0182,
+        "carb": 0.1777,
+        "fats": 0.0075
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Limão, tahiti, cru",
+      "unidade": "gramas",
+      "qtd": "15",
+      "cal": 4.8,
+      "fats": 0,
+      "carb": 1.5,
+      "protein": 0.1,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.318181534,
+        "protein": 0.009395833,
+        "carb": 0.0990275,
+        "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Hortelã fresca a gosto.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Couve, manteiga, crua",
+      "unidade": "gramas",
+      "qtd": "40",
+      "cal": 10.8,
+      "fats": 0.2,
+      "carb": 0.5,
+      "protein": 1.1,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.270566971,
+        "protein": 0.028731884,
+        "carb": 0.012134783,
+        "fats": 0.005466667
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Aipo, cru",
+      "unidade": "gramas",
+      "qtd": "80",
+      "cal": 15.3,
+      "fats": 0.1,
+      "carb": 2.7,
+      "protein": 0.6,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.190914566,
+        "protein": 0.007583333,
+        "carb": 0.033153333,
+        "fats": 0.00069
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Pepino, cru",
+      "unidade": "gramas",
+      "qtd": "200",
+      "cal": 19.1,
+      "fats": 0,
+      "carb": 1.8,
+      "protein": 1.7,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.095336913,
+        "protein": 0.008695652,
+        "carb": 0.009171014,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Agrião, cru",
+      "unidade": "gramas",
+      "qtd": "30",
+      "cal": 5,
+      "fats": 0.1,
+      "carb": 0,
+      "protein": 0.8,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.165788014,
+        "protein": 0.026884058,
+        "carb": 0.001149275,
+        "fats": 0.002366667
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Limão, tahiti, cru",
+      "unidade": "gramas",
+      "qtd": "20",
+      "cal": 6.4,
+      "fats": 0,
+      "carb": 2,
+      "protein": 0.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.318181534,
+        "protein": 0.009395833,
+        "carb": 0.0990275,
+        "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Tarde",
+      "nome": "Gelo a gosto.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Espinafre, Nova Zelândia, cru",
+      "unidade": "gramas",
+      "qtd": "60",
+      "cal": 9.7,
+      "fats": 0.1,
+      "carb": 0.3,
+      "protein": 1.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.160956942,
+        "protein": 0.019963768,
+        "carb": 0.004736232,
+        "fats": 0.002433333
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Pepino, cru",
+      "unidade": "gramas",
+      "qtd": "250",
+      "cal": 23.8,
+      "fats": 0,
+      "carb": 2.3,
+      "protein": 2.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.095336913,
+        "protein": 0.008695652,
+        "carb": 0.009171014,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Limão, tahiti, cru",
+      "unidade": "gramas",
+      "qtd": "20",
+      "cal": 6.4,
+      "fats": 0,
+      "carb": 2,
+      "protein": 0.2,
+      "grupo": "--",
+      "detalhes": "FONTE: Tabela taco (UNICAMP)",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "gramas",
+        "unidades": [],
+        "cal": 0.318181534,
+        "protein": 0.009395833,
+        "carb": 0.0990275,
+        "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Hortelã fresca a gosto.",
+      "unidade": "",
+      "qtd": "",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "",
+      "semQtd": true,
+      "base": null
+    }
+  ]
+}
