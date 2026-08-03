@@ -652,6 +652,16 @@
     "detalhes": ""
   },
   {
+    "nome": "Tapioca",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 2.42,
+    "protein": 0,
+    "carb": 0.6,
+    "fats": 0,
+    "detalhes": ""
+  },
+  {
     "nome": "TCM de coco",
     "categoria": "Óleos e Gorduras",
     "unidade": "colher de sopa",
