@@ -306,6 +306,16 @@
     "detalhes": ""
   },
   {
+    "nome": "Cheese Bread (Ze Pao de Queijo)",
+    "categoria": "Leite e Derivados",
+    "unidade": "gramas",
+    "cal": 3.52,
+    "protein": 0.068,
+    "carb": 0.3,
+    "fats": 0.17,
+    "detalhes": ""
+  },
+  {
     "nome": "Cherries",
     "categoria": "Frutas e Derivados",
     "unidade": "gramas",
@@ -373,6 +383,16 @@
     "protein": 0.0198,
     "carb": 0.053,
     "fats": 0.001,
+    "detalhes": ""
+  },
+  {
+    "nome": "Doce De Leite (Kaito)",
+    "categoria": "Leite e Derivados",
+    "unidade": "gramas",
+    "cal": 5.01,
+    "protein": 0.09,
+    "carb": 0.45,
+    "fats": 0.08,
     "detalhes": ""
   },
   {
