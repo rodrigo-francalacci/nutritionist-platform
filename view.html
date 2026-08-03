@@ -197,10 +197,10 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-03"></script>
-<script src="diario.js?v=2026-08-03"></script>
-<script src="ia-config.js?v=2026-08-03"></script>
-<script src="ia.js?v=2026-08-03"></script>
+<script src="diario-config.js?v=2026-08-03b"></script>
+<script src="diario.js?v=2026-08-03b"></script>
+<script src="ia-config.js?v=2026-08-03b"></script>
+<script src="ia.js?v=2026-08-03b"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -664,9 +664,8 @@
     var d = window._fim.querySelector(".fim-dica");
     var data = (diario && diario.aberto && diario.aberto.data) || hoje;
     b.textContent = "encerrar o dia " + dataBonita(data);
-    d.textContent = (data === hoje)
-      ? "só o total vai para o histórico — encerre quando tiver comido tudo"
-      : "este dia começou em " + dataBonita(data) + " e continua aberto";
+    d.textContent = "só o total vai para o histórico · se você esquecer, "
+                  + "o dia fecha sozinho às 4:30";
   }
 
   function montarCarrossel(p, sec){
@@ -927,11 +926,31 @@
 
   // { v:2, plano, aberto: {dia em andamento, inteiro}, dias: {"AAAA-MM-DD": só os totais} }
   var diario = null;
-  var hoje = dataLocal(new Date());
+  var hoje = dataDoDia(new Date());
   var salvarTimer = null;
+
+  // O dia vira às 4:30 da manhã, não à meia-noite: jantar de sexta à 1h,
+  // uma cerveja a mais, uma sobremesa — nada disso é sábado. É a MESMA regra
+  // para tudo: qual dia está aberto, e quando ele fecha sozinho.
+  var HORA_VIRADA = 4.5;   // 4:30
 
   function pad(n){ return (n < 10 ? "0" : "") + n; }
   function dataLocal(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+
+  // A que dia pertence este instante.
+  function dataDoDia(agora){
+    var d = new Date(agora.getTime());
+    if (d.getHours() + d.getMinutes()/60 < HORA_VIRADA){ d.setDate(d.getDate() - 1); }
+    return dataLocal(d);
+  }
+
+  // Quando é a próxima virada, em milissegundos a partir de agora.
+  function faltaParaVirada(agora){
+    var v = new Date(agora.getTime());
+    v.setHours(Math.floor(HORA_VIRADA), Math.round((HORA_VIRADA % 1) * 60), 0, 0);
+    if (v <= agora){ v.setDate(v.getDate() + 1); }
+    return v.getTime() - agora.getTime();
+  }
   function dataBonita(iso){
     var p = String(iso).split("-");
     return p.length === 3 ? (p[2]+"/"+p[1]) : iso;
@@ -1082,6 +1101,43 @@
     }
   }
 
+  // Totais a partir do REGISTRO guardado, sem passar pela tela. É como o
+  // fechamento automático conta o dia de ontem sem precisar desenhá-lo antes.
+  function totaisDoRegistro(est){
+    var t = {cal:0, protein:0, carb:0, fats:0};
+    function somar(it){
+      t.cal+=num(it.cal); t.protein+=num(it.protein);
+      t.carb+=num(it.carb); t.fats+=num(it.fats);
+    }
+    PERIODOS.forEach(function(p){
+      var r = est && est.periodos && est.periodos[p];
+      if (!r || r.naoComi){ return; }
+      (r.itens || []).forEach(somar);
+    });
+    ((est && est.extra) || []).forEach(somar);
+    ["cal","protein","carb","fats"].forEach(function(k){ t[k] = rd(t[k]); });
+    return t;
+  }
+
+  // Fecha sozinho o dia que ficou para trás: passou das 4:30 e ninguém apertou
+  // o botão. Não pergunta nada — o dia já acabou, só falta registrar.
+  function encerrarAtrasado(){
+    if (!diario || !diario.aberto || !diario.aberto.data){ return false; }
+    if (diario.aberto.data >= hoje){ return false; }   // ainda é o mesmo dia
+
+    var data = diario.aberto.data;
+    var t = totaisDoRegistro(diario.aberto);
+    diario.dias[data] = { cal:t.cal, protein:t.protein, carb:t.carb, fats:t.fats,
+                          em: new Date().toISOString(), auto: true };
+    diario.aberto = null;
+
+    Diario.salvar(arquivo, diario).then(
+      function(){ sync("dia " + dataBonita(data) + " fechado sozinho (" + t.cal + " cal)"); },
+      function(e){ sync("não consegui salvar (" + e.message + ")", true); }
+    );
+    return true;
+  }
+
   function encerrarDia(){
     if (!diario){ return; }
     var data = (diario.aberto && diario.aberto.data) || hoje;
@@ -1097,9 +1153,18 @@
     diario.dias[data] = { cal:t.cal, protein:t.protein, carb:t.carb, fats:t.fats,
                           em: new Date().toISOString() };
     diario.aberto = null;
-    hoje = dataLocal(new Date());   // o dia novo começa agora, não à meia-noite
+    hoje = dataDoDia(new Date());
+    limparParaNovoDia();
 
-    // devolve a tela ao plano, limpa
+    sync("salvando…");
+    Diario.salvar(arquivo, diario).then(
+      function(){ sync("dia " + dataBonita(data) + " encerrado"); },
+      function(e){ sync("não consegui salvar (" + e.message + ")", true); }
+    );
+  }
+
+  // Devolve a tela ao plano: sem ajustes, sem "não comi", sem Extra.
+  function limparParaNovoDia(){
     PERIODOS.forEach(function(p){
       var alts = view[p]; if (!alts){ return; }
       alts.naoComi = false;
@@ -1111,15 +1176,21 @@
       atualizarNaoComi(p);
     });
     if (view[EXTRA]){ view[EXTRA].lista[0].itens = []; renderExtra(); }
-
     atualizarTotais();
     atualizarFimDoDia();
+  }
 
-    sync("salvando…");
-    Diario.salvar(arquivo, diario).then(
-      function(){ sync("dia " + dataBonita(data) + " encerrado"); },
-      function(e){ sync("não consegui salvar (" + e.message + ")", true); }
-    );
+  // Com a página aberta a noite toda, a virada acontece na hora — sem esperar
+  // o próximo carregamento.
+  var viradaTimer = null;
+  function armarVirada(){
+    clearTimeout(viradaTimer);
+    viradaTimer = setTimeout(function(){
+      hoje = dataDoDia(new Date());
+      if (encerrarAtrasado()){ limparParaNovoDia(); }
+      atualizarFimDoDia();
+      armarVirada();
+    }, faltaParaVirada(new Date()) + 2000);   // 2 s de folga para não cair em cima da hora
   }
 
   function abrirDias(){
@@ -1186,6 +1257,8 @@
       sync("carregando o diário…");
       return Diario.carregar(arquivo).then(function(doc){
         diario = migrar(doc);
+        var fechou = encerrarAtrasado();   // antes de desenhar: o dia velho nem aparece
+
         if (diario.aberto){
           aplicarEstadoDoDia(diario.aberto);
           PERIODOS.forEach(function(p){
@@ -1197,12 +1270,12 @@
           });
           renderExtra();
           atualizarTotais();
-          sync(diario.aberto.data === hoje ? "dia de hoje restaurado"
-                                           : "dia " + dataBonita(diario.aberto.data) + " continua aberto");
-        } else {
+          sync("dia de hoje restaurado");
+        } else if (!fechou){
           sync(Diario.remoto ? "" : "diário só neste aparelho");
         }
         atualizarFimDoDia();
+        armarVirada();
       }, function(e){
         diario = migrar(null);
         sync("diário indisponível (" + e.message + ")", true);
