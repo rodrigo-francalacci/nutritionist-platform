@@ -2,42 +2,49 @@
   "tipo": "estado",
   "versao": 2,
   "nome": "Sucos",
-  "notas": "Repertório de sucos — vitaminas e minerais, pouco açúcar",
+  "notas": "Repertório de sucos no liquidificador — vitaminas e minerais, pouco açúcar",
   "notasPlano": {
     "geral": [
-      "Um suco por período — escolha o que combina com a hora e com o que você já comeu no dia.",
-      "A regra que vale para todos: beba nos primeiros 15 minutos. Depois disso o suco perde vitamina C e escurece.",
-      "Não coe mais do que o necessário. A fibra que sobra é o que impede o açúcar da fruta de subir de uma vez.",
-      "Fruta aqui é tempero, não base. Quando um suco leva maçã ou laranja, é para tornar o verde bebível — por isso a quantidade é pequena e não deve ser aumentada.",
-      "Lave tudo bem e prefira usar com casca o que for orgânico: é na casca que está boa parte dos minerais."
+      "TUDO AQUI É FEITO NO LIQUIDIFICADOR. Ele tritura, não separa — então cada receita traz a água necessária como ingrediente, e você pode mudar a quantidade no próprio app: menos água, suco mais encorpado.",
+      "A ordem no copo é sempre a mesma: LÍQUIDO PRIMEIRO, depois o macio, e o duro ou as folhas por cima. Assim a lâmina puxa em vez de girar em falso.",
+      "Raiz dura (beterraba, cenoura) tem de ser RALADA antes. Em pedaços o liquidificador não vence, e o que sai é areia com água. Onde isso vale, está escrito na receita.",
+      "Coar é decisão por receita, não regra: os de raiz melhoram coados; os de folha e fruta macia pioram, porque a fibra é justamente o que impede o açúcar de subir de uma vez. Cada receita diz qual é o caso.",
+      "Beba nos primeiros 15 minutos — depois disso o suco perde vitamina C e escurece.",
+      "Fruta aqui é tempero, não base. Quando um suco leva maçã ou laranja, é para tornar o verde bebível: a quantidade é pequena de propósito e não deve ser aumentada."
     ],
     "Manhã": [
-      "O suco de começar o dia: o nitrato da beterraba ajuda o sangue a circular, e o gengibre desperta sem cafeína.",
-      "1) Lave bem tudo. A beterraba e a cenoura não precisam ser descascadas — é na casca que está boa parte dos minerais; basta esfregar com uma escovinha.",
-      "2) Corte em pedaços que caibam na centrífuga. Passe primeiro a beterraba, depois a cenoura, e o gengibre por último (assim ele arrasta o que ficou).",
-      "3) Esprema o limão por cima só no fim: o ácido segura a cor e as vitaminas por mais tempo.",
-      "4) Beba nos primeiros 15 minutos. Suco não espera — a partir daí começa a perder vitamina C e a oxidar."
+      "O suco de começar o dia. É o mais trabalhoso dos catorze no liquidificador, porque beterraba e cenoura são as duas raízes mais duras da lista — vale a pena, mas não tente atalho.",
+      "1) RALE a beterraba e a cenoura no ralo grosso. Não pule esta parte: em pedaços, o liquidificador não vence, e o que sai é areia com água.",
+      "2) Ponha no copo primeiro os 350 ml de água, depois o ralado e o gengibre. Líquido embaixo é o que faz a lâmina puxar em vez de girar em falso.",
+      "3) Bata 1 minuto cheio, em velocidade alta. Menos que isso deixa granulado.",
+      "4) COE numa peneira fina, apertando com as costas de uma colher. Este é dos poucos que ficam melhores coados — a fibra da cenoura crua é áspera demais para beber.",
+      "5) Só então esprema o limão, já no copo. O ácido segura a cor e a vitamina C.",
+      "6) Beba nos primeiros 15 minutos. A partir daí começa a oxidar."
     ],
     "Almoço": [
-      "Feito para acompanhar comida: a bromelina do abacaxi ajuda a digerir proteína, e o gengibre assenta o estômago.",
-      "1) Use o miolo do abacaxi também — é a parte com mais bromelina, mesmo sendo a mais dura.",
-      "2) Passe tudo na centrífuga; o pepino vai por último.",
-      "3) Beba junto com a refeição ou logo depois, não antes: aqui ele é acompanhamento, não substituto.",
-      "4) Meio copo basta. Suco no almoço é para ajudar a digestão, não para somar volume."
+      "Para acompanhar comida: a bromelina do abacaxi ajuda a digerir proteína, e o gengibre assenta o estômago.",
+      "1) Use o miolo do abacaxi também. É a parte mais dura e a mais rica em bromelina — e no liquidificador, ao contrário da centrífuga, ele desmancha sem problema.",
+      "2) Água (200 ml), pepino em cubos, abacaxi, gengibre. Bata 40 segundos.",
+      "3) Coe numa peneira grossa se quiser: o abacaxi solta uns fiapos que algumas pessoas não gostam.",
+      "4) Beba junto com a refeição ou logo depois — aqui é acompanhamento, não substituto.",
+      "5) Meio copo basta."
     ],
     "Tarde": [
-      "O verde sério: pouquíssimo açúcar, muita clorofila, para a queda das quatro da tarde sem cair depois.",
-      "1) Agrião é picante — comece com pouco. Trinta gramas já dão o tom.",
-      "2) Amasse a couve, intercale com o aipo, deixe o pepino por último.",
-      "3) Sem fruta nenhuma, de propósito: este é o suco para quando o resto do dia já teve doce demais.",
-      "4) Se estiver difícil de beber, acrescente meia maçã — melhor beber com maçã do que não beber."
+      "O verde sério: quase nenhum açúcar, para a queda das quatro sem cair depois.",
+      "1) Corte o aipo em pedaços pequenos e TIRE OS FIOS puxando com a faca. No liquidificador os fios não se desfazem — viram cabelo no copo.",
+      "2) Água (250 ml), pepino, aipo, e as folhas por cima.",
+      "3) Bata 1 minuto. Verde denso pede mais tempo que fruta.",
+      "4) Coe numa peneira fina se o aipo incomodar; sem coar é mais nutritivo.",
+      "5) Agrião é picante — 30 g já dão o tom. Se for a primeira vez, comece com 15 g.",
+      "6) Sem fruta nenhuma, de propósito. Se estiver difícil de beber, meia maçã resolve — melhor beber com maçã do que não beber."
     ],
     "Noite": [
       "Para a noite: magnésio do espinafre, quase nenhum açúcar, nada que atrapalhe o sono.",
-      "1) Espinafre cru e bem lavado, folha por folha — é a verdura que mais esconde terra.",
-      "2) Bata no liquidificador com o pepino; folha macia não rende em centrífuga.",
-      "3) Nada de gengibre aqui. Ele desperta, e a esta hora isso é o contrário do que se quer.",
-      "4) Se der fome à noite, este suco tira a vontade sem virar refeição."
+      "1) Lave o espinafre folha por folha — é a verdura que mais esconde terra.",
+      "2) Água (200 ml), pepino, espinafre. Folha macia bate rápido: 30 segundos.",
+      "3) Não coe.",
+      "4) Nada de gengibre aqui, e é de propósito: ele desperta, e a esta hora isso é o contrário do que se quer.",
+      "5) Se der fome à noite, este tira a vontade sem virar refeição."
     ]
   },
   "foodsSessao": [],
@@ -48,11 +55,13 @@
         {
           "titulo": "Terra e Fogo — beterraba, cenoura e gengibre",
           "notas": [
-            "O suco de começar o dia: o nitrato da beterraba ajuda o sangue a circular, e o gengibre desperta sem cafeína.",
-            "1) Lave bem tudo. A beterraba e a cenoura não precisam ser descascadas — é na casca que está boa parte dos minerais; basta esfregar com uma escovinha.",
-            "2) Corte em pedaços que caibam na centrífuga. Passe primeiro a beterraba, depois a cenoura, e o gengibre por último (assim ele arrasta o que ficou).",
-            "3) Esprema o limão por cima só no fim: o ácido segura a cor e as vitaminas por mais tempo.",
-            "4) Beba nos primeiros 15 minutos. Suco não espera — a partir daí começa a perder vitamina C e a oxidar."
+            "O suco de começar o dia. É o mais trabalhoso dos catorze no liquidificador, porque beterraba e cenoura são as duas raízes mais duras da lista — vale a pena, mas não tente atalho.",
+            "1) RALE a beterraba e a cenoura no ralo grosso. Não pule esta parte: em pedaços, o liquidificador não vence, e o que sai é areia com água.",
+            "2) Ponha no copo primeiro os 350 ml de água, depois o ralado e o gengibre. Líquido embaixo é o que faz a lâmina puxar em vez de girar em falso.",
+            "3) Bata 1 minuto cheio, em velocidade alta. Menos que isso deixa granulado.",
+            "4) COE numa peneira fina, apertando com as costas de uma colher. Este é dos poucos que ficam melhores coados — a fibra da cenoura crua é áspera demais para beber.",
+            "5) Só então esprema o limão, já no copo. O ácido segura a cor e a vitamina C.",
+            "6) Beba nos primeiros 15 minutos. A partir daí começa a oxidar."
           ],
           "itens": [
             {
@@ -141,6 +150,27 @@
             },
             {
               "refeicao": "Manhã",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "350",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
               "nome": "Gelo a gosto.",
               "unidade": "",
               "qtd": "",
@@ -204,11 +234,13 @@
         {
           "titulo": "Verde da Manhã — couve, maçã e limão",
           "notas": [
-            "Verde de entrada: a maçã existe só para tornar a couve agradável, não para adoçar.",
-            "1) Amasse as folhas de couve com as mãos antes de passar — elas rendem bem mais suco assim.",
-            "2) Intercale: uma folha de couve, um pedaço de maçã, outra folha. Folha sozinha entope a centrífuga.",
-            "3) O pepino entra por último e serve de \"empurrador\" — é ele que dá volume e deixa o suco leve.",
-            "4) Se ficar amargo demais, é sinal de couve a mais, não de açúcar a menos. Tire uma folha da próxima vez."
+            "Este nasceu para liquidificador: folha macia e pepino são exatamente o que ele faz bem.",
+            "1) Corte a maçã e o pepino em cubos de uns 2 cm — com casca, os dois.",
+            "2) Água primeiro (250 ml), depois o pepino, depois a maçã, e a couve por último, empurrada para baixo.",
+            "3) Bata 40 segundos. A couve some antes do que se imagina.",
+            "4) NÃO COE. Aqui a fibra é a razão de o suco não virar açúcar de uma vez, e ela é fina o bastante para não incomodar.",
+            "5) Limão e hortelã no fim, só mexendo com a colher.",
+            "6) Amargou? É couve a mais, não fruta a menos. Tire uma folha da próxima vez."
           ],
           "itens": [
             {
@@ -318,6 +350,27 @@
             },
             {
               "refeicao": "Manhã",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "250",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
               "nome": "Folhas de hortelã fresca a gosto.",
               "unidade": "",
               "qtd": "",
@@ -381,11 +434,13 @@
         {
           "titulo": "Cítrico Dourado — laranja, cenoura e gengibre",
           "notas": [
-            "Este é o mais doce da casa, e é de propósito: laranja com cenoura é a dupla clássica de vitamina A e C.",
-            "1) Esprema as laranjas na hora — suco de laranja parado perde vitamina C rápido, mais do que qualquer outro.",
-            "2) Passe a cenoura e o gengibre na centrífuga e misture ao suco de laranja.",
-            "3) A cúrcuma vai bem aqui, e pede uma pitada de pimenta-do-reino junto: é a pimenta que faz a curcumina ser absorvida.",
-            "4) Guarde para os dias de treino ou de manhã fria. Nos outros, prefira um dos verdes."
+            "Aqui a própria laranja é o líquido — por isso a água é pouca.",
+            "1) Esprema as laranjas primeiro, na mão ou no espremedor. Não bata a laranja inteira no liquidificador: a lâmina tritura o bagaço branco e o suco fica amargo.",
+            "2) RALE a cenoura. De novo: crua e em pedaços, ela não cede.",
+            "3) No copo, o suco de laranja + 150 ml de água + a cenoura ralada + o gengibre. Bata 1 minuto.",
+            "4) Coe se incomodar a textura; sem coar também se bebe.",
+            "5) A cúrcuma pede uma pitada de pimenta-do-reino junto — é a pimenta que faz a curcumina ser absorvida.",
+            "6) O mais doce da casa. Guarde para dias de treino ou manhã fria."
           ],
           "itens": [
             {
@@ -453,6 +508,27 @@
             },
             {
               "refeicao": "Manhã",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "150",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Manhã",
               "nome": "Cúrcuma fresca ralada ou em pó, a gosto.",
               "unidade": "",
               "qtd": "",
@@ -516,11 +592,12 @@
         {
           "titulo": "Melancia com Limão e Hortelã",
           "notas": [
-            "O mais leve da manhã: quase só água, e ainda assim cheio de licopeno.",
-            "1) Bata a melancia no liquidificador — ela é aguada demais para centrífuga, você perderia metade.",
-            "2) Não coe. A pouca fibra que existe aqui é justamente o que segura o açúcar da fruta.",
-            "3) Limão e hortelã por último, sem bater de novo: só mexer.",
-            "4) Bom para manhã de calor, ou para quem acorda sem fome e não consegue encarar um verde."
+            "O mais fácil de todos, e o único que dispensa água: a melancia já é 92% água.",
+            "1) Corte a melancia em cubos, tirando as sementes grandes.",
+            "2) Bata 20 segundos, sem acrescentar nada. Se ficar grosso demais para o seu gosto, aí sim ponha 50 ml de água — o item está na lista, é só mudar de 0.",
+            "3) NÃO COE, de jeito nenhum. Coar melancia é jogar fora tudo o que a diferencia de água com açúcar.",
+            "4) Limão e hortelã por último, mexendo.",
+            "5) Para manhã de calor, ou para quem acorda sem fome e não encara um verde."
           ],
           "itens": [
             {
@@ -563,6 +640,27 @@
                 "protein": 0.009395833,
                 "carb": 0.0990275,
                 "fats": 0.0014
+              }
+            },
+            {
+              "refeicao": "Manhã",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "0",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
               }
             },
             {
@@ -635,11 +733,12 @@
         {
           "titulo": "Digestivo — abacaxi, pepino e gengibre",
           "notas": [
-            "Feito para acompanhar comida: a bromelina do abacaxi ajuda a digerir proteína, e o gengibre assenta o estômago.",
-            "1) Use o miolo do abacaxi também — é a parte com mais bromelina, mesmo sendo a mais dura.",
-            "2) Passe tudo na centrífuga; o pepino vai por último.",
-            "3) Beba junto com a refeição ou logo depois, não antes: aqui ele é acompanhamento, não substituto.",
-            "4) Meio copo basta. Suco no almoço é para ajudar a digestão, não para somar volume."
+            "Para acompanhar comida: a bromelina do abacaxi ajuda a digerir proteína, e o gengibre assenta o estômago.",
+            "1) Use o miolo do abacaxi também. É a parte mais dura e a mais rica em bromelina — e no liquidificador, ao contrário da centrífuga, ele desmancha sem problema.",
+            "2) Água (200 ml), pepino em cubos, abacaxi, gengibre. Bata 40 segundos.",
+            "3) Coe numa peneira grossa se quiser: o abacaxi solta uns fiapos que algumas pessoas não gostam.",
+            "4) Beba junto com a refeição ou logo depois — aqui é acompanhamento, não substituto.",
+            "5) Meio copo basta."
           ],
           "itens": [
             {
@@ -728,6 +827,27 @@
             },
             {
               "refeicao": "Almoço",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "200",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Almoço",
               "nome": "Hortelã fresca a gosto.",
               "unidade": "",
               "qtd": "",
@@ -782,11 +902,12 @@
         {
           "titulo": "Pepino, Limão e Salsa",
           "notas": [
-            "O de menos açúcar de todo o repertório — praticamente água com clorofila.",
-            "1) Pepino com casca, se for orgânico; sem casca, se não for (é onde fica o agrotóxico).",
-            "2) A salsa é diurética de verdade e tem mais vitamina C que laranja, grama por grama. Não tenha medo do maço.",
-            "3) Uma pitada de sal transforma isto de \"água verde\" em bebida: sem ela fica sem graça.",
-            "4) Este é o suco para os dias de comer bem. Não compete com a refeição."
+            "O de menos açúcar do repertório — praticamente água com clorofila. E o mais rápido de fazer.",
+            "1) Pepino com casca se for orgânico; sem casca se não for.",
+            "2) Água, pepino e salsa no copo. 30 segundos bastam.",
+            "3) A salsa tem mais vitamina C que laranja, grama por grama. Não tenha medo do maço.",
+            "4) A pitada de sal não é detalhe: sem ela isto fica com gosto de nada.",
+            "5) Não coe — não há o que coar."
           ],
           "itens": [
             {
@@ -854,6 +975,27 @@
             },
             {
               "refeicao": "Almoço",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "150",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Almoço",
               "nome": "Gelo e uma pitada de sal, a gosto.",
               "unidade": "",
               "qtd": "",
@@ -908,11 +1050,12 @@
         {
           "titulo": "Tomate Temperado — tomate, aipo e limão",
           "notas": [
-            "Um suco salgado, quase um gaspacho ralo — para quem não quer nada doce no almoço.",
-            "1) Tomate bem maduro, senão fica ácido demais. Com semente mesmo.",
-            "2) Bata no liquidificador em vez de centrifugar, e passe numa peneira grossa — o licopeno está na polpa.",
-            "3) O fio de azeite não é enfeite: o licopeno é lipossolúvel e sem gordura você absorve muito pouco dele.",
-            "4) Sirva bem gelado. Morno, este aqui não desce."
+            "Um suco salgado, quase um gaspacho ralo. Feito para liquidificador desde sempre.",
+            "1) Tomate bem maduro, com semente. Verde deixa ácido demais.",
+            "2) Só 100 ml de água: o tomate já solta muito líquido.",
+            "3) Bata 30 segundos e passe numa peneira GROSSA, só para tirar pele e semente. Peneira fina aqui tira o licopeno junto.",
+            "4) O fio de azeite não é enfeite: o licopeno é lipossolúvel e sem gordura você absorve pouquíssimo dele.",
+            "5) Bem gelado. Morno, este não desce."
           ],
           "itens": [
             {
@@ -1001,6 +1144,27 @@
             },
             {
               "refeicao": "Almoço",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "100",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Almoço",
               "nome": "Sal, pimenta-do-reino e um fio de azeite, a gosto.",
               "unidade": "",
               "qtd": "",
@@ -1060,11 +1224,13 @@
         {
           "titulo": "Verde Forte — couve, aipo, pepino e agrião",
           "notas": [
-            "O verde sério: pouquíssimo açúcar, muita clorofila, para a queda das quatro da tarde sem cair depois.",
-            "1) Agrião é picante — comece com pouco. Trinta gramas já dão o tom.",
-            "2) Amasse a couve, intercale com o aipo, deixe o pepino por último.",
-            "3) Sem fruta nenhuma, de propósito: este é o suco para quando o resto do dia já teve doce demais.",
-            "4) Se estiver difícil de beber, acrescente meia maçã — melhor beber com maçã do que não beber."
+            "O verde sério: quase nenhum açúcar, para a queda das quatro sem cair depois.",
+            "1) Corte o aipo em pedaços pequenos e TIRE OS FIOS puxando com a faca. No liquidificador os fios não se desfazem — viram cabelo no copo.",
+            "2) Água (250 ml), pepino, aipo, e as folhas por cima.",
+            "3) Bata 1 minuto. Verde denso pede mais tempo que fruta.",
+            "4) Coe numa peneira fina se o aipo incomodar; sem coar é mais nutritivo.",
+            "5) Agrião é picante — 30 g já dão o tom. Se for a primeira vez, comece com 15 g.",
+            "6) Sem fruta nenhuma, de propósito. Se estiver difícil de beber, meia maçã resolve — melhor beber com maçã do que não beber."
           ],
           "itens": [
             {
@@ -1174,6 +1340,27 @@
             },
             {
               "refeicao": "Tarde",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "250",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Tarde",
               "nome": "Gelo a gosto.",
               "unidade": "",
               "qtd": "",
@@ -1228,11 +1415,13 @@
         {
           "titulo": "Cenoura, Maçã e Gengibre",
           "notas": [
-            "O mais fácil de gostar, e o que melhor engana vontade de doce à tarde.",
-            "1) Cenoura e maçã com casca, bem lavadas.",
-            "2) Dez gramas de gengibre é bastante — corta a doçura e deixa o suco adulto.",
-            "3) Beba devagar. Como tem mais açúcar de fruta que os verdes, tomar de uma vez dá pico e queda.",
-            "4) Bom antes de treinar, à tarde. Ruim como último suco do dia."
+            "O mais fácil de gostar, e o que melhor engana a vontade de doce à tarde.",
+            "1) RALE a cenoura. É a terceira vez que isto aparece e é sempre pelo mesmo motivo: cenoura crua em pedaços não é páreo para liquidificador nenhum.",
+            "2) A maçã pode ir em cubos, com casca.",
+            "3) Água (350 ml) por baixo, ralado e cubos por cima. Bata 1 minuto.",
+            "4) COE em peneira fina. Este e o Terra e Fogo são os dois que realmente pedem coador.",
+            "5) Dez gramas de gengibre parecem pouco, mas cortam a doçura e deixam o suco adulto.",
+            "6) Beba devagar: tem mais açúcar de fruta que os verdes, e de uma vez dá pico e queda."
           ],
           "itens": [
             {
@@ -1318,6 +1507,27 @@
                 "carb": 0.0990275,
                 "fats": 0.0014
               }
+            },
+            {
+              "refeicao": "Tarde",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "350",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
             }
           ],
           "substitutos": [
@@ -1363,10 +1573,11 @@
           "titulo": "Morango e Pepino",
           "notas": [
             "Doce sem ser açucarado: morango tem menos açúcar que quase toda fruta e vitamina C de sobra.",
-            "1) Bata no liquidificador — morango na centrífuga vira pasta e fica no filtro.",
-            "2) O pepino é o que dá líquido: sem ele isto vira vitamina, não suco.",
-            "3) Não coe, ou você joga fora a fibra que segura o açúcar.",
-            "4) Na época do morango este é o melhor suco do repertório. Fora dela, congelado serve."
+            "1) Este é o suco que o liquidificador faz melhor que a centrífuga — na centrífuga o morango vira pasta e fica no filtro.",
+            "2) Água, pepino em cubos, morango por cima. 30 segundos.",
+            "3) NÃO COE. As sementinhas do morango são a fibra que segura o açúcar.",
+            "4) Morango congelado serve, e fora da época é melhor que o fresco murcho. Se usar congelado, tire 50 ml da água.",
+            "5) Hortelã no fim."
           ],
           "itens": [
             {
@@ -1434,6 +1645,27 @@
             },
             {
               "refeicao": "Tarde",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "150",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Tarde",
               "nome": "Hortelã fresca a gosto.",
               "unidade": "",
               "qtd": "",
@@ -1494,10 +1726,11 @@
           "titulo": "Verde Suave — espinafre, pepino e limão",
           "notas": [
             "Para a noite: magnésio do espinafre, quase nenhum açúcar, nada que atrapalhe o sono.",
-            "1) Espinafre cru e bem lavado, folha por folha — é a verdura que mais esconde terra.",
-            "2) Bata no liquidificador com o pepino; folha macia não rende em centrífuga.",
-            "3) Nada de gengibre aqui. Ele desperta, e a esta hora isso é o contrário do que se quer.",
-            "4) Se der fome à noite, este suco tira a vontade sem virar refeição."
+            "1) Lave o espinafre folha por folha — é a verdura que mais esconde terra.",
+            "2) Água (200 ml), pepino, espinafre. Folha macia bate rápido: 30 segundos.",
+            "3) Não coe.",
+            "4) Nada de gengibre aqui, e é de propósito: ele desperta, e a esta hora isso é o contrário do que se quer.",
+            "5) Se der fome à noite, este tira a vontade sem virar refeição."
           ],
           "itens": [
             {
@@ -1565,6 +1798,27 @@
             },
             {
               "refeicao": "Noite",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "200",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Noite",
               "nome": "Hortelã fresca a gosto.",
               "unidade": "",
               "qtd": "",
@@ -1619,11 +1873,12 @@
         {
           "titulo": "Aipo e Pepino — o mais leve",
           "notas": [
-            "O suco mais leve de todos: quase só água, mineral e clorofila.",
-            "1) Aipo com as folhas — é nelas que está a maior parte dos minerais.",
-            "2) Passe tudo na centrífuga e beba na hora.",
-            "3) Serve como último líquido do dia, sem peso e sem açúcar.",
-            "4) Não beba tarde demais: é diurético, e você não quer acordar de madrugada."
+            "O mais leve de todos: água, mineral e clorofila.",
+            "1) TIRE OS FIOS do aipo antes, puxando com a faca. Sem isso, o liquidificador deixa fiapos.",
+            "2) Use as folhas do aipo também — é nelas que está a maior parte dos minerais.",
+            "3) Água, pepino, aipo. 40 segundos.",
+            "4) Coe em peneira fina: este é o caso em que coar melhora, porque o aipo é fibroso e não há fruta para disfarçar.",
+            "5) Diurético de verdade — não deixe para muito tarde, ou você acorda de madrugada."
           ],
           "itens": [
             {
@@ -1691,6 +1946,27 @@
             },
             {
               "refeicao": "Noite",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "150",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
+            },
+            {
+              "refeicao": "Noite",
               "nome": "Uma pitada de sal, a gosto.",
               "unidade": "",
               "qtd": "",
@@ -1745,11 +2021,13 @@
         {
           "titulo": "Beterraba Leve — beterraba, limão e um toque de laranja",
           "notas": [
-            "Beterraba à noite tem uma razão: o nitrato age durante o sono e melhora a recuperação de quem treinou.",
-            "1) A laranja aqui é pouca, só para tirar o gosto de terra da beterraba. Não aumente.",
-            "2) Beterraba e pepino na centrífuga; a laranja espremida por fora, misturada no fim.",
-            "3) Não estranhe a cor da urina no dia seguinte — beterraba faz isso, e é inofensivo.",
-            "4) Deixe para os dias de treino. Nos outros, prefira o verde suave."
+            "Beterraba à noite tem razão de ser: o nitrato age durante o sono e melhora a recuperação de quem treinou.",
+            "1) RALE a beterraba. Sempre.",
+            "2) Esprema a laranja à parte — são só 80 ml, o suficiente para tirar o gosto de terra. Não aumente.",
+            "3) Água (250 ml), pepino em cubos, beterraba ralada. Bata 1 minuto e coe em peneira fina.",
+            "4) Junte o suco de laranja e o limão só depois de coar.",
+            "5) Não estranhe a cor da urina no dia seguinte — é a beterraba, e é inofensivo.",
+            "6) Deixe para os dias de treino. Nos outros, prefira o Verde Suave."
           ],
           "itens": [
             {
@@ -1835,6 +2113,27 @@
                 "carb": 0.0990275,
                 "fats": 0.0014
               }
+            },
+            {
+              "refeicao": "Noite",
+              "nome": "Água gelada",
+              "unidade": "ml",
+              "qtd": "250",
+              "cal": 0,
+              "fats": 0,
+              "carb": 0,
+              "protein": 0,
+              "grupo": "--",
+              "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+              "semQtd": false,
+              "_base": {
+                "unidadePrincipal": "ml",
+                "unidades": [],
+                "cal": 0,
+                "protein": 0,
+                "carb": 0,
+                "fats": 0
+              }
             }
           ],
           "substitutos": [
@@ -1879,7 +2178,7 @@
       ]
     }
   },
-  "salvoEm": "2026-08-03T21:04:21.425Z",
+  "salvoEm": "2026-08-03T21:12:46.863Z",
   "soma": {
     "protein": 15.4,
     "carb": 50.8,
@@ -1969,6 +2268,27 @@
         "protein": 0.009395833,
         "carb": 0.0990275,
         "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Manhã",
+      "nome": "Água gelada",
+      "unidade": "ml",
+      "qtd": "350",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "ml",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
       }
     },
     {
@@ -2067,6 +2387,27 @@
         "protein": 0.009395833,
         "carb": 0.0990275,
         "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Almoço",
+      "nome": "Água gelada",
+      "unidade": "ml",
+      "qtd": "200",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "ml",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
       }
     },
     {
@@ -2190,6 +2531,27 @@
     },
     {
       "refeicao": "Tarde",
+      "nome": "Água gelada",
+      "unidade": "ml",
+      "qtd": "250",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "ml",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
+      }
+    },
+    {
+      "refeicao": "Tarde",
       "nome": "Gelo a gosto.",
       "unidade": "",
       "qtd": "",
@@ -2263,6 +2625,27 @@
         "protein": 0.009395833,
         "carb": 0.0990275,
         "fats": 0.0014
+      }
+    },
+    {
+      "refeicao": "Noite",
+      "nome": "Água gelada",
+      "unidade": "ml",
+      "qtd": "200",
+      "cal": 0,
+      "fats": 0,
+      "carb": 0,
+      "protein": 0,
+      "grupo": "--",
+      "detalhes": "Ajuste a gosto: menos água, suco mais encorpado",
+      "semQtd": false,
+      "base": {
+        "unidadePrincipal": "ml",
+        "unidades": [],
+        "cal": 0,
+        "protein": 0,
+        "carb": 0,
+        "fats": 0
       }
     },
     {
