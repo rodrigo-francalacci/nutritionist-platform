@@ -70,4 +70,23 @@
   };
 
   window.Diario = BASE ? remoto : local;
+
+  // ---- listas de compras --------------------------------------------------
+  //
+  // Ficam numa chave IRMÃ do diário, dentro de /diarios: "<plano>__compras".
+  // Duas razões, e as duas importam:
+  //   - as regras do banco liberam só /diarios. Guardar em /compras daria 401,
+  //     e obrigaria a mexer nas regras de novo.
+  //   - o diário é gravado com PUT, que substitui o nó inteiro. Se a lista
+  //     morasse DENTRO do documento do diário, cada salvamento do dia
+  //     apagaria a lista, e vice-versa. Como chave separada, cada um manda no
+  //     seu.
+
+  function comprasDe(plano){ return String(plano) + "__compras"; }
+
+  window.Compras = {
+    remoto: !!BASE,
+    carregar: function(plano){ return window.Diario.carregar(comprasDe(plano)); },
+    salvar: function(plano, doc){ return window.Diario.salvar(comprasDe(plano), doc); }
+  };
 })();

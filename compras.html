@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0B25D4">
+<title>Lista de compras</title>
+<style>
+  :root{
+    --cor1:#0A0A0B; --cor2:#0B25D4; --cor3:#41BAA4; --cor4:#ABDAFC;
+    --cor5:#E5FCFF; --cor6:#EDEAE8; --cor7:#080824; --cor8:#E23E49;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent;
+     -webkit-user-select:none; -moz-user-select:none; user-select:none;
+     -webkit-touch-callout:none; }
+  input,select{ -webkit-user-select:text; user-select:text; }
+  html,body{ margin:0; padding:0; background:#f2f4f8; color:var(--cor1);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  body{ padding-bottom:90px; }
+
+  .topo{ background:var(--cor7); color:#fff; padding:14px 16px; }
+  .topo-linha{ display:flex; align-items:center; gap:10px; }
+  .topo h1{ margin:0; font-size:19px; flex:1 1 auto; }
+  .voltar{ flex:0 0 auto; border:1px solid rgba(255,255,255,.35); background:transparent;
+    color:#fff; border-radius:9px; padding:8px 11px; font-size:13px; cursor:pointer;
+    text-decoration:none; white-space:nowrap; }
+  .sub{ margin-top:3px; font-size:13px; color:var(--cor4); }
+  .sync{ margin-top:8px; font-size:11px; color:#9fb0e8; min-height:14px; }
+  .sync.erro{ color:#ffb4ba; }
+
+  .bloco{ margin:12px 10px; background:#fff; border-radius:14px; padding:12px 14px;
+    box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .bloco h2{ margin:0 0 4px; font-size:15px; color:var(--cor2); }
+  .bloco .dica{ font-size:12px; color:#8a929f; margin:0 0 10px; line-height:1.4; }
+
+  .campos{ display:flex; gap:10px; flex-wrap:wrap; }
+  .campo{ flex:1 1 130px; }
+  .campo label{ display:block; font-size:12px; color:#666; margin-bottom:4px; }
+  .campo select{ width:100%; padding:10px; font-size:16px; border:1px solid var(--cor4);
+    border-radius:10px; background:#fff; }
+
+  /* matriz refeição x dia */
+  .rolagem{ overflow-x:auto; margin:0 -14px; padding:0 14px; }
+  table{ border-collapse:collapse; font-size:13px; }
+  th,td{ padding:3px; text-align:center; }
+  th.dia{ font-size:11px; color:#8a929f; font-weight:700; min-width:38px; }
+  th.per{ text-align:left; font-weight:800; font-size:13px; padding-right:8px;
+    white-space:nowrap; position:sticky; left:0; background:#fff; z-index:1; }
+  .cel{ width:36px; height:34px; border:1px solid var(--cor4); background:#fff;
+    border-radius:8px; font-size:13px; font-weight:700; color:var(--cor2); cursor:pointer; }
+  .cel.vazia{ color:#c3c9d4; border-style:dashed; }
+  .cel:active{ background:var(--cor5); }
+
+  .legenda{ margin-top:10px; font-size:12px; color:#555; line-height:1.6; }
+  .legenda b{ color:var(--cor2); }
+  .legenda .lin{ padding:2px 0; border-top:1px solid #f0f2f6; }
+  .atalhos{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .atalho{ border:1px solid var(--cor3); background:#fff; color:var(--cor3); border-radius:20px;
+    padding:7px 12px; font-size:12px; font-weight:700; cursor:pointer; }
+
+  /* a lista */
+  .item{ display:flex; align-items:center; gap:10px; padding:9px 2px;
+    border-top:1px solid #f0f2f6; cursor:pointer; }
+  .item:first-child{ border-top:none; }
+  .item input{ width:20px; height:20px; margin:0; flex:0 0 auto; accent-color:var(--cor3); }
+  .item .n{ flex:1 1 auto; font-size:15px; }
+  .item .q{ font-size:15px; font-weight:700; color:var(--cor2); white-space:nowrap; }
+  .item.riscado .n, .item.riscado .q{ opacity:.4; text-decoration:line-through; }
+  .item .obs{ display:block; font-size:11px; color:#8a929f; font-weight:400; }
+  .grupo{ font-size:12px; font-weight:800; color:var(--cor2); text-transform:uppercase;
+    letter-spacing:.05em; margin:14px 0 2px; }
+  .grupo:first-child{ margin-top:2px; }
+  .nada{ color:#999; font-size:14px; padding:10px 0; }
+
+  .barra{ position:fixed; left:0; right:0; bottom:0; z-index:20; background:var(--cor7);
+    color:#fff; display:flex; gap:10px; padding:10px 12px; align-items:center; }
+  .barra .cont{ flex:1 1 auto; font-size:13px; }
+  .barra .cont b{ display:block; font-size:16px; }
+  .bt{ flex:0 0 auto; border:none; border-radius:10px; padding:11px 14px; font-size:14px;
+    font-weight:700; cursor:pointer; }
+  .bt-salvar{ background:var(--cor3); color:#fff; }
+  .bt-copiar{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4); }
+
+  .aviso{ padding:40px 20px; text-align:center; color:#666; }
+
+  /* folha para escolher a alternativa da célula */
+  .modal{ position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.5); display:none; }
+  .modal.on{ display:block; }
+  .folha{ position:absolute; left:0; right:0; bottom:0; max-height:85%; overflow:auto;
+    background:#fff; border-radius:16px 16px 0 0; padding:16px 18px 28px; }
+  .folha h2{ margin:2px 0; font-size:18px; }
+  .folha .s{ color:#777; font-size:13px; margin-bottom:12px; }
+  .fechar{ position:sticky; top:0; float:right; border:none; background:#eef1f6;
+    width:34px; height:34px; border-radius:50%; font-size:20px; cursor:pointer; }
+  .puxador{ width:40px; height:4px; background:#d7dbe3; border-radius:2px; margin:0 auto 12px; }
+  .opt{ display:block; width:100%; text-align:left; padding:12px; margin-bottom:6px;
+    border:1px solid var(--cor4); background:#fff; border-radius:10px; font-size:15px; cursor:pointer; }
+  .opt.on{ border-color:var(--cor2); background:var(--cor5); font-weight:700; }
+  .opt small{ display:block; color:#777; font-size:12px; font-weight:400; }
+  .opt.pular{ border-color:#ddd; color:#888; }
+</style>
+</head>
+<body>
+  <div id="app"><div class="aviso">Carregando o plano…</div></div>
+  <div class="modal" id="modal"><div class="folha" id="folha"></div></div>
+
+<script src="diario-config.js?v=2026-08-04"></script>
+<script src="diario.js?v=2026-08-04"></script>
+<script>
+(function(){
+  var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
+  var MAX_DIAS = 14;
+
+  // Unidades que se compram a granel — o resto vem em pacote, unidade, lata.
+  // A diferença decide o arredondamento lá embaixo.
+  var CONTINUA = /grama|^g$|^ml$|mililitro|litro|^l$|^kg$|quilo/i;
+
+  // Água não se compra para receita; some da lista e é avisado à parte.
+  var NAO_COMPRA = /^água|^agua/i;
+
+  var plano = null, arquivo = null;
+  var escolhas = {};      // escolhas[periodo][dia] = índice da alternativa, ou -1
+  var marcados = {};      // o que já foi posto no carrinho
+  var dias = 7, pessoas = 1;
+
+  function num(v){ var n = parseFloat(String(v).replace(",",".")); return isNaN(n)?0:n; }
+  function rd(n){ return Math.round(n*10)/10; }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function param(k){ try { return new URLSearchParams(location.search).get(k); } catch(e){ return null; } }
+  function sync(t, erro){
+    var el = document.getElementById("sync");
+    if (el){ el.textContent = t || ""; el.classList.toggle("erro", !!erro); }
+  }
+
+  // ---- número bonito: 1.5 -> "1,5"; 2.0 -> "2" ----
+  function n(v){
+    var x = Math.round(v * 100) / 100;
+    return (Number.isInteger(x) ? String(x) : x.toFixed(2).replace(/0$/,"").replace(".", ","));
+  }
+
+  // Quanto comprar, a partir de quanto se usa.
+  //
+  // É aqui que mora o pedido do "2 x meia mozzarella = 1 mozzarella": para o
+  // que vem em unidade/lata/pote não dá para comprar 1,5 — arredonda para
+  // cima. Para o que é a granel (g, ml) não faz sentido arredondar, e acima de
+  // 1000 vira kg/L, que é como se pede no balcão.
+  function comprar(usado, unidade){
+    if (CONTINUA.test(unidade)){
+      if (/grama|^g$/i.test(unidade) && usado >= 1000){
+        return { texto: n(usado/1000) + " kg", obs: "" };
+      }
+      if (/^ml$|mililitro/i.test(unidade) && usado >= 1000){
+        return { texto: n(usado/1000) + " L", obs: "" };
+      }
+      return { texto: n(Math.round(usado)) + " " + unidade, obs: "" };
+    }
+    var inteiro = Math.ceil(usado - 1e-9);
+    return {
+      texto: n(inteiro) + " " + unidade,
+      // só avisa quando arredondou de verdade — 2 x 0,5 dá 1 e não precisa de nota
+      obs: (inteiro - usado > 1e-9) ? ("a receita usa " + n(usado)) : ""
+    };
+  }
+
+  // ---- montagem da lista ----
+  function calcular(){
+    var porChave = {};      // nome + unidade -> total usado
+    var aGosto = {};        // itens sem quantidade, só para lembrar
+    var agua = 0;
+    var refeicoes = 0;
+
+    PERIODOS.forEach(function(p){
+      var alts = (plano.periodos && plano.periodos[p] && plano.periodos[p].lista) || [];
+      for (var d = 0; d < dias; d++){
+        var i = escolhas[p][d];
+        if (i < 0 || !alts[i]) continue;
+        refeicoes++;
+        (alts[i].itens || []).forEach(function(it){
+          // Tempero é tempero, mesmo quando foi digitado com quantidade. Há
+          // itens no plano com unidade "a gosto" e qtd 1 — somar isso daria
+          // "4 a gosto" na lista, que não quer dizer nada.
+          var u = String(it.unidade || "").trim();
+          if (it.semQtd || !u || /gosto/i.test(u)){ aGosto[it.nome] = true; return; }
+          var q = num(it.qtd) * pessoas;
+          if (!q) return;
+          if (NAO_COMPRA.test(it.nome)){ agua += q; return; }
+          var chave = it.nome + "|" + (it.unidade || "");
+          porChave[chave] = (porChave[chave] || 0) + q;
+        });
+      }
+    });
+
+    var itens = Object.keys(porChave).map(function(k){
+      var partes = k.split("|");
+      var c = comprar(porChave[k], partes[1]);
+      return { chave: k, nome: partes[0], unidade: partes[1], usado: porChave[k],
+               texto: c.texto, obs: c.obs, granel: CONTINUA.test(partes[1]) };
+    });
+
+    itens.sort(function(a, b){
+      if (a.granel !== b.granel) return a.granel ? 1 : -1;   // unidades primeiro
+      return a.nome.localeCompare(b.nome, "pt-BR");
+    });
+
+    return { itens: itens, aGosto: Object.keys(aGosto).sort(), agua: agua, refeicoes: refeicoes };
+  }
+
+  // ---- tela ----
+  function render(){
+    var app = document.getElementById("app");
+    app.innerHTML =
+      '<div class="topo"><div class="topo-linha">' +
+        '<h1>Lista de compras</h1>' +
+        '<a class="voltar" href="view.html?e=' + encodeURIComponent(arquivo) + '">&#8249; plano</a>' +
+      '</div><div class="sub">' + esc(plano.nome || "Plano alimentar") + '</div>' +
+      '<div class="sync" id="sync"></div></div>' +
+
+      '<div class="bloco">' +
+        '<h2>Para quantos</h2>' +
+        '<div class="campos">' +
+          '<div class="campo"><label>dias</label><select id="selDias"></select></div>' +
+          '<div class="campo"><label>pessoas</label><select id="selPessoas"></select></div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="bloco">' +
+        '<h2>Quais refeições</h2>' +
+        '<p class="dica">Cada coluna é um dia. Toque numa célula para escolher a opção daquele dia, ou <b>—</b> para pular a refeição.</p>' +
+        '<div class="rolagem"><table id="matriz"></table></div>' +
+        '<div class="atalhos">' +
+          '<button class="atalho" id="btRodar">distribuir as opções</button>' +
+          '<button class="atalho" id="btPrimeira">tudo na opção 1</button>' +
+        '</div>' +
+        '<div class="legenda" id="legenda"></div>' +
+      '</div>' +
+
+      '<div class="bloco"><h2>Comprar</h2><div id="lista"></div></div>' +
+
+      '<div class="barra">' +
+        '<div class="cont" id="contagem"></div>' +
+        '<button class="bt bt-copiar" id="btCopiar">copiar</button>' +
+        '<button class="bt bt-salvar" id="btSalvar">salvar</button>' +
+      '</div>';
+
+    var sd = document.getElementById("selDias");
+    for (var i = 1; i <= MAX_DIAS; i++){
+      sd.innerHTML += '<option value="'+i+'"'+(i===dias?' selected':'')+'>'+i+(i===1?' dia':' dias')+'</option>';
+    }
+    var sp = document.getElementById("selPessoas");
+    for (var j = 1; j <= 10; j++){
+      sp.innerHTML += '<option value="'+j+'"'+(j===pessoas?' selected':'')+'>'+j+(j===1?' pessoa':' pessoas')+'</option>';
+    }
+    sd.onchange = function(){ dias = parseInt(sd.value,10); garantirEscolhas(); desenharMatriz(); desenharLista(); salvarDepois(); };
+    sp.onchange = function(){ pessoas = parseInt(sp.value,10); desenharLista(); salvarDepois(); };
+
+    document.getElementById("btRodar").onclick = function(){
+      // gira as opções pelos dias: bom para plano de 4 dias em 14 dias de compra
+      PERIODOS.forEach(function(p){
+        var n = ((plano.periodos[p] && plano.periodos[p].lista) || []).length;
+        for (var d = 0; d < MAX_DIAS; d++){ escolhas[p][d] = n ? (d % n) : -1; }
+      });
+      desenharMatriz(); desenharLista(); salvarDepois();
+    };
+    document.getElementById("btPrimeira").onclick = function(){
+      PERIODOS.forEach(function(p){
+        var n = ((plano.periodos[p] && plano.periodos[p].lista) || []).length;
+        for (var d = 0; d < MAX_DIAS; d++){ escolhas[p][d] = n ? 0 : -1; }
+      });
+      desenharMatriz(); desenharLista(); salvarDepois();
+    };
+    document.getElementById("btSalvar").onclick = salvarAgora;
+    document.getElementById("btCopiar").onclick = copiar;
+
+    desenharMatriz();
+    desenharLista();
+  }
+
+  function desenharMatriz(){
+    var t = document.getElementById("matriz");
+    var cab = '<tr><th class="per"></th>';
+    for (var d = 0; d < dias; d++){ cab += '<th class="dia">D'+(d+1)+'</th>'; }
+    cab += '</tr>';
+
+    var linhas = PERIODOS.map(function(p){
+      var alts = (plano.periodos[p] && plano.periodos[p].lista) || [];
+      if (!alts.length) return "";
+      var l = '<tr><th class="per">'+esc(p)+'</th>';
+      for (var d = 0; d < dias; d++){
+        var i = escolhas[p][d];
+        l += '<td><button class="cel'+(i<0?' vazia':'')+'" data-p="'+esc(p)+'" data-d="'+d+'">' +
+             (i < 0 ? "—" : (i+1)) + '</button></td>';
+      }
+      return l + '</tr>';
+    }).join("");
+
+    t.innerHTML = cab + linhas;
+    t.querySelectorAll(".cel").forEach(function(b){
+      b.onclick = function(){ escolherCelula(b.getAttribute("data-p"), parseInt(b.getAttribute("data-d"),10)); };
+    });
+
+    // legenda: o número da célula só quer dizer algo com os nomes à vista
+    document.getElementById("legenda").innerHTML = PERIODOS.map(function(p){
+      var alts = (plano.periodos[p] && plano.periodos[p].lista) || [];
+      if (!alts.length) return "";
+      return '<div class="lin"><b>'+esc(p)+'</b>: ' +
+        alts.map(function(a,i){ return (i+1)+". "+esc(a.titulo); }).join(" · ") + '</div>';
+    }).join("");
+  }
+
+  function escolherCelula(p, d){
+    var alts = (plano.periodos[p] && plano.periodos[p].lista) || [];
+    var atual = escolhas[p][d];
+    document.getElementById("folha").innerHTML =
+      '<button class="fechar" onclick="__fechar()">&times;</button>' +
+      '<div class="puxador"></div>' +
+      '<h2>'+esc(p)+' — dia '+(d+1)+'</h2>' +
+      '<div class="s">Vale só para este dia.</div>' +
+      alts.map(function(a, i){
+        var cal = (a.itens||[]).reduce(function(s,it){ return s + num(it.cal); }, 0);
+        return '<button class="opt'+(i===atual?' on':'')+'" data-i="'+i+'">' +
+               esc(a.titulo) + '<small>' + rd(cal) + ' cal · ' + (a.itens||[]).length + ' itens</small></button>';
+      }).join("") +
+      '<button class="opt pular" data-i="-1">— pular esta refeição neste dia</button>';
+
+    document.getElementById("folha").querySelectorAll(".opt").forEach(function(b){
+      b.onclick = function(){
+        escolhas[p][d] = parseInt(b.getAttribute("data-i"), 10);
+        window.__fechar();
+        desenharMatriz(); desenharLista(); salvarDepois();
+      };
+    });
+    document.getElementById("modal").classList.add("on");
+  }
+
+  function desenharLista(){
+    var r = calcular();
+    var el = document.getElementById("lista");
+
+    if (!r.itens.length){
+      el.innerHTML = '<div class="nada">Nenhuma refeição selecionada — a lista está vazia.</div>';
+    } else {
+      var porUnidade = r.itens.filter(function(i){ return !i.granel; });
+      var granel = r.itens.filter(function(i){ return i.granel; });
+      var html = "";
+      if (porUnidade.length){
+        html += '<div class="grupo">por unidade</div>' + porUnidade.map(linhaItem).join("");
+      }
+      if (granel.length){
+        html += '<div class="grupo">a peso / volume</div>' + granel.map(linhaItem).join("");
+      }
+      if (r.aGosto.length){
+        html += '<div class="grupo">a gosto — confira se tem em casa</div>' +
+          r.aGosto.map(function(t){ return '<div class="item"><span class="n">'+esc(t)+'</span></div>'; }).join("");
+      }
+      if (r.agua){
+        html += '<div class="grupo">não entra na lista</div>' +
+          '<div class="item"><span class="n">Água <span class="obs">as receitas pedem ' +
+          n(r.agua/1000) + ' L no total, mas isso é da torneira</span></span></div>';
+      }
+      el.innerHTML = html;
+
+      el.querySelectorAll(".item[data-k]").forEach(function(li){
+        li.onclick = function(e){
+          if (e.target.tagName === "INPUT"){ e.preventDefault(); }   // quem manda é o clique na linha
+          var k = li.getAttribute("data-k");
+          marcados[k] = !marcados[k];
+          li.classList.toggle("riscado", !!marcados[k]);
+          li.querySelector("input").checked = !!marcados[k];
+          atualizarContagem();
+          salvarDepois();
+        };
+      });
+    }
+
+    window._ultima = r;
+    atualizarContagem();
+  }
+
+  // Div, não label. Com <label> em volta do checkbox o clique chega DUAS vezes
+  // (uma no label, outra no input que o label aciona), o item marcava e
+  // desmarcava no mesmo toque, e nada era guardado.
+  function linhaItem(i){
+    return '<div class="item'+(marcados[i.chave]?' riscado':'')+'" data-k="'+esc(i.chave)+'">' +
+      '<input type="checkbox" tabindex="-1"'+(marcados[i.chave]?' checked':'')+'>' +
+      '<span class="n">'+esc(i.nome)+(i.obs?'<span class="obs">'+esc(i.obs)+'</span>':'')+'</span>' +
+      '<span class="q">'+esc(i.texto)+'</span></div>';
+  }
+
+  function atualizarContagem(){
+    var r = window._ultima || { itens: [], refeicoes: 0 };
+    var falta = r.itens.filter(function(i){ return !marcados[i.chave]; }).length;
+    document.getElementById("contagem").innerHTML =
+      '<b>' + falta + ' de ' + r.itens.length + '</b>' +
+      r.refeicoes + ' refeições · ' + dias + (dias===1?' dia':' dias') +
+      ' · ' + pessoas + (pessoas===1?' pessoa':' pessoas');
+  }
+
+  function textoDaLista(){
+    var r = window._ultima || calcular();
+    var linhas = ["Lista de compras — " + (plano.nome || "plano"),
+                  dias + (dias===1?" dia":" dias") + ", " + pessoas + (pessoas===1?" pessoa":" pessoas"), ""];
+    r.itens.forEach(function(i){
+      linhas.push((marcados[i.chave] ? "[x] " : "[ ] ") + i.nome + " — " + i.texto + (i.obs ? " (" + i.obs + ")" : ""));
+    });
+    if (r.aGosto.length){ linhas.push("", "A gosto: " + r.aGosto.join(", ")); }
+    return linhas.join("\n");
+  }
+
+  function copiar(){
+    var txt = textoDaLista();
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ sync("lista copiada"); },
+                                              function(){ sync("não consegui copiar", true); });
+    } else { sync("não consegui copiar", true); }
+  }
+
+  // ---- guardar ----
+  var timer = null;
+  function salvarDepois(){ clearTimeout(timer); timer = setTimeout(salvarAgora, 900); }
+
+  function salvarAgora(){
+    // "marcados" vai como LISTA, não como objeto: a chave de cada item é o
+    // nome do alimento, e nome de alimento tem ponto, barra e parênteses
+    // ("1/2 Drained Mozzarella", "Collagen Peptides (Dose & Co.)"). O Firebase
+    // proíbe . # $ [ ] / em chave, e devolvia 400 assim que algo era marcado.
+    var doc = { v:2, plano:arquivo, dias:dias, pessoas:pessoas,
+                escolhas:escolhas, em:new Date().toISOString(),
+                marcados: Object.keys(marcados).filter(function(k){ return marcados[k]; }) };
+    sync("salvando…");
+    Compras.salvar(arquivo, doc).then(
+      function(){ sync(Compras.remoto ? "salvo" : "salvo só neste aparelho"); },
+      function(e){ sync("não consegui salvar (" + e.message + ")", true); }
+    );
+  }
+
+  function garantirEscolhas(){
+    PERIODOS.forEach(function(p){
+      var alts = (plano.periodos && plano.periodos[p] && plano.periodos[p].lista) || [];
+      if (!escolhas[p]) escolhas[p] = [];
+      for (var d = 0; d < MAX_DIAS; d++){
+        if (escolhas[p][d] === undefined || escolhas[p][d] >= alts.length){
+          escolhas[p][d] = alts.length ? 0 : -1;
+        }
+      }
+    });
+  }
+
+  window.__fechar = function(){ document.getElementById("modal").classList.remove("on"); };
+  document.getElementById("modal").addEventListener("click", function(e){
+    if (e.target === this){ window.__fechar(); }
+  });
+
+  // ---- carregar ----
+  arquivo = param("e");
+  if (!arquivo){
+    document.getElementById("app").innerHTML = '<div class="aviso">Link inválido: falta o plano.</div>';
+    return;
+  }
+  arquivo = arquivo.replace(/^.*[\\/]/, "");
+  if (!/\.json$/i.test(arquivo)){ arquivo += ".json"; }
+
+  fetch("estados/" + encodeURIComponent(arquivo) + "?t=" + Date.now())
+    .then(function(r){ if (!r.ok){ throw new Error(r.status); } return r.json(); })
+    .then(function(est){
+      if (!est || !est.periodos){ throw new Error("formato"); }
+      plano = est;
+      document.title = "Compras — " + (est.nome || "plano");
+      garantirEscolhas();
+      render();
+
+      return Compras.carregar(arquivo).then(function(doc){
+        if (!doc) { sync(""); return; }
+        dias = Math.min(MAX_DIAS, Math.max(1, doc.dias|0)) || dias;
+        pessoas = Math.min(10, Math.max(1, doc.pessoas|0)) || pessoas;
+        if (doc.escolhas) escolhas = doc.escolhas;
+
+        // v1 guardava um objeto; v2 guarda lista. Aceita os dois.
+        marcados = {};
+        if (Array.isArray(doc.marcados)){
+          doc.marcados.forEach(function(k){ marcados[k] = true; });
+        } else if (doc.marcados && typeof doc.marcados === "object"){
+          Object.keys(doc.marcados).forEach(function(k){ marcados[k] = !!doc.marcados[k]; });
+        }
+        garantirEscolhas();
+        render();
+        sync("lista de " + String(doc.em||"").slice(0,10) + " retomada");
+      }, function(e){ sync("não consegui abrir a lista guardada (" + e.message + ")", true); });
+    })
+    .catch(function(){
+      document.getElementById("app").innerHTML =
+        '<div class="aviso">Não foi possível abrir este plano.<br>Confira o link.</div>';
+    });
+})();
+</script>
+</body>
+</html>

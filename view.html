@@ -27,8 +27,10 @@
   .topo .geral{ margin-top:8px; font-size:13px; line-height:1.4; color:#dfe6ff; }
   .topo-linha{ display:flex; align-items:flex-start; gap:10px; }
   .topo-linha .tit{ flex:1 1 auto; min-width:0; }
-  .btn-dias{ flex:0 0 auto; border:1px solid rgba(255,255,255,.35); background:transparent;
-    color:#fff; border-radius:9px; padding:8px 11px; font-size:13px; cursor:pointer; white-space:nowrap; }
+  .topo-bts{ flex:0 0 auto; display:flex; flex-direction:column; gap:6px; }
+  .btn-dias{ border:1px solid rgba(255,255,255,.35); background:transparent;
+    color:#fff; border-radius:9px; padding:8px 11px; font-size:13px; cursor:pointer;
+    white-space:nowrap; text-align:center; text-decoration:none; display:block; }
   .btn-dias:active{ background:rgba(255,255,255,.12); }
   .sync{ margin-top:8px; font-size:11px; color:#9fb0e8; min-height:14px; }
   .sync.erro{ color:#ffb4ba; }
@@ -208,10 +210,10 @@
     <div class="folha" id="folha"></div>
   </div>
 
-<script src="diario-config.js?v=2026-08-03d"></script>
-<script src="diario.js?v=2026-08-03d"></script>
-<script src="ia-config.js?v=2026-08-03d"></script>
-<script src="ia.js?v=2026-08-03d"></script>
+<script src="diario-config.js?v=2026-08-04"></script>
+<script src="diario.js?v=2026-08-04"></script>
+<script src="ia-config.js?v=2026-08-04"></script>
+<script src="ia.js?v=2026-08-04"></script>
 <script>
 (function(){
   var PERIODOS = ["Manhã","Almoço","Tarde","Noite"];
@@ -369,7 +371,10 @@
     topo.innerHTML = '<div class="topo-linha"><div class="tit">' +
       '<h1>'+esc(estado.nome||"Plano alimentar")+'</h1>' +
       (estado.notas ? '<div class="sub">'+esc(estado.notas)+'</div>' : "") +
-      '</div><button class="btn-dias">&#128197; meus dias</button></div>' +
+      '</div><div class="topo-bts">' +
+      '<button class="btn-dias">&#128197; meus dias</button>' +
+      '<a class="btn-dias" href="compras.html?e=' + encodeURIComponent(arquivo) + '">&#128722; compras</a>' +
+      '</div></div>' +
       (geral.length ? '<div class="geral">'+geral.map(esc).join("<br>")+'</div>' : "") +
       '<div class="sync" id="sync"></div>';
     app.appendChild(topo);

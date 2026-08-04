@@ -17,7 +17,7 @@
 //   Firebase           -> NUNCA passa por aqui. Diário é dado vivo; guardar
 //                         resposta de diário daria o dia de ontem como o de hoje.
 
-var VERSAO = "v3";
+var VERSAO = "v4";
 var CACHE = "nutri-" + VERSAO;
 
 // O essencial para a tela abrir offline. Inclui as bases de alimentos: são
@@ -31,6 +31,7 @@ var TACO = ["bebidas","carnes_e_derivados","cereais_e_derivados","frutas_e_deriv
 
 var BASICO = [
   "view.html",
+  "compras.html",
   "diario.js",
   "diario-config.js",
   "ia.js",
