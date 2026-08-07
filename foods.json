@@ -662,6 +662,22 @@
     "detalhes": ""
   },
   {
+    "nome": "Sardines in Olive Oil (Minverva)",
+    "categoria": "Pescados e Frutos do Mar",
+    "unidade": "gramas",
+    "cal": 2.04,
+    "protein": 0.24,
+    "carb": 0,
+    "fats": 0.12,
+    "detalhes": "",
+    "unidades": [
+      {
+        "unidade": "Can",
+        "equivale": 85
+      }
+    ]
+  },
+  {
     "nome": "Sardinha Enlatada",
     "categoria": "Pescados e Frutos do Mar",
     "unidade": "gramas",
@@ -669,6 +685,16 @@
     "protein": 0.23,
     "carb": 0,
     "fats": 0.11,
+    "detalhes": ""
+  },
+  {
+    "nome": "Tahini M&S",
+    "categoria": "Cereais e Derivados",
+    "unidade": "gramas",
+    "cal": 6.72,
+    "protein": 0.25,
+    "carb": 0.045,
+    "fats": 0.599,
     "detalhes": ""
   },
   {
